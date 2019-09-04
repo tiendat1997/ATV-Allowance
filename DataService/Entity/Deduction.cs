@@ -1,4 +1,4 @@
-namespace DataService.Model
+namespace DataService.Entity
 {
     using System;
     using System.Collections.Generic;
@@ -15,9 +15,11 @@ namespace DataService.Model
 
         public int? Year { get; set; }
 
-        public int? Amount { get; set; }
+        public int? DeductionTypeId { get; set; }
 
         public int? EmployeeId { get; set; }
+
+        public virtual DeductionType DeductionType { get; set; }
 
         public virtual Employee Employee { get; set; }
     }

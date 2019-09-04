@@ -1,4 +1,4 @@
-namespace DataService.Model
+namespace DataService.Entity
 {
     using System;
     using System.Collections.Generic;
@@ -6,23 +6,23 @@ namespace DataService.Model
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("PointType")]
-    public partial class PointType
+    [Table("DeductionType")]
+    public partial class DeductionType
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PointType()
+        public DeductionType()
         {
-            Point = new HashSet<Point>();
+            Deduction = new HashSet<Deduction>();
         }
 
         public int Id { get; set; }
 
-        public string Name { get; set; }
-
-        [StringLength(50)]
+        [StringLength(20)]
         public string Code { get; set; }
 
+        public double? Amount { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Point> Point { get; set; }
+        public virtual ICollection<Deduction> Deduction { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿using DataService.Model;
+﻿using DataService.Entity;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -41,42 +41,42 @@ namespace DataService.Infrastructure
         public Repository()
         {
             this.context = new ATVEntities();
-            //this.dbSet = context.Set<TEntity>();
+            this.dbSet = context.Set<TEntity>();
         }
 
         public void Add(TEntity entity)
         {
             dbSet.Add(entity);
-            //context.SaveChanges();
+            context.SaveChanges();
         }
 
         public void Update(TEntity entityToUpdate)
         {
             dbSet.Attach(entityToUpdate);
-            //context.Entry(entityToUpdate).State = EntityState.Modified;
-            //context.SaveChanges();
+            context.Entry(entityToUpdate).State = EntityState.Modified;
+            context.SaveChanges();
         }
 
         public void Delete(TEntity entityToDelete)
         {
-            //if (context.Entry(entityToDelete).State == EntityState.Detached)
-            //{
-            //    dbSet.Attach(entityToDelete);
-            //}
-            //dbSet.Remove(entityToDelete);
-            //context.SaveChanges();
+            if (context.Entry(entityToDelete).State == EntityState.Detached)
+            {
+                dbSet.Attach(entityToDelete);
+            }
+            dbSet.Remove(entityToDelete);
+            context.SaveChanges();
         }
 
         public void Delete(Expression<Func<TEntity, bool>> where)
         {
-            //IQueryable<TEntity> query = dbSet;
-            //query = query.Where(where);
-            //TEntity entity = query.FirstOrDefault();
-            //if (entity != null)
-            //{
-            //    Delete(entity);
-            //}
-            //context.SaveChanges();
+            IQueryable<TEntity> query = dbSet;
+            query = query.Where(where);
+            TEntity entity = query.FirstOrDefault();
+            if (entity != null)
+            {
+                Delete(entity);
+            }
+            context.SaveChanges();
         }
 
         public TEntity GetById(int id)
@@ -126,6 +126,13 @@ namespace DataService.Infrastructure
         {
             var exist = dbSet.Where(predicate);
             return exist.Any() ? true : false;
+        }
+
+        public TEntity Create(TEntity entity)
+        {
+            dbSet.Add(entity);
+            context.SaveChanges();
+            return entity;
         }
     }
 }

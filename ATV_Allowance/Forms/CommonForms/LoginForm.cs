@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ATV_Allowance.Common;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static ATV_Allowance.Common.Constants;
 
 namespace ATV_Allowance.Forms.CommonForms
 {
@@ -21,11 +23,19 @@ namespace ATV_Allowance.Forms.CommonForms
         private void btnLogin_Click(object sender, EventArgs e)
         {
             try
-            {                
+            {
+                if (!Session.Login(txtUsername.Text, txtPassword.Text))
+                {
+                    Utilities.ShowError(CommonMessage.INVALID_LOGIN);
+                }
+                else
+                {
+                    this.Hide();
+                }
             }
             catch (Exception ex)
             {
-                
+                Utilities.ShowError(ex.Message);
             }
             finally
             {

@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginForm));
             this.pnlBackground = new System.Windows.Forms.Panel();
             this.lblProduction = new System.Windows.Forms.Label();
             this.pnlLogo = new System.Windows.Forms.Panel();
@@ -62,9 +61,9 @@
             this.lblProduction.AutoSize = true;
             this.lblProduction.BackColor = System.Drawing.Color.Transparent;
             this.lblProduction.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblProduction.Location = new System.Drawing.Point(251, 275);
+            this.lblProduction.Location = new System.Drawing.Point(295, 271);
             this.lblProduction.Name = "lblProduction";
-            this.lblProduction.Size = new System.Drawing.Size(347, 33);
+            this.lblProduction.Size = new System.Drawing.Size(258, 31);
             this.lblProduction.TabIndex = 7;
             this.lblProduction.Text = "QUẢN LÝ THÙ LAO";
             // 
@@ -158,7 +157,6 @@
             this.ClientSize = new System.Drawing.Size(802, 725);
             this.Controls.Add(this.pnlBackground);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "LoginForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Login";
@@ -166,6 +164,7 @@
             this.pnlBackground.ResumeLayout(false);
             this.pnlBackground.PerformLayout();
             this.ResumeLayout(false);
+
         }
         private System.Windows.Forms.Label lblUsername;
         private System.Windows.Forms.Label lblPassword;

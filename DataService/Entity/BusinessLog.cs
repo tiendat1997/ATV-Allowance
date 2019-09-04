@@ -1,4 +1,4 @@
-namespace DataService.Model
+namespace DataService.Entity
 {
     using System;
     using System.Collections.Generic;
@@ -6,15 +6,15 @@ namespace DataService.Model
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("SystemLog")]
-    public partial class SystemLog
+    [Table("BusinessLog")]
+    public partial class BusinessLog
     {
         public int Id { get; set; }
 
         [Required]
         public string Content { get; set; }
 
-        public DateTime Date { get; set; }
+        public int ActorId { get; set; }
 
         public int TypeId { get; set; }
     }

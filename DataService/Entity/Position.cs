@@ -1,4 +1,4 @@
-namespace DataService.Model
+namespace DataService.Entity
 {
     using System;
     using System.Collections.Generic;
@@ -6,26 +6,24 @@ namespace DataService.Model
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("ArticleEmployee")]
-    public partial class ArticleEmployee
+    [Table("Position")]
+    public partial class Position
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ArticleEmployee()
+        public Position()
         {
-            Point = new HashSet<Point>();
+            Employee = new HashSet<Employee>();
         }
 
         public int Id { get; set; }
 
-        public int? ArticleId { get; set; }
+        [StringLength(200)]
+        public string Name { get; set; }
 
-        public int? EmployeeId { get; set; }
-
-        public virtual Article Article { get; set; }
-
-        public virtual Employee Employee { get; set; }
+        [StringLength(50)]
+        public string Code { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Point> Point { get; set; }
+        public virtual ICollection<Employee> Employee { get; set; }
     }
 }

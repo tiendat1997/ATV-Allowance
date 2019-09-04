@@ -1,4 +1,4 @@
-namespace DataService.Model
+namespace DataService.Entity
 {
     using System;
     using System.Collections.Generic;
@@ -6,35 +6,27 @@ namespace DataService.Model
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("Employee")]
-    public partial class Employee
+    [Table("PointType")]
+    public partial class PointType
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Employee()
+        public PointType()
         {
-            ArticleEmployee = new HashSet<ArticleEmployee>();
-            Deduction = new HashSet<Deduction>();
+            ArticlePointType = new HashSet<ArticlePointType>();
+            Point = new HashSet<Point>();
         }
 
         public int Id { get; set; }
 
+        public string Name { get; set; }
+
         [StringLength(50)]
         public string Code { get; set; }
 
-        public string Name { get; set; }
-
-        public int? RoleId { get; set; }
-
-        public int? OrganizationId { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ArticlePointType> ArticlePointType { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ArticleEmployee> ArticleEmployee { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Deduction> Deduction { get; set; }
-
-        public virtual Organization Organization { get; set; }
-
-        public virtual Position Position { get; set; }
+        public virtual ICollection<Point> Point { get; set; }
     }
 }

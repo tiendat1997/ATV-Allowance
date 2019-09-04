@@ -1,4 +1,4 @@
-namespace DataService.Model
+namespace DataService.Entity
 {
     using System;
     using System.Collections.Generic;
@@ -6,20 +6,19 @@ namespace DataService.Model
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("Organization")]
-    public partial class Organization
+    public partial class Criteria
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Organization()
+        public Criteria()
         {
-            Employee = new HashSet<Employee>();
+            CriteriaValue = new HashSet<CriteriaValue>();
         }
 
         public int Id { get; set; }
 
-        public string Name { get; set; }
+        public string DisplayName { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Employee> Employee { get; set; }
+        public virtual ICollection<CriteriaValue> CriteriaValue { get; set; }
     }
 }

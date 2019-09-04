@@ -32,6 +32,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup />
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
@@ -41,6 +42,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -54,6 +56,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\Constants.cs" />
+    <Compile Include="Common\Session.cs" />
+    <Compile Include="Common\Ultilities.cs" />
     <Compile Include="Forms\CommonForms\GlobalForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -69,6 +73,11 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BusinessLogService.cs" />
+    <Compile Include="Services\MenuItemService.cs" />
+    <Compile Include="Services\UserService.cs" />
+    <EmbeddedResource Include="Forms\CommonForms\GlobalForm.resx">
+      <DependentUpon>GlobalForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\CommonForms\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -105,6 +114,12 @@
     <Content Include="Assets\LogoATV.png" />
     <Content Include="Assets\LogoATVSM.ico" />
     <Content Include="Assets\LogoATVSM.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataService\DataService.csproj">
+      <Project>{5A361D07-8B46-4CCE-B821-BAAF213F3DBD}</Project>
+      <Name>DataService</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
