@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Configuration;
 using System.Collections;
+using ATV_Allowance.Forms.Employee;
 
 namespace ATV_Allowance.Common
 {
@@ -197,7 +198,11 @@ namespace ATV_Allowance.Common
                     case "Tin Phát thanh trực tiếp":                        
                         break;
                     case "Danh mục thời điểm":                        
-                        break;                   
+                        break;
+                    case "Quản lý nhân viên":
+                        ListEmployeeForm listEmployeesForm = new ListEmployeeForm();
+                        form = (Form)listEmployeesForm;
+                        break;
                     case "Logout":
                         Session.Logout();
                         isFunctionLogout = true;
