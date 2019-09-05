@@ -108,6 +108,7 @@
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(186, 23);
             this.txtUsername.TabIndex = 2;
+            this.txtUsername.Text = "staff";
             // 
             // txtPassword
             // 
@@ -118,6 +119,7 @@
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(186, 23);
             this.txtPassword.TabIndex = 3;
+            this.txtPassword.Text = "1234";
             this.txtPassword.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtPassword_KeyDown);
             // 
             // btnCancel
