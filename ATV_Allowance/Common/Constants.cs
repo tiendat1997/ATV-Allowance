@@ -40,36 +40,12 @@ namespace ATV_Allowance.Common
             public static string EXISTED_PRODUCT_SCHEDULE = "Sản phẩm đã được tạo lịch vào (Thời điểm phát, Ngày chiếu) này";
         }
 
-        public static class ADGVText
+        public static class ADGVEmployeeText
         {
-            //Customers, Sessions(Name, Code)
-            public static string Name = "Tên";
-            public static string Code = "Mã";
-            public static string Address = "Địa chỉ";
-            public static string TaxCode = "Mã số thuế";
-            //CustomerTypes
-            public static string Description = "Mô tả";
-            public static string CustomerType = "Loại hình";
-            //Discounts
-            public static string PriceRate = "Mức giá";
-            public static string Discount = "Giảm giá (%)";
-            //Durations, TimSlots(Duration)
-            public static string Duration = "Thời lượng (s)";
-            //TimSlots
-            public static string Session = "Buổi";
-            //Contracts
-            public static string CustomerCode = "Mã KH";
-            public static string ContractCode = "Mã HĐ";
-            public static string StartDate = "Bắt đầu";
-            public static string EndDate = "Kết thúc";
-            public static string ContractType = "Loại HĐ";
-            public static string Cost = "Giá tiền (VNĐ)";
-            //ContractDetail
-            public static string BelongToContractCode = "Mã hợp đồng";
-            public static string ShowDate = "Ngày chiếu";
-            public static string TimeSlot = "Khung giờ";
-            public static string Quantity = "Số lượng";
-            public static string TotalCost = "Thành tiền (VNĐ)";
+            public static string Code = "Mã NV";
+            public static string Name = "Họ và tên";
+            public static string Position = "Chức danh";
+            public static string Organization = "Đơn vị";            
         }
 
         public static class BusinessLogType
@@ -94,5 +70,19 @@ namespace ATV_Allowance.Common
             public static int SUCCESS = 1;
             public static int EXISTED = 2;
         }
+
+        #region Controls
+        public static class ControlsAttribute
+        {
+            public static int TEXTBOX_WIDTH_SMALL = 100;
+            public static int TEXTBOX_WIDTH_NORMAL = 140;
+            public static int TEXTBOX_HEIGHT = 26;
+
+            public static int GV_WIDTH_SMALL = 50;
+            public static int GV_WIDTH_SEEM = 100;
+            public static int GV_WIDTH_NORMAL = 150;
+            public static int GV_WIDTH_MEDIUM = 170;
+        }
+        #endregion
     }
 }
