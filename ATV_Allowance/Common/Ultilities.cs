@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.Configuration;
 using System.Collections;
 using ATV_Allowance.Forms.Employee;
+using System.Text.RegularExpressions;
 
 namespace ATV_Allowance.Common
 {
@@ -16,6 +17,24 @@ namespace ATV_Allowance.Common
     {
         public static Hashtable OpenedForms = new Hashtable();
         public static Hashtable MenuItemNames = new Hashtable();
+        private static readonly string[] VietNamChar = new string[]
+        {
+           "aAeEoOuUiIdDyY",
+            "áàạảãâấầậẩẫăắằặẳẵ",
+            "ÁÀẠẢÃÂẤẦẬẨẪĂẮẰẶẲẴ",
+            "éèẹẻẽêếềệểễ",
+            "ÉÈẸẺẼÊẾỀỆỂỄ",
+            "óòọỏõôốồộổỗơớờợởỡ",
+            "ÓÒỌỎÕÔỐỒỘỔỖƠỚỜỢỞỠ",
+            "úùụủũưứừựửữ",
+            "ÚÙỤỦŨƯỨỪỰỬỮ",
+            "íìịỉĩ",
+            "ÍÌỊỈĨ",
+            "đ",
+            "Đ",
+            "ýỳỵỷỹ",
+            "ÝỲỴỶỸ"
+        };
 
         public static void ShowMessage(string message)
         {
@@ -191,13 +210,13 @@ namespace ATV_Allowance.Common
 
                 switch (formName)
                 {
-                    case "Tin Thời sự hằng ngày":                      
+                    case "Tin Thời sự hằng ngày":
                         break;
-                    case "Tin Phát thanh":                        
+                    case "Tin Phát thanh":
                         break;
-                    case "Tin Phát thanh trực tiếp":                        
+                    case "Tin Phát thanh trực tiếp":
                         break;
-                    case "Danh mục thời điểm":                        
+                    case "Danh mục thời điểm":
                         break;
                     case "Quản lý nhân viên":
                         ListEmployeeForm listEmployeesForm = new ListEmployeeForm();
@@ -235,6 +254,23 @@ namespace ATV_Allowance.Common
 
             isLogout = isFunctionLogout;
             return form;
+        }
+        public static string RemoveSign4VietnameseString(string str)
+        {            
+            //Thay thế và lọc dấu từng char      
+            for (int i = 1; i < VietNamChar.Length; i++)
+            {
+                for (int j = 0; j < VietNamChar[i].Length; j++)
+                    str = str.Replace(VietNamChar[i][j], VietNamChar[0][i - 1]);
+            }
+
+            char[] arr = str.ToCharArray();
+
+            arr = Array.FindAll<char>(arr, (c => (char.IsLetterOrDigit(c)
+                                              || char.IsWhiteSpace(c)
+                                              || c == '-')));
+            str = new string(arr);
+            return str;
         }
     }
 }

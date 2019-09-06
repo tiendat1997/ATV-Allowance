@@ -142,6 +142,7 @@
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(177, 20);
             this.txtName.TabIndex = 9;
+            this.txtName.Leave += new System.EventHandler(this.txtName_Leave);
             // 
             // lblPosition
             // 
@@ -197,6 +198,7 @@
             this.btnAdd.TabIndex = 0;
             this.btnAdd.Text = "Thêm mới";
             this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // AddEmployeeForm
             // 
