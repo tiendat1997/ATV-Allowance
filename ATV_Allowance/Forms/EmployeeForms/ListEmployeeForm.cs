@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static ATV_Allowance.Common.Constants;
 
-namespace ATV_Allowance.Forms.Employee
+namespace ATV_Allowance.Forms.EmployeeForms
 {
     public partial class ListEmployeeForm : Form
     {        

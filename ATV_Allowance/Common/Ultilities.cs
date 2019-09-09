@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Configuration;
 using System.Collections;
-using ATV_Allowance.Forms.Employee;
+using ATV_Allowance.Forms.EmployeeForms;
 using System.Text.RegularExpressions;
 
 namespace ATV_Allowance.Common

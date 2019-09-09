@@ -40,7 +40,7 @@ namespace ATV_Allowance
             }
             catch (Exception ex)
             {
-                throw;
+                throw ex;
             }           
         }
     }

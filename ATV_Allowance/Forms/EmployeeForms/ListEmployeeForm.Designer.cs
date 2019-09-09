@@ -1,4 +1,4 @@
-﻿namespace ATV_Allowance.Forms.Employee
+﻿namespace ATV_Allowance.Forms.EmployeeForms
 {
     partial class ListEmployeeForm
     {

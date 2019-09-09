@@ -15,16 +15,24 @@ namespace ATV_Allowance.Services
     public interface IEmployeeService
     {
         List<EmployeeViewModel> GetAllActive(bool isActive);
-        string GenerateEmployeeCode(string empName);       
+        string GenerateEmployeeCode(string empName);
+        Position GetPositionByCode(string code);
+        void AddEmployee(Employee emp);
     }
     public class EmployeeService : IEmployeeService
     {
         private readonly IEmployeeRepository employeeRepository;
+        private readonly IPositionRepository positionRepository;
         public EmployeeService()
         {
             employeeRepository = new EmployeeRepository();
+            positionRepository = new PositionRepository();
         }
-        
+
+        public void AddEmployee(Employee emp)
+        {
+            employeeRepository.Add(emp);
+        }
 
         public string GenerateEmployeeCode(string empName)
         {
@@ -68,5 +76,12 @@ namespace ATV_Allowance.Services
                     }).ToList();
             return list;
         }
+
+        public Position GetPositionByCode(string code)
+        {
+            return positionRepository.GetMany(t => t.Code.Equals(code)).FirstOrDefault();
+        }        
+
+
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace ATV_Allowance.Forms.Employee
+﻿namespace ATV_Allowance.Forms.EmployeeForms
 {
     partial class AddEmployeeForm
     {
@@ -28,8 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.gbStudentInfo = new System.Windows.Forms.GroupBox();
-            this.cbOrganization = new System.Windows.Forms.ComboBox();
+            this.cbOrganizationId = new System.Windows.Forms.ComboBox();
             this.gbPosition = new System.Windows.Forms.GroupBox();
             this.rbPV = new System.Windows.Forms.RadioButton();
             this.rbBTV = new System.Windows.Forms.RadioButton();
@@ -43,14 +44,16 @@
             this.lblName = new System.Windows.Forms.Label();
             this.gbControl = new System.Windows.Forms.GroupBox();
             this.btnAdd = new System.Windows.Forms.Button();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.gbStudentInfo.SuspendLayout();
             this.gbPosition.SuspendLayout();
             this.gbControl.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // gbStudentInfo
             // 
-            this.gbStudentInfo.Controls.Add(this.cbOrganization);
+            this.gbStudentInfo.Controls.Add(this.cbOrganizationId);
             this.gbStudentInfo.Controls.Add(this.gbPosition);
             this.gbStudentInfo.Controls.Add(this.txtCode);
             this.gbStudentInfo.Controls.Add(this.txtName);
@@ -65,13 +68,13 @@
             this.gbStudentInfo.TabStop = false;
             this.gbStudentInfo.Text = "Thông tin nhân viên";
             // 
-            // cbOrganization
+            // cbOrganizationId
             // 
-            this.cbOrganization.FormattingEnabled = true;
-            this.cbOrganization.Location = new System.Drawing.Point(112, 117);
-            this.cbOrganization.Name = "cbOrganization";
-            this.cbOrganization.Size = new System.Drawing.Size(250, 21);
-            this.cbOrganization.TabIndex = 12;
+            this.cbOrganizationId.FormattingEnabled = true;
+            this.cbOrganizationId.Location = new System.Drawing.Point(112, 117);
+            this.cbOrganizationId.Name = "cbOrganizationId";
+            this.cbOrganizationId.Size = new System.Drawing.Size(250, 21);
+            this.cbOrganizationId.TabIndex = 12;
             // 
             // gbPosition
             // 
@@ -88,6 +91,7 @@
             // rbPV
             // 
             this.rbPV.AutoSize = true;
+            this.rbPV.Checked = true;
             this.rbPV.Location = new System.Drawing.Point(6, 19);
             this.rbPV.Name = "rbPV";
             this.rbPV.Size = new System.Drawing.Size(39, 17);
@@ -103,7 +107,6 @@
             this.rbBTV.Name = "rbBTV";
             this.rbBTV.Size = new System.Drawing.Size(46, 17);
             this.rbBTV.TabIndex = 6;
-            this.rbBTV.TabStop = true;
             this.rbBTV.Text = "BTV";
             this.rbBTV.UseVisualStyleBackColor = true;
             // 
@@ -114,7 +117,6 @@
             this.rbPTV.Name = "rbPTV";
             this.rbPTV.Size = new System.Drawing.Size(46, 17);
             this.rbPTV.TabIndex = 7;
-            this.rbPTV.TabStop = true;
             this.rbPTV.Text = "PTV";
             this.rbPTV.UseVisualStyleBackColor = true;
             // 
@@ -125,7 +127,6 @@
             this.rbCTV.Name = "rbCTV";
             this.rbCTV.Size = new System.Drawing.Size(46, 17);
             this.rbCTV.TabIndex = 8;
-            this.rbCTV.TabStop = true;
             this.rbCTV.Text = "CTV";
             this.rbCTV.UseVisualStyleBackColor = true;
             // 
@@ -133,6 +134,7 @@
             // 
             this.txtCode.Location = new System.Drawing.Point(112, 82);
             this.txtCode.Name = "txtCode";
+            this.txtCode.ReadOnly = true;
             this.txtCode.Size = new System.Drawing.Size(85, 20);
             this.txtCode.TabIndex = 10;
             // 
@@ -143,6 +145,7 @@
             this.txtName.Size = new System.Drawing.Size(177, 20);
             this.txtName.TabIndex = 9;
             this.txtName.Leave += new System.EventHandler(this.txtName_Leave);
+            this.txtName.Validating += new System.ComponentModel.CancelEventHandler(this.txtName_Validating);
             // 
             // lblPosition
             // 
@@ -200,6 +203,10 @@
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
             // AddEmployeeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -215,6 +222,7 @@
             this.gbPosition.ResumeLayout(false);
             this.gbPosition.PerformLayout();
             this.gbControl.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -235,6 +243,7 @@
         private System.Windows.Forms.GroupBox gbPosition;
         private System.Windows.Forms.GroupBox gbControl;
         private System.Windows.Forms.Button btnAdd;
-        private System.Windows.Forms.ComboBox cbOrganization;
+        private System.Windows.Forms.ComboBox cbOrganizationId;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }
