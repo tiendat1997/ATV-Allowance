@@ -28,7 +28,7 @@ namespace ATV_Allowance.Forms.EmployeeForms
             LoadDGV();
         }
         private void LoadDGV()
-        {            
+        {
             try
             {
                 employeeService = new EmployeeService();
@@ -100,11 +100,18 @@ namespace ATV_Allowance.Forms.EmployeeForms
         }
         private void AddEmployeeForm_Closed(object sender, FormClosedEventArgs e)
         {
+            int oldCount = adgvEmployee.Rows.Count - 1;
+            int currIndex = adgvEmployee.CurrentRow.Index;
+            int selectedIndex = currIndex;
             LoadDGV();
             adgvEmployee.ClearSelection();
             int rowIndex = adgvEmployee.Rows.Count - 1;
-            adgvEmployee.Rows[rowIndex].Selected = true;
-            adgvEmployee.CurrentCell = adgvEmployee.Rows[rowIndex].Cells[1];
+            if (rowIndex > oldCount)
+            {
+                selectedIndex = rowIndex;
+            }
+            adgvEmployee.Rows[selectedIndex].Selected = true;
+            adgvEmployee.CurrentCell = adgvEmployee.Rows[selectedIndex].Cells[1];
             adgvEmployee_SelectionChanged(sender, e);
         }
         private void EditEmployeeForm_Closed(object sender, FormClosedEventArgs e)
@@ -157,7 +164,7 @@ namespace ATV_Allowance.Forms.EmployeeForms
             finally
             {
                 employeeService = null;
-            }           
+            }
         }
     }
 }

@@ -42,7 +42,7 @@ namespace ATV_Allowance.Forms.OrganizationForms
                 adgvOrg.Columns["IsActive"].Visible = false;
 
                 adgvOrg.Columns["Name"].HeaderText = ADGVOrganizationText.Name;
-                adgvOrg.Columns["Name"].Width = ControlsAttribute.GV_WIDTH_NORMAL;
+                adgvOrg.Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;                    
 
                 // Set selected employee 
                 if (list.Count > 0)
@@ -68,11 +68,19 @@ namespace ATV_Allowance.Forms.OrganizationForms
         }
         private void AddOrgForm_Closed(object sender, FormClosedEventArgs e)
         {
+            int oldCount = adgvOrg.Rows.Count - 1;
+            int currIndex = adgvOrg.CurrentRow.Index;
+            int selectedIndex = currIndex;
             LoadDGV();
             adgvOrg.ClearSelection();
             int rowIndex = adgvOrg.Rows.Count - 1;
-            adgvOrg.Rows[rowIndex].Selected = true;
-            adgvOrg.CurrentCell = adgvOrg.Rows[rowIndex].Cells[1];
+            if (rowIndex > oldCount)
+            {
+                selectedIndex = rowIndex;
+            }
+            adgvOrg.Rows[selectedIndex].Selected = true;
+            adgvOrg.CurrentCell = adgvOrg.Rows[selectedIndex].Cells[1];
+            adgvOrg_SelectionChanged(sender,e);
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -113,6 +121,11 @@ namespace ATV_Allowance.Forms.OrganizationForms
             {
                 Utilities.ShowError(ex.Message);
             }
+        }
+
+        private void adgvOrg_SelectionChanged(object sender, EventArgs e)
+        {
+            model = (OrganizationViewModel)adgvOrg.CurrentRow.DataBoundItem;
         }
     }
 }

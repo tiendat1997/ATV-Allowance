@@ -28,11 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.gbOrgInfo = new System.Windows.Forms.GroupBox();
-            this.gbControl = new System.Windows.Forms.GroupBox();
-            this.lblName = new System.Windows.Forms.Label();
             this.txtName = new System.Windows.Forms.TextBox();
+            this.lblName = new System.Windows.Forms.Label();
+            this.gbControl = new System.Windows.Forms.GroupBox();
             this.btnAdd = new System.Windows.Forms.Button();
             this.gbOrgInfo.SuspendLayout();
             this.gbControl.SuspendLayout();
@@ -42,22 +41,19 @@
             // 
             this.gbOrgInfo.Controls.Add(this.txtName);
             this.gbOrgInfo.Controls.Add(this.lblName);
-            this.gbOrgInfo.Location = new System.Drawing.Point(13, 3);
+            this.gbOrgInfo.Location = new System.Drawing.Point(12, 3);
             this.gbOrgInfo.Name = "gbOrgInfo";
-            this.gbOrgInfo.Size = new System.Drawing.Size(389, 87);
+            this.gbOrgInfo.Size = new System.Drawing.Size(390, 87);
             this.gbOrgInfo.TabIndex = 0;
             this.gbOrgInfo.TabStop = false;
             this.gbOrgInfo.Text = "Thông tin";
             // 
-            // gbControl
+            // txtName
             // 
-            this.gbControl.Controls.Add(this.btnAdd);
-            this.gbControl.Location = new System.Drawing.Point(13, 96);
-            this.gbControl.Name = "gbControl";
-            this.gbControl.Size = new System.Drawing.Size(389, 62);
-            this.gbControl.TabIndex = 1;
-            this.gbControl.TabStop = false;
-            this.gbControl.Text = "Thao tác";
+            this.txtName.Location = new System.Drawing.Point(10, 54);
+            this.txtName.Name = "txtName";
+            this.txtName.Size = new System.Drawing.Size(357, 26);
+            this.txtName.TabIndex = 1;
             // 
             // lblName
             // 
@@ -68,12 +64,15 @@
             this.lblName.TabIndex = 0;
             this.lblName.Text = "Tên đơn vị";
             // 
-            // txtName
+            // gbControl
             // 
-            this.txtName.Location = new System.Drawing.Point(10, 54);
-            this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(373, 26);
-            this.txtName.TabIndex = 1;
+            this.gbControl.Controls.Add(this.btnAdd);
+            this.gbControl.Location = new System.Drawing.Point(13, 96);
+            this.gbControl.Name = "gbControl";
+            this.gbControl.Size = new System.Drawing.Size(389, 62);
+            this.gbControl.TabIndex = 1;
+            this.gbControl.TabStop = false;
+            this.gbControl.Text = "Thao tác";
             // 
             // btnAdd
             // 

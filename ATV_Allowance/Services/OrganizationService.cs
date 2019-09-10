@@ -13,6 +13,7 @@ namespace ATV_Allowance.Services
     {
         List<Organization> GetAll();
         List<OrganizationViewModel> GetAllIsActive(bool isActive);
+        void AddOrganization(Organization org);
     }
     public class OrganizationService : IOrganizationService
     {
@@ -20,6 +21,11 @@ namespace ATV_Allowance.Services
         public OrganizationService()
         {
             organizationRepository = new OrganizationRepository();
+        }
+
+        public void AddOrganization(Organization org)
+        {
+            organizationRepository.Add(org);
         }
 
         public List<Organization> GetAll()

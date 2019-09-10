@@ -82,7 +82,7 @@ namespace ATV_Allowance.Forms.EmployeeForms
                 ValidatorHelper.ClearEPValidation(epDic);
                 var checkedButton = gbPosition.Controls.OfType<RadioButton>()
                                     .FirstOrDefault(r => r.Checked);
-                var org = (Organization)cbOrganizationId.SelectedValue;
+                var org = (OrganizationViewModel)cbOrganizationId.SelectedValue;
                 string empName = txtName.Text;
                 string empCode = txtCode.Text;
                 int posId = -1;
