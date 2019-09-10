@@ -1,6 +1,6 @@
 ﻿namespace ATV_Allowance.Forms.EmployeeForms
 {
-    partial class AddEmployeeForm
+    partial class UpdateEmployeeForm
     {
         /// <summary>
         /// Required designer variable.
@@ -43,10 +43,10 @@
             this.lblCode = new System.Windows.Forms.Label();
             this.lblName = new System.Windows.Forms.Label();
             this.gbControl = new System.Windows.Forms.GroupBox();
-            this.btnAdd = new System.Windows.Forms.Button();
+            this.btnUpdate = new System.Windows.Forms.Button();            
             this.gbStudentInfo.SuspendLayout();
             this.gbPosition.SuspendLayout();
-            this.gbControl.SuspendLayout();
+            this.gbControl.SuspendLayout();            
             this.SuspendLayout();
             // 
             // gbStudentInfo
@@ -154,7 +154,6 @@
             this.txtName.Size = new System.Drawing.Size(264, 26);
             this.txtName.TabIndex = 9;
             this.txtName.Leave += new System.EventHandler(this.txtName_Leave);
-            this.txtName.Validating += new System.ComponentModel.CancelEventHandler(this.txtName_Validating);
             // 
             // lblPosition
             // 
@@ -198,7 +197,7 @@
             // 
             // gbControl
             // 
-            this.gbControl.Controls.Add(this.btnAdd);
+            this.gbControl.Controls.Add(this.btnUpdate);
             this.gbControl.Location = new System.Drawing.Point(20, 365);
             this.gbControl.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.gbControl.Name = "gbControl";
@@ -208,18 +207,18 @@
             this.gbControl.TabStop = false;
             this.gbControl.Text = "Thao tác";
             // 
-            // btnAdd
+            // btnUpdate
             // 
-            this.btnAdd.Location = new System.Drawing.Point(9, 43);
-            this.btnAdd.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(112, 35);
-            this.btnAdd.TabIndex = 0;
-            this.btnAdd.Text = "Thêm mới";
-            this.btnAdd.UseVisualStyleBackColor = true;
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
-            // 
-            // AddEmployeeForm
+            this.btnUpdate.Location = new System.Drawing.Point(9, 43);
+            this.btnUpdate.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(112, 35);
+            this.btnUpdate.TabIndex = 0;
+            this.btnUpdate.Text = "Cập nhật";
+            this.btnUpdate.UseVisualStyleBackColor = true;            
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);            
+            //
+            // UpdateEmployeeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -227,20 +226,19 @@
             this.Controls.Add(this.gbControl);
             this.Controls.Add(this.gbStudentInfo);
             this.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
-            this.Name = "AddEmployeeForm";
+            this.Name = "UpdateEmployeeForm";
             this.Text = "Quản lý nhân viên - Thêm mới";
-            this.Load += new System.EventHandler(this.AddEmployeeForm_Load);
+            this.Load += new System.EventHandler(this.UpdateEmployeeForm_Load);
             this.gbStudentInfo.ResumeLayout(false);
             this.gbStudentInfo.PerformLayout();
             this.gbPosition.ResumeLayout(false);
             this.gbPosition.PerformLayout();
-            this.gbControl.ResumeLayout(false);
+            this.gbControl.ResumeLayout(false);            
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
         private System.Windows.Forms.GroupBox gbStudentInfo;
         private System.Windows.Forms.RadioButton rbBTV;
         private System.Windows.Forms.RadioButton rbPV;
@@ -254,7 +252,7 @@
         private System.Windows.Forms.RadioButton rbPTV;
         private System.Windows.Forms.GroupBox gbPosition;
         private System.Windows.Forms.GroupBox gbControl;
-        private System.Windows.Forms.Button btnAdd;
-        private System.Windows.Forms.ComboBox cbOrganizationId;
+        private System.Windows.Forms.Button btnUpdate;
+        private System.Windows.Forms.ComboBox cbOrganizationId;        
     }
 }

@@ -1,8 +1,8 @@
-﻿using ATV_Allowance.Common;
-using ATV_Allowance.Forms.CommonForms;
+﻿using ATV_Allowance.Forms.CommonForms;
 using ATV_Allowance.Helpers;
 using ATV_Allowance.Services;
 using ATV_Allowance.Validators;
+using ATV_Allowance.ViewModel;
 using DataService.Entity;
 using FluentValidation.Results;
 using System;
@@ -17,7 +17,7 @@ using System.Windows.Forms;
 
 namespace ATV_Allowance.Forms.EmployeeForms
 {
-    public partial class AddEmployeeForm : CommonForm
+    public partial class UpdateEmployeeForm : CommonForm
     {
         private IEmployeeService employeeService;
         private IOrganizationService organizationService;
@@ -26,10 +26,27 @@ namespace ATV_Allowance.Forms.EmployeeForms
         private System.Windows.Forms.ErrorProvider epPosition;
         private System.Windows.Forms.ErrorProvider epCode;
         internal new Dictionary<Control, ErrorProvider> epDic;
-        public AddEmployeeForm()
-        {           
-            InitializeComponent();                
+        private string currCode;
+        public EmployeeViewModel model { get; set; }
+        public UpdateEmployeeForm(EmployeeViewModel inputModel)
+        {
+            this.model = inputModel;
+            InitializeComponent();
             InitializeErrorProvider();
+            LoadData();            
+        }        
+        private void LoadData()
+        {
+            if (model != null)
+            {
+                txtName.Text = model.Name;
+                txtCode.Text = model.Code;
+                currCode = model.Code;
+                cbOrganizationId.SelectedValue = model.OrganizationId;
+                var selectedRb = gbPosition.Controls.OfType<RadioButton>()
+                                    .FirstOrDefault(r => r.Name.Equals("rb" + model.Position.ToUpper()));
+                selectedRb.Select();
+            }
         }
         private void InitializeErrorProvider()
         {
@@ -42,9 +59,8 @@ namespace ATV_Allowance.Forms.EmployeeForms
             epDic.Add(cbOrganizationId, epOrganization);
             epDic.Add(txtCode, epCode);
         }
-
-        private void AddEmployeeForm_Load(object sender, EventArgs e)
-        {            
+        private void UpdateEmployeeForm_Load(object sender, EventArgs e)
+        {
             try
             {
                 organizationService = new OrganizationService();
@@ -62,18 +78,30 @@ namespace ATV_Allowance.Forms.EmployeeForms
             {
                 organizationService = null;
             }
-        }              
-        private bool btnAdd_Validate(Employee emp)
-        {            
-            EmployeeValidator validator = new EmployeeValidator();
-            ValidationResult result = validator.Validate(emp);   
-            if (result.IsValid == false)
-            {
-                ValidatorHelper.ShowValidationMessage(gbStudentInfo, result.Errors, epDic);
-            }
-            return result.IsValid;
         }
-        private void btnAdd_Click(object sender, EventArgs e)
+        private void txtName_Leave(object sender, EventArgs e)
+        {
+            if (txtName.Text == string.Empty)
+            {
+                return;
+            }
+            try
+            {
+                employeeService = new EmployeeService();
+                string tmpName = txtName.Text.ToUpper();                
+                string generatedCode = employeeService.GenerateEmployeeCode(tmpName, currCode);
+                txtCode.Text = generatedCode;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                employeeService = null;
+            }
+        }
+        private void btnUpdate_Click(object sender, EventArgs e)
         {
             try
             {
@@ -103,41 +131,19 @@ namespace ATV_Allowance.Forms.EmployeeForms
                 }
                 Employee newEmp = new Employee()
                 {
+                    Id = model.Id,
                     Code = empCode,
                     Name = empName,
                     OrganizationId = orgId,
                     RoleId = posId,
                     IsActive = true
                 };
-                bool result = btnAdd_Validate(newEmp);
+                bool result = btnUpdate_Validate(newEmp);
                 if (result)
                 {
-                    employeeService.AddEmployee(newEmp);
+                    employeeService.UpdateEmployee(newEmp);
                     this.Close();
                 }
-            }
-            catch(Exception ex)
-            {
-                throw ex;                
-            }
-            finally
-            {
-                employeeService = null;
-            }                     
-        }
-
-        private void txtName_Leave(object sender, EventArgs e)
-        {
-            if (txtName.Text == string.Empty)
-            {
-                return;
-            }
-            try
-            {
-                employeeService = new EmployeeService();
-                string tmpName = txtName.Text.ToUpper();                
-                string generatedCode = employeeService.GenerateEmployeeCode(tmpName, null);
-                txtCode.Text = generatedCode;
             }
             catch (Exception ex)
             {
@@ -148,9 +154,15 @@ namespace ATV_Allowance.Forms.EmployeeForms
                 employeeService = null;
             }
         }
-
-        private void txtName_Validating(object sender, CancelEventArgs e)
-        {           
-        }        
+        private bool btnUpdate_Validate(Employee emp)
+        {
+            EmployeeValidator validator = new EmployeeValidator();
+            ValidationResult result = validator.Validate(emp);
+            if (result.IsValid == false)
+            {
+                ValidatorHelper.ShowValidationMessage(gbStudentInfo, result.Errors, epDic);
+            }
+            return result.IsValid;
+        }
     }
 }

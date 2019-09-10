@@ -1,6 +1,8 @@
 ﻿using ATV_Allowance.Common;
+using ATV_Allowance.Forms.CommonForms;
 using ATV_Allowance.Services;
 using ATV_Allowance.ViewModel;
+using DataService.Entity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,18 +17,20 @@ using static ATV_Allowance.Common.Constants;
 
 namespace ATV_Allowance.Forms.EmployeeForms
 {
-    public partial class ListEmployeeForm : Form
-    {        
+    public partial class ListEmployeeForm : CommonForm
+    {
+        private BindingSource bs = null;
+        private EmployeeViewModel employee = null; 
         public ListEmployeeForm()
         {
             InitializeComponent();
             LoadDGV();
         }
         private void LoadDGV()
-        {
+        {            
             IEmployeeService employeeService = null;
             try
-            {
+            {                
                 employeeService = new EmployeeService();
                 List<EmployeeViewModel> list = employeeService.GetAllActive(true);
                 SortableBindingList<EmployeeViewModel> sbl = new SortableBindingList<EmployeeViewModel>(list);
@@ -35,6 +39,8 @@ namespace ATV_Allowance.Forms.EmployeeForms
                 adgvEmployee.DataSource = bs;
 
                 adgvEmployee.Columns["Id"].Visible = false; 
+                adgvEmployee.Columns["OrganizationId"].Visible = false; 
+                adgvEmployee.Columns["PositionId"].Visible = false;                 
                 adgvEmployee.Columns["Code"].Visible = true; 
                 adgvEmployee.Columns["Name"].Visible = true; 
                 adgvEmployee.Columns["Position"].Visible = true; 
@@ -50,6 +56,11 @@ namespace ATV_Allowance.Forms.EmployeeForms
                 adgvEmployee.Columns["Organization"].HeaderText = ADGVEmployeeText.Organization;
                 adgvEmployee.Columns["Organization"].Width = ControlsAttribute.GV_WIDTH_NORMAL;
 
+                // Set selected employee 
+                if (list.Count > 0)
+                {
+                    employee = list[0];
+                }                
             }
             catch (Exception ex)
             {
@@ -58,8 +69,7 @@ namespace ATV_Allowance.Forms.EmployeeForms
             {
                 employeeService = null;
             }
-        }
-        private BindingSource bs = null;
+        }        
 
         private void adgvEmployee_SortStringChanged(object sender, EventArgs e)
         {
@@ -87,11 +97,48 @@ namespace ATV_Allowance.Forms.EmployeeForms
             detailForm.FormClosed += new FormClosedEventHandler(AddEmployeeForm_Closed);
             detailForm.ShowDialog();
         }
-
         private void AddEmployeeForm_Closed(object sender, FormClosedEventArgs e)
-        {
+        {            
             LoadDGV();
+            adgvEmployee.ClearSelection();            
+            int rowIndex = adgvEmployee.Rows.Count - 1;            
+            adgvEmployee.Rows[rowIndex].Selected = true;
+            adgvEmployee.CurrentCell = adgvEmployee.Rows[rowIndex].Cells[1];
+            adgvEmployee_SelectionChanged(sender, e);
+        }
+        private void EditEmployeeForm_Closed(object sender, FormClosedEventArgs e)
+        {
+            int rowIndex = adgvEmployee.CurrentRow.Index;
+            LoadDGV();
+            adgvEmployee.ClearSelection();            
+            adgvEmployee.Rows[rowIndex].Selected = true;
+            adgvEmployee.CurrentCell = adgvEmployee.Rows[rowIndex].Cells[1];
+            adgvEmployee_SelectionChanged(sender, e);
+        }      
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            if (employee != null)
+            {
+                UpdateEmployeeForm detailForm = new UpdateEmployeeForm(employee);
+                detailForm.FormClosed += new FormClosedEventHandler(EditEmployeeForm_Closed);
+                detailForm.ShowDialog();
+            }            
         }
 
+        private void adgvEmployee_CellClick(object sender, DataGridViewCellEventArgs e)
+        {            
+            employee = (EmployeeViewModel)adgvEmployee.CurrentRow.DataBoundItem;
+        }
+
+        private void adgvEmployee_SelectionChanged(object sender, EventArgs e)
+        {
+            employee = (EmployeeViewModel)adgvEmployee.CurrentRow.DataBoundItem;
+        }
+
+        private void btnRemove_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

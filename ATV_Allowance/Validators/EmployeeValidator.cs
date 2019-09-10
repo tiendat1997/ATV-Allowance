@@ -22,7 +22,7 @@ namespace ATV_Allowance.Validators
 
             RuleFor(p => p.Code)
                 .Cascade(CascadeMode.StopOnFirstFailure)
-                .NotEmpty().WithMessage("Không xác định được mã nhân viên");
+                .NotEmpty().WithMessage("Không xác định được mã nhân viên");            
         }       
     }
 }

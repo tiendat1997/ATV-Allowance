@@ -42,61 +42,78 @@
             // gbEmployeeList
             // 
             this.gbEmployeeList.Controls.Add(this.adgvEmployee);
-            this.gbEmployeeList.Location = new System.Drawing.Point(12, 25);
+            this.gbEmployeeList.Location = new System.Drawing.Point(18, 38);
+            this.gbEmployeeList.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.gbEmployeeList.Name = "gbEmployeeList";
-            this.gbEmployeeList.Size = new System.Drawing.Size(776, 297);
+            this.gbEmployeeList.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.gbEmployeeList.Size = new System.Drawing.Size(1164, 457);
             this.gbEmployeeList.TabIndex = 0;
             this.gbEmployeeList.TabStop = false;
             this.gbEmployeeList.Text = "Danh sách";
             // 
             // adgvEmployee
             // 
+            this.adgvEmployee.AllowUserToAddRows = false;
+            this.adgvEmployee.AllowUserToDeleteRows = false;
             this.adgvEmployee.AutoGenerateContextFilters = true;
             this.adgvEmployee.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.adgvEmployee.DateWithTime = false;
-            this.adgvEmployee.Location = new System.Drawing.Point(7, 20);
+            this.adgvEmployee.Location = new System.Drawing.Point(10, 31);
+            this.adgvEmployee.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.adgvEmployee.MultiSelect = false;
             this.adgvEmployee.Name = "adgvEmployee";
-            this.adgvEmployee.Size = new System.Drawing.Size(763, 271);
+            this.adgvEmployee.ReadOnly = true;
+            this.adgvEmployee.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.adgvEmployee.Size = new System.Drawing.Size(1144, 417);
             this.adgvEmployee.TabIndex = 0;
             this.adgvEmployee.TimeFilter = false;
             this.adgvEmployee.SortStringChanged += new System.EventHandler(this.adgvEmployee_SortStringChanged);
             this.adgvEmployee.FilterStringChanged += new System.EventHandler(this.adgvEmployee_FilterStringChanged);
+            this.adgvEmployee.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.adgvEmployee_CellClick);
+            this.adgvEmployee.SelectionChanged += new System.EventHandler(this.adgvEmployee_SelectionChanged);
             // 
             // gbControl
             // 
             this.gbControl.Controls.Add(this.btnRemove);
             this.gbControl.Controls.Add(this.btnEdit);
             this.gbControl.Controls.Add(this.btnAdd);
-            this.gbControl.Location = new System.Drawing.Point(12, 328);
+            this.gbControl.Location = new System.Drawing.Point(18, 505);
+            this.gbControl.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.gbControl.Name = "gbControl";
-            this.gbControl.Size = new System.Drawing.Size(776, 49);
+            this.gbControl.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.gbControl.Size = new System.Drawing.Size(1164, 75);
             this.gbControl.TabIndex = 1;
             this.gbControl.TabStop = false;
             this.gbControl.Text = "Thao tác";
             // 
             // btnRemove
             // 
-            this.btnRemove.Location = new System.Drawing.Point(243, 19);
+            this.btnRemove.Location = new System.Drawing.Point(364, 29);
+            this.btnRemove.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(75, 23);
+            this.btnRemove.Size = new System.Drawing.Size(112, 35);
             this.btnRemove.TabIndex = 2;
             this.btnRemove.Text = "Xóa";
             this.btnRemove.UseVisualStyleBackColor = true;
+            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
             // 
             // btnEdit
             // 
-            this.btnEdit.Location = new System.Drawing.Point(126, 19);
+            this.btnEdit.Location = new System.Drawing.Point(189, 29);
+            this.btnEdit.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(75, 23);
+            this.btnEdit.Size = new System.Drawing.Size(112, 35);
             this.btnEdit.TabIndex = 1;
             this.btnEdit.Text = "Xem";
             this.btnEdit.UseVisualStyleBackColor = true;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(6, 19);
+            this.btnAdd.Location = new System.Drawing.Point(9, 29);
+            this.btnAdd.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(75, 23);
+            this.btnAdd.Size = new System.Drawing.Size(112, 35);
             this.btnAdd.TabIndex = 0;
             this.btnAdd.Text = "Thêm";
             this.btnAdd.UseVisualStyleBackColor = true;
@@ -104,11 +121,12 @@
             // 
             // ListEmployeeForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 389);
+            this.ClientSize = new System.Drawing.Size(1200, 598);
             this.Controls.Add(this.gbControl);
             this.Controls.Add(this.gbEmployeeList);
+            this.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
             this.Name = "ListEmployeeForm";
             this.Text = "Quản lý nhân viên";
             this.gbEmployeeList.ResumeLayout(false);

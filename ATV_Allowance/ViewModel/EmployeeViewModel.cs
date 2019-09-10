@@ -18,8 +18,10 @@ namespace ATV_Allowance.ViewModel
         public string Name { get; set; }
 
         public string Position { get; set; }
+        public int PositionId { get; set; }
 
         public string Organization { get; set; }
+        public int OrganizationId { get; set; }
         public bool IsActive { get; set; }
     }
 }

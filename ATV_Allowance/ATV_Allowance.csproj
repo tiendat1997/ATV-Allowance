@@ -69,6 +69,12 @@
     <Compile Include="Common\PropertyComparer.cs" />
     <Compile Include="Common\Session.cs" />
     <Compile Include="Common\Ultilities.cs" />
+    <Compile Include="Forms\CommonForms\CommonForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CommonForms\CommonForm.Designer.cs">
+      <DependentUpon>CommonForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\CommonForms\GlobalForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -93,6 +99,12 @@
     <Compile Include="Forms\EmployeeForms\ListEmployeeForm.Designer.cs">
       <DependentUpon>ListEmployeeForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\EmployeeForms\UpdateEmployeeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EmployeeForms\UpdateEmployeeForm.Designer.cs">
+      <DependentUpon>UpdateEmployeeForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\ValidatorHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -115,6 +127,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\EmployeeForms\ListEmployeeForm.resx">
       <DependentUpon>ListEmployeeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EmployeeForms\UpdateEmployeeform.resx">
+      <DependentUpon>UpdateEmployeeForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

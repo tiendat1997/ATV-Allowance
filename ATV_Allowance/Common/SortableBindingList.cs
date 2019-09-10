@@ -180,7 +180,36 @@ namespace ATV_Allowance.Common
             {
                 return true;
             }
-        }       
+        }
+
+        //protected virtual void UpdateFilter()
+        //{
+        //    int equalsPos = m_FilterString.IndexOf('=');
+        //    // Get property name
+        //    string propName = m_FilterString.Substring(0, equalsPos).Trim();
+        //    // Get filter criteria
+        //    string criteria = m_FilterString.Substring(equalsPos + 1,
+        //       m_FilterString.Length - equalsPos - 1).Trim();
+        //    // Strip leading and trailing quotes
+        //    criteria = criteria.Substring(1, criteria.Length - 2);
+        //    // Get a property descriptor for the filter property
+        //    PropertyDescriptor propDesc = TypeDescriptor.GetProperties(typeof(T))[propName];
+        //    if (m_OriginalCollection.Count == 0)
+        //    {
+        //        m_OriginalCollection.AddRange(this);
+        //    }
+        //    List<T> currentCollection = new List<T>(this);
+        //    Clear();
+        //    foreach (T item in currentCollection)
+        //    {
+        //        object value = propDesc.GetValue(item);
+        //        if (value.ToString() == criteria)
+        //        {
+        //            Add(item);
+        //        }
+        //    }
+        //}
+
         protected virtual void UpdateFilter()
         {
             if (!String.IsNullOrWhiteSpace(m_FilterString))
@@ -234,7 +263,27 @@ namespace ATV_Allowance.Common
                 {
                     Add(item);
                 }
-            }           
+            }
+
+            //string propertyName = Regex.Replace(matchProps[0].ToString(), @"[\[\]]", "");
+            //string valueName = "";
+            //List<string> valueNames = new List<string>();
+            //matchField = Regex.Matches(matchFields[0].ToString(), regexField);
+            //foreach (var m in matchField)
+            //{
+            //    valueName = Regex.Replace(m.ToString(), @"[\(\)\']", "");
+            //    valueNames.Add(valueName);
+            //}
+            //var query = PropertyEqualsValues(currentCollection, propertyName, valueNames);
+            //if (m_OriginalCollection.Count == 0)
+            //{
+            //    m_OriginalCollection.AddRange(this);
+            //}
+            //Clear();
+            //foreach (var item in query)
+            //{
+            //    Add(item);
+            //}
         }
 
         public IQueryable<TSource> PropertyEqualsValue<TSource>(IQueryable<TSource> query,
@@ -253,7 +302,38 @@ namespace ATV_Allowance.Common
                 Expression.Lambda<Func<TSource, bool>>(body, param)
             );
             return query.Provider.CreateQuery<TSource>(expr);
-        }       
+        }
+
+        //public IQueryable<TSource> PropertyEqualsValues<TSource, TValues>(IQueryable<TSource> query,
+        //string propertyName, List<TValues> values)
+        //{
+        //    ParameterExpression param = Expression.Parameter(typeof(TSource));
+
+        //    BinaryExpression body = null;
+        //    foreach (var value in values)
+        //    {
+        //        if (body == null)//init body
+        //        {
+        //            body = Expression.Equal(Expression.Property(param, propertyName),
+        //                                    Expression.Constant(value));
+        //        }
+        //        else
+        //        {
+        //            body = Expression.Or(body,
+        //                                 Expression.Equal(Expression.Property(param, propertyName),
+        //                                                  Expression.Constant(value)));
+        //        }
+        //    }
+        //    var expr = Expression.Call(
+        //        typeof(Queryable),
+        //        "Where",
+        //        new[] { typeof(TSource) },
+        //        query.Expression,
+        //        Expression.Lambda<Func<TSource, bool>>(body, param)
+        //    );
+        //    return query.Provider.CreateQuery<TSource>(expr);
+        //}
+
         public IQueryable<TSource> PropertyEqualsValuesV2<TSource, E>(IQueryable<TSource> query, List<PropValueItem<E>> propValueItems)
         {
             ParameterExpression param = Expression.Parameter(typeof(TSource));

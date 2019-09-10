@@ -15,9 +15,10 @@ namespace ATV_Allowance.Services
     public interface IEmployeeService
     {
         List<EmployeeViewModel> GetAllActive(bool isActive);
-        string GenerateEmployeeCode(string empName);
+        string GenerateEmployeeCode(string empName, string currCode);
         Position GetPositionByCode(string code);
         void AddEmployee(Employee emp);
+        void UpdateEmployee(Employee newEmp);
     }
     public class EmployeeService : IEmployeeService
     {
@@ -34,7 +35,7 @@ namespace ATV_Allowance.Services
             employeeRepository.Add(emp);
         }
 
-        public string GenerateEmployeeCode(string empName)
+        public string GenerateEmployeeCode(string empName, string currCode)
         {
             Regex regex = new Regex(@"^\d+$"); // match all numbers
             List<string> splitter = empName.Split(' ').ToList();                        
@@ -55,7 +56,7 @@ namespace ATV_Allowance.Services
                     existedCount++;
                 }
             }
-            if (existedCount > 0)
+            if (tempCode != currCode && existedCount > 0)
             {
                 tempCode = tempCode + (existedCount);
             }
@@ -71,7 +72,9 @@ namespace ATV_Allowance.Services
                         Code = t.Code,
                         Name = t.Name,
                         Organization = t.Organization.Name,
+                        OrganizationId = t.Organization.Id,
                         Position = t.Position.Code,
+                        PositionId = t.Position.Id,
                         IsActive = t.IsActive
                     }).ToList();
             return list;
@@ -80,8 +83,11 @@ namespace ATV_Allowance.Services
         public Position GetPositionByCode(string code)
         {
             return positionRepository.GetMany(t => t.Code.Equals(code)).FirstOrDefault();
-        }        
+        }
 
-
+        public void UpdateEmployee(Employee emp)
+        {
+            employeeRepository.Update(emp);
+        }
     }
 }
