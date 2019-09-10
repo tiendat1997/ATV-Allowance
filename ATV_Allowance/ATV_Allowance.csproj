@@ -157,6 +157,9 @@
     <EmbeddedResource Include="Forms\OrganizationForms\ListOrganizationForm.resx">
       <DependentUpon>ListOrganizationForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\OrganizationForms\UpdateOrganizationForm.resx">
+      <DependentUpon>UpdateOrganizationForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

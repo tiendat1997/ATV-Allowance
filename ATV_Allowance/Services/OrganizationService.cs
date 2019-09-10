@@ -14,6 +14,7 @@ namespace ATV_Allowance.Services
         List<Organization> GetAll();
         List<OrganizationViewModel> GetAllIsActive(bool isActive);
         void AddOrganization(Organization org);
+        void UpdateOrganization(Organization org);
     }
     public class OrganizationService : IOrganizationService
     {
@@ -44,6 +45,11 @@ namespace ATV_Allowance.Services
                        IsActive = t.IsActive ?? false
                    }).ToList(); 
             return list;
+        }
+
+        public void UpdateOrganization(Organization org)
+        {
+            organizationRepository.Update(org);
         }
     }
 }

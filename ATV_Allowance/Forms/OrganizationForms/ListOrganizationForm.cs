@@ -87,7 +87,7 @@ namespace ATV_Allowance.Forms.OrganizationForms
         {
             if (model != null)
             {
-                UpdateOrganizationForm detailForm = new UpdateOrganizationForm();
+                UpdateOrganizationForm detailForm = new UpdateOrganizationForm(model);
                 detailForm.FormClosed += new FormClosedEventHandler(EditOrgForm_Closed);
                 detailForm.ShowDialog();
             }
