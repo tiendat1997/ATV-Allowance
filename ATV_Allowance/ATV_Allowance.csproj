@@ -105,6 +105,24 @@
     <Compile Include="Forms\EmployeeForms\UpdateEmployeeForm.Designer.cs">
       <DependentUpon>UpdateEmployeeForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\OrganizationForms\AddOrganizationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\OrganizationForms\AddOrganizationForm.Designer.cs">
+      <DependentUpon>AddOrganizationForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\OrganizationForms\ListOrganizationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\OrganizationForms\ListOrganizationForm.Designer.cs">
+      <DependentUpon>ListOrganizationForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\OrganizationForms\UpdateOrganizationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\OrganizationForms\UpdateOrganizationForm.Designer.cs">
+      <DependentUpon>UpdateOrganizationForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\ValidatorHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -114,8 +132,10 @@
     <Compile Include="Common\SortableBindingList.cs" />
     <Compile Include="Services\OrganizationService.cs" />
     <Compile Include="Services\UserService.cs" />
+    <Compile Include="Validators\OrganizationValidator.cs" />
     <Compile Include="Validators\EmployeeValidator.cs" />
     <Compile Include="ViewModel\EmployeeViewModel.cs" />
+    <Compile Include="ViewModel\OrganizationViewModel.cs" />
     <EmbeddedResource Include="Forms\CommonForms\GlobalForm.resx">
       <DependentUpon>GlobalForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -130,6 +150,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\EmployeeForms\UpdateEmployeeform.resx">
       <DependentUpon>UpdateEmployeeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\OrganizationForms\AddOrganizationForm.resx">
+      <DependentUpon>AddOrganizationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\OrganizationForms\ListOrganizationForm.resx">
+      <DependentUpon>ListOrganizationForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

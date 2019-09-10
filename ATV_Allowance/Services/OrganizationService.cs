@@ -1,4 +1,5 @@
-﻿using DataService.Entity;
+﻿using ATV_Allowance.ViewModel;
+using DataService.Entity;
 using DataService.Repository;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ namespace ATV_Allowance.Services
     public interface IOrganizationService
     {
         List<Organization> GetAll();
+        List<OrganizationViewModel> GetAllIsActive(bool isActive);
     }
     public class OrganizationService : IOrganizationService
     {
@@ -22,7 +24,19 @@ namespace ATV_Allowance.Services
 
         public List<Organization> GetAll()
         {
-            var list = organizationRepository.GetAll().ToList();
+            var list = organizationRepository.GetMany(t => t.IsActive == true).ToList();
+            return list;
+        }
+
+        public List<OrganizationViewModel> GetAllIsActive(bool isActive)
+        {
+            var list = organizationRepository.GetAll().Where(e => e.IsActive == isActive)
+                   .Select(t => new OrganizationViewModel
+                   {
+                       Id = t.Id,                    
+                       Name = t.Name,                       
+                       IsActive = t.IsActive ?? false
+                   }).ToList(); 
             return list;
         }
     }

@@ -10,6 +10,7 @@ using System.Configuration;
 using System.Collections;
 using ATV_Allowance.Forms.EmployeeForms;
 using System.Text.RegularExpressions;
+using ATV_Allowance.Forms.OrganizationForms;
 
 namespace ATV_Allowance.Common
 {
@@ -222,6 +223,10 @@ namespace ATV_Allowance.Common
                         ListEmployeeForm listEmployeesForm = new ListEmployeeForm();
                         form = (Form)listEmployeesForm;
                         break;
+                    case "Quản lý đơn vị":
+                        ListOrganizationForm listOrgForm = new ListOrganizationForm();
+                        form = (Form)listOrgForm;
+                        break;
                     case "Logout":
                         Session.Logout();
                         isFunctionLogout = true;
@@ -256,7 +261,7 @@ namespace ATV_Allowance.Common
             return form;
         }
         public static string RemoveSign4VietnameseString(string str)
-        {            
+        {
             //Thay thế và lọc dấu từng char      
             for (int i = 1; i < VietNamChar.Length; i++)
             {

@@ -28,8 +28,7 @@ namespace ATV_Allowance.Forms.EmployeeForms
             LoadDGV();
         }
         private void LoadDGV()
-        {
-            IEmployeeService employeeService = null;
+        {            
             try
             {
                 employeeService = new EmployeeService();

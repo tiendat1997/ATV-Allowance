@@ -48,6 +48,11 @@ namespace ATV_Allowance.Common
             public static string Organization = "Đơn vị";            
         }
 
+        public static class ADGVOrganizationText
+        {            
+            public static string Name = "Tên Đơn Vị";            
+        }
+
         public static class BusinessLogType
         {
             public static int Login = 1;

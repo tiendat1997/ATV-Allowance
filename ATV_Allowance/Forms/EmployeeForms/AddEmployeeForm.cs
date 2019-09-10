@@ -3,6 +3,7 @@ using ATV_Allowance.Forms.CommonForms;
 using ATV_Allowance.Helpers;
 using ATV_Allowance.Services;
 using ATV_Allowance.Validators;
+using ATV_Allowance.ViewModel;
 using DataService.Entity;
 using FluentValidation.Results;
 using System;
@@ -48,7 +49,7 @@ namespace ATV_Allowance.Forms.EmployeeForms
             try
             {
                 organizationService = new OrganizationService();
-                List<Organization> list = organizationService.GetAll();
+                List<OrganizationViewModel> list = organizationService.GetAllIsActive(true);
                 cbOrganizationId.DisplayMember = "Name";
                 cbOrganizationId.DataSource = list;
                 cbOrganizationId.AutoCompleteMode = AutoCompleteMode.Suggest;
