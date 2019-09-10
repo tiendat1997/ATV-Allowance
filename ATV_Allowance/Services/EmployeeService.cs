@@ -19,6 +19,7 @@ namespace ATV_Allowance.Services
         Position GetPositionByCode(string code);
         void AddEmployee(Employee emp);
         void UpdateEmployee(Employee newEmp);
+        void DeactiveEmployee(Employee emp);
     }
     public class EmployeeService : IEmployeeService
     {
@@ -33,6 +34,12 @@ namespace ATV_Allowance.Services
         public void AddEmployee(Employee emp)
         {
             employeeRepository.Add(emp);
+        }
+
+        public void DeactiveEmployee(Employee emp)
+        {
+            emp.IsActive = false;
+            employeeRepository.Update(emp);
         }
 
         public string GenerateEmployeeCode(string empName, string currCode)
