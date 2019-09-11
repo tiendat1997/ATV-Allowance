@@ -12,6 +12,5 @@ namespace ATV_Allowance.ViewModel
         public string Title { get; set; }
         public string Date { get; set; }
         public int TypeId { get; set; }
-
     }
 }

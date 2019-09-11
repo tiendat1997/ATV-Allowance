@@ -18,8 +18,12 @@ namespace ATV_Allowance.Forms.ArticleForms
     public partial class ManageTSForm : CommonForm
     {
         private int articleType = ArticleType.THOI_SU;
+        private DateTime fromDate = DateTime.Now;
+        private DateTime toDate = DateTime.Now;
+        private int empId = -1;
         private IArticleService articleService;
-        private BindingSource bs = null;
+        private IEmployeeService employeeService;
+        private BindingSource bs = null;        
 
         public ManageTSForm()
         {
@@ -31,10 +35,8 @@ namespace ATV_Allowance.Forms.ArticleForms
             try
             {
                 articleService = new ArticleService();
-                bs = new BindingSource();
-                DateTime fromDate = dtpStartDate.Value;
-                DateTime toDate = dtpEndDate.Value;
-                var list = articleService.GetArticle(articleType, fromDate, toDate, -1);                                 
+                bs = new BindingSource();           
+                var list = articleService.GetArticle(articleType, fromDate, toDate, empId);                                 
                 SortableBindingList<ArticleViewModel> sbl = new SortableBindingList<ArticleViewModel>(list);
                 bs.DataSource = sbl;
                 adgvList.DataSource = bs;
@@ -56,6 +58,64 @@ namespace ATV_Allowance.Forms.ArticleForms
             {
                 articleService = null; 
             }
+        }
+
+        private void ManageTSForm_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                employeeService = new EmployeeService();
+                List<EmployeeViewModel> list = new List<EmployeeViewModel>
+                {
+                    new EmployeeViewModel
+                    {
+                        Id = -1,
+                        Name = "<chọn nhân viên />" // empty employee
+                    }
+                };
+                list.AddRange(employeeService.GetAllActive(true));
+                cbEmployee.DisplayMember = "Name";
+                cbEmployee.DataSource = list;
+                cbEmployee.AutoCompleteMode = AutoCompleteMode.Suggest;
+                cbEmployee.AutoCompleteSource = AutoCompleteSource.ListItems;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            } finally
+            {
+                employeeService = null; 
+            }
+        }
+
+        private void dtpStartDate_ValueChanged(object sender, EventArgs e)
+        {
+            fromDate = dtpStartDate.Value;
+            LoadDGV();
+        }
+
+        private void dtpEndDate_ValueChanged(object sender, EventArgs e)
+        {
+            toDate = dtpStartDate.Value;
+            LoadDGV();
+        }
+
+        private void cbEmployee_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var emp = (EmployeeViewModel)cbEmployee.SelectedValue;
+            empId = emp.Id;
+            LoadDGV();
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            AddTSForm form = new AddTSForm(articleType);
+            form.FormClosed += new FormClosedEventHandler(AddTSForm_Closed);
+            form.ShowDialog();
+        }
+        private void AddTSForm_Closed(object sender, FormClosedEventArgs e)
+        {
+            LoadDGV();
         }
     }
 }

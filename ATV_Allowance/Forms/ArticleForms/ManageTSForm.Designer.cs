@@ -81,6 +81,7 @@
             this.cbEmployee.Name = "cbEmployee";
             this.cbEmployee.Size = new System.Drawing.Size(201, 28);
             this.cbEmployee.TabIndex = 4;
+            this.cbEmployee.SelectedIndexChanged += new System.EventHandler(this.cbEmployee_SelectedIndexChanged);
             // 
             // lblEndDate
             // 
@@ -98,6 +99,7 @@
             this.dtpEndDate.Name = "dtpEndDate";
             this.dtpEndDate.Size = new System.Drawing.Size(134, 26);
             this.dtpEndDate.TabIndex = 2;
+            this.dtpEndDate.ValueChanged += new System.EventHandler(this.dtpEndDate_ValueChanged);
             // 
             // lblStartDate
             // 
@@ -115,6 +117,7 @@
             this.dtpStartDate.Name = "dtpStartDate";
             this.dtpStartDate.Size = new System.Drawing.Size(132, 26);
             this.dtpStartDate.TabIndex = 0;
+            this.dtpStartDate.ValueChanged += new System.EventHandler(this.dtpStartDate_ValueChanged);
             // 
             // gbArticleInfo
             // 
@@ -190,7 +193,7 @@
             // 
             // btnEdit
             // 
-            this.btnEdit.Location = new System.Drawing.Point(10, 60);
+            this.btnEdit.Location = new System.Drawing.Point(10, 88);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(197, 29);
             this.btnEdit.TabIndex = 1;
@@ -199,12 +202,13 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(10, 25);
+            this.btnAdd.Location = new System.Drawing.Point(10, 39);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(197, 29);
             this.btnAdd.TabIndex = 0;
             this.btnAdd.Text = "Nhập tin thời sự";
             this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // ManageTSForm
             // 
@@ -216,6 +220,7 @@
             this.Controls.Add(this.gbFilter);
             this.Name = "ManageTSForm";
             this.Text = "Tin Thời sự hằng ngày";
+            this.Load += new System.EventHandler(this.ManageTSForm_Load);
             this.gbFilter.ResumeLayout(false);
             this.gbFilter.PerformLayout();
             this.gbArticleInfo.ResumeLayout(false);

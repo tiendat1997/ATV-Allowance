@@ -69,6 +69,12 @@
     <Compile Include="Common\PropertyComparer.cs" />
     <Compile Include="Common\Session.cs" />
     <Compile Include="Common\Ultilities.cs" />
+    <Compile Include="Forms\ArticleForms\AddTSForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ArticleForms\AddTSForm.Designer.cs">
+      <DependentUpon>AddTSForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ArticleForms\ManageTSForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -146,12 +152,16 @@
     <Compile Include="Services\ReportService.cs" />
     <Compile Include="Services\OrganizationService.cs" />
     <Compile Include="Services\UserService.cs" />
+    <Compile Include="Validators\ArticleValidator.cs" />
     <Compile Include="ViewModel\EmployeePointViewModel.cs" />
     <Compile Include="Validators\OrganizationValidator.cs" />
     <Compile Include="Validators\EmployeeValidator.cs" />
     <Compile Include="ViewModel\ArticleViewModel.cs" />
     <Compile Include="ViewModel\EmployeeViewModel.cs" />
     <Compile Include="ViewModel\OrganizationViewModel.cs" />
+    <EmbeddedResource Include="Forms\ArticleForms\AddTSForm.resx">
+      <DependentUpon>AddTSForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\ArticleForms\ManageTSForm.resx">
       <DependentUpon>ManageTSForm.cs</DependentUpon>
     </EmbeddedResource>
