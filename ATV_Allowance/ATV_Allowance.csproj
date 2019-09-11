@@ -219,7 +219,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataService\DataService.csproj">
-      <Project>{5A361D07-8B46-4CCE-B821-BAAF213F3DBD}</Project>
+      <Project>{5a361d07-8b46-4cce-b821-baaf213f3dbd}</Project>
       <Name>DataService</Name>
     </ProjectReference>
   </ItemGroup>
