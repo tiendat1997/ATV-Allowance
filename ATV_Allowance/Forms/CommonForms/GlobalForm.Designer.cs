@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GlobalForm));
             this.mainMenu = new System.Windows.Forms.MainMenu(this.components);
             this.SuspendLayout();
+           
             // 
             // GlobalForm
             // 
@@ -49,6 +50,7 @@
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GlobalForm_FormClosing);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

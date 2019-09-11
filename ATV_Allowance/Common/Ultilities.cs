@@ -12,6 +12,7 @@ using ATV_Allowance.Forms.EmployeeForms;
 using System.Text.RegularExpressions;
 using ATV_Allowance.Forms.OrganizationForms;
 using ATV_Allowance.Forms.ArticleForms;
+using ATV_Allowance.Forms.Report;
 
 namespace ATV_Allowance.Common
 {
@@ -225,6 +226,10 @@ namespace ATV_Allowance.Common
                     case "Quản lý nhân viên":
                         ListEmployeeForm listEmployeesForm = new ListEmployeeForm();
                         form = (Form)listEmployeesForm;
+                        break;
+                    case "In Phát thanh":
+                        ReportBroadcastForm reportBroadcastForm = new ReportBroadcastForm();
+                        form = (Form)reportBroadcastForm;
                         break;
                     case "Quản lý đơn vị":
                         ListOrganizationForm listOrgForm = new ListOrganizationForm();
