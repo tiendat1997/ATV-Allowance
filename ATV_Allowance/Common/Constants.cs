@@ -48,6 +48,12 @@ namespace ATV_Allowance.Common
             public static string Organization = "Đơn vị";            
         }
 
+        public static class ADGVArticleText
+        {
+            public static string Title = "Tin";
+            public static string Date = "Ngày";
+        }
+
         public static class ADGVOrganizationText
         {            
             public static string Name = "Tên Đơn Vị";            
@@ -87,7 +93,17 @@ namespace ATV_Allowance.Common
             public static int GV_WIDTH_SEEM = 100;
             public static int GV_WIDTH_NORMAL = 150;
             public static int GV_WIDTH_MEDIUM = 170;
+            public static int GV_WIDTH_LARGE = 250;
+            public static int GV_WIDTH_LARGE_X = 500;
+            public static int GV_WIDTH_LARGE_XX = 650;
         }
         #endregion
+
+        public static class ArticleType
+        {
+            public static int THOI_SU = 1;
+            public static int PHAT_THANH = 2;
+            public static int PHAT_THANH_TT = 3;
+        }
     }
 }

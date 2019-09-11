@@ -23,9 +23,9 @@ namespace DataService.Entity
         public string Title { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime? Date { get; set; }
+        public DateTime Date { get; set; }
 
-        public int? TypeId { get; set; }
+        public int TypeId { get; set; }
 
         public virtual ArticleType ArticleType { get; set; }
 

@@ -132,6 +132,7 @@
     <Compile Include="Helpers\ValidatorHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\ArticleService.cs" />
     <Compile Include="Services\BusinessLogService.cs" />
     <Compile Include="Services\EmployeeService.cs" />
     <Compile Include="Services\MenuItemService.cs" />
@@ -140,6 +141,7 @@
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Validators\OrganizationValidator.cs" />
     <Compile Include="Validators\EmployeeValidator.cs" />
+    <Compile Include="ViewModel\ArticleViewModel.cs" />
     <Compile Include="ViewModel\EmployeeViewModel.cs" />
     <Compile Include="ViewModel\OrganizationViewModel.cs" />
     <EmbeddedResource Include="Forms\ArticleForms\ManageTSForm.resx">

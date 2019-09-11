@@ -32,9 +32,9 @@
             this.lblEmployee = new System.Windows.Forms.Label();
             this.cbEmployee = new System.Windows.Forms.ComboBox();
             this.lblEndDate = new System.Windows.Forms.Label();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
+            this.dtpEndDate = new System.Windows.Forms.DateTimePicker();
             this.lblStartDate = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.dtpStartDate = new System.Windows.Forms.DateTimePicker();
             this.gbArticleInfo = new System.Windows.Forms.GroupBox();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.lblSearch = new System.Windows.Forms.Label();
@@ -55,9 +55,9 @@
             this.gbFilter.Controls.Add(this.lblEmployee);
             this.gbFilter.Controls.Add(this.cbEmployee);
             this.gbFilter.Controls.Add(this.lblEndDate);
-            this.gbFilter.Controls.Add(this.dateTimePicker2);
+            this.gbFilter.Controls.Add(this.dtpEndDate);
             this.gbFilter.Controls.Add(this.lblStartDate);
-            this.gbFilter.Controls.Add(this.dateTimePicker1);
+            this.gbFilter.Controls.Add(this.dtpStartDate);
             this.gbFilter.Location = new System.Drawing.Point(12, 12);
             this.gbFilter.Name = "gbFilter";
             this.gbFilter.Size = new System.Drawing.Size(217, 227);
@@ -91,13 +91,13 @@
             this.lblEndDate.TabIndex = 3;
             this.lblEndDate.Text = "Đến ngày";
             // 
-            // dateTimePicker2
+            // dtpEndDate
             // 
-            this.dateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker2.Location = new System.Drawing.Point(6, 109);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(134, 26);
-            this.dateTimePicker2.TabIndex = 2;
+            this.dtpEndDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpEndDate.Location = new System.Drawing.Point(6, 109);
+            this.dtpEndDate.Name = "dtpEndDate";
+            this.dtpEndDate.Size = new System.Drawing.Size(134, 26);
+            this.dtpEndDate.TabIndex = 2;
             // 
             // lblStartDate
             // 
@@ -108,13 +108,13 @@
             this.lblStartDate.TabIndex = 1;
             this.lblStartDate.Text = "Từ  ngày";
             // 
-            // dateTimePicker1
+            // dtpStartDate
             // 
-            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker1.Location = new System.Drawing.Point(6, 50);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(132, 26);
-            this.dateTimePicker1.TabIndex = 0;
+            this.dtpStartDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpStartDate.Location = new System.Drawing.Point(6, 50);
+            this.dtpStartDate.Name = "dtpStartDate";
+            this.dtpStartDate.Size = new System.Drawing.Size(132, 26);
+            this.dtpStartDate.TabIndex = 0;
             // 
             // gbArticleInfo
             // 
@@ -123,7 +123,7 @@
             this.gbArticleInfo.Controls.Add(this.adgvList);
             this.gbArticleInfo.Location = new System.Drawing.Point(235, 12);
             this.gbArticleInfo.Name = "gbArticleInfo";
-            this.gbArticleInfo.Size = new System.Drawing.Size(726, 461);
+            this.gbArticleInfo.Size = new System.Drawing.Size(850, 499);
             this.gbArticleInfo.TabIndex = 1;
             this.gbArticleInfo.TabStop = false;
             this.gbArticleInfo.Text = "Danh sách tin";
@@ -132,7 +132,7 @@
             // 
             this.txtSearch.Location = new System.Drawing.Point(260, 0);
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(459, 26);
+            this.txtSearch.Size = new System.Drawing.Size(584, 26);
             this.txtSearch.TabIndex = 8;
             // 
             // lblSearch
@@ -154,7 +154,8 @@
             this.adgvList.Location = new System.Drawing.Point(8, 38);
             this.adgvList.Name = "adgvList";
             this.adgvList.ReadOnly = true;
-            this.adgvList.Size = new System.Drawing.Size(712, 423);
+            this.adgvList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.adgvList.Size = new System.Drawing.Size(836, 455);
             this.adgvList.TabIndex = 0;
             this.adgvList.TimeFilter = false;
             // 
@@ -209,7 +210,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(966, 485);
+            this.ClientSize = new System.Drawing.Size(1097, 523);
             this.Controls.Add(this.gbControl);
             this.Controls.Add(this.gbArticleInfo);
             this.Controls.Add(this.gbFilter);
@@ -234,9 +235,9 @@
         private System.Windows.Forms.Label lblEmployee;
         private System.Windows.Forms.ComboBox cbEmployee;
         private System.Windows.Forms.Label lblEndDate;
-        private System.Windows.Forms.DateTimePicker dateTimePicker2;
+        private System.Windows.Forms.DateTimePicker dtpEndDate;
         private System.Windows.Forms.Label lblStartDate;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DateTimePicker dtpStartDate;
         private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.Label lblSearch;
         private System.Windows.Forms.GroupBox gbControl;

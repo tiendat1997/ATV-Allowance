@@ -42,8 +42,9 @@ namespace DataService.Entity
 
             modelBuilder.Entity<ArticleType>()
                 .HasMany(e => e.Article)
-                .WithOptional(e => e.ArticleType)
-                .HasForeignKey(e => e.TypeId);
+                .WithRequired(e => e.ArticleType)
+                .HasForeignKey(e => e.TypeId)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<ArticleType>()
                 .HasMany(e => e.ArticlePointType)
