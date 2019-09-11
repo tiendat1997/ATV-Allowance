@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ATV_Allowance.Common
+﻿namespace ATV_Allowance.Common
 {
     public static class Constants
     {
@@ -45,8 +39,32 @@ namespace ATV_Allowance.Common
             public static string Code = "Mã NV";
             public static string Name = "Họ và tên";
             public static string Position = "Chức danh";
-            public static string Organization = "Đơn vị";            
+            public static string Organization = "Đơn vị";
         }
+
+        public static class ADGVReportHeader
+        {
+            public static string Name = "Họ và tên";
+            public static string Organization = "Đơn vị";
+            public static string ArticleAmount = "SL Tin";
+            public static string ArticlePoint = "Đ Tin";
+            public static string SpeechAmount = "SL T/thuật G/nhanh";
+            public static string SpeechPoint = "Đ T/thuật G/nhanh";
+            public static string MajorAmount = "SL Chuyên đề";
+            public static string MajorPoint = "Đ Chuyên đề";
+            public static string PVAmount = "SL Pv/Pb";
+            public static string PVPoint = "Đ Pv/Pb";
+            public static string BSAmount = "SL B/soạn Dẫn CT";
+            public static string BSPoint = "Đ B/soạn Dẫn CT";
+            public static string BTAmount = "SL B/tập Đ/diễn";
+            public static string BTPoint = "Đ B/tập Đ/diễn";
+            public static string TotalPoint = "Tổng điểm";
+            public static string IncreasePercent = "Tăng 30%";
+            public static string TotalCost = "Thành tiền";
+
+
+        }
+
 
         public static class BusinessLogType
         {
@@ -70,6 +88,33 @@ namespace ATV_Allowance.Common
             public static int SUCCESS = 1;
             public static int EXISTED = 2;
         }
+
+        public static class EmployeeRole
+        {
+            public static int PV = 1;
+            public static int PTV = 2;
+            public static int CTV = 3;
+            public static int BT = 4;
+        }
+
+        public static class ReportType
+        {
+            public static int PT = 1;
+            public static int PTTT = 2;
+            public static int TS = 3;
+        }
+
+        public enum PointType
+        {
+            Tin = 1,
+            Bai = 2,
+            PV = 3,
+            Tlt = 4,
+            SD = 5,
+            CD_CM = 6
+
+        }
+
 
         #region Controls
         public static class ControlsAttribute

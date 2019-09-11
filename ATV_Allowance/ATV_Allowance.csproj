@@ -87,11 +87,11 @@
     <Compile Include="Forms\Employee\ListEmployeeForm.Designer.cs">
       <DependentUpon>ListEmployeeForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\ReportBroadcast.cs">
-      <SubType>UserControl</SubType>
+    <Compile Include="Forms\Report\ReportBroadcastForm.cs">
+      <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\ReportBroadcast.Designer.cs">
-      <DependentUpon>ReportBroadcast.cs</DependentUpon>
+    <Compile Include="Forms\Report\ReportBroadcastForm.Designer.cs">
+      <DependentUpon>ReportBroadcastForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -99,7 +99,9 @@
     <Compile Include="Services\EmployeeService.cs" />
     <Compile Include="Services\MenuItemService.cs" />
     <Compile Include="Common\SortableBindingList.cs" />
+    <Compile Include="Services\ReportService.cs" />
     <Compile Include="Services\UserService.cs" />
+    <Compile Include="ViewModel\EmployeePointViewModel.cs" />
     <Compile Include="ViewModel\EmployeeViewModel.cs" />
     <EmbeddedResource Include="Forms\CommonForms\GlobalForm.resx">
       <DependentUpon>GlobalForm.cs</DependentUpon>
@@ -107,8 +109,8 @@
     <EmbeddedResource Include="Forms\CommonForms\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ReportBroadcast.resx">
-      <DependentUpon>ReportBroadcast.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Report\ReportBroadcastForm.resx">
+      <DependentUpon>ReportBroadcastForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Employee\AddEmployeeForm.resx">
       <DependentUpon>AddEmployeeForm.cs</DependentUpon>

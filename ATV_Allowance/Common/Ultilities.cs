@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.Configuration;
 using System.Collections;
 using ATV_Allowance.Forms.Employee;
+using ATV_Allowance.Forms.Report;
 
 namespace ATV_Allowance.Common
 {
@@ -202,6 +203,10 @@ namespace ATV_Allowance.Common
                     case "Quản lý nhân viên":
                         ListEmployeeForm listEmployeesForm = new ListEmployeeForm();
                         form = (Form)listEmployeesForm;
+                        break;
+                    case "In Phát thanh":
+                        ReportBroadcastForm reportBroadcastForm = new ReportBroadcastForm();
+                        form = (Form)reportBroadcastForm;
                         break;
                     case "Logout":
                         Session.Logout();
