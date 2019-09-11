@@ -11,6 +11,7 @@ using System.Collections;
 using ATV_Allowance.Forms.EmployeeForms;
 using System.Text.RegularExpressions;
 using ATV_Allowance.Forms.OrganizationForms;
+using ATV_Allowance.Forms.ArticleForms;
 
 namespace ATV_Allowance.Common
 {
@@ -212,6 +213,8 @@ namespace ATV_Allowance.Common
                 switch (formName)
                 {
                     case "Tin Thời sự hằng ngày":
+                        ManageTSForm tsForm = new ManageTSForm();
+                        form = (Form)tsForm;
                         break;
                     case "Tin Phát thanh":
                         break;

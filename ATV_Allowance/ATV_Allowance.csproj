@@ -69,6 +69,12 @@
     <Compile Include="Common\PropertyComparer.cs" />
     <Compile Include="Common\Session.cs" />
     <Compile Include="Common\Ultilities.cs" />
+    <Compile Include="Forms\ArticleForms\ManageTSForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ArticleForms\ManageTSForm.Designer.cs">
+      <DependentUpon>ManageTSForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\CommonForms\CommonForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -136,6 +142,9 @@
     <Compile Include="Validators\EmployeeValidator.cs" />
     <Compile Include="ViewModel\EmployeeViewModel.cs" />
     <Compile Include="ViewModel\OrganizationViewModel.cs" />
+    <EmbeddedResource Include="Forms\ArticleForms\ManageTSForm.resx">
+      <DependentUpon>ManageTSForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\CommonForms\GlobalForm.resx">
       <DependentUpon>GlobalForm.cs</DependentUpon>
     </EmbeddedResource>
