@@ -149,16 +149,20 @@
     <Compile Include="Services\EmployeeService.cs" />
     <Compile Include="Services\MenuItemService.cs" />
     <Compile Include="Common\SortableBindingList.cs" />
+    <Compile Include="Services\PointTypeService.cs" />
     <Compile Include="Services\ReportService.cs" />
     <Compile Include="Services\OrganizationService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Validators\ArticleValidator.cs" />
+    <Compile Include="ViewModel\ArticleEmployeeViewModel.cs" />
     <Compile Include="ViewModel\EmployeePointViewModel.cs" />
     <Compile Include="Validators\OrganizationValidator.cs" />
     <Compile Include="Validators\EmployeeValidator.cs" />
     <Compile Include="ViewModel\ArticleViewModel.cs" />
     <Compile Include="ViewModel\EmployeeViewModel.cs" />
     <Compile Include="ViewModel\OrganizationViewModel.cs" />
+    <Compile Include="ViewModel\PointTypeViewModel.cs" />
+    <Compile Include="ViewModel\PointViewModel.cs" />
     <EmbeddedResource Include="Forms\ArticleForms\AddTSForm.resx">
       <DependentUpon>AddTSForm.cs</DependentUpon>
     </EmbeddedResource>

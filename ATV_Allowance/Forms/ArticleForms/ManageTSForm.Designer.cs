@@ -94,6 +94,7 @@
             // 
             // dtpEndDate
             // 
+            this.dtpEndDate.CustomFormat = "dd/MM/yyyy";
             this.dtpEndDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpEndDate.Location = new System.Drawing.Point(6, 109);
             this.dtpEndDate.Name = "dtpEndDate";
@@ -112,6 +113,7 @@
             // 
             // dtpStartDate
             // 
+            this.dtpStartDate.CustomFormat = "dd/MM/yyyy";
             this.dtpStartDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpStartDate.Location = new System.Drawing.Point(6, 50);
             this.dtpStartDate.Name = "dtpStartDate";
@@ -161,6 +163,7 @@
             this.adgvList.Size = new System.Drawing.Size(836, 455);
             this.adgvList.TabIndex = 0;
             this.adgvList.TimeFilter = false;
+            this.adgvList.SelectionChanged += new System.EventHandler(this.adgvList_SelectionChanged);
             // 
             // entityCommand1
             // 
@@ -199,6 +202,7 @@
             this.btnEdit.TabIndex = 1;
             this.btnEdit.Text = "Xem tin";
             this.btnEdit.UseVisualStyleBackColor = true;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // btnAdd
             // 

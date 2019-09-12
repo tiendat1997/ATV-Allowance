@@ -32,13 +32,13 @@
             this.btnAddArticle = new System.Windows.Forms.Button();
             this.cbTitle = new System.Windows.Forms.ComboBox();
             this.dgvList = new System.Windows.Forms.GroupBox();
-            this.adgvList = new ADGV.AdvancedDataGridView();
             this.btnSave = new System.Windows.Forms.Button();
             this.gbControl = new System.Windows.Forms.GroupBox();
+            this.adgvList = new System.Windows.Forms.DataGridView();
             this.gbArticleTitle.SuspendLayout();
             this.dgvList.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.adgvList)).BeginInit();
             this.gbControl.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.adgvList)).BeginInit();
             this.SuspendLayout();
             // 
             // gbArticleTitle
@@ -80,17 +80,6 @@
             this.dgvList.TabStop = false;
             this.dgvList.Text = "Danh sách";
             // 
-            // adgvList
-            // 
-            this.adgvList.AutoGenerateContextFilters = true;
-            this.adgvList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.adgvList.DateWithTime = false;
-            this.adgvList.Location = new System.Drawing.Point(7, 26);
-            this.adgvList.Name = "adgvList";
-            this.adgvList.Size = new System.Drawing.Size(762, 270);
-            this.adgvList.TabIndex = 0;
-            this.adgvList.TimeFilter = false;
-            // 
             // btnSave
             // 
             this.btnSave.Location = new System.Drawing.Point(7, 26);
@@ -110,6 +99,14 @@
             this.gbControl.TabStop = false;
             this.gbControl.Text = "Thao tác";
             // 
+            // adgvList
+            // 
+            this.adgvList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.adgvList.Location = new System.Drawing.Point(1, 26);
+            this.adgvList.Name = "adgvList";
+            this.adgvList.Size = new System.Drawing.Size(775, 270);
+            this.adgvList.TabIndex = 0;
+            // 
             // AddTSForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -122,8 +119,8 @@
             this.Text = "Nhập tin thời sự";
             this.gbArticleTitle.ResumeLayout(false);
             this.dgvList.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.adgvList)).EndInit();
             this.gbControl.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.adgvList)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -134,8 +131,8 @@
         private System.Windows.Forms.Button btnAddArticle;
         private System.Windows.Forms.ComboBox cbTitle;
         private System.Windows.Forms.GroupBox dgvList;
-        private ADGV.AdvancedDataGridView adgvList;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.GroupBox gbControl;
+        private System.Windows.Forms.DataGridView adgvList;
     }
 }

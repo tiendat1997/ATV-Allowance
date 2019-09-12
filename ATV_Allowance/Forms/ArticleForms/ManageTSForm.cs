@@ -23,19 +23,26 @@ namespace ATV_Allowance.Forms.ArticleForms
         private int empId = -1;
         private IArticleService articleService;
         private IEmployeeService employeeService;
-        private BindingSource bs = null;        
+        private BindingSource bs = null;
+        private ArticleViewModel model = null;
 
         public ManageTSForm()
         {
             InitializeComponent();
             LoadDGV();
+        }        
+        private void RemoveTimePortion()
+        {
+            fromDate = new DateTime(fromDate.Year, fromDate.Month, fromDate.Day);
+            toDate = new DateTime(toDate.Year, toDate.Month, toDate.Day);
         }
         private void LoadDGV()
         {
             try
             {
+                RemoveTimePortion();
                 articleService = new ArticleService();
-                bs = new BindingSource();           
+                bs = new BindingSource();                         
                 var list = articleService.GetArticle(articleType, fromDate, toDate, empId);                                 
                 SortableBindingList<ArticleViewModel> sbl = new SortableBindingList<ArticleViewModel>(list);
                 bs.DataSource = sbl;
@@ -116,6 +123,21 @@ namespace ATV_Allowance.Forms.ArticleForms
         private void AddTSForm_Closed(object sender, FormClosedEventArgs e)
         {
             LoadDGV();
+        }
+
+        private void adgvList_SelectionChanged(object sender, EventArgs e)
+        {
+            model = (ArticleViewModel)adgvList.CurrentRow.DataBoundItem;
+        }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            if (model != null)
+            {
+                AddTSForm form = new AddTSForm(model, articleType);
+                form.FormClosed += new FormClosedEventHandler(AddTSForm_Closed);
+                form.ShowDialog();
+            }
         }
     }
 }
