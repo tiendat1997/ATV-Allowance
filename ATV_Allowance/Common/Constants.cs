@@ -103,9 +103,9 @@
         public static class EmployeeRole
         {
             public static int PV = 1;
-            public static int PTV = 2;
-            public static int CTV = 3;
-            public static int BT = 4;
+            public static int BTV = 2;
+            public static int PTV = 3;
+            public static int CTV = 4;
         }
 
         public static class ReportType
