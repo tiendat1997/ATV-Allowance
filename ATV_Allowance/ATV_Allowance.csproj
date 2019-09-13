@@ -69,11 +69,17 @@
     <Compile Include="Common\PropertyComparer.cs" />
     <Compile Include="Common\Session.cs" />
     <Compile Include="Common\Ultilities.cs" />
-    <Compile Include="Forms\ArticleForms\AddTSForm.cs">
+    <Compile Include="Forms\ArticleForms\AddArticleForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\ArticleForms\AddTSForm.Designer.cs">
-      <DependentUpon>AddTSForm.cs</DependentUpon>
+    <Compile Include="Forms\ArticleForms\AddArticleForm.Designer.cs">
+      <DependentUpon>AddArticleForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ArticleForms\EditTSForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ArticleForms\EditTSForm.Designer.cs">
+      <DependentUpon>EditTSForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\ArticleForms\ManageTSForm.cs">
       <SubType>Form</SubType>
@@ -110,6 +116,12 @@
     </Compile>
     <Compile Include="Forms\EmployeeForms\ListEmployeeForm.Designer.cs">
       <DependentUpon>ListEmployeeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Report\ReportBroadcastForm.cs">
       <SubType>Form</SubType>
@@ -163,8 +175,11 @@
     <Compile Include="ViewModel\OrganizationViewModel.cs" />
     <Compile Include="ViewModel\PointTypeViewModel.cs" />
     <Compile Include="ViewModel\PointViewModel.cs" />
-    <EmbeddedResource Include="Forms\ArticleForms\AddTSForm.resx">
-      <DependentUpon>AddTSForm.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\ArticleForms\AddArticleForm.resx">
+      <DependentUpon>AddArticleForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ArticleForms\EditTSForm.resx">
+      <DependentUpon>EditTSForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ArticleForms\ManageTSForm.resx">
       <DependentUpon>ManageTSForm.cs</DependentUpon>
@@ -174,6 +189,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\CommonForms\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Report\ReportBroadcastForm.resx">
       <DependentUpon>ReportBroadcastForm.cs</DependentUpon>

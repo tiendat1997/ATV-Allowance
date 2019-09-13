@@ -1,6 +1,6 @@
 ﻿namespace ATV_Allowance.Forms.ArticleForms
 {
-    partial class AddTSForm
+    partial class EditTSForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,46 +29,36 @@
         private void InitializeComponent()
         {            
             this.gbArticleTitle = new System.Windows.Forms.GroupBox();
-            this.btnAddArticle = new System.Windows.Forms.Button();
-            this.cbTitle = new System.Windows.Forms.ComboBox();
+            this.txtDate = new System.Windows.Forms.TextBox();
             this.dgvList = new System.Windows.Forms.GroupBox();
+            this.adgvList = new System.Windows.Forms.DataGridView();
             this.btnSave = new System.Windows.Forms.Button();
             this.gbControl = new System.Windows.Forms.GroupBox();
-            this.adgvList = new System.Windows.Forms.DataGridView();
+            this.txtTitle = new System.Windows.Forms.TextBox();
             this.gbArticleTitle.SuspendLayout();
             this.dgvList.SuspendLayout();
-            this.gbControl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.adgvList)).BeginInit();
+            this.gbControl.SuspendLayout();
             this.SuspendLayout();
             // 
             // gbArticleTitle
             // 
-            this.gbArticleTitle.Controls.Add(this.btnAddArticle);
-            this.gbArticleTitle.Controls.Add(this.cbTitle);
+            this.gbArticleTitle.Controls.Add(this.txtTitle);
+            this.gbArticleTitle.Controls.Add(this.txtDate);
             this.gbArticleTitle.Location = new System.Drawing.Point(13, 12);
             this.gbArticleTitle.Name = "gbArticleTitle";
             this.gbArticleTitle.Size = new System.Drawing.Size(775, 56);
             this.gbArticleTitle.TabIndex = 0;
             this.gbArticleTitle.TabStop = false;
-            this.gbArticleTitle.Text = "Tìm kiếm";
+            this.gbArticleTitle.Text = "Tiêu đề";
             // 
-            // btnAddArticle
+            // txtDate
             // 
-            this.btnAddArticle.Location = new System.Drawing.Point(676, 22);
-            this.btnAddArticle.Name = "btnAddArticle";
-            this.btnAddArticle.Size = new System.Drawing.Size(93, 28);
-            this.btnAddArticle.TabIndex = 1;
-            this.btnAddArticle.Text = "Thêm tin";
-            this.btnAddArticle.UseVisualStyleBackColor = true;
-            this.btnAddArticle.Click += new System.EventHandler(this.btnAddArticle_Click);
-            // 
-            // cbTitle
-            // 
-            this.cbTitle.FormattingEnabled = true;
-            this.cbTitle.Location = new System.Drawing.Point(6, 22);
-            this.cbTitle.Name = "cbTitle";
-            this.cbTitle.Size = new System.Drawing.Size(630, 28);
-            this.cbTitle.TabIndex = 0;
+            this.txtDate.Enabled = false;
+            this.txtDate.Location = new System.Drawing.Point(650, 22);
+            this.txtDate.Name = "txtDate";
+            this.txtDate.Size = new System.Drawing.Size(119, 26);
+            this.txtDate.TabIndex = 1;
             // 
             // dgvList
             // 
@@ -79,6 +69,15 @@
             this.dgvList.TabIndex = 1;
             this.dgvList.TabStop = false;
             this.dgvList.Text = "Danh sách";
+            // 
+            // adgvList
+            // 
+            this.adgvList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.adgvList.Location = new System.Drawing.Point(1, 26);
+            this.adgvList.Name = "adgvList";
+            this.adgvList.Size = new System.Drawing.Size(775, 270);
+            this.adgvList.TabIndex = 0;
+            this.adgvList.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.adgvList_EditingControlShowing);
             // 
             // btnSave
             // 
@@ -99,15 +98,14 @@
             this.gbControl.TabStop = false;
             this.gbControl.Text = "Thao tác";
             // 
-            // adgvList
+            // txtTitle
             // 
-            this.adgvList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.adgvList.Location = new System.Drawing.Point(1, 26);
-            this.adgvList.Name = "adgvList";
-            this.adgvList.Size = new System.Drawing.Size(775, 270);
-            this.adgvList.TabIndex = 0;
+            this.txtTitle.Location = new System.Drawing.Point(7, 22);
+            this.txtTitle.Name = "txtTitle";
+            this.txtTitle.Size = new System.Drawing.Size(606, 26);
+            this.txtTitle.TabIndex = 2;
             // 
-            // AddTSForm
+            // EditTSForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -115,12 +113,14 @@
             this.Controls.Add(this.gbControl);
             this.Controls.Add(this.dgvList);
             this.Controls.Add(this.gbArticleTitle);
-            this.Name = "AddTSForm";
+            this.Name = "EditTSForm";
             this.Text = "Nhập tin thời sự";
+            this.Load += new System.EventHandler(this.EditTSForm_Load);
             this.gbArticleTitle.ResumeLayout(false);
+            this.gbArticleTitle.PerformLayout();
             this.dgvList.ResumeLayout(false);
-            this.gbControl.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.adgvList)).EndInit();
+            this.gbControl.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -128,11 +128,11 @@
         #endregion
 
         private System.Windows.Forms.GroupBox gbArticleTitle;
-        private System.Windows.Forms.Button btnAddArticle;
-        private System.Windows.Forms.ComboBox cbTitle;
         private System.Windows.Forms.GroupBox dgvList;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.GroupBox gbControl;
         private System.Windows.Forms.DataGridView adgvList;
+        private System.Windows.Forms.TextBox txtDate;
+        private System.Windows.Forms.TextBox txtTitle;
     }
 }

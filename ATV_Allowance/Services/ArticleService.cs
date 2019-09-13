@@ -1,4 +1,5 @@
 ﻿using ATV_Allowance.ViewModel;
+using DataService.Entity;
 using DataService.Repository;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ namespace ATV_Allowance.Services
 {
     public interface IArticleService
     {
+        void AddArticle(Article article);
         List<ArticleViewModel> GetArticle(int typeId, DateTime fromDate, DateTime toDate, int employeeId);
         List<ArticleEmployeeViewModel> GetArticleEmployee(int articleId);
     }
@@ -26,6 +28,11 @@ namespace ATV_Allowance.Services
             pointRepository = new PointRepository();
         }
 
+        public void AddArticle(Article article)
+        {
+            articleRepository.Add(article);
+        }
+
         public List<ArticleViewModel> GetArticle(int typeId, DateTime fromDate, DateTime toDate, int employeeId)
         {
             var articles = articleRepository
@@ -38,9 +45,7 @@ namespace ATV_Allowance.Services
                                     Date = t.Date.ToShortDateString(),
                                     Title = t.Title,
                                     TypeId = t.TypeId 
-                                }).ToList();
-
-            //(employeeId <= 0 || t.ArticleEmployee.Any(e => e.EmployeeId.Equals(employeeId))
+                                }).ToList();            
             return articles;
         }
 

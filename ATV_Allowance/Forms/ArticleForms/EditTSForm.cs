@@ -19,41 +19,32 @@ using static ATV_Allowance.Common.Constants;
 
 namespace ATV_Allowance.Forms.ArticleForms
 {
-    public partial class AddTSForm : CommonForm
+    public partial class EditTSForm : CommonForm
     {
         private BindingSource bs = null;
         private ArticleViewModel article;
         private int articleTypeId;
         private IArticleService articleService;
         private IPointTypeService pointTypeService;
+        private IEmployeeService employeeService;
         private System.Windows.Forms.ErrorProvider epArticleTitle;
         internal Dictionary<Control, ErrorProvider> epDic;
 
-
-        public AddTSForm(ArticleViewModel model, int articleTypeId)
+        public EditTSForm(ArticleViewModel model, int articleTypeId)
         {
             InitializeComponent();
             this.components = new System.ComponentModel.Container();
             InitializeErrorProvider();
             this.articleTypeId = articleTypeId;
-            this.article = model;
-            btnAddArticle.Enabled = false;
+            this.article = model;            
             LoadDGV();
         }
-        public AddTSForm(int articleTypeId)
-        {
-            InitializeComponent();
-            this.components = new System.ComponentModel.Container();
-            InitializeErrorProvider();
-            this.articleTypeId = articleTypeId;
-            btnAddArticle.Enabled = true;
-            LoadDGV();
-        }
+        
         private void InitializeErrorProvider()
         {
             epDic = new Dictionary<Control, ErrorProvider>();
             epArticleTitle = new System.Windows.Forms.ErrorProvider(components);
-            epDic.Add(cbTitle, epArticleTitle);
+            epDic.Add(txtTitle, epArticleTitle);
         }
         private void InvisiblePointType()
         {
@@ -77,26 +68,38 @@ namespace ATV_Allowance.Forms.ArticleForms
             {
                 pointTypeService = new PointTypeService();
                 articleService = new ArticleService();
+                employeeService = new EmployeeService();
                 var listPointType = pointTypeService.GetPointType(articleTypeId);
                 List<ArticleEmployeeViewModel> list = articleService.GetArticleEmployee(article.Id);
-                var bindList = new BindingList<ArticleEmployeeViewModel>(list);                         
+                var bindList = new BindingList<ArticleEmployeeViewModel>(list);
                 adgvList.DataSource = bindList;
 
                 adgvList.Columns["Id"].Visible = false;
                 adgvList.Columns["EmployeeId"].Visible = false;
-                adgvList.Columns["Code"].Visible = true;
+                adgvList.Columns["Code"].Visible = false;
                 adgvList.Columns["Name"].Visible = true;
 
                 adgvList.Columns["Code"].HeaderText = ADGVEmployeeText.Code;
-                adgvList.Columns["Code"].Width = ControlsAttribute.GV_WIDTH_NORMAL;
+                adgvList.Columns["Code"].Width = ControlsAttribute.GV_WIDTH_SEEM;
                 adgvList.Columns["Name"].HeaderText = ADGVEmployeeText.Name;
-                adgvList.Columns["Name"].Width = ControlsAttribute.GV_WIDTH_MEDIUM;
+                adgvList.Columns["Name"].Width = ControlsAttribute.GV_WIDTH_LARGE;
+
+                DataGridViewComboBoxColumn cmbCol = new DataGridViewComboBoxColumn();
+                cmbCol.HeaderText = ADGVEmployeeText.Code;
+                cmbCol.DisplayMember = "Code";
+                cmbCol.ValueMember = "Id";                
+                cmbCol.Name = "MyComboColumn";
+                cmbCol.Items.Add("True");
+                cmbCol.DataSource = employeeService.GetAllActive(true);
+                adgvList.Columns.Add(cmbCol);
+                adgvList.Columns["MyComboColumn"].DisplayIndex = 2;      
 
                 InvisiblePointType();
                 foreach (var type in listPointType)
                 {
                     adgvList.Columns[type.Code].Visible = true;
                     adgvList.Columns[type.Code].HeaderText = type.Code;
+                    adgvList.Columns[type.Code].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 }
             }
             catch (Exception ex)
@@ -108,6 +111,7 @@ namespace ATV_Allowance.Forms.ArticleForms
             {
                 pointTypeService = null;
                 articleService = null;
+                employeeService = null;
             }
         }
 
@@ -129,7 +133,7 @@ namespace ATV_Allowance.Forms.ArticleForms
                 articleService = new ArticleService();
                 Article article = new Article
                 {
-                    Title = cbTitle.Text
+                    Title = txtTitle.Text
                 };
                 bool result = btnAddArticle_Validate(article);
                 if (result)
@@ -146,6 +150,23 @@ namespace ATV_Allowance.Forms.ArticleForms
             {
 
             }
+        }
+
+        private void adgvList_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            var comboBox = e.Control as DataGridViewComboBoxEditingControl;
+            if (comboBox != null)
+            {
+                comboBox.DropDownStyle = ComboBoxStyle.DropDown;                
+                comboBox.AutoCompleteMode = AutoCompleteMode.Suggest;
+                comboBox.AutoCompleteSource = AutoCompleteSource.ListItems;
+            }
+        }
+
+        private void EditTSForm_Load(object sender, EventArgs e)
+        {
+            txtTitle.Text = article.Title;
+            txtDate.Text = article.Date;
         }
     }
 }
