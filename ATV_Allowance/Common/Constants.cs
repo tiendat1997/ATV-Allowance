@@ -39,6 +39,7 @@
             public static string Code = "Mã NV";
             public static string Name = "Họ và tên";
             public static string Position = "Chức danh";
+            public static string AbbrPosition = "Ch/D";
             public static string Organization = "Đơn vị";
         }
 

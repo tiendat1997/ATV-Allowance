@@ -29,7 +29,7 @@ namespace ATV_Allowance.Forms.ArticleForms
 
         public ManageTSForm()
         {
-            InitializeComponent();
+            InitializeComponent();               
             LoadDGV();
         }
         private void RemoveTimePortion()
@@ -105,7 +105,7 @@ namespace ATV_Allowance.Forms.ArticleForms
 
         private void dtpEndDate_ValueChanged(object sender, EventArgs e)
         {
-            toDate = dtpStartDate.Value;
+            toDate = dtpEndDate.Value;
             LoadDGV();
         }
 

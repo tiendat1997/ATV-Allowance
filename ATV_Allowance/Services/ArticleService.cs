@@ -53,11 +53,13 @@ namespace ATV_Allowance.Services
         {
             var artEmps = articleEmployeeRepository
                         .GetMany(e => e.ArticleId == articleId)
-                        .Select(t => new ArticleEmployeeViewModel{
+                        .Select(t => new ArticleEmployeeViewModel {
                             Id = t.Id,
                             EmployeeId = t.Employee.Id,
                             Code = t.Employee.Code,
-                            Name = t.Employee.Name
+                            Name = t.Employee.Name,
+                            Position = t.Employee.Position.Code,
+                            Organization = t.Employee.Organization.Name
                         }).ToList();
 
             foreach (var artEmp in artEmps)

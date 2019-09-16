@@ -12,6 +12,8 @@ namespace ATV_Allowance.ViewModel
         public int EmployeeId { get; set; }
         public string Code { get; set; }
         public string Name { get; set; }
+        public string Position { get; set; }
+        public string Organization { get; set; }        
         public int Tin { get; set; }
         public int PS { get; set; }
         public int QTin { get; set; }
