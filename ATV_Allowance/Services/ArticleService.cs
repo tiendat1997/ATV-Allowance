@@ -20,7 +20,7 @@ namespace ATV_Allowance.Services
     {
         private readonly IArticleEmployeeRepository articleEmployeeRepository;
         private readonly IArticleRepository articleRepository;
-        private readonly IPointRepository pointRepository;
+        private readonly IPointRepository pointRepository;       
         public ArticleService()
         {
             articleRepository = new ArticleRepository();
