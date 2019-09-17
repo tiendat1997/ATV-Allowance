@@ -34,6 +34,7 @@ namespace ATV_Allowance.Forms.ArticleForms
         private List<PointTypeViewModel> listPointType;
         internal Dictionary<Control, ErrorProvider> epDic;
         private bool newRowNeeded = false;
+        private bool afterLoad = false;
 
 
         public EditTSForm(ArticleViewModel model, int articleTypeId)
@@ -75,11 +76,13 @@ namespace ATV_Allowance.Forms.ArticleForms
                 pointTypeService = new PointTypeService();
                 articleService = new ArticleService();
                 employeeService = new EmployeeService();
+                bs = new BindingSource();
                 listPointType = pointTypeService.GetPointType(articleTypeId);
                 empList = employeeService.GetAllActive(true);
                 List<ArticleEmployeeViewModel> list = articleService.GetArticleEmployee(article.Id);
                 var bindList = new BindingList<ArticleEmployeeViewModel>(list);
-                adgvList.DataSource = bindList;
+                bs.DataSource = bindList;
+                adgvList.DataSource = bs;
 
                 adgvList.Columns["Id"].Visible = false;
                 adgvList.Columns["EmployeeId"].Visible = false;
@@ -100,16 +103,16 @@ namespace ATV_Allowance.Forms.ArticleForms
                 adgvList.Columns["Organization"].HeaderText = ADGVEmployeeText.Organization;
                 adgvList.Columns["Organization"].Width = ControlsAttribute.GV_WIDTH_LARGE;
 
+
                 DataGridViewComboBoxColumn cmbCol = new DataGridViewComboBoxColumn();
                 cmbCol.HeaderText = ADGVEmployeeText.Code;
                 cmbCol.DisplayMember = "Code";
                 cmbCol.ValueMember = "Id";
                 cmbCol.Name = "CbEmployeeColumn";
-                cmbCol.Items.Add("True");
                 cmbCol.DataSource = empList;
                 adgvList.Columns.Add(cmbCol);
                 adgvList.Columns["CbEmployeeColumn"].DisplayIndex = 2;
-
+               
                 InvisiblePointType();
                 foreach (var type in listPointType)
                 {
@@ -117,7 +120,7 @@ namespace ATV_Allowance.Forms.ArticleForms
                     adgvList.Columns[type.Code].HeaderText = type.Code;
                     adgvList.Columns[type.Code].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 }
-                adgvList.EditingControlShowing += new DataGridViewEditingControlShowingEventHandler(adgvList_EditingControlShowing);
+                adgvList.EditingControlShowing += new DataGridViewEditingControlShowingEventHandler(adgvList_EditingControlShowing);                                
             }
             catch (Exception ex)
             {
@@ -129,6 +132,7 @@ namespace ATV_Allowance.Forms.ArticleForms
                 pointTypeService = null;
                 articleService = null;
                 employeeService = null;
+                afterLoad = true;
             }
         }
 
@@ -180,7 +184,6 @@ namespace ATV_Allowance.Forms.ArticleForms
                 comboBox.SelectionChangeCommitted += SelectionChangeCommitted;
                 comboBox.KeyDown -= new KeyEventHandler(KeyDown);
                 comboBox.KeyDown += new KeyEventHandler(KeyDown);
-
                 comboBox.SelectedIndex = 0;
             }
         }
@@ -217,7 +220,31 @@ namespace ATV_Allowance.Forms.ArticleForms
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            List<ArticleEmployeeViewModel> emps = ((IEnumerable)adgvList.DataSource).OfType<ArticleEmployeeViewModel>().ToList();
+            try
+            {
+                articleService = new ArticleService();
+                // validation            
+                if (string.IsNullOrEmpty(txtTitle.Text))
+                {
+                    epArticleTitle.SetError(txtTitle, "Vui lòng nhập tiêu đề tin");
+                }
+                else
+                {
+                    epArticleTitle.SetError(txtTitle, "");
+                    article.Title = txtTitle.Text;
+                    articleService.UpdateArticle(article);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+            finally
+            {
+                articleService = null;
+            }
+            
         }
 
         private void adgvList_RowValidating(object sender, DataGridViewCellCancelEventArgs e)
@@ -261,18 +288,53 @@ namespace ATV_Allowance.Forms.ArticleForms
 
         private void adgvList_RowValidated(object sender, DataGridViewCellEventArgs e)
         {
-            ArticleEmployeeViewModel articleEmployee = (ArticleEmployeeViewModel)adgvList.CurrentRow.DataBoundItem;            
-            if (articleEmployee != null)
+            if (afterLoad == true)
             {
-                if (articleEmployee.Id == 0)
+                afterLoad = false;
+                return;
+            }
+            try
+            {
+                articleService = new ArticleService();
+                ArticleEmployeeViewModel articleEmployee = (ArticleEmployeeViewModel)adgvList.CurrentRow.DataBoundItem;
+                if (articleEmployee != null)
                 {
-                    MessageBox.Show("Add");
+                    if (articleEmployee.Id == 0) // Add new records 
+                    {
+                        articleEmployee.ArticleId = article.Id;
+                        articleService.AddLArticleEmployeeTS(articleEmployee);
+                    }
+                    else
+                    {
+                        articleService.UpdateArticleEmployeeTS(articleEmployee);
+                    }
                 }
-                else
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                articleService = null;
+            }
+        }
+
+        private void adgvList_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.ColumnIndex == 0) //Index of your DataGridViewComboBoxColumn 
+            {
+                if (adgvList.Rows[e.RowIndex].IsNewRow == false)
                 {
-                    MessageBox.Show("Update");
+                    var data = (ArticleEmployeeViewModel)adgvList.Rows[e.RowIndex].DataBoundItem;
+                    e.Value = data.Code;
                 }
-            }            
+            }
+        }
+
+        private void adgvList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            adgvList.Rows[0].Selected = true;            
         }
     }
 }

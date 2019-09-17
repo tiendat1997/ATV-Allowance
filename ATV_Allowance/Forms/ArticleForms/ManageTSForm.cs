@@ -148,9 +148,9 @@ namespace ATV_Allowance.Forms.ArticleForms
         {
             int rowIndex = adgvList.CurrentRow.Index;
             LoadDGV();
-            adgvList.ClearSelection();
-            adgvList.Rows[rowIndex].Selected = true;
-            adgvList.CurrentCell = adgvList.Rows[rowIndex].Cells[1];
+            //adgvList.ClearSelection();
+            //adgvList.Rows[rowIndex].Selected = true;
+            //adgvList.CurrentCell = adgvList.Rows[rowIndex].Cells[1];
         }
 
         private void adgvList_SelectionChanged(object sender, EventArgs e)

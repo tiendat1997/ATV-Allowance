@@ -124,8 +124,25 @@
             Tlt = 4,
             SD = 5,
             CD_CM = 6
-
         }
+
+        public static class PointType_ThoiSu
+        {
+            public static int Tin = 1;
+            public static int PS = 2;
+            public static int QTin = 3;
+            public static int QPs = 4;
+        }
+
+//Pv_Pb
+//Tlt
+//Sd
+//Cd_Cm
+//Bai
+//TTh_Gnh
+//CDe
+//Bs_DCT
+//Bt_Dd
 
 
         #region Controls

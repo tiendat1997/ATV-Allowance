@@ -9,6 +9,6 @@ namespace ATV_Allowance.ViewModel
     public class PointViewModel
     {
         public string Code { get; set; }
-        public double? Point { get; set; }
+        public int? Point { get; set; }
     }
 }
