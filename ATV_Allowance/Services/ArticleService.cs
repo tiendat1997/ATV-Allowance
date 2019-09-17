@@ -41,12 +41,20 @@ namespace ATV_Allowance.Services
         // Tin thời sự
         public void AddLArticleEmployeeTS(ArticleEmployeeViewModel model) 
         {
-            ArticleEmployee articleEmp = new ArticleEmployee()
+            var existed = articleEmployeeRepository.GetMany(e => e.ArticleId == model.ArticleId && e.EmployeeId == model.EmployeeId).FirstOrDefault();
+            if (existed != null)
             {
-                ArticleId = model.ArticleId,
-                EmployeeId = model.EmployeeId                                
-            };
-            articleEmp.Point = new List<Point>
+                model.Id = existed.Id;
+                UpdateArticleEmployeeTS(model);
+            }
+            else
+            {
+                ArticleEmployee articleEmp = new ArticleEmployee()
+                {
+                    ArticleId = model.ArticleId,
+                    EmployeeId = model.EmployeeId
+                };
+                articleEmp.Point = new List<Point>
             {
                 new Point
                 {
@@ -68,8 +76,9 @@ namespace ATV_Allowance.Services
                     Type = PointType_ThoiSu.QPs,
                     Point1 = model.QPs
                 }
-            };            
-            articleEmployeeRepository.Add(articleEmp);            
+            };
+                articleEmployeeRepository.Add(articleEmp);
+            }                     
         }
 
         public List<ArticleViewModel> GetArticle(int typeId, DateTime fromDate, DateTime toDate, int employeeId)

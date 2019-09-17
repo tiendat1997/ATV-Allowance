@@ -32,11 +32,7 @@ namespace ATV_Allowance.Forms.ArticleForms
         private ComboBox comboBox;
         private List<EmployeeViewModel> empList;
         private List<PointTypeViewModel> listPointType;
-        internal Dictionary<Control, ErrorProvider> epDic;
-        private bool newRowNeeded = false;
-        private bool afterLoad = false;
-
-
+        internal Dictionary<Control, ErrorProvider> epDic;               
         public EditTSForm(ArticleViewModel model, int articleTypeId)
         {
             InitializeComponent();
@@ -132,7 +128,6 @@ namespace ATV_Allowance.Forms.ArticleForms
                 pointTypeService = null;
                 articleService = null;
                 employeeService = null;
-                afterLoad = true;
             }
         }
 
@@ -287,12 +282,7 @@ namespace ATV_Allowance.Forms.ArticleForms
         }
 
         private void adgvList_RowValidated(object sender, DataGridViewCellEventArgs e)
-        {
-            if (afterLoad == true)
-            {
-                afterLoad = false;
-                return;
-            }
+        {           
             try
             {
                 articleService = new ArticleService();
@@ -330,11 +320,6 @@ namespace ATV_Allowance.Forms.ArticleForms
                     e.Value = data.Code;
                 }
             }
-        }
-
-        private void adgvList_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
-        {
-            adgvList.Rows[0].Selected = true;            
-        }
+        }    
     }
 }
