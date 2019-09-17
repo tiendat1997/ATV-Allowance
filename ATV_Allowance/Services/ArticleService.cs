@@ -19,6 +19,7 @@ namespace ATV_Allowance.Services
         void AddLArticleEmployeeTS(ArticleEmployeeViewModel model);
         void UpdateArticleEmployeeTS(ArticleEmployeeViewModel model);
         void UpdateArticle(ArticleViewModel model);
+        void RemoveArticleEmployee(ArticleEmployeeViewModel model);
     }
     public class ArticleService : IArticleService
     {
@@ -126,6 +127,20 @@ namespace ATV_Allowance.Services
             return artEmps;
         }
 
+        public void RemoveArticleEmployee(ArticleEmployeeViewModel model)
+        {
+            var listPoints = pointRepository.GetMany(t => t.ArticleEmployeeId == model.Id).ToList();
+            foreach (var point in listPoints)
+            {
+                pointRepository.Delete(point);
+            }
+            var articleEmployee = articleEmployeeRepository.GetById(model.Id);
+            if (articleEmployee != null)
+            {
+                articleEmployeeRepository.Delete(articleEmployee);
+            }            
+        }
+
         public void UpdateArticle(ArticleViewModel model)
         {
             Article article = articleRepository.GetById(model.Id);
@@ -139,12 +154,15 @@ namespace ATV_Allowance.Services
         //public int QPs { get; set; }
         public void UpdateArticleEmployeeTS(ArticleEmployeeViewModel model)
         {
-            var articleEmp = articleEmployeeRepository.GetById(model.Id);        
-            articleEmp.Point.First(t => t.Type == PointType_ThoiSu.Tin).Point1 = model.Tin;            
-            articleEmp.Point.First(t => t.Type == PointType_ThoiSu.PS).Point1 = model.PS;            
-            articleEmp.Point.First(t => t.Type == PointType_ThoiSu.QTin).Point1 = model.QTin;
-            articleEmp.Point.First(t => t.Type == PointType_ThoiSu.QPs).Point1 = model.QPs;            
-            articleEmployeeRepository.Update(articleEmp);
+            var articleEmp = articleEmployeeRepository.GetById(model.Id);    
+            if (articleEmp != null) // DELETED 
+            {
+                articleEmp.Point.First(t => t.Type == PointType_ThoiSu.Tin).Point1 = model.Tin;
+                articleEmp.Point.First(t => t.Type == PointType_ThoiSu.PS).Point1 = model.PS;
+                articleEmp.Point.First(t => t.Type == PointType_ThoiSu.QTin).Point1 = model.QTin;
+                articleEmp.Point.First(t => t.Type == PointType_ThoiSu.QPs).Point1 = model.QPs;
+                articleEmployeeRepository.Update(articleEmp);
+            }            
         }
     }
 }

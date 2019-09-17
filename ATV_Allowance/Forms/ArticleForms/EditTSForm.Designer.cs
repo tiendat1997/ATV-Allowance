@@ -30,11 +30,11 @@
         {            
             this.components = new System.ComponentModel.Container();
             this.gbArticleTitle = new System.Windows.Forms.GroupBox();
+            this.btnSave = new System.Windows.Forms.Button();
             this.txtTitle = new System.Windows.Forms.TextBox();
             this.txtDate = new System.Windows.Forms.TextBox();
             this.gbList = new System.Windows.Forms.GroupBox();
             this.adgvList = new System.Windows.Forms.DataGridView();
-            this.btnSave = new System.Windows.Forms.Button();
             this.epTitle = new System.Windows.Forms.ErrorProvider(this.components);
             this.gbArticleTitle.SuspendLayout();
             this.gbList.SuspendLayout();
@@ -53,6 +53,16 @@
             this.gbArticleTitle.TabIndex = 0;
             this.gbArticleTitle.TabStop = false;
             this.gbArticleTitle.Text = "Tiêu đề";
+            // 
+            // btnSave
+            // 
+            this.btnSave.Location = new System.Drawing.Point(857, 20);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(156, 30);
+            this.btnSave.TabIndex = 0;
+            this.btnSave.Text = "Lưu";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // txtTitle
             // 
@@ -91,16 +101,8 @@
             this.adgvList.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.adgvList_EditingControlShowing);
             this.adgvList.RowValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.adgvList_RowValidated);
             this.adgvList.RowValidating += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.adgvList_RowValidating);
-            // 
-            // btnSave
-            // 
-            this.btnSave.Location = new System.Drawing.Point(857, 20);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(156, 30);
-            this.btnSave.TabIndex = 0;
-            this.btnSave.Text = "Lưu";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            this.adgvList.UserDeletedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.adgvList_UserDeletedRow);
+            this.adgvList.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.adgvList_UserDeletingRow);
             // 
             // epTitle
             // 

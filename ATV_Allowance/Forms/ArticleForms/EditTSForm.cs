@@ -320,6 +320,33 @@ namespace ATV_Allowance.Forms.ArticleForms
                     e.Value = data.Code;
                 }
             }
-        }    
+        }      
+        private void adgvList_UserDeletedRow(object sender, DataGridViewRowEventArgs e)
+        {           
+        }
+
+        private void adgvList_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        {
+            try
+            {
+                articleService = new ArticleService();
+                if (adgvList.CurrentRow.IsNewRow == false)
+                {
+                    ArticleEmployeeViewModel articleEmployee = (ArticleEmployeeViewModel)adgvList.CurrentRow.DataBoundItem;
+                    if (articleEmployee != null && articleEmployee.Id > 0)
+                    {
+                        articleService.RemoveArticleEmployee(articleEmployee);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                articleService = null;
+            }
+        }
     }
 }
