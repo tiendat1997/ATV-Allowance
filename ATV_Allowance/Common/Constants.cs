@@ -115,6 +115,12 @@
             public static int TS = 3;
         }
 
+        public static class Unit
+        {
+            public static int Percent = 1;
+            public static int Point = 2;
+        }
+
         public enum PointType
         {
             Tin = 1,

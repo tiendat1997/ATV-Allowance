@@ -13,6 +13,7 @@ using System.Text.RegularExpressions;
 using ATV_Allowance.Forms.OrganizationForms;
 using ATV_Allowance.Forms.ArticleForms;
 using ATV_Allowance.Forms.Report;
+using ATV_Allowance.Forms.CriteriaForms;
 
 namespace ATV_Allowance.Common
 {
@@ -234,6 +235,10 @@ namespace ATV_Allowance.Common
                     case "Quản lý đơn vị":
                         ListOrganizationForm listOrgForm = new ListOrganizationForm();
                         form = (Form)listOrgForm;
+                        break;
+                    case "Quản lý chỉ tiêu":
+                        ListCriteriaForm listCriteriaForm = new ListCriteriaForm();
+                        form = (Form)listCriteriaForm;
                         break;
                     case "Logout":
                         Session.Logout();
