@@ -18,10 +18,11 @@ namespace ATV_Allowance.Forms.CriteriaForms
             InitializeComponent();
         }
 
-        public ACriteriaTemplate(string name, double value, int unit)
+        public ACriteriaTemplate(int criteriaId, string name, double value, int unit)
         {   
             InitializeComponent();
             this.CriteriaName.Text = name;
+            this.CriteriaName.Tag = criteriaId;
             this.CriteriaValue.Text = value.ToString();
             if (unit == Unit.Percent)
             {
@@ -36,5 +37,15 @@ namespace ATV_Allowance.Forms.CriteriaForms
                 this.CriteriaUnit.Text = "";
             }
         }
+
+        public int GetCriteriaId() {
+            return (int)this.CriteriaName.Tag;
+        }
+
+        public double GetValue()
+        {
+            return Double.Parse(this.CriteriaValue.Text);
+        }
+
     }
 }

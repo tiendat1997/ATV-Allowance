@@ -1,4 +1,5 @@
 ﻿using ATV_Allowance.ViewModel;
+using DataService.Entity;
 using DataService.Repository;
 using System;
 using System.Collections.Generic;
@@ -13,18 +14,20 @@ namespace ATV_Allowance.Services
     {
         List<CriteriaViewModel> GetCriterias(int month, int year);
         List<List<CriteriaViewModel>> GetCriterias(int year);
-        void UpdateCriterias(List<CriteriaViewModel> criterias);
+        void UpdateCriterias(List<CriteriaViewModel> criterias, int month, int year);
     }
 
     public class CriteriaService : ICriteriaService
     {
         private ICriteriaValueRepository criteriaValueRepository;
         private ICriteriaRepository criteriaRepository;
+        private IConfigurationRepository configurationRepository;
 
         public CriteriaService()
         {
             criteriaValueRepository = new CriteriaValueRepository();
             criteriaRepository = new CriteriaRepository();
+            configurationRepository = new ConfigurationRepository();
         }
 
         public List<CriteriaViewModel> GetCriterias(int month, int year)
@@ -34,7 +37,7 @@ namespace ATV_Allowance.Services
                 ID = c.Id,
                 Name = c.Criteria.DisplayName,
                 Value = c.Value.Value,
-                Unit = c.Unit.Value,
+                Unit = c.Unit.HasValue ? c.Unit.Value : 1,
                 CriteriaId = c.CriteriaId.Value
             })
             .OrderBy(c => c.CriteriaId)
@@ -68,8 +71,42 @@ namespace ATV_Allowance.Services
             return result;
         }
 
-        public void UpdateCriterias(List<CriteriaViewModel> criterias)
+        public void UpdateCriterias(List<CriteriaViewModel> criterias, int month, int year)
         {
+            var configuation = configurationRepository.Get(c => c.Year == year && c.Month == month).FirstOrDefault();
+            if (configuation == null)
+            {
+                configurationRepository.Add(new Configuration
+                {
+                    Month = month,
+                    Year = year,
+                    CriteriaValue = criterias.Select(c => new CriteriaValue
+                    {
+                        Value = c.Value,
+                        CriteriaId = c.CriteriaId
+                    }).ToList()
+                });
+                
+            }
+            else
+            {
+                var oldCriterias = criteriaValueRepository.Get(cv => cv.ConfigurationId == configuation.Id);
+                foreach(var c in oldCriterias)
+                {
+                    criteriaValueRepository.Delete(c);
+                }
+
+                foreach (var c in criterias)
+                {
+                    criteriaValueRepository.Add(new CriteriaValue
+                    {
+                        ConfigurationId = configuation.Id,
+                        CriteriaId = c.CriteriaId,
+                        Value = c.Value
+                    });
+                }
+            }
+
             
         }
     }
