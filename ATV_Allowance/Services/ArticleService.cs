@@ -20,6 +20,7 @@ namespace ATV_Allowance.Services
         void UpdateArticleEmployeeTS(ArticleEmployeeViewModel model);
         void UpdateArticle(ArticleViewModel model);
         void RemoveArticleEmployee(ArticleEmployeeViewModel model);
+        void RemoveArticle(ArticleViewModel model);
     }
     public class ArticleService : IArticleService
     {
@@ -85,10 +86,10 @@ namespace ATV_Allowance.Services
         public List<ArticleViewModel> GetArticle(int typeId, DateTime fromDate, DateTime toDate, int employeeId)
         {
             var articles = articleRepository
-                        .GetMany(t => (typeId <= 0 || t.TypeId.Equals(typeId))
+                        .GetMany(t => t.IsActive == true
+                                && (typeId <= 0 || t.TypeId.Equals(typeId))
                                 && (fromDate == null || t.Date >= fromDate)
-                                && (toDate == null || t.Date <= toDate)
-                                )
+                                && (toDate == null || t.Date <= toDate))
                                 .Select(t => new ArticleViewModel {
                                     Id = t.Id,
                                     Date = t.Date.ToShortDateString(),
@@ -125,6 +126,16 @@ namespace ATV_Allowance.Services
                 }
             }
             return artEmps;
+        }
+
+        public void RemoveArticle(ArticleViewModel model)
+        {
+            var entity = articleRepository.GetById(model.Id);
+            if (entity != null)
+            {
+                entity.IsActive = false;
+                articleRepository.Update(entity);
+            }
         }
 
         public void RemoveArticleEmployee(ArticleEmployeeViewModel model)

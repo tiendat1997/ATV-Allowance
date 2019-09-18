@@ -176,5 +176,26 @@ namespace ATV_Allowance.Forms.ArticleForms
             bs.DataSource = sbl;
             adgvList.DataSource = bs;
         }
+
+        private void btnRemove_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (MessageBox.Show("Xác nhận xóa nhân viên", "Message", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    articleService = new ArticleService();
+                    articleService.RemoveArticle(model);
+                    LoadDGV();
+                }               
+            }
+            catch (Exception ex)
+            { 
+                throw ex;
+            }
+            finally
+            {
+                articleService = null;
+            }
+        }
     }
 }

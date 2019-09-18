@@ -194,6 +194,7 @@
             this.btnRemove.TabIndex = 2;
             this.btnRemove.Text = "Xóa tin";
             this.btnRemove.UseVisualStyleBackColor = true;
+            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
             // 
             // btnEdit
             // 
