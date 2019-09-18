@@ -238,8 +238,7 @@ namespace ATV_Allowance.Forms.ArticleForms
             finally
             {
                 articleService = null;
-            }
-            
+            }            
         }
 
         private void adgvList_RowValidating(object sender, DataGridViewCellCancelEventArgs e)
