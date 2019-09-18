@@ -24,7 +24,7 @@ namespace ATV_Allowance.Services
 
         public List<EmployeePointViewModel> GetReportBroadcast(DateTime startDate, DateTime endDate, int role, int price)
         {
-            var list = _reportRepository.GetReport(startDate, endDate, ReportType.PT, EmployeeRole.CTV).Result;
+            var list = _reportRepository.GetReport(startDate, endDate, ReportType.PT, EmployeeRole.BTV);
             List<EmployeePointViewModel> result = new List<EmployeePointViewModel>();
             int currentId = 0;
             EmployeePointViewModel employeePointVM = null;

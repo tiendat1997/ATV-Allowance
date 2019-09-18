@@ -104,9 +104,9 @@
         public static class EmployeeRole
         {
             public static int PV = 1;
-            public static int PTV = 2;
-            public static int CTV = 3;
-            public static int BT = 4;
+            public static int BTV = 2;
+            public static int PTV = 3;
+            public static int CTV = 4;
         }
 
         public static class ReportType
@@ -114,6 +114,12 @@
             public static int PT = 1;
             public static int PTTT = 2;
             public static int TS = 3;
+        }
+
+        public static class Unit
+        {
+            public static int Percent = 1;
+            public static int Point = 2;
         }
 
         public enum PointType

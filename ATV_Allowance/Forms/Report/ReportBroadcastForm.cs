@@ -30,7 +30,7 @@ namespace ATV_Allowance.Forms.Report
             {
 
                 reportService = new ReportService();
-                List<EmployeePointViewModel> list = reportService.GetReportBroadcast(DateTime.Now, DateTime.Now, EmployeeRole.PV, 3000);
+                List<EmployeePointViewModel> list = reportService.GetReportBroadcast(new DateTime(2019,9,1), new DateTime(2019, 9, 30), EmployeeRole.BTV, 3000);
                 SortableBindingList<EmployeePointViewModel> sbl = new SortableBindingList<EmployeePointViewModel>(list);
                 bs = new BindingSource();
                 bs.DataSource = sbl;
