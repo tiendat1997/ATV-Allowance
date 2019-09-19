@@ -23,21 +23,29 @@ namespace ATV_Allowance.Forms.ArticleForms
         private int empId = -1;
         private IArticleService articleService;
         private IEmployeeService employeeService;
-        private BindingSource bs = null;        
+        private BindingSource bs = null;
+        private ArticleViewModel model = null;
+        private List<ArticleViewModel> articleList = new List<ArticleViewModel>();
 
         public ManageTSForm()
         {
-            InitializeComponent();
+            InitializeComponent();               
             LoadDGV();
+        }
+        private void RemoveTimePortion()
+        {
+            fromDate = new DateTime(fromDate.Year, fromDate.Month, fromDate.Day);
+            toDate = new DateTime(toDate.Year, toDate.Month, toDate.Day);
         }
         private void LoadDGV()
         {
             try
             {
+                RemoveTimePortion();
                 articleService = new ArticleService();
-                bs = new BindingSource();           
-                var list = articleService.GetArticle(articleType, fromDate, toDate, empId);                                 
-                SortableBindingList<ArticleViewModel> sbl = new SortableBindingList<ArticleViewModel>(list);
+                bs = new BindingSource();
+                articleList = articleService.GetArticle(articleType, fromDate, toDate, empId);
+                SortableBindingList<ArticleViewModel> sbl = new SortableBindingList<ArticleViewModel>(articleList);
                 bs.DataSource = sbl;
                 adgvList.DataSource = bs;
                 adgvList.Columns["Id"].Visible = false;
@@ -46,8 +54,8 @@ namespace ATV_Allowance.Forms.ArticleForms
                 adgvList.Columns["Date"].Visible = true;
 
                 adgvList.Columns["Title"].HeaderText = ADGVArticleText.Title;
-                adgvList.Columns["Title"].Width = ControlsAttribute.GV_WIDTH_LARGE_XX;                
-                adgvList.Columns["Date"].HeaderText = ADGVArticleText.Date;                                
+                adgvList.Columns["Title"].Width = ControlsAttribute.GV_WIDTH_LARGE_XX;
+                adgvList.Columns["Date"].HeaderText = ADGVArticleText.Date;
                 adgvList.Columns["Date"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             }
             catch (Exception ex)
@@ -56,7 +64,7 @@ namespace ATV_Allowance.Forms.ArticleForms
             }
             finally
             {
-                articleService = null; 
+                articleService = null;
             }
         }
 
@@ -82,9 +90,10 @@ namespace ATV_Allowance.Forms.ArticleForms
             catch (Exception ex)
             {
                 throw ex;
-            } finally
+            }
+            finally
             {
-                employeeService = null; 
+                employeeService = null;
             }
         }
 
@@ -96,7 +105,7 @@ namespace ATV_Allowance.Forms.ArticleForms
 
         private void dtpEndDate_ValueChanged(object sender, EventArgs e)
         {
-            toDate = dtpStartDate.Value;
+            toDate = dtpEndDate.Value;
             LoadDGV();
         }
 
@@ -109,13 +118,84 @@ namespace ATV_Allowance.Forms.ArticleForms
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            AddTSForm form = new AddTSForm(articleType);
-            form.FormClosed += new FormClosedEventHandler(AddTSForm_Closed);
-            form.ShowDialog();
+            AddArticleForm addForm = new AddArticleForm(articleType);
+            addForm.FormClosed += new FormClosedEventHandler(AddArticleForm_Closed);
+            addForm.ShowDialog();
         }
+        private void AddArticleForm_Closed(object sender, FormClosedEventArgs e)
+        {
+            if (adgvList.CurrentRow == null)
+            {
+                LoadDGV();
+                return;
+            }
+            int oldCount = adgvList.Rows.Count - 1;
+            int currIndex = adgvList.CurrentRow.Index;
+            int selectedIndex = currIndex;
+            LoadDGV();
+            adgvList.ClearSelection();
+            int rowIndex = adgvList.Rows.Count - 1;
+            if (rowIndex > oldCount)
+            {
+                selectedIndex = rowIndex;
+            }
+            adgvList.Rows[selectedIndex].Selected = true;
+            adgvList.CurrentCell = adgvList.Rows[selectedIndex].Cells[1];
+            adgvList_SelectionChanged(sender, e);
+        }
+
         private void AddTSForm_Closed(object sender, FormClosedEventArgs e)
         {
+            int rowIndex = adgvList.CurrentRow.Index;
             LoadDGV();
+            //adgvList.ClearSelection();
+            //adgvList.Rows[rowIndex].Selected = true;
+            //adgvList.CurrentCell = adgvList.Rows[rowIndex].Cells[1];
+        }
+
+        private void adgvList_SelectionChanged(object sender, EventArgs e)
+        {
+            model = (ArticleViewModel)adgvList.CurrentRow.DataBoundItem;
+        }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            if (model != null)
+            {
+                EditTSForm form = new EditTSForm(model, articleType);
+                form.FormClosed += new FormClosedEventHandler(AddTSForm_Closed);
+                form.ShowDialog();
+            }
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {                        
+            var filteredList = articleList.Where(t => t.Title.ToUpper().Contains(txtSearch.Text.ToUpper())).ToList();
+            SortableBindingList<ArticleViewModel> sbl = new SortableBindingList<ArticleViewModel>(filteredList);
+            bs = new BindingSource();
+            bs.DataSource = sbl;
+            adgvList.DataSource = bs;
+        }
+
+        private void btnRemove_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (MessageBox.Show("Xác nhận xóa nhân viên", "Message", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    articleService = new ArticleService();
+                    articleService.RemoveArticle(model);
+                    LoadDGV();
+                }               
+            }
+            catch (Exception ex)
+            { 
+                throw ex;
+            }
+            finally
+            {
+                articleService = null;
+            }
         }
     }
 }

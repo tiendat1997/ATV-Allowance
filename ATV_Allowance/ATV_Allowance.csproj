@@ -69,11 +69,23 @@
     <Compile Include="Common\PropertyComparer.cs" />
     <Compile Include="Common\Session.cs" />
     <Compile Include="Common\Ultilities.cs" />
-    <Compile Include="Forms\ArticleForms\AddTSForm.cs">
+    <Compile Include="Forms\ArticleForms\AddArticleForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\ArticleForms\AddTSForm.Designer.cs">
-      <DependentUpon>AddTSForm.cs</DependentUpon>
+    <Compile Include="Forms\ArticleForms\AddArticleForm.Designer.cs">
+      <DependentUpon>AddArticleForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ArticleForms\EditTSForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ArticleForms\EditTSForm.Designer.cs">
+      <DependentUpon>EditTSForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ArticleForms\InsertEmployeeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ArticleForms\InsertEmployeeForm.Designer.cs">
+      <DependentUpon>InsertEmployeeForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\ArticleForms\ManageTSForm.cs">
       <SubType>Form</SubType>
@@ -123,6 +135,12 @@
     <Compile Include="Forms\EmployeeForms\ListEmployeeForm.Designer.cs">
       <DependentUpon>ListEmployeeForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Report\ReportBroadcastForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -162,10 +180,12 @@
     <Compile Include="Services\EmployeeService.cs" />
     <Compile Include="Services\MenuItemService.cs" />
     <Compile Include="Common\SortableBindingList.cs" />
+    <Compile Include="Services\PointTypeService.cs" />
     <Compile Include="Services\ReportService.cs" />
     <Compile Include="Services\OrganizationService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Validators\ArticleValidator.cs" />
+    <Compile Include="ViewModel\ArticleEmployeeViewModel.cs" />
     <Compile Include="ViewModel\CriteriaTableViewModel.cs" />
     <Compile Include="ViewModel\CriteriaViewModel.cs" />
     <Compile Include="ViewModel\EmployeePointViewModel.cs" />
@@ -174,8 +194,16 @@
     <Compile Include="ViewModel\ArticleViewModel.cs" />
     <Compile Include="ViewModel\EmployeeViewModel.cs" />
     <Compile Include="ViewModel\OrganizationViewModel.cs" />
-    <EmbeddedResource Include="Forms\ArticleForms\AddTSForm.resx">
-      <DependentUpon>AddTSForm.cs</DependentUpon>
+    <Compile Include="ViewModel\PointTypeViewModel.cs" />
+    <Compile Include="ViewModel\PointViewModel.cs" />
+    <EmbeddedResource Include="Forms\ArticleForms\AddArticleForm.resx">
+      <DependentUpon>AddArticleForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ArticleForms\EditTSForm.resx">
+      <DependentUpon>EditTSForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ArticleForms\InsertEmployeeForm.resx">
+      <DependentUpon>InsertEmployeeForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ArticleForms\ManageTSForm.resx">
       <DependentUpon>ManageTSForm.cs</DependentUpon>
@@ -191,6 +219,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\CriteriaForms\ListCriteriaForm.resx">
       <DependentUpon>ListCriteriaForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Report\ReportBroadcastForm.resx">
       <DependentUpon>ReportBroadcastForm.cs</DependentUpon>

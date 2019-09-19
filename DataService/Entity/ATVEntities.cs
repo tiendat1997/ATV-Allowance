@@ -51,6 +51,11 @@ namespace DataService.Entity
                 .WithRequired(e => e.ArticleType)
                 .WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<ArticleType>()
+                .HasMany(e => e.Criteria)
+                .WithRequired(e => e.ArticleType)
+                .WillCascadeOnDelete(false);
+
             modelBuilder.Entity<Employee>()
                 .Property(e => e.Code)
                 .IsUnicode(false);

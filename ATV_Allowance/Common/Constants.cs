@@ -39,6 +39,7 @@
             public static string Code = "Mã NV";
             public static string Name = "Họ và tên";
             public static string Position = "Chức danh";
+            public static string AbbrPosition = "Ch/D";
             public static string Organization = "Đơn vị";
         }
 
@@ -122,6 +123,7 @@
             public static int Point = 2;
             public static int Person = 3;
             public static int Vnd = 4;
+            public static int Days = 5;
             
         }
 
@@ -133,8 +135,25 @@
             Tlt = 4,
             SD = 5,
             CD_CM = 6
-
         }
+
+        public static class PointType_ThoiSu
+        {
+            public static int Tin = 1;
+            public static int PS = 2;
+            public static int QTin = 3;
+            public static int QPs = 4;
+        }
+
+//Pv_Pb
+//Tlt
+//Sd
+//Cd_Cm
+//Bai
+//TTh_Gnh
+//CDe
+//Bs_DCT
+//Bt_Dd
 
 
         #region Controls

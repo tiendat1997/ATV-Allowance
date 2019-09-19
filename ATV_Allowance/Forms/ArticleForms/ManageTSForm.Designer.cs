@@ -94,6 +94,7 @@
             // 
             // dtpEndDate
             // 
+            this.dtpEndDate.CustomFormat = "dd/MM/yyyy";
             this.dtpEndDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpEndDate.Location = new System.Drawing.Point(6, 109);
             this.dtpEndDate.Name = "dtpEndDate";
@@ -112,6 +113,7 @@
             // 
             // dtpStartDate
             // 
+            this.dtpStartDate.CustomFormat = "dd/MM/yyyy";
             this.dtpStartDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpStartDate.Location = new System.Drawing.Point(6, 50);
             this.dtpStartDate.Name = "dtpStartDate";
@@ -137,6 +139,7 @@
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(584, 26);
             this.txtSearch.TabIndex = 8;
+            this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
             // 
             // lblSearch
             // 
@@ -161,6 +164,7 @@
             this.adgvList.Size = new System.Drawing.Size(836, 455);
             this.adgvList.TabIndex = 0;
             this.adgvList.TimeFilter = false;
+            this.adgvList.SelectionChanged += new System.EventHandler(this.adgvList_SelectionChanged);
             // 
             // entityCommand1
             // 
@@ -190,6 +194,7 @@
             this.btnRemove.TabIndex = 2;
             this.btnRemove.Text = "Xóa tin";
             this.btnRemove.UseVisualStyleBackColor = true;
+            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
             // 
             // btnEdit
             // 
@@ -199,6 +204,7 @@
             this.btnEdit.TabIndex = 1;
             this.btnEdit.Text = "Xem tin";
             this.btnEdit.UseVisualStyleBackColor = true;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // btnAdd
             // 
@@ -206,7 +212,7 @@
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(197, 29);
             this.btnAdd.TabIndex = 0;
-            this.btnAdd.Text = "Nhập tin thời sự";
+            this.btnAdd.Text = "Thêm tin";
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 

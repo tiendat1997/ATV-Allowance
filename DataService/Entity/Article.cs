@@ -27,6 +27,8 @@ namespace DataService.Entity
 
         public int TypeId { get; set; }
 
+        public bool? IsActive { get; set; }
+
         public virtual ArticleType ArticleType { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
