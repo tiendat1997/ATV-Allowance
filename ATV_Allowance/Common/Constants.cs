@@ -117,8 +117,12 @@
 
         public static class Unit
         {
+            public static int None = 0;
             public static int Percent = 1;
             public static int Point = 2;
+            public static int Person = 3;
+            public static int Vnd = 4;
+            
         }
 
         public enum PointType
