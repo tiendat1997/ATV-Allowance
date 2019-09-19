@@ -219,6 +219,8 @@ namespace ATV_Allowance.Common
                         form = (Form)tsForm;
                         break;
                     case "Tin Phát thanh":
+                        ManagePTForm ptForm = new ManagePTForm();
+                        form = (Form)ptForm;
                         break;
                     case "Tin Phát thanh trực tiếp":
                         break;

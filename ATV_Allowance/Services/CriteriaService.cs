@@ -37,7 +37,7 @@ namespace ATV_Allowance.Services
                 ID = c.Id,
                 Name = c.Criteria.DisplayName,
                 Value = c.Value.Value,
-                Unit = c.Unit.HasValue ? c.Unit.Value : 1,
+                //Unit = c.Unit.HasValue ? c.Unit.Value : 1,  
                 CriteriaId = c.CriteriaId.Value
             })
             .OrderBy(c => c.CriteriaId)
