@@ -30,7 +30,6 @@ namespace DataService.Entity
         public virtual DbSet<Position> Position { get; set; }
         public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<RoleHasMenuItem> RoleHasMenuItem { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<SystemLog> SystemLog { get; set; }
         public virtual DbSet<User> User { get; set; }
 
@@ -48,11 +47,6 @@ namespace DataService.Entity
 
             modelBuilder.Entity<ArticleType>()
                 .HasMany(e => e.ArticlePointType)
-                .WithRequired(e => e.ArticleType)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<ArticleType>()
-                .HasMany(e => e.Criteria)
                 .WithRequired(e => e.ArticleType)
                 .WillCascadeOnDelete(false);
 

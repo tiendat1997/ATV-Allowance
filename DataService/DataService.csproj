@@ -70,7 +70,6 @@
     <Compile Include="Entity\Position.cs" />
     <Compile Include="Entity\Role.cs" />
     <Compile Include="Entity\RoleHasMenuItem.cs" />
-    <Compile Include="Entity\sysdiagrams.cs" />
     <Compile Include="Entity\SystemLog.cs" />
     <Compile Include="Entity\User.cs" />
     <Compile Include="Infrastructure\HashHelper.cs" />
