@@ -34,6 +34,14 @@ namespace ATV_Allowance.Forms.CriteriaForms
             {
                 this.CriteriaUnit.Text = "người";
             }
+            else if (unit == Unit.Vnd)
+            {
+                this.CriteriaUnit.Text = "đồng";
+            }
+            else if (unit == Unit.Days)
+            {
+                this.CriteriaUnit.Text = "ngày";
+            }
             else
             {
                 this.CriteriaUnit.Text = "";

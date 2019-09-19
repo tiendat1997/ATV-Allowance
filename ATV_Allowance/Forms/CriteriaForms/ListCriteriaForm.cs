@@ -11,6 +11,8 @@ namespace ATV_Allowance.Forms.CriteriaForms
 {
     public partial class ListCriteriaForm : Form
     {
+        private const int TYPE_TS = 3;
+
         private ICriteriaService criteriaService;
         private BindingSource bs;
 
@@ -31,11 +33,9 @@ namespace ATV_Allowance.Forms.CriteriaForms
             fpCriteriaList.HorizontalScroll.Visible = false;
             fpCriteriaList.HorizontalScroll.Maximum = 0;
             fpCriteriaList.AutoScroll = true;
-
-
         }
 
-        private void LoadCriteriasOfMonth(int? month = null, int? year = null)
+        private void LoadCriteriasOfMonth(int? month = null, int? year = null, int? type = 3)
         {
             //to remove all control
             fpCriteriaList.Visible = false;
@@ -46,8 +46,6 @@ namespace ATV_Allowance.Forms.CriteriaForms
             }
 
             fpCriteriaList.Visible = true;
-
-
 
             if (month == null)
             {
@@ -62,23 +60,24 @@ namespace ATV_Allowance.Forms.CriteriaForms
             //change label
             gbCriterias.Text = "Quản lý chỉ tiêu tháng " + month + " / " + year;
 
-            var result = criteriaService.GetCriterias(month.Value, year.Value);
+            var result = criteriaService.GetCriterias(month.Value, year.Value, type.Value);
 
             foreach (var criteria in result)
             {
                 this.fpCriteriaList.Controls.Add(new ACriteriaTemplate(criteria.CriteriaId, criteria.Name, criteria.Value, criteria.Unit));
             }
 
+           
         }
 
-        private void LoadCriteriasOfYear(int? year = null)
+        private void LoadCriteriasOfYear(int? year = null, int? type = TYPE_TS)
         {
             if (year == null)
             {
                 year = DateTime.Now.Year;
             }
 
-            var result = criteriaService.GetCriterias(year.Value);
+            var result = criteriaService.GetCriterias(year.Value, type.Value);
             var dataSource = new List<CriteriaTableViewModel>();
             for (int i = 0; i < 12; i++)
             {
@@ -108,6 +107,7 @@ namespace ATV_Allowance.Forms.CriteriaForms
 
             adgvCriterias.Columns["Id"].Visible = false;
             adgvCriterias.Columns["Year"].Visible = false;
+
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -126,6 +126,8 @@ namespace ATV_Allowance.Forms.CriteriaForms
             int year = dtp.Value.Year;
             criteriaService.UpdateCriterias(listCriterias, month, year);
             LoadCriteriasOfYear(year);
+            adgvCriterias.ClearSelection();
+            adgvCriterias.Rows[month - 1].Selected = true;
         }
 
         private void adgvCriterias_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -137,17 +139,20 @@ namespace ATV_Allowance.Forms.CriteriaForms
         {
             int month = (int) adgvCriterias.SelectedRows[0].Cells["Month"].Value;
             int year = dtp.Value.Year;
-            LoadCriteriasOfMonth(month, year);
-        }
-
-        private void cbYear_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            LoadCriteriasOfYear(dtp.Value.Year);
+            LoadCriteriasOfMonth(month, year,TYPE_TS);
         }
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
-            LoadCriteriasOfYear(dtp.Value.Year);
+            LoadCriteriasOfYear(dtp.Value.Year, TYPE_TS);
+            LoadCriteriasOfMonth(1, dtp.Value.Year, TYPE_TS);
+        }
+
+        private void cbArticleType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LoadCriteriasOfYear(dtp.Value.Year, TYPE_TS);
+            LoadCriteriasOfMonth(1, dtp.Value.Year, TYPE_TS);
+
         }
     }
 }

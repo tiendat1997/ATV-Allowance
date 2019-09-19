@@ -123,6 +123,7 @@
             public static int Point = 2;
             public static int Person = 3;
             public static int Vnd = 4;
+            public static int Days = 5;
             
         }
 
