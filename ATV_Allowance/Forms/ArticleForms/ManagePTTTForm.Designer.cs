@@ -1,6 +1,6 @@
 ﻿namespace ATV_Allowance.Forms.ArticleForms
 {
-    partial class ManagePTForm
+    partial class ManagePTTTForm
     {
         /// <summary>
         /// Required designer variable.
@@ -216,7 +216,7 @@
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
-            // ManagePTForm
+            // ManagePTTTForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -224,8 +224,8 @@
             this.Controls.Add(this.gbControl);
             this.Controls.Add(this.gbArticleInfo);
             this.Controls.Add(this.gbFilter);
-            this.Name = "ManagePTForm";
-            this.Text = "Tin phát thanh";
+            this.Name = "ManagePTTTForm";
+            this.Text = "Tin phát thanh trực tiếp";
             this.Load += new System.EventHandler(this.ManagePTForm_Load);
             this.gbFilter.ResumeLayout(false);
             this.gbFilter.PerformLayout();

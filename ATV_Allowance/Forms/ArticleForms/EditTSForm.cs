@@ -17,6 +17,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static ATV_Allowance.Common.Constants;
+using ArticleType = ATV_Allowance.Common.Constants.ArticleType;
 
 namespace ATV_Allowance.Forms.ArticleForms
 {
@@ -291,11 +292,33 @@ namespace ATV_Allowance.Forms.ArticleForms
                     if (articleEmployee.Id == 0) // Add new records 
                     {
                         articleEmployee.ArticleId = article.Id;
-                        articleService.AddLArticleEmployeeTS(articleEmployee);
+                        if (articleTypeId == ArticleType.THOI_SU)
+                        {
+                            articleService.AddArticleEmployeeTS(articleEmployee);
+                        }
+                        else if (articleTypeId == ArticleType.PHAT_THANH)
+                        {
+                            articleService.AddArticleEmployeePT(articleEmployee);
+                        }
+                        else
+                        {
+                            articleService.AddArticleEmployeePTTT(articleEmployee);
+                        }                        
                     }
                     else
                     {
-                        articleService.UpdateArticleEmployeeTS(articleEmployee);
+                        if (articleTypeId == ArticleType.THOI_SU)
+                        {
+                            articleService.UpdateArticleEmployeeTS(articleEmployee);
+                        }
+                        else if (articleTypeId == ArticleType.PHAT_THANH)
+                        {
+                            articleService.UpdateArticleEmployeePT(articleEmployee);
+                        }
+                        else
+                        {
+                            articleService.UpdateArticleEmployeePTTT(articleEmployee);
+                        }                       
                     }
                 }
             }
@@ -331,9 +354,10 @@ namespace ATV_Allowance.Forms.ArticleForms
                 articleService = new ArticleService();
                 if (adgvList.CurrentRow.IsNewRow == false)
                 {
-                    ArticleEmployeeViewModel articleEmployee = (ArticleEmployeeViewModel)adgvList.CurrentRow.DataBoundItem;
-                    if (articleEmployee != null && articleEmployee.Id > 0)
+                    ArticleEmployeeViewModel articleEmployee = (ArticleEmployeeViewModel)adgvList.CurrentRow.DataBoundItem;                    
+                    if (articleEmployee != null)
                     {
+                        articleEmployee.ArticleId = article.Id;
                         articleService.RemoveArticleEmployee(articleEmployee);
                     }
                 }

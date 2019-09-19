@@ -143,7 +143,24 @@
             public static int QTin = 3;
             public static int QPs = 4;
         }
-
+        public static class PointType_PhatThanh
+        {
+            public static int Tin = 1;
+            public static int Pv_Pb = 5;
+            public static int Tlt = 6;
+            public static int Sd = 7;
+            public static int Cd_Cm = 8;
+            public static int Bai = 9;
+        }
+        public static class PointType_PhatThanhTT
+        {
+            public static int Tin = 1;
+            public static int TTh_Gnh = 10;
+            public static int CDe = 11;
+            public static int Pv_Pb = 5;
+            public static int Bs_DCT = 12;
+            public static int Bt_Dd = 13;
+        }
 //Pv_Pb
 //Tlt
 //Sd

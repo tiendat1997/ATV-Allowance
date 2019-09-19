@@ -49,14 +49,14 @@
             this.gbArticleTitle.Controls.Add(this.txtDate);
             this.gbArticleTitle.Location = new System.Drawing.Point(13, 12);
             this.gbArticleTitle.Name = "gbArticleTitle";
-            this.gbArticleTitle.Size = new System.Drawing.Size(1019, 56);
+            this.gbArticleTitle.Size = new System.Drawing.Size(1123, 56);
             this.gbArticleTitle.TabIndex = 0;
             this.gbArticleTitle.TabStop = false;
             this.gbArticleTitle.Text = "Tiêu đề";
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(857, 20);
+            this.btnSave.Location = new System.Drawing.Point(952, 18);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(156, 30);
             this.btnSave.TabIndex = 0;
@@ -84,7 +84,7 @@
             this.gbList.Controls.Add(this.adgvList);
             this.gbList.Location = new System.Drawing.Point(12, 74);
             this.gbList.Name = "gbList";
-            this.gbList.Size = new System.Drawing.Size(1020, 302);
+            this.gbList.Size = new System.Drawing.Size(1124, 302);
             this.gbList.TabIndex = 1;
             this.gbList.TabStop = false;
             this.gbList.Text = "Danh sách";
@@ -94,7 +94,7 @@
             this.adgvList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.adgvList.Location = new System.Drawing.Point(1, 26);
             this.adgvList.Name = "adgvList";
-            this.adgvList.Size = new System.Drawing.Size(1019, 270);
+            this.adgvList.Size = new System.Drawing.Size(1108, 270);
             this.adgvList.TabIndex = 0;
             this.adgvList.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.adgvList_CellFormatting);
             this.adgvList.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.adgvList_DataError);
@@ -112,7 +112,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1043, 385);
+            this.ClientSize = new System.Drawing.Size(1148, 385);
             this.Controls.Add(this.gbList);
             this.Controls.Add(this.gbArticleTitle);
             this.Name = "EditTSForm";
