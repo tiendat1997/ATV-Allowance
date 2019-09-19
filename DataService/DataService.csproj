@@ -81,6 +81,7 @@
     <Compile Include="Repository\ArticlePointTypeRepository.cs" />
     <Compile Include="Repository\ArticleEmployeeRepository.cs" />
     <Compile Include="Repository\ArticleRepository.cs" />
+    <Compile Include="Repository\ConfigurationRepository.cs" />
     <Compile Include="Repository\CriteriaRepository.cs" />
     <Compile Include="Repository\CriteriaValueRepository.cs" />
     <Compile Include="Repository\EmployeeRepository.cs" />

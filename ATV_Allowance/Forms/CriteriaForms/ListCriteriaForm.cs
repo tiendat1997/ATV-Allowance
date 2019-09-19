@@ -17,7 +17,6 @@ namespace ATV_Allowance.Forms.CriteriaForms
         public ListCriteriaForm()
         {
             InitializeComponent();
-            LoadCombobox();
 
             CustomStyle();
             criteriaService = new CriteriaService();
@@ -34,13 +33,6 @@ namespace ATV_Allowance.Forms.CriteriaForms
             fpCriteriaList.AutoScroll = true;
 
 
-        }
-
-        private void LoadCombobox()
-        {
-            var listInt = Enumerable.Range(DateTime.Now.Year - 1, 10).ToList();
-            cbYear.DataSource = listInt;
-            cbYear.SelectedIndex = 2;
         }
 
         private void LoadCriteriasOfMonth(int? month = null, int? year = null)
@@ -74,7 +66,7 @@ namespace ATV_Allowance.Forms.CriteriaForms
 
             foreach (var criteria in result)
             {
-                this.fpCriteriaList.Controls.Add(new ACriteriaTemplate(criteria.Name, criteria.Value, criteria.Unit));
+                this.fpCriteriaList.Controls.Add(new ACriteriaTemplate(criteria.CriteriaId, criteria.Name, criteria.Value, criteria.Unit));
             }
 
         }
@@ -120,7 +112,20 @@ namespace ATV_Allowance.Forms.CriteriaForms
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
+            var listCriterias = new List<CriteriaViewModel>();
+            foreach (ACriteriaTemplate c in fpCriteriaList.Controls.OfType<ACriteriaTemplate>())
+            {
+                listCriterias.Add(new CriteriaViewModel()
+                {
+                    CriteriaId = c.GetCriteriaId(),
+                    Value = c.GetValue()
+                });
+            }
 
+            int month = adgvCriterias.SelectedRows[0].Index + 1;
+            int year = dtp.Value.Year;
+            criteriaService.UpdateCriterias(listCriterias, month, year);
+            LoadCriteriasOfYear(year);
         }
 
         private void adgvCriterias_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -131,13 +136,18 @@ namespace ATV_Allowance.Forms.CriteriaForms
         private void LoadMonthWithCurrentRowSelected()
         {
             int month = (int) adgvCriterias.SelectedRows[0].Cells["Month"].Value;
-            int year = cbYear.SelectedValue != null ? (int)cbYear.SelectedValue : DateTime.Now.Year;
+            int year = dtp.Value.Year;
             LoadCriteriasOfMonth(month, year);
         }
 
         private void cbYear_SelectedIndexChanged(object sender, EventArgs e)
         {
-            LoadCriteriasOfYear((int)cbYear.SelectedValue);
+            LoadCriteriasOfYear(dtp.Value.Year);
+        }
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+            LoadCriteriasOfYear(dtp.Value.Year);
         }
     }
 }

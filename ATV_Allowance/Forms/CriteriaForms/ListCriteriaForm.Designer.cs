@@ -30,12 +30,12 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.cbYear = new System.Windows.Forms.ComboBox();
             this.adgvCriterias = new ADGV.AdvancedDataGridView();
             this.gbCriterias = new System.Windows.Forms.GroupBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.fpCriteriaList = new System.Windows.Forms.FlowLayoutPanel();
+            this.dtp = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.adgvCriterias)).BeginInit();
             this.gbCriterias.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -60,30 +60,6 @@
             this.label2.Size = new System.Drawing.Size(42, 20);
             this.label2.TabIndex = 1;
             this.label2.Text = "Năm";
-            // 
-            // cbYear
-            // 
-            this.cbYear.DisplayMember = "2019";
-            this.cbYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbYear.FormattingEnabled = true;
-            this.cbYear.Items.AddRange(new object[] {
-            "2019",
-            "2020",
-            "2021",
-            "2022",
-            "2023",
-            "2024",
-            "2025",
-            "2026",
-            "2027",
-            "2028",
-            "2029"});
-            this.cbYear.Location = new System.Drawing.Point(234, 5);
-            this.cbYear.Name = "cbYear";
-            this.cbYear.Size = new System.Drawing.Size(121, 28);
-            this.cbYear.TabIndex = 2;
-            this.cbYear.SelectedIndexChanged += new System.EventHandler(this.cbYear_SelectedIndexChanged);
             // 
             // adgvCriterias
             // 
@@ -145,14 +121,26 @@
             this.fpCriteriaList.Size = new System.Drawing.Size(312, 360);
             this.fpCriteriaList.TabIndex = 0;
             // 
+            // dtp
+            // 
+            this.dtp.CustomFormat = "yyyy";
+            this.dtp.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtp.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtp.Location = new System.Drawing.Point(234, 7);
+            this.dtp.Name = "dtp";
+            this.dtp.ShowUpDown = true;
+            this.dtp.Size = new System.Drawing.Size(65, 26);
+            this.dtp.TabIndex = 5;
+            this.dtp.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
+            // 
             // ListCriteriaForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(851, 407);
+            this.Controls.Add(this.dtp);
             this.Controls.Add(this.gbCriterias);
             this.Controls.Add(this.adgvCriterias);
-            this.Controls.Add(this.cbYear);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "ListCriteriaForm";
@@ -170,11 +158,11 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox cbYear;
         private ADGV.AdvancedDataGridView adgvCriterias;
         private System.Windows.Forms.GroupBox gbCriterias;
         private System.Windows.Forms.FlowLayoutPanel fpCriteriaList;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btnUpdate;
+        private System.Windows.Forms.DateTimePicker dtp;
     }
 }
