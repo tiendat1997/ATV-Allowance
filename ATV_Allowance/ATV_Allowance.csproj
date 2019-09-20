@@ -135,6 +135,12 @@
     <Compile Include="Forms\CriteriaForms\ListCriteriaForm.Designer.cs">
       <DependentUpon>ListCriteriaForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\DeductionForms\ListEmployeeDeduction.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DeductionForms\ListEmployeeDeduction.Designer.cs">
+      <DependentUpon>ListEmployeeDeduction.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\EmployeeForms\AddEmployeeForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -189,6 +195,8 @@
     <Compile Include="Services\ArticleService.cs" />
     <Compile Include="Services\BusinessLogService.cs" />
     <Compile Include="Services\CriteriaService.cs" />
+    <Compile Include="Services\DeductionService.cs" />
+    <Compile Include="Services\DeductionTypeService.cs" />
     <Compile Include="Services\EmployeeService.cs" />
     <Compile Include="Services\MenuItemService.cs" />
     <Compile Include="Common\SortableBindingList.cs" />
@@ -200,6 +208,8 @@
     <Compile Include="ViewModel\ArticleEmployeeViewModel.cs" />
     <Compile Include="ViewModel\CriteriaTableViewModel.cs" />
     <Compile Include="ViewModel\CriteriaViewModel.cs" />
+    <Compile Include="ViewModel\DeductionTypeViewModel.cs" />
+    <Compile Include="ViewModel\EmployeeDeductionViewModel.cs" />
     <Compile Include="ViewModel\EmployeePointViewModel.cs" />
     <Compile Include="Validators\OrganizationValidator.cs" />
     <Compile Include="Validators\EmployeeValidator.cs" />
@@ -237,6 +247,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\CriteriaForms\ListCriteriaForm.resx">
       <DependentUpon>ListCriteriaForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DeductionForms\ListEmployeeDeduction.resx">
+      <DependentUpon>ListEmployeeDeduction.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

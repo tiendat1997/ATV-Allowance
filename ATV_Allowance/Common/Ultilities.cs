@@ -14,6 +14,7 @@ using ATV_Allowance.Forms.OrganizationForms;
 using ATV_Allowance.Forms.ArticleForms;
 using ATV_Allowance.Forms.Report;
 using ATV_Allowance.Forms.CriteriaForms;
+using ATV_Allowance.Forms.DeductionForms;
 
 namespace ATV_Allowance.Common
 {
@@ -243,6 +244,10 @@ namespace ATV_Allowance.Common
                     case "Quản lý chỉ tiêu":
                         ListCriteriaForm listCriteriaForm = new ListCriteriaForm();
                         form = (Form)listCriteriaForm;
+                        break;
+                    case "Quản lý giảm trừ":
+                        ListEmployeeDeduction listEmployeeDeduction = new ListEmployeeDeduction();
+                        form = (Form)listEmployeeDeduction;
                         break;
                     case "Logout":
                         Session.Logout();
