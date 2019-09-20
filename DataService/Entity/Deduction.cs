@@ -19,6 +19,10 @@ namespace DataService.Entity
 
         public int? EmployeeId { get; set; }
 
+        public int? ArticleTypeId { get; set; }
+
+        public virtual ArticleType ArticleType { get; set; }
+
         public virtual DeductionType DeductionType { get; set; }
 
         public virtual Employee Employee { get; set; }

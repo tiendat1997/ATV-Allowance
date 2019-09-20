@@ -58,7 +58,8 @@ namespace ATV_Allowance.Forms.ArticleForms
                 {
                     Title = txtTitle.Text,
                     Date = dtpDate.Value,
-                    TypeId = typeId
+                    TypeId = typeId,
+                    IsActive = true
                 };
                 ArticleValidator validator = new ArticleValidator();
                 ValidationResult result = validator.Validate(newEmp);

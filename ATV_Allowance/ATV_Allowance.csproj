@@ -87,6 +87,18 @@
     <Compile Include="Forms\ArticleForms\InsertEmployeeForm.Designer.cs">
       <DependentUpon>InsertEmployeeForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ArticleForms\ManagePTTTForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ArticleForms\ManagePTTTForm.Designer.cs">
+      <DependentUpon>ManagePTTTForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ArticleForms\ManagePTForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ArticleForms\ManagePTForm.Designer.cs">
+      <DependentUpon>ManagePTForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ArticleForms\ManageTSForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -204,6 +216,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ArticleForms\InsertEmployeeForm.resx">
       <DependentUpon>InsertEmployeeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ArticleForms\ManagePTTTForm.resx">
+      <DependentUpon>ManagePTTTForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ArticleForms\ManagePTForm.resx">
+      <DependentUpon>ManagePTForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ArticleForms\ManageTSForm.resx">
       <DependentUpon>ManageTSForm.cs</DependentUpon>

@@ -20,6 +20,7 @@ namespace DataService.Entity
         [StringLength(200)]
         public string Code { get; set; }
 
+        [Required]
         public string Title { get; set; }
 
         [Column(TypeName = "date")]
@@ -27,7 +28,7 @@ namespace DataService.Entity
 
         public int TypeId { get; set; }
 
-        public bool? IsActive { get; set; }
+        public bool IsActive { get; set; }
 
         public virtual ArticleType ArticleType { get; set; }
 

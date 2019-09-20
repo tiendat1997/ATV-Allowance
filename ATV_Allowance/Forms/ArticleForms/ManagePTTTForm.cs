@@ -15,9 +15,9 @@ using static ATV_Allowance.Common.Constants;
 
 namespace ATV_Allowance.Forms.ArticleForms
 {
-    public partial class ManageTSForm : CommonForm
+    public partial class ManagePTTTForm : CommonForm
     {
-        private int articleType = ArticleType.THOI_SU;
+        private int articleType = ArticleType.PHAT_THANH_TT;
         private DateTime fromDate = DateTime.Now;
         private DateTime toDate = DateTime.Now;
         private int empId = -1;
@@ -26,17 +26,12 @@ namespace ATV_Allowance.Forms.ArticleForms
         private BindingSource bs = null;
         private ArticleViewModel model = null;
         private List<ArticleViewModel> articleList = new List<ArticleViewModel>();
-
-        public ManageTSForm()
+        public ManagePTTTForm()
         {
-            InitializeComponent();               
+            InitializeComponent();
             LoadDGV();
         }
-        private void RemoveTimePortion()
-        {
-            fromDate = new DateTime(fromDate.Year, fromDate.Month, fromDate.Day);
-            toDate = new DateTime(toDate.Year, toDate.Month, toDate.Day);
-        }
+
         private void LoadDGV()
         {
             try
@@ -60,7 +55,7 @@ namespace ATV_Allowance.Forms.ArticleForms
 
                 if (articleList.Count == 0)
                 {
-                    model = null; 
+                    model = null;
                 }
             }
             catch (Exception ex)
@@ -73,7 +68,29 @@ namespace ATV_Allowance.Forms.ArticleForms
             }
         }
 
-        private void ManageTSForm_Load(object sender, EventArgs e)
+        private void RemoveTimePortion()
+        {
+            fromDate = new DateTime(fromDate.Year, fromDate.Month, fromDate.Day);
+            toDate = new DateTime(toDate.Year, toDate.Month, toDate.Day);
+        }
+
+        private void cbEmployee_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var emp = (EmployeeViewModel)cbEmployee.SelectedValue;
+            empId = emp.Id;
+            LoadDGV();
+        }
+        private void dtpEndDate_ValueChanged(object sender, EventArgs e)
+        {
+            toDate = dtpEndDate.Value;
+            LoadDGV();
+        }
+        private void dtpStartDate_ValueChanged(object sender, EventArgs e)
+        {
+            fromDate = dtpStartDate.Value;
+            LoadDGV();
+        }
+        private void ManagePTForm_Load(object sender, EventArgs e)
         {
             try
             {
@@ -101,26 +118,18 @@ namespace ATV_Allowance.Forms.ArticleForms
                 employeeService = null;
             }
         }
-
-        private void dtpStartDate_ValueChanged(object sender, EventArgs e)
+        private void txtSearch_TextChanged(object sender, EventArgs e)
         {
-            fromDate = dtpStartDate.Value;
-            LoadDGV();
+            var filteredList = articleList.Where(t => t.Title.ToUpper().Contains(txtSearch.Text.ToUpper())).ToList();
+            SortableBindingList<ArticleViewModel> sbl = new SortableBindingList<ArticleViewModel>(filteredList);
+            bs = new BindingSource();
+            bs.DataSource = sbl;
+            adgvList.DataSource = bs;
         }
-
-        private void dtpEndDate_ValueChanged(object sender, EventArgs e)
+        private void adgvList_SelectionChanged(object sender, EventArgs e)
         {
-            toDate = dtpEndDate.Value;
-            LoadDGV();
+            model = (ArticleViewModel)adgvList.CurrentRow.DataBoundItem;
         }
-
-        private void cbEmployee_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            var emp = (EmployeeViewModel)cbEmployee.SelectedValue;
-            empId = emp.Id;
-            LoadDGV();
-        }
-
         private void btnAdd_Click(object sender, EventArgs e)
         {
             AddArticleForm addForm = new AddArticleForm(articleType);
@@ -148,40 +157,6 @@ namespace ATV_Allowance.Forms.ArticleForms
             adgvList.CurrentCell = adgvList.Rows[selectedIndex].Cells[1];
             adgvList_SelectionChanged(sender, e);
         }
-
-        private void AddTSForm_Closed(object sender, FormClosedEventArgs e)
-        {
-            int rowIndex = adgvList.CurrentRow.Index;
-            LoadDGV();
-            //adgvList.ClearSelection();
-            //adgvList.Rows[rowIndex].Selected = true;
-            //adgvList.CurrentCell = adgvList.Rows[rowIndex].Cells[1];
-        }
-
-        private void adgvList_SelectionChanged(object sender, EventArgs e)
-        {
-            model = (ArticleViewModel)adgvList.CurrentRow.DataBoundItem;
-        }
-
-        private void btnEdit_Click(object sender, EventArgs e)
-        {
-            if (model != null)
-            {
-                EditTSForm form = new EditTSForm(model, articleType);
-                form.FormClosed += new FormClosedEventHandler(AddTSForm_Closed);
-                form.ShowDialog();
-            }
-        }
-
-        private void txtSearch_TextChanged(object sender, EventArgs e)
-        {                        
-            var filteredList = articleList.Where(t => t.Title.ToUpper().Contains(txtSearch.Text.ToUpper())).ToList();
-            SortableBindingList<ArticleViewModel> sbl = new SortableBindingList<ArticleViewModel>(filteredList);
-            bs = new BindingSource();
-            bs.DataSource = sbl;
-            adgvList.DataSource = bs;
-        }
-
         private void btnRemove_Click(object sender, EventArgs e)
         {
             try
@@ -195,15 +170,33 @@ namespace ATV_Allowance.Forms.ArticleForms
                     articleService = new ArticleService();
                     articleService.RemoveArticle(model);
                     LoadDGV();
-                }               
+                }
             }
             catch (Exception ex)
-            { 
+            {
                 throw ex;
             }
             finally
             {
                 articleService = null;
+            }
+        }
+
+        private void AddTSForm_Closed(object sender, FormClosedEventArgs e)
+        {
+            int rowIndex = adgvList.CurrentRow.Index;
+            LoadDGV();
+            //adgvList.ClearSelection();
+            //adgvList.Rows[rowIndex].Selected = true;
+            //adgvList.CurrentCell = adgvList.Rows[rowIndex].Cells[1];
+        }
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            if (model != null)
+            {
+                EditTSForm form = new EditTSForm(model, articleType);
+                form.FormClosed += new FormClosedEventHandler(AddTSForm_Closed);
+                form.ShowDialog();
             }
         }
     }

@@ -15,6 +15,7 @@ namespace DataService.Entity
             Article = new HashSet<Article>();
             ArticlePointType = new HashSet<ArticlePointType>();
             Criteria = new HashSet<Criteria>();
+            Deduction = new HashSet<Deduction>();
         }
 
         public int Id { get; set; }
@@ -30,5 +31,8 @@ namespace DataService.Entity
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Criteria> Criteria { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Deduction> Deduction { get; set; }
     }
 }

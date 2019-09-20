@@ -15,6 +15,8 @@ namespace DataService.Entity
 
         public double? Value { get; set; }
 
+        public int? Unit { get; set; }
+
         public int? ConfigurationId { get; set; }
 
         public virtual Configuration Configuration { get; set; }
