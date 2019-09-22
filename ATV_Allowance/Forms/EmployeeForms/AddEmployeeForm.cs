@@ -50,7 +50,7 @@ namespace ATV_Allowance.Forms.EmployeeForms
             {
                 organizationService = new OrganizationService();
                 List<OrganizationViewModel> list = organizationService.GetAllIsActive(true);
-                cbOrganizationId.DisplayMember = "Name";
+                cbOrganizationId.DisplayMember = "Name";                
                 cbOrganizationId.DataSource = list;
                 cbOrganizationId.AutoCompleteMode = AutoCompleteMode.Suggest;
                 cbOrganizationId.AutoCompleteSource = AutoCompleteSource.ListItems;

@@ -1,4 +1,6 @@
-﻿namespace ATV_Allowance.Common
+﻿using System.Collections.Generic;
+
+namespace ATV_Allowance.Common
 {
     public static class Constants
     {
@@ -69,11 +71,12 @@
         {
             public static string Title = "Tin";
             public static string Date = "Ngày";
+            public static string Type = "L/T";
         }
 
         public static class ADGVOrganizationText
-        {            
-            public static string Name = "Tên Đơn Vị";            
+        {
+            public static string Name = "Tên Đơn Vị";
         }
 
 
@@ -124,7 +127,7 @@
             public static int Person = 3;
             public static int Vnd = 4;
             public static int Days = 5;
-            
+
         }
 
         public enum PointType
@@ -162,16 +165,6 @@
             public static int Bs_DCT = 12;
             public static int Bt_Dd = 13;
         }
-//Pv_Pb
-//Tlt
-//Sd
-//Cd_Cm
-//Bai
-//TTh_Gnh
-//CDe
-//Bs_DCT
-//Bt_Dd
-
 
         #region Controls
         public static class ControlsAttribute
@@ -192,11 +185,24 @@
 
         public static class ArticleType
         {
-            public static int THOI_SU = 1;
-            public static int PHAT_THANH = 2;
-            public static int PHAT_THANH_TT = 3;
-            public static int BIENSOAN_TTNM = 4;
-            public static int PV_TTNM = 5;
+            public static int PHAT_THANH = 1;
+            public static int PHAT_THANH_TT = 2;
+            public static int THOI_SU = 3;
+            public static int PV_TTNM = 4;
+            public static int BIENSOAN_TTNM = 5;            
+        }
+        public static class ArticleTypeGroup
+        {
+            public static List<ArticleGroup> DROPDOWN_VALUE = new List<ArticleGroup>()
+        {
+            new ArticleGroup { Name = "Nhóm tin truyền hình", GroupIds = new List<int> { 3, 4 } }, // Thời sự , Thông tin ngày mới,
+            new ArticleGroup { Name = "Nhóm tin phát thanh", GroupIds = new List<int> { 1, 2 } } // Phát thanh, Phát thanh trực tiếp    
+        };
+        }
+        public class ArticleGroup
+        {
+            public string Name { get; set; }
+            public List<int> GroupIds { get; set; }
         }
     }
 }

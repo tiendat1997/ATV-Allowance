@@ -14,6 +14,7 @@ namespace ATV_Allowance.Services
     public interface IArticleService
     {
         void AddArticle(Article article);
+        List<ArticleViewModel> GetComboArticle(List<int> typeIds, DateTime fromDate, DateTime toDate, int employeeId);
         List<ArticleViewModel> GetArticle(int typeId, DateTime fromDate, DateTime toDate, int employeeId);
         List<ArticleEmployeeViewModel> GetArticleEmployee(int articleId);
         void AddArticleEmployeeTS(ArticleEmployeeViewModel model);
@@ -91,7 +92,7 @@ namespace ATV_Allowance.Services
         {
             var articles = articleRepository
                         .GetMany(t => t.IsActive == true
-                                && (typeId <= 0 || t.TypeId.Equals(typeId))
+                                && (typeId == 0 || t.TypeId == typeId)
                                 && (fromDate == null || t.Date >= fromDate)
                                 && (toDate == null || t.Date <= toDate))
                                 .Select(t => new ArticleViewModel
@@ -322,5 +323,26 @@ namespace ATV_Allowance.Services
                 articleEmployeeRepository.Update(articleEmp);
             }
         }
+
+        public List<ArticleViewModel> GetComboArticle(List<int> typeIds, DateTime fromDate, DateTime toDate, int employeeId)
+        {
+            var articles = articleRepository
+                        .GetMany(t => t.IsActive == true
+                                && (!typeIds.Any() || typeIds.Contains(t.TypeId))
+                                && (fromDate == null || t.Date >= fromDate)
+                                && (toDate == null || t.Date <= toDate)
+                                && (employeeId == 0 || t.ArticleEmployee.Any(e => e.EmployeeId == employeeId)))
+                                .Select(t => new ArticleViewModel
+                                {
+                                    Id = t.Id,
+                                    Date = t.Date.ToShortDateString(),
+                                    Code = t.ArticleType.Code,
+                                    Title = t.Title,
+                                    TypeId = t.TypeId
+                                })
+                                .OrderBy(t => t.Title)
+                                .ToList();
+            return articles;
+        }       
     }
 }

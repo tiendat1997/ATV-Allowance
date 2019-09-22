@@ -40,6 +40,10 @@ namespace DataService.Entity
                 .IsUnicode(false);
 
             modelBuilder.Entity<ArticleType>()
+                .Property(e => e.Code)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<ArticleType>()
                 .HasMany(e => e.Article)
                 .WithRequired(e => e.ArticleType)
                 .HasForeignKey(e => e.TypeId)

@@ -194,7 +194,7 @@ namespace ATV_Allowance.Forms.ArticleForms
         {
             if (model != null)
             {
-                EditTSForm form = new EditTSForm(model, articleType);
+                EditTSForm form = new EditTSForm(model);
                 form.FormClosed += new FormClosedEventHandler(AddTSForm_Closed);
                 form.ShowDialog();
             }

@@ -229,20 +229,10 @@ namespace ATV_Allowance.Common
                         ImportArticleForm importPTTTForm = new ImportArticleForm(ArticleType.PHAT_THANH_TT);
                         form = (Form)importPTTTForm;
                         break;
-                    case "Tin Thời sự hằng ngày":
+                    case "Xem nhanh tin":
                         ManageTSForm tsForm = new ManageTSForm();
                         form = (Form)tsForm;
-                        break;
-                    case "Tin Phát thanh":
-                        ManagePTForm ptForm = new ManagePTForm();
-                        form = (Form)ptForm;
-                        break;
-                    case "Tin Phát thanh trực tiếp":
-                        ManagePTTTForm ptttForm = new ManagePTTTForm();
-                        form = (Form)ptttForm;
-                        break;
-                    case "Danh mục thời điểm":
-                        break;
+                        break;                                    
                     case "Quản lý nhân viên":
                         ListEmployeeForm listEmployeesForm = new ListEmployeeForm();
                         form = (Form)listEmployeesForm;

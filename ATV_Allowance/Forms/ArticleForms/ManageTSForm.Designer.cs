@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.gbFilter = new System.Windows.Forms.GroupBox();
+            this.cbArticleType = new System.Windows.Forms.ComboBox();
+            this.lblArticleType = new System.Windows.Forms.Label();
             this.lblEmployee = new System.Windows.Forms.Label();
             this.cbEmployee = new System.Windows.Forms.ComboBox();
             this.lblEndDate = new System.Windows.Forms.Label();
@@ -51,6 +53,8 @@
             // 
             // gbFilter
             // 
+            this.gbFilter.Controls.Add(this.cbArticleType);
+            this.gbFilter.Controls.Add(this.lblArticleType);
             this.gbFilter.Controls.Add(this.lblEmployee);
             this.gbFilter.Controls.Add(this.cbEmployee);
             this.gbFilter.Controls.Add(this.lblEndDate);
@@ -59,15 +63,33 @@
             this.gbFilter.Controls.Add(this.dtpStartDate);
             this.gbFilter.Location = new System.Drawing.Point(12, 12);
             this.gbFilter.Name = "gbFilter";
-            this.gbFilter.Size = new System.Drawing.Size(217, 227);
+            this.gbFilter.Size = new System.Drawing.Size(217, 293);
             this.gbFilter.TabIndex = 0;
             this.gbFilter.TabStop = false;
             this.gbFilter.Text = "Bộ lọc";
             // 
+            // cbArticleType
+            // 
+            this.cbArticleType.FormattingEnabled = true;
+            this.cbArticleType.Location = new System.Drawing.Point(10, 50);
+            this.cbArticleType.Name = "cbArticleType";
+            this.cbArticleType.Size = new System.Drawing.Size(193, 28);
+            this.cbArticleType.TabIndex = 7;
+            this.cbArticleType.SelectedIndexChanged += new System.EventHandler(this.cbArticleType_SelectedIndexChanged);
+            // 
+            // lblArticleType
+            // 
+            this.lblArticleType.AutoSize = true;
+            this.lblArticleType.Location = new System.Drawing.Point(8, 27);
+            this.lblArticleType.Name = "lblArticleType";
+            this.lblArticleType.Size = new System.Drawing.Size(72, 20);
+            this.lblArticleType.TabIndex = 6;
+            this.lblArticleType.Text = "Nhóm tin";
+            // 
             // lblEmployee
             // 
             this.lblEmployee.AutoSize = true;
-            this.lblEmployee.Location = new System.Drawing.Point(8, 155);
+            this.lblEmployee.Location = new System.Drawing.Point(4, 223);
             this.lblEmployee.Name = "lblEmployee";
             this.lblEmployee.Size = new System.Drawing.Size(79, 20);
             this.lblEmployee.TabIndex = 5;
@@ -76,7 +98,7 @@
             // cbEmployee
             // 
             this.cbEmployee.FormattingEnabled = true;
-            this.cbEmployee.Location = new System.Drawing.Point(6, 178);
+            this.cbEmployee.Location = new System.Drawing.Point(8, 246);
             this.cbEmployee.Name = "cbEmployee";
             this.cbEmployee.Size = new System.Drawing.Size(201, 28);
             this.cbEmployee.TabIndex = 4;
@@ -85,7 +107,7 @@
             // lblEndDate
             // 
             this.lblEndDate.AutoSize = true;
-            this.lblEndDate.Location = new System.Drawing.Point(8, 86);
+            this.lblEndDate.Location = new System.Drawing.Point(4, 154);
             this.lblEndDate.Name = "lblEndDate";
             this.lblEndDate.Size = new System.Drawing.Size(77, 20);
             this.lblEndDate.TabIndex = 3;
@@ -95,7 +117,7 @@
             // 
             this.dtpEndDate.CustomFormat = "dd/MM/yyyy";
             this.dtpEndDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpEndDate.Location = new System.Drawing.Point(6, 109);
+            this.dtpEndDate.Location = new System.Drawing.Point(8, 177);
             this.dtpEndDate.Name = "dtpEndDate";
             this.dtpEndDate.Size = new System.Drawing.Size(134, 26);
             this.dtpEndDate.TabIndex = 2;
@@ -104,7 +126,7 @@
             // lblStartDate
             // 
             this.lblStartDate.AutoSize = true;
-            this.lblStartDate.Location = new System.Drawing.Point(6, 27);
+            this.lblStartDate.Location = new System.Drawing.Point(2, 95);
             this.lblStartDate.Name = "lblStartDate";
             this.lblStartDate.Size = new System.Drawing.Size(69, 20);
             this.lblStartDate.TabIndex = 1;
@@ -114,7 +136,7 @@
             // 
             this.dtpStartDate.CustomFormat = "dd/MM/yyyy";
             this.dtpStartDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpStartDate.Location = new System.Drawing.Point(6, 50);
+            this.dtpStartDate.Location = new System.Drawing.Point(8, 118);
             this.dtpStartDate.Name = "dtpStartDate";
             this.dtpStartDate.Size = new System.Drawing.Size(132, 26);
             this.dtpStartDate.TabIndex = 0;
@@ -177,16 +199,16 @@
             // 
             this.gbControl.Controls.Add(this.btnRemove);
             this.gbControl.Controls.Add(this.btnEdit);
-            this.gbControl.Location = new System.Drawing.Point(12, 245);
+            this.gbControl.Location = new System.Drawing.Point(12, 322);
             this.gbControl.Name = "gbControl";
-            this.gbControl.Size = new System.Drawing.Size(217, 198);
+            this.gbControl.Size = new System.Drawing.Size(217, 121);
             this.gbControl.TabIndex = 2;
             this.gbControl.TabStop = false;
             this.gbControl.Text = "Thao tác";
             // 
             // btnRemove
             // 
-            this.btnRemove.Location = new System.Drawing.Point(6, 149);
+            this.btnRemove.Location = new System.Drawing.Point(6, 76);
             this.btnRemove.Name = "btnRemove";
             this.btnRemove.Size = new System.Drawing.Size(197, 29);
             this.btnRemove.TabIndex = 2;
@@ -196,7 +218,7 @@
             // 
             // btnEdit
             // 
-            this.btnEdit.Location = new System.Drawing.Point(6, 102);
+            this.btnEdit.Location = new System.Drawing.Point(6, 25);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(197, 29);
             this.btnEdit.TabIndex = 1;
@@ -242,5 +264,7 @@
         private System.Windows.Forms.GroupBox gbControl;
         private System.Windows.Forms.Button btnRemove;
         private System.Windows.Forms.Button btnEdit;
+        private System.Windows.Forms.ComboBox cbArticleType;
+        private System.Windows.Forms.Label lblArticleType;
     }
 }

@@ -20,17 +20,28 @@ namespace ATV_Allowance.Forms.ArticleForms
         private int articleType = ArticleType.THOI_SU;
         private DateTime fromDate = DateTime.Now;
         private DateTime toDate = DateTime.Now;
-        private int empId = -1;
+        private int empId = 0;
         private IArticleService articleService;
         private IEmployeeService employeeService;
         private BindingSource bs = null;
         private ArticleViewModel model = null;
         private List<ArticleViewModel> articleList = new List<ArticleViewModel>();
+        private List<int> currArticleTypes;
 
         public ManageTSForm()
         {
-            InitializeComponent();               
+            InitializeComponent();
+            InitArticleTypeFilter();
             LoadDGV();
+        }
+        private void InitArticleTypeFilter()
+        {
+            List<ArticleGroup> list = Constants.ArticleTypeGroup.DROPDOWN_VALUE;
+            currArticleTypes = list[0].GroupIds;
+            cbArticleType.DisplayMember = "Name";
+            cbArticleType.ValueMember = "GroupIds";
+            cbArticleType.DataSource = list;
+            cbArticleType.AutoCompleteSource = AutoCompleteSource.ListItems;
         }
         private void RemoveTimePortion()
         {
@@ -44,17 +55,20 @@ namespace ATV_Allowance.Forms.ArticleForms
                 RemoveTimePortion();
                 articleService = new ArticleService();
                 bs = new BindingSource();
-                articleList = articleService.GetArticle(articleType, fromDate, toDate, empId);
+                articleList = articleService.GetComboArticle(currArticleTypes, fromDate, toDate, empId);
                 SortableBindingList<ArticleViewModel> sbl = new SortableBindingList<ArticleViewModel>(articleList);
                 bs.DataSource = sbl;
                 adgvList.DataSource = bs;
                 adgvList.Columns["Id"].Visible = false;
                 adgvList.Columns["TypeId"].Visible = false;
                 adgvList.Columns["Title"].Visible = true;
-                adgvList.Columns["Date"].Visible = true;
+                adgvList.Columns["Code"].Visible = true;
+                adgvList.Columns["Date"].Visible = true;                
 
                 adgvList.Columns["Title"].HeaderText = ADGVArticleText.Title;
                 adgvList.Columns["Title"].Width = ControlsAttribute.GV_WIDTH_LARGE_XX;
+                adgvList.Columns["Code"].HeaderText = ADGVArticleText.Type;
+                adgvList.Columns["Code"].Width = ControlsAttribute.GV_WIDTH_SMALL;
                 adgvList.Columns["Date"].HeaderText = ADGVArticleText.Date;
                 adgvList.Columns["Date"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
@@ -82,8 +96,8 @@ namespace ATV_Allowance.Forms.ArticleForms
                 {
                     new EmployeeViewModel
                     {
-                        Id = -1,
-                        Name = "<chọn nhân viên />" // empty employee
+                        Id = 0,
+                        Name = "Tất cả nhân viên" // empty employee
                     }
                 };
                 list.AddRange(employeeService.GetAllActive(true));
@@ -167,7 +181,7 @@ namespace ATV_Allowance.Forms.ArticleForms
         {
             if (model != null)
             {
-                EditTSForm form = new EditTSForm(model, articleType);
+                EditTSForm form = new EditTSForm(model);
                 form.FormClosed += new FormClosedEventHandler(AddTSForm_Closed);
                 form.ShowDialog();
             }
@@ -205,6 +219,13 @@ namespace ATV_Allowance.Forms.ArticleForms
             {
                 articleService = null;
             }
+        }
+
+        private void cbArticleType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var curItem = (ArticleGroup)cbArticleType.SelectedItem;
+            currArticleTypes = curItem.GroupIds;
+            LoadDGV();
         }
     }
 }

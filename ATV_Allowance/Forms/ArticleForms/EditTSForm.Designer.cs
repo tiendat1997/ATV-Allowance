@@ -36,6 +36,7 @@
             this.gbList = new System.Windows.Forms.GroupBox();
             this.adgvList = new System.Windows.Forms.DataGridView();
             this.epTitle = new System.Windows.Forms.ErrorProvider(this.components);
+            this.btnRemove = new System.Windows.Forms.Button();
             this.gbArticleTitle.SuspendLayout();
             this.gbList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.adgvList)).BeginInit();
@@ -44,6 +45,7 @@
             // 
             // gbArticleTitle
             // 
+            this.gbArticleTitle.Controls.Add(this.btnRemove);
             this.gbArticleTitle.Controls.Add(this.btnSave);
             this.gbArticleTitle.Controls.Add(this.txtTitle);
             this.gbArticleTitle.Controls.Add(this.txtDate);
@@ -108,6 +110,16 @@
             // 
             this.epTitle.ContainerControl = this;
             // 
+            // btnRemove
+            // 
+            this.btnRemove.Location = new System.Drawing.Point(825, 18);
+            this.btnRemove.Name = "btnRemove";
+            this.btnRemove.Size = new System.Drawing.Size(92, 30);
+            this.btnRemove.TabIndex = 3;
+            this.btnRemove.Text = "Xóa";
+            this.btnRemove.UseVisualStyleBackColor = true;
+            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
+            // 
             // EditTSForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -136,5 +148,6 @@
         private System.Windows.Forms.TextBox txtDate;
         private System.Windows.Forms.TextBox txtTitle;
         private System.Windows.Forms.ErrorProvider epTitle;
+        private System.Windows.Forms.Button btnRemove;
     }
 }

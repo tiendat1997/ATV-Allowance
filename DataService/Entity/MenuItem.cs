@@ -18,7 +18,7 @@ namespace DataService.Entity
         public int Id { get; set; }
 
         [Required]
-        [StringLength(30)]
+        [StringLength(100)]
         public string Name { get; set; }
 
         public int Level { get; set; }

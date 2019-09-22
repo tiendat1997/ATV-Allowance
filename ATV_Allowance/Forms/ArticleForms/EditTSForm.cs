@@ -34,12 +34,12 @@ namespace ATV_Allowance.Forms.ArticleForms
         private List<EmployeeViewModel> empList;
         private List<PointTypeViewModel> listPointType;
         internal Dictionary<Control, ErrorProvider> epDic;               
-        public EditTSForm(ArticleViewModel model, int articleTypeId)
+        public EditTSForm(ArticleViewModel model)
         {
             InitializeComponent();
             this.components = new System.ComponentModel.Container();
             InitializeErrorProvider();
-            this.articleTypeId = articleTypeId;
+            this.articleTypeId = model.TypeId;
             this.article = model;
             LoadDGV();
         }
@@ -360,6 +360,31 @@ namespace ATV_Allowance.Forms.ArticleForms
                         articleEmployee.ArticleId = article.Id;
                         articleService.RemoveArticleEmployee(articleEmployee);
                     }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                articleService = null;
+            }
+        }
+
+        private void btnRemove_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (article == null)
+                {
+                    return;
+                }
+                if (MessageBox.Show("Xác nhận xóa tin", "Message", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    articleService = new ArticleService();
+                    articleService.RemoveArticle(article);
+                    this.Close();
                 }
             }
             catch (Exception ex)

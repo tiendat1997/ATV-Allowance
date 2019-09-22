@@ -51,15 +51,15 @@ namespace ATV_Allowance.Forms.ArticleForms
         {
             string typeName = "Nhập ";
             switch (typeId)
-            {
+            {                                
                 case 1:
-                    typeName += "tin thời sự hàng ngày";
-                    break;
-                case 2:
                     typeName += "tin phát thanh";
                     break;
-                case 3:
+                case 2:
                     typeName += "tin phát thanh tt";
+                    break;
+                case 3:
+                    typeName += "tin thời sự hàng ngày";
                     break;
                 case 4:
                     typeName += "thông tin ngày mới";
@@ -114,7 +114,7 @@ namespace ATV_Allowance.Forms.ArticleForms
             }
             finally
             {
-                articleService = null;
+                
             }
 
         }
@@ -408,18 +408,22 @@ namespace ATV_Allowance.Forms.ArticleForms
                             };
                             articleService.AddArticle(newEmp);
                         }
-                        //// load adgv        
+                        //// load adgv                         
                         LoadArticleData();
                         int articleIndex = (int)nudOrdinal.Value;
+
                         article = articleList[articleIndex];
-                        adgvList.ReadOnly = false;
-                        LoadDGV();                      
+                        article.Title = txtTitle.Text;
+                        articleService.UpdateArticle(article);
+                        adgvList.ReadOnly = false;                        
+                        LoadDGV();
+                        this.ActiveControl = adgvList;
                     }
                 }
                 catch (Exception ex)
                 {
 
-                    throw;
+                    throw ex;
                 }
                 finally
                 {
