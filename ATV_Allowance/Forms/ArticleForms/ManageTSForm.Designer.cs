@@ -43,7 +43,6 @@
             this.gbControl = new System.Windows.Forms.GroupBox();
             this.btnRemove = new System.Windows.Forms.Button();
             this.btnEdit = new System.Windows.Forms.Button();
-            this.btnAdd = new System.Windows.Forms.Button();
             this.gbFilter.SuspendLayout();
             this.gbArticleInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.adgvList)).BeginInit();
@@ -178,7 +177,6 @@
             // 
             this.gbControl.Controls.Add(this.btnRemove);
             this.gbControl.Controls.Add(this.btnEdit);
-            this.gbControl.Controls.Add(this.btnAdd);
             this.gbControl.Location = new System.Drawing.Point(12, 245);
             this.gbControl.Name = "gbControl";
             this.gbControl.Size = new System.Drawing.Size(217, 198);
@@ -188,7 +186,7 @@
             // 
             // btnRemove
             // 
-            this.btnRemove.Location = new System.Drawing.Point(10, 154);
+            this.btnRemove.Location = new System.Drawing.Point(6, 149);
             this.btnRemove.Name = "btnRemove";
             this.btnRemove.Size = new System.Drawing.Size(197, 29);
             this.btnRemove.TabIndex = 2;
@@ -198,23 +196,13 @@
             // 
             // btnEdit
             // 
-            this.btnEdit.Location = new System.Drawing.Point(10, 88);
+            this.btnEdit.Location = new System.Drawing.Point(6, 102);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(197, 29);
             this.btnEdit.TabIndex = 1;
             this.btnEdit.Text = "Xem tin";
             this.btnEdit.UseVisualStyleBackColor = true;
             this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
-            // 
-            // btnAdd
-            // 
-            this.btnAdd.Location = new System.Drawing.Point(10, 39);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(197, 29);
-            this.btnAdd.TabIndex = 0;
-            this.btnAdd.Text = "Thêm tin";
-            this.btnAdd.UseVisualStyleBackColor = true;
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // ManageTSForm
             // 
@@ -254,6 +242,5 @@
         private System.Windows.Forms.GroupBox gbControl;
         private System.Windows.Forms.Button btnRemove;
         private System.Windows.Forms.Button btnEdit;
-        private System.Windows.Forms.Button btnAdd;
     }
 }

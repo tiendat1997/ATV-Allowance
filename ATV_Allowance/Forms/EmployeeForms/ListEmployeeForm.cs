@@ -100,7 +100,13 @@ namespace ATV_Allowance.Forms.EmployeeForms
         }
         private void AddEmployeeForm_Closed(object sender, FormClosedEventArgs e)
         {
-            int oldCount = adgvEmployee.Rows.Count - 1;
+
+            if (adgvEmployee.CurrentRow == null)
+            {
+                LoadDGV();
+                return;
+            }
+            int oldCount = adgvEmployee.Rows.Count - 1;            
             int currIndex = adgvEmployee.CurrentRow.Index;
             int selectedIndex = currIndex;
             LoadDGV();

@@ -14,6 +14,7 @@ using ATV_Allowance.Forms.OrganizationForms;
 using ATV_Allowance.Forms.ArticleForms;
 using ATV_Allowance.Forms.Report;
 using ATV_Allowance.Forms.CriteriaForms;
+using static ATV_Allowance.Common.Constants;
 
 namespace ATV_Allowance.Common
 {
@@ -214,6 +215,20 @@ namespace ATV_Allowance.Common
 
                 switch (formName)
                 {
+                    case "Nhập Tin thời sự hàng ngày":
+                        ImportArticleForm importTSForm = new ImportArticleForm(ArticleType.THOI_SU);
+                        form = (Form)importTSForm;
+                        break;
+                    case "Nhập Tin, PS ttnm":
+                        break;
+                    case "Nhập Tin phát thanh":
+                        ImportArticleForm importPTForm = new ImportArticleForm(ArticleType.PHAT_THANH);
+                        form = (Form)importPTForm;
+                        break;
+                    case "Nhập Tin phát thanh tt":
+                        ImportArticleForm importPTTTForm = new ImportArticleForm(ArticleType.PHAT_THANH_TT);
+                        form = (Form)importPTTTForm;
+                        break;
                     case "Tin Thời sự hằng ngày":
                         ManageTSForm tsForm = new ManageTSForm();
                         form = (Form)tsForm;
@@ -293,6 +308,10 @@ namespace ATV_Allowance.Common
                                               || c == '-')));
             str = new string(arr);
             return str;
+        }
+        public static DateTime RemoveTimePortion(DateTime datetime)
+        {
+            return new DateTime(datetime.Year, datetime.Month, datetime.Day);
         }
     }
 }

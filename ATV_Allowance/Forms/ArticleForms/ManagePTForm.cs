@@ -69,7 +69,7 @@ namespace ATV_Allowance.Forms.ArticleForms
         }
 
         private void RemoveTimePortion()
-        {
+        {                     
             fromDate = new DateTime(fromDate.Year, fromDate.Month, fromDate.Day);
             toDate = new DateTime(toDate.Year, toDate.Month, toDate.Day);
         }

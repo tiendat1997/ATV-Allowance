@@ -195,6 +195,8 @@
             public static int THOI_SU = 1;
             public static int PHAT_THANH = 2;
             public static int PHAT_THANH_TT = 3;
+            public static int BIENSOAN_TTNM = 4;
+            public static int PV_TTNM = 5;
         }
     }
 }
