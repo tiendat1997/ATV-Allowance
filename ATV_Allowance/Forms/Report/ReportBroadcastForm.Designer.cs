@@ -37,7 +37,7 @@
             this.label11 = new System.Windows.Forms.Label();
             this.adgvReportBroadcast = new ADGV.AdvancedDataGridView();
             this.flowLayoutPanel5 = new System.Windows.Forms.FlowLayoutPanel();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnExport = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.flowLayoutPanel4 = new System.Windows.Forms.FlowLayoutPanel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
@@ -163,7 +163,7 @@
             // flowLayoutPanel5
             // 
             this.flowLayoutPanel5.AutoSize = true;
-            this.flowLayoutPanel5.Controls.Add(this.button2);
+            this.flowLayoutPanel5.Controls.Add(this.btnExport);
             this.flowLayoutPanel5.Controls.Add(this.button3);
             this.flowLayoutPanel5.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
             this.flowLayoutPanel5.Location = new System.Drawing.Point(443, 14);
@@ -171,15 +171,16 @@
             this.flowLayoutPanel5.Size = new System.Drawing.Size(413, 29);
             this.flowLayoutPanel5.TabIndex = 0;
             // 
-            // button2
+            // btnExport
             // 
-            this.button2.Font = new System.Drawing.Font("Candara", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(337, 3);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(73, 23);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Xuất file";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnExport.Font = new System.Drawing.Font("Candara", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnExport.Location = new System.Drawing.Point(337, 3);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(73, 23);
+            this.btnExport.TabIndex = 1;
+            this.btnExport.Text = "Xuất file";
+            this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
             // button3
             // 
@@ -273,7 +274,7 @@
             "10",
             "11",
             "12"});
-            this.comboBox1.Location = new System.Drawing.Point(94, 3);
+            this.comboBox1.Location = new System.Drawing.Point(94, 4);
             this.comboBox1.Margin = new System.Windows.Forms.Padding(0);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(40, 25);
@@ -310,7 +311,7 @@
             "2028",
             "2029",
             "2030"});
-            this.comboBox2.Location = new System.Drawing.Point(154, 3);
+            this.comboBox2.Location = new System.Drawing.Point(154, 4);
             this.comboBox2.Margin = new System.Windows.Forms.Padding(0, 0, 5, 0);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(52, 25);
@@ -458,7 +459,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private ADGV.AdvancedDataGridView adgvReportBroadcast;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel5;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnExport;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;

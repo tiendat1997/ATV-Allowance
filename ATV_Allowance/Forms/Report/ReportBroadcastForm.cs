@@ -17,9 +17,14 @@ namespace ATV_Allowance.Forms.Report
     public partial class ReportBroadcastForm : Form
     {
         private BindingSource bs;
+
+        private IReportService reportService;
+
         public ReportBroadcastForm()
         {
             InitializeComponent();
+            reportService = new ReportService();
+
             loadReport();
         }
 
@@ -30,7 +35,7 @@ namespace ATV_Allowance.Forms.Report
             {
 
                 reportService = new ReportService();
-                List<EmployeePointViewModel> list = reportService.GetReportBroadcast(new DateTime(2019,9,1), new DateTime(2019, 9, 30), EmployeeRole.BTV, 3000);
+                List<EmployeePointViewModel> list = reportService.GetReportBroadcast(new DateTime(2019,9,1), new DateTime(2019, 9, 30), EmployeeRole.PV, 3000, ArticleType.THOI_SU);
                 SortableBindingList<EmployeePointViewModel> sbl = new SortableBindingList<EmployeePointViewModel>(list);
                 bs = new BindingSource();
                 bs.DataSource = sbl;
@@ -81,6 +86,11 @@ namespace ATV_Allowance.Forms.Report
         private void dateTimePicker2_ValueChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            reportService.GetReportTS(new DateTime(2019, 9, 1), new DateTime(2019, 9, 30), EmployeeRole.PV, 3000, ArticleType.THOI_SU);
         }
     }
 }

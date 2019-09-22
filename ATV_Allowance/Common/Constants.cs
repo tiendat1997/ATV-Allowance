@@ -109,13 +109,6 @@
             public static int CTV = 4;
         }
 
-        public static class ReportType
-        {
-            public static int PT = 1;
-            public static int PTTT = 2;
-            public static int TS = 3;
-        }
-
         public static class Unit
         {
             public static int None = 0;
@@ -195,6 +188,30 @@
             public static int THOI_SU = 1;
             public static int PHAT_THANH = 2;
             public static int PHAT_THANH_TT = 3;
+        }
+
+        public static class Tempate
+        {
+            public static string TS = "TemplateTS";
+            public static string PT = "TemplatePT";
+            public static string PTTT = "TemplatePTTT";
+        }
+
+        public static class TS_COL
+        {
+            public static int STT = 1;
+            public static int HO_TEN = 2;
+            public static int TIN =3;
+            public static int TIN_DIEM = 4;
+            public static int PHSU = 5;
+            public static int PHSU_DIEM = 6;
+            public static int QTIN_DIEM = 7;
+            public static int QPSU_DIEM = 8;
+            public static int CONG = 9;
+            public static int TRUCHITIEU = 10;
+            public static int TANGGIAM = 11;
+            public static int TONGCONG = 12;
+            public static int THANHTIEN = 13;
         }
     }
 }

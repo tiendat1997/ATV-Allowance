@@ -96,7 +96,8 @@ namespace ATV_Allowance.Forms.DeductionForms
                 comboBox.DropDownStyle = ComboBoxStyle.DropDownList;
                 comboBox.AutoCompleteMode = AutoCompleteMode.Suggest;
                 comboBox.AutoCompleteSource = AutoCompleteSource.ListItems;
-                comboBox.SelectedIndexChanged += new EventHandler(cbDeductionSelectedIndexChange);
+                comboBox.SelectionChangeCommitted -= new EventHandler(cbDeductionSelectedIndexChange);
+                comboBox.SelectionChangeCommitted += cbDeductionSelectedIndexChange;
                 comboBox.SelectedIndex = 0;
 
             }
