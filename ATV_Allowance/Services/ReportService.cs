@@ -40,34 +40,27 @@ namespace ATV_Allowance.Services
 
                     currentId = item.EmployeeId;
                 }
-
-                switch (item.PointType)
+                if (item.PointType == PointType_ThoiSu.Tin)
                 {
-                    case (int)PointType.Tin:
-                        employeePointVM.ArticlePoint = item.PointType;
-                        employeePointVM.ArticlePoint = item.Amount;
-                        break;
-                    case (int)PointType.Bai:
-                        employeePointVM.ArticlePoint = item.PointType;
-                        employeePointVM.ArticlePoint = item.Amount;
-                        break;
-                    case (int)PointType.PV:
-                        employeePointVM.PVPoint = item.PointType;
-                        employeePointVM.PVAmount = item.Amount;
-                        break;
-                    case (int)PointType.Tlt:
-                        employeePointVM.MajorPoint = item.PointType;
-                        employeePointVM.MajorAmount = item.Amount;
-                        break;
-                    case (int)PointType.SD:
-                        employeePointVM.BSPoint = item.PointType;
-                        employeePointVM.BSAmount = item.Amount;
-                        break;
-                    case (int)PointType.CD_CM:
-                        employeePointVM.BTPoint = item.PointType;
-                        employeePointVM.BTAmount = item.Amount;
-                        break;
+                    employeePointVM.SoTin = item.Amount;
+                    employeePointVM.DiemTin = item.TotalPoint;
                 }
+                else if (item.PointType == PointType_ThoiSu.PS)
+                {
+                    employeePointVM.SoPsu = item.Amount;
+                    employeePointVM.DiemPsu = item.TotalPoint;
+                }
+                else if (item.PointType == PointType_ThoiSu.QTin)
+                {
+                    employeePointVM.DiemQtin = item.TotalPoint;
+                }
+                else if (item.PointType == PointType_ThoiSu.QPs)
+                {
+                    employeePointVM.DiemQPsu = item.TotalPoint;
+                }
+
+                employeePointVM.TotalPoint += item.TotalPoint;
+
 
             }
 
@@ -86,6 +79,21 @@ namespace ATV_Allowance.Services
                 worksheet.InsertRow(currentRow, 1);
                 worksheet.Cells[currentRow, TS_COL.STT].Value = i + 1;
                 worksheet.Cells[currentRow, TS_COL.HO_TEN].Value = list[i].EmployeeName;
+                worksheet.Cells[currentRow, TS_COL.TIN].Value = list[i].SoTin;
+                worksheet.Cells[currentRow, TS_COL.TIN_DIEM].Value = list[i].DiemTin;
+                worksheet.Cells[currentRow, TS_COL.PHSU].Value = list[i].SoPsu;
+                worksheet.Cells[currentRow, TS_COL.PHSU_DIEM].Value = list[i].DiemPsu;
+                worksheet.Cells[currentRow, TS_COL.QTIN_DIEM].Value = list[i].DiemQtin;
+                worksheet.Cells[currentRow, TS_COL.QPSU_DIEM].Value = list[i].DiemQPsu;
+
+                var sum = list[i].DiemTin + list[i].DiemPsu + list[i].DiemQtin + list[i].DiemQPsu;
+                var deduction = 0;
+                var tongcong = (sum - deduction) * 1.1;
+                worksheet.Cells[currentRow, TS_COL.CONG].Value = sum;
+                worksheet.Cells[currentRow, TS_COL.TRUCHITIEU].Value = deduction;
+                worksheet.Cells[currentRow, TS_COL.TANGGIAM].Value = (sum - deduction) * 0.1;
+                worksheet.Cells[currentRow, TS_COL.TONGCONG].Value = tongcong;
+                worksheet.Cells[currentRow, TS_COL.THANHTIEN].Value = tongcong * 3000;
 
                 currentRow += 1;
             }
@@ -96,7 +104,7 @@ namespace ATV_Allowance.Services
             worksheet.Cells[5, 1, currentRow - 1, 14].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
             worksheet.Cells[5, 1, currentRow - 1, 14].Style.Border.Left.Style = ExcelBorderStyle.Thin;
 
-            helper.Save(@"E:\", "test");
+            helper.Save(@"E:\", $"BaoCao{reportType}_{endDate.Month}{endDate.Year}");
 
         }
     }

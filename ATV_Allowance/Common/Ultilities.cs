@@ -233,7 +233,7 @@ namespace ATV_Allowance.Common
                         ListEmployeeForm listEmployeesForm = new ListEmployeeForm();
                         form = (Form)listEmployeesForm;
                         break;
-                    case "In Phát thanh":
+                    case "In Thời sự":
                         ReportBroadcastForm reportBroadcastForm = new ReportBroadcastForm();
                         form = (Form)reportBroadcastForm;
                         break;
