@@ -3,12 +3,8 @@ using ATV_Allowance.Services;
 using ATV_Allowance.ViewModel;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using static ATV_Allowance.Common.Constants;
 
@@ -19,6 +15,7 @@ namespace ATV_Allowance.Forms.Report
         private BindingSource bs;
 
         private IReportService reportService;
+        private SaveFileDialog saveFileDialog;
 
         public ReportBroadcastForm()
         {
@@ -26,16 +23,27 @@ namespace ATV_Allowance.Forms.Report
             reportService = new ReportService();
 
             InitValue();
-            loadReport();
+            LoadReport();
         }
 
         public void InitValue()
         {
             dtpMonth.Value = DateTime.Now;
             dtpYear.Value = DateTime.Now;
+
+            InitSaveFile();
         }
 
-        private void loadReport()
+        public void InitSaveFile()
+        {
+            saveFileDialog = new SaveFileDialog();
+            saveFileDialog.InitialDirectory = @"C:\";
+            saveFileDialog.RestoreDirectory = true;
+            saveFileDialog.Title = "Lưu báo cáo";
+        }
+
+
+        private void LoadReport()
         {
             IReportService reportService = null;
             try
@@ -84,7 +92,14 @@ namespace ATV_Allowance.Forms.Report
 
         private void btnExport_Click(object sender, EventArgs e)
         {
-            reportService.GetReportTS(dtpStartdate.Value, dtpEnddate.Value, EmployeeRole.PV, (int)edtPrice.Value, ArticleType.THOI_SU);
+            saveFileDialog.FileName = $"BaoCao_TS_{dtpEnddate.Value.Month}{dtpEnddate.Value.Year}.xlsx";
+            var data = reportService.GetReportTS(dtpStartdate.Value, dtpEnddate.Value, EmployeeRole.PV, (int)edtPrice.Value, ArticleType.THOI_SU);
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                var path = Path.GetFullPath(saveFileDialog.FileName);
+                File.WriteAllBytes(path, data);
+            }
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -119,7 +134,7 @@ namespace ATV_Allowance.Forms.Report
 
         private void btnViewReport_Click(object sender, EventArgs e)
         {
-            loadReport();
+            LoadReport();
         }
     }
 }

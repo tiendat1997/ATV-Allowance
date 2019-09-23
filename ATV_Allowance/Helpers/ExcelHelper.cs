@@ -13,15 +13,13 @@ namespace ATV_Allowance.Helpers
         private readonly string TEMPLATE_PATH = @"E:\";
         private ExcelPackage package;
 
-        public ExcelWorksheet GetWorksheet(string template)
+        public ExcelPackage GetPackage(string template)
         {
             string realPath = $"{TEMPLATE_PATH}{template}.xlsx";
             FileInfo fileInfo = new FileInfo(realPath);
             package = new ExcelPackage(fileInfo);
-            var workbook = package.Workbook;
-            var worksheet = workbook.Worksheets.First();
-
-            return worksheet;
+          
+            return package;
         }
 
         public void Save(string path, string name)
