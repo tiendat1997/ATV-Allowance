@@ -59,10 +59,9 @@ namespace ATV_Allowance.Services
                     employeePointVM.DiemQPsu = item.TotalPoint;
                 }
 
-                employeePointVM.TotalPoint += item.TotalPoint;
-
-
             }
+
+            CalculateCost(result, price);
 
             return result;
         }
@@ -98,14 +97,37 @@ namespace ATV_Allowance.Services
                 currentRow += 1;
             }
 
-            //border
-            worksheet.Cells[5, 1, currentRow - 1, 14].Style.Border.Top.Style = ExcelBorderStyle.Thin;
-            worksheet.Cells[5, 1, currentRow - 1, 14].Style.Border.Right.Style = ExcelBorderStyle.Thin;
-            worksheet.Cells[5, 1, currentRow - 1, 14].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
-            worksheet.Cells[5, 1, currentRow - 1, 14].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+            if (list.Count > 0)
+            {
+                //border
+                worksheet.Cells[5, 1, currentRow - 1, 14].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                worksheet.Cells[5, 1, currentRow - 1, 14].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                worksheet.Cells[5, 1, currentRow - 1, 14].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                worksheet.Cells[5, 1, currentRow - 1, 14].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+            }
+            else
+            {
+
+            }
 
             helper.Save(@"E:\", $"BaoCao{reportType}_{endDate.Month}{endDate.Year}");
 
+        }
+
+        private void CalculateCost(List<EmployeePointViewModel> list, int price)
+        {
+            for(int i =0; i < list.Count; i++)
+            {
+                var percent = 0.1;
+                var sum = list[i].DiemTin + list[i].DiemPsu + list[i].DiemQtin + list[i].DiemQPsu;
+                var deduction = 0;
+                var tongcong = (sum - deduction) * (1 + percent);
+                list[i].Sum = sum;
+                list[i].Descrease = 0;
+                list[i].IncreasePercent = percent * (sum - deduction);
+                list[i].TotalPoint = tongcong;
+                list[i].TotalCost = (int)(tongcong * price);
+            }
         }
     }
 }

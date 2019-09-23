@@ -25,7 +25,14 @@ namespace ATV_Allowance.Forms.Report
             InitializeComponent();
             reportService = new ReportService();
 
+            InitValue();
             loadReport();
+        }
+
+        public void InitValue()
+        {
+            dtpMonth.Value = DateTime.Now;
+            dtpYear.Value = DateTime.Now;
         }
 
         private void loadReport()
@@ -35,7 +42,7 @@ namespace ATV_Allowance.Forms.Report
             {
 
                 reportService = new ReportService();
-                List<EmployeePointViewModel> list = reportService.GetReportBroadcast(new DateTime(2019,9,1), new DateTime(2019, 9, 30), EmployeeRole.PV, 3000, ArticleType.THOI_SU);
+                List<EmployeePointViewModel> list = reportService.GetReportBroadcast(dtpStartdate.Value, dtpEnddate.Value, EmployeeRole.PV, (int)edtPrice.Value, ArticleType.THOI_SU);
                 SortableBindingList<EmployeePointViewModel> sbl = new SortableBindingList<EmployeePointViewModel>(list);
                 bs = new BindingSource();
                 bs.DataSource = sbl;
@@ -48,13 +55,16 @@ namespace ATV_Allowance.Forms.Report
                 adgvReportBroadcast.Columns["DiemPsu"].HeaderText = ADGVReportHeader.DiemPsu;
                 adgvReportBroadcast.Columns["DiemQtin"].HeaderText = ADGVReportHeader.DiemQTin;
                 adgvReportBroadcast.Columns["DiemQPsu"].HeaderText = ADGVReportHeader.DiemQPsu;
+                adgvReportBroadcast.Columns["Sum"].HeaderText = ADGVReportHeader.Cong;
+                adgvReportBroadcast.Columns["Descrease"].HeaderText = ADGVReportHeader.TruChiTieu;
                 adgvReportBroadcast.Columns["TotalPoint"].HeaderText = ADGVReportHeader.TotalPoint;
-                adgvReportBroadcast.Columns["IncreasePercent"].HeaderText = ADGVReportHeader.IncreasePercent;
+                adgvReportBroadcast.Columns["IncreasePercent"].HeaderText = ADGVReportHeader.TangGiam;
                 adgvReportBroadcast.Columns["TotalCost"].HeaderText = ADGVReportHeader.TotalCost;
 
                 adgvReportBroadcast.Columns["EmployeeId"].Visible = false;
 
-
+                txtPoint.Text = list.Sum(e => e.TotalPoint).ToString();
+                txtCost.Text = list.Sum(e => e.TotalCost).ToString();
 
             }
             catch (Exception ex)
@@ -67,24 +77,49 @@ namespace ATV_Allowance.Forms.Report
             }
         }
 
-        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dateTimePicker2_ValueChanged(object sender, EventArgs e)
         {
 
         }
 
         private void btnExport_Click(object sender, EventArgs e)
         {
-            reportService.GetReportTS(new DateTime(2019, 9, 1), new DateTime(2019, 9, 30), EmployeeRole.PV, 3000, ArticleType.THOI_SU);
+            reportService.GetReportTS(dtpStartdate.Value, dtpEnddate.Value, EmployeeRole.PV, (int)edtPrice.Value, ArticleType.THOI_SU);
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dtpMonth_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dtpYear_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnViewReport_Click(object sender, EventArgs e)
+        {
+            loadReport();
         }
     }
 }

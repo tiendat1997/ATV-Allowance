@@ -47,12 +47,17 @@
         {
             public static string Name = "Họ và tên";
             public static string Organization = "Đơn vị";
-            public static string SoTin = "SL Tin";
+            public static string SoTin = "Tin";
             public static string DiemTin = "Số điểm";
             public static string SoPsu = "Ph/Sự";
             public static string DiemPsu = "Số điểm";
             public static string DiemQTin = "Điểm quay tin";
             public static string DiemQPsu = "Điểm qu.P/sự";
+            public static string Cong = "Cộng";
+            public static string TruChiTieu = "Trừ chỉ tiêu";
+            public static string TangGiam = "Tăng + Giảm - 10%";
+            public static string TongCong = "Tổng cộng";
+            public static string ThanhTien = "Thành tiền";
             public static string SpeechAmount = "SL T/thuật G/nhanh";
             public static string SpeechPoint = "Đ T/thuật G/nhanh";
             public static string MajorAmount = "SL Chuyên đề";
@@ -64,7 +69,6 @@
             public static string BTAmount = "SL B/tập Đ/diễn";
             public static string BTPoint = "Đ B/tập Đ/diễn";
             public static string TotalPoint = "Tổng điểm";
-            public static string IncreasePercent = "Tăng 30%";
             public static string TotalCost = "Thành tiền";
             
 

@@ -17,8 +17,10 @@ namespace ATV_Allowance.ViewModel
         public double DiemPsu { get; set; }
         public double DiemQtin { get; set; }
         public double DiemQPsu { get; set; }
+        public double Sum { get; set; }
+        public double Descrease { get; set; }
+        public double IncreasePercent { get; set; }
         public double TotalPoint { get; set; }
-        public int IncreasePercent { get; set; }
         public int TotalCost { get; set; }
     }
 }
