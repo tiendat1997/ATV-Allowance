@@ -76,6 +76,8 @@
     <Compile Include="Infrastructure\IRepository.cs" />
     <Compile Include="Model\ReportModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\DeductionTypeRepository.cs" />
+    <Compile Include="Repository\EmployeeDeductionRepository.cs" />
     <Compile Include="Repository\PointRepository.cs" />
     <Compile Include="Repository\ArticlePointTypeRepository.cs" />
     <Compile Include="Repository\ArticleEmployeeRepository.cs" />

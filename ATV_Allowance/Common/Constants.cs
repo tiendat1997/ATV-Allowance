@@ -49,8 +49,17 @@ namespace ATV_Allowance.Common
         {
             public static string Name = "Họ và tên";
             public static string Organization = "Đơn vị";
-            public static string ArticleAmount = "SL Tin";
-            public static string ArticlePoint = "Đ Tin";
+            public static string SoTin = "Tin";
+            public static string DiemTin = "Số điểm";
+            public static string SoPsu = "Ph/Sự";
+            public static string DiemPsu = "Số điểm";
+            public static string DiemQTin = "Điểm quay tin";
+            public static string DiemQPsu = "Điểm qu.P/sự";
+            public static string Cong = "Cộng";
+            public static string TruChiTieu = "Trừ chỉ tiêu";
+            public static string TangGiam = "Tăng + Giảm - 10%";
+            public static string TongCong = "Tổng cộng";
+            public static string ThanhTien = "Thành tiền";
             public static string SpeechAmount = "SL T/thuật G/nhanh";
             public static string SpeechPoint = "Đ T/thuật G/nhanh";
             public static string MajorAmount = "SL Chuyên đề";
@@ -62,9 +71,8 @@ namespace ATV_Allowance.Common
             public static string BTAmount = "SL B/tập Đ/diễn";
             public static string BTPoint = "Đ B/tập Đ/diễn";
             public static string TotalPoint = "Tổng điểm";
-            public static string IncreasePercent = "Tăng 30%";
             public static string TotalCost = "Thành tiền";
-
+            
 
         }
         public static class ADGVArticleText
@@ -110,13 +118,6 @@ namespace ATV_Allowance.Common
             public static int BTV = 2;
             public static int PTV = 3;
             public static int CTV = 4;
-        }
-
-        public static class ReportType
-        {
-            public static int PT = 1;
-            public static int PTTT = 2;
-            public static int TS = 3;
         }
 
         public static class Unit
@@ -203,6 +204,30 @@ namespace ATV_Allowance.Common
         {
             public string Name { get; set; }
             public List<int> GroupIds { get; set; }
+        }
+
+        public static class Tempate
+        {
+            public static string TS = "TemplateTS";
+            public static string PT = "TemplatePT";
+            public static string PTTT = "TemplatePTTT";
+        }
+
+        public static class TS_COL
+        {
+            public static int STT = 1;
+            public static int HO_TEN = 2;
+            public static int TIN =3;
+            public static int TIN_DIEM = 4;
+            public static int PHSU = 5;
+            public static int PHSU_DIEM = 6;
+            public static int QTIN_DIEM = 7;
+            public static int QPSU_DIEM = 8;
+            public static int CONG = 9;
+            public static int TRUCHITIEU = 10;
+            public static int TANGGIAM = 11;
+            public static int TONGCONG = 12;
+            public static int THANHTIEN = 13;
         }
     }
 }

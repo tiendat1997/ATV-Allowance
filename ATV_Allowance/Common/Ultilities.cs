@@ -14,6 +14,7 @@ using ATV_Allowance.Forms.OrganizationForms;
 using ATV_Allowance.Forms.ArticleForms;
 using ATV_Allowance.Forms.Report;
 using ATV_Allowance.Forms.CriteriaForms;
+using ATV_Allowance.Forms.DeductionForms;
 using static ATV_Allowance.Common.Constants;
 
 namespace ATV_Allowance.Common
@@ -237,7 +238,7 @@ namespace ATV_Allowance.Common
                         ListEmployeeForm listEmployeesForm = new ListEmployeeForm();
                         form = (Form)listEmployeesForm;
                         break;
-                    case "In Phát thanh":
+                    case "In Thời sự":
                         ReportBroadcastForm reportBroadcastForm = new ReportBroadcastForm();
                         form = (Form)reportBroadcastForm;
                         break;
@@ -248,6 +249,10 @@ namespace ATV_Allowance.Common
                     case "Quản lý chỉ tiêu":
                         ListCriteriaForm listCriteriaForm = new ListCriteriaForm();
                         form = (Form)listCriteriaForm;
+                        break;
+                    case "Quản lý giảm trừ":
+                        ListEmployeeDeduction listEmployeeDeduction = new ListEmployeeDeduction();
+                        form = (Form)listEmployeeDeduction;
                         break;
                     case "Logout":
                         Session.Logout();
