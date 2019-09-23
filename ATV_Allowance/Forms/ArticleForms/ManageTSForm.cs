@@ -68,7 +68,7 @@ namespace ATV_Allowance.Forms.ArticleForms
                 adgvList.Columns["Title"].HeaderText = ADGVArticleText.Title;
                 adgvList.Columns["Title"].Width = ControlsAttribute.GV_WIDTH_LARGE_XX;
                 adgvList.Columns["Code"].HeaderText = ADGVArticleText.Type;
-                adgvList.Columns["Code"].Width = ControlsAttribute.GV_WIDTH_SMALL;
+                adgvList.Columns["Code"].Width = ControlsAttribute.GV_WIDTH_SEEM;
                 adgvList.Columns["Date"].HeaderText = ADGVArticleText.Date;
                 adgvList.Columns["Date"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 

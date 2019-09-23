@@ -149,7 +149,7 @@
             this.gbArticleInfo.Controls.Add(this.adgvList);
             this.gbArticleInfo.Location = new System.Drawing.Point(235, 12);
             this.gbArticleInfo.Name = "gbArticleInfo";
-            this.gbArticleInfo.Size = new System.Drawing.Size(850, 499);
+            this.gbArticleInfo.Size = new System.Drawing.Size(947, 499);
             this.gbArticleInfo.TabIndex = 1;
             this.gbArticleInfo.TabStop = false;
             this.gbArticleInfo.Text = "Danh sách tin";
@@ -158,7 +158,7 @@
             // 
             this.txtSearch.Location = new System.Drawing.Point(260, 0);
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(584, 26);
+            this.txtSearch.Size = new System.Drawing.Size(678, 26);
             this.txtSearch.TabIndex = 8;
             this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
             // 
@@ -182,7 +182,7 @@
             this.adgvList.Name = "adgvList";
             this.adgvList.ReadOnly = true;
             this.adgvList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.adgvList.Size = new System.Drawing.Size(836, 455);
+            this.adgvList.Size = new System.Drawing.Size(930, 455);
             this.adgvList.TabIndex = 0;
             this.adgvList.TimeFilter = false;
             this.adgvList.SelectionChanged += new System.EventHandler(this.adgvList_SelectionChanged);
@@ -230,7 +230,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1097, 523);
+            this.ClientSize = new System.Drawing.Size(1185, 523);
             this.Controls.Add(this.gbControl);
             this.Controls.Add(this.gbArticleInfo);
             this.Controls.Add(this.gbFilter);

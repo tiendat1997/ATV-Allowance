@@ -221,6 +221,8 @@ namespace ATV_Allowance.Common
                         form = (Form)importTSForm;
                         break;
                     case "Nhập Tin, PS ttnm":
+                        ImportArticleForm ttnmForm = new ImportArticleForm(ArticleType.PV_TTNM);
+                        form = (Form)ttnmForm;
                         break;
                     case "Nhập Tin phát thanh":
                         ImportArticleForm importPTForm = new ImportArticleForm(ArticleType.PHAT_THANH);
