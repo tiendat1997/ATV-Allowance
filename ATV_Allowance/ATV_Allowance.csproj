@@ -218,6 +218,7 @@
     <Compile Include="ViewModel\OrganizationViewModel.cs" />
     <Compile Include="ViewModel\PointTypeViewModel.cs" />
     <Compile Include="ViewModel\PointViewModel.cs" />
+    <Compile Include="ViewModel\PositionViewModel.cs" />
     <EmbeddedResource Include="Forms\ArticleForms\AddArticleForm.resx">
       <DependentUpon>AddArticleForm.cs</DependentUpon>
     </EmbeddedResource>

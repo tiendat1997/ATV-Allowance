@@ -42,6 +42,7 @@
             this.flowLayoutPanel4 = new System.Windows.Forms.FlowLayoutPanel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
+            this.cbRole = new System.Windows.Forms.ComboBox();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.label2 = new System.Windows.Forms.Label();
             this.dtpMonth = new System.Windows.Forms.DateTimePicker();
@@ -52,9 +53,9 @@
             this.label5 = new System.Windows.Forms.Label();
             this.dtpEnddate = new System.Windows.Forms.DateTimePicker();
             this.label6 = new System.Windows.Forms.Label();
+            this.edtPrice = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
             this.btnViewReport = new System.Windows.Forms.Button();
-            this.edtPrice = new System.Windows.Forms.NumericUpDown();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.flowLayoutPanel3.SuspendLayout();
@@ -153,11 +154,12 @@
             // adgvReportBroadcast
             // 
             this.adgvReportBroadcast.AutoGenerateContextFilters = true;
+            this.adgvReportBroadcast.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.adgvReportBroadcast.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.adgvReportBroadcast.DateWithTime = false;
-            this.adgvReportBroadcast.Location = new System.Drawing.Point(0, 49);
+            this.adgvReportBroadcast.Location = new System.Drawing.Point(3, 46);
             this.adgvReportBroadcast.Name = "adgvReportBroadcast";
-            this.adgvReportBroadcast.Size = new System.Drawing.Size(1247, 534);
+            this.adgvReportBroadcast.Size = new System.Drawing.Size(853, 247);
             this.adgvReportBroadcast.TabIndex = 4;
             this.adgvReportBroadcast.TimeFilter = false;
             // 
@@ -206,6 +208,7 @@
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.Controls.Add(this.label1);
+            this.flowLayoutPanel1.Controls.Add(this.cbRole);
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
@@ -217,12 +220,21 @@
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(0, 0);
+            this.label1.Location = new System.Drawing.Point(0, 4);
             this.label1.Margin = new System.Windows.Forms.Padding(0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(166, 18);
             this.label1.TabIndex = 0;
             this.label1.Text = "BÁO CÁO TIN THỜI SỰ";
+            // 
+            // cbRole
+            // 
+            this.cbRole.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbRole.FormattingEnabled = true;
+            this.cbRole.Location = new System.Drawing.Point(169, 3);
+            this.cbRole.Name = "cbRole";
+            this.cbRole.Size = new System.Drawing.Size(62, 21);
+            this.cbRole.TabIndex = 1;
             // 
             // flowLayoutPanel2
             // 
@@ -264,6 +276,7 @@
             this.dtpMonth.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpMonth.Location = new System.Drawing.Point(97, 3);
             this.dtpMonth.Name = "dtpMonth";
+            this.dtpMonth.ShowUpDown = true;
             this.dtpMonth.Size = new System.Drawing.Size(36, 24);
             this.dtpMonth.TabIndex = 13;
             this.dtpMonth.ValueChanged += new System.EventHandler(this.dtpMonth_ValueChanged);
@@ -288,6 +301,7 @@
             this.dtpYear.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpYear.Location = new System.Drawing.Point(155, 3);
             this.dtpYear.Name = "dtpYear";
+            this.dtpYear.ShowUpDown = true;
             this.dtpYear.Size = new System.Drawing.Size(48, 24);
             this.dtpYear.TabIndex = 14;
             this.dtpYear.ValueChanged += new System.EventHandler(this.dtpYear_ValueChanged);
@@ -355,6 +369,25 @@
             this.label6.Text = "Giá: ";
             this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
+            // edtPrice
+            // 
+            this.edtPrice.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.edtPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.edtPrice.Location = new System.Drawing.Point(577, 3);
+            this.edtPrice.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+            this.edtPrice.Name = "edtPrice";
+            this.edtPrice.Size = new System.Drawing.Size(39, 24);
+            this.edtPrice.TabIndex = 16;
+            this.edtPrice.Value = new decimal(new int[] {
+            3000,
+            0,
+            0,
+            0});
+            // 
             // label7
             // 
             this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
@@ -379,25 +412,6 @@
             this.btnViewReport.Text = "Xem báo cáo";
             this.btnViewReport.UseVisualStyleBackColor = true;
             this.btnViewReport.Click += new System.EventHandler(this.btnViewReport_Click);
-            // 
-            // edtPrice
-            // 
-            this.edtPrice.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.edtPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.edtPrice.Location = new System.Drawing.Point(577, 3);
-            this.edtPrice.Maximum = new decimal(new int[] {
-            1000000,
-            0,
-            0,
-            0});
-            this.edtPrice.Name = "edtPrice";
-            this.edtPrice.Size = new System.Drawing.Size(39, 24);
-            this.edtPrice.TabIndex = 16;
-            this.edtPrice.Value = new decimal(new int[] {
-            3000,
-            0,
-            0,
-            0});
             // 
             // ReportBroadcastForm
             // 
@@ -454,5 +468,6 @@
         private System.Windows.Forms.DateTimePicker dtpMonth;
         private System.Windows.Forms.DateTimePicker dtpYear;
         private System.Windows.Forms.NumericUpDown edtPrice;
+        private System.Windows.Forms.ComboBox cbRole;
     }
 }

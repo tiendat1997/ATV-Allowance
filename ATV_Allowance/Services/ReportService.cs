@@ -106,7 +106,7 @@ namespace ATV_Allowance.Services
 
             
             //report date row
-            worksheet.Cells[currentRow + 2, 14].Value = $"Long Xuyen, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
+            worksheet.Cells[currentRow + 2, 14].Value = $"Long Xuyên, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
 
             //sum row
             worksheet.Cells[currentRow, TS_COL.TIN].Value = list.Sum(e => e.SoTin);

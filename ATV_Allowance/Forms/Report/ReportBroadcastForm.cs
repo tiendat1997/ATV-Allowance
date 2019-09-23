@@ -31,6 +31,27 @@ namespace ATV_Allowance.Forms.Report
             dtpMonth.Value = DateTime.Now;
             dtpYear.Value = DateTime.Now;
 
+            dtpStartdate.Value = new DateTime(dtpYear.Value.Year, dtpMonth.Value.Month, 1);
+            dtpEnddate.Value = new DateTime(dtpYear.Value.Year, dtpMonth.Value.Month, DateTime.DaysInMonth(dtpYear.Value.Year, dtpMonth.Value.Month));
+
+            var positions = new List<PositionViewModel>();
+            positions.Add(new PositionViewModel
+            {
+                Id = EmployeeRole.PV,
+                Code = "PV"
+            });
+            positions.Add(new PositionViewModel
+            {
+                Id = EmployeeRole.CTV,
+                Code = "CTV"
+            });
+
+            cbRole.DataSource = positions;
+            cbRole.DisplayMember = "Code";
+            cbRole.ValueMember = "Id";
+
+            cbRole.SelectedValue = EmployeeRole.PV;
+
             InitSaveFile();
         }
 
@@ -42,6 +63,9 @@ namespace ATV_Allowance.Forms.Report
             saveFileDialog.Title = "Lưu báo cáo";
         }
 
+        private void AutoSize()
+        {
+        }
 
         private void LoadReport()
         {
@@ -50,7 +74,7 @@ namespace ATV_Allowance.Forms.Report
             {
 
                 reportService = new ReportService();
-                List<EmployeePointViewModel> list = reportService.GetReportBroadcast(dtpStartdate.Value, dtpEnddate.Value, EmployeeRole.PV, (int)edtPrice.Value, ArticleType.THOI_SU);
+                List<EmployeePointViewModel> list = reportService.GetReportBroadcast(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, ArticleType.THOI_SU);
                 SortableBindingList<EmployeePointViewModel> sbl = new SortableBindingList<EmployeePointViewModel>(list);
                 bs = new BindingSource();
                 bs.DataSource = sbl;
@@ -68,12 +92,16 @@ namespace ATV_Allowance.Forms.Report
                 adgvReportBroadcast.Columns["TotalPoint"].HeaderText = ADGVReportHeader.TotalPoint;
                 adgvReportBroadcast.Columns["IncreasePercent"].HeaderText = ADGVReportHeader.TangGiam;
                 adgvReportBroadcast.Columns["TotalCost"].HeaderText = ADGVReportHeader.TotalCost;
+                adgvReportBroadcast.Columns["TotalCost"].DefaultCellStyle.Format = "N0";
 
                 adgvReportBroadcast.Columns["EmployeeId"].Visible = false;
 
                 txtPoint.Text = list.Sum(e => e.TotalPoint).ToString();
-                txtCost.Text = list.Sum(e => e.TotalCost).ToString();
+                txtCost.Text = list.Sum(e => e.TotalCost).ToString("N0") + " vnđ";
 
+                
+
+                AutoSize();
             }
             catch (Exception ex)
             {
@@ -92,8 +120,8 @@ namespace ATV_Allowance.Forms.Report
 
         private void btnExport_Click(object sender, EventArgs e)
         {
-            saveFileDialog.FileName = $"BaoCao_TS_{dtpEnddate.Value.Month}{dtpEnddate.Value.Year}.xlsx";
-            var data = reportService.GetReportTS(dtpStartdate.Value, dtpEnddate.Value, EmployeeRole.PV, (int)edtPrice.Value, ArticleType.THOI_SU);
+            saveFileDialog.FileName = $"BaoCao_TS_{cbRole.Text}_{dtpEnddate.Value.Month}{dtpEnddate.Value.Year}.xlsx";
+            var data = reportService.GetReportTS(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, ArticleType.THOI_SU);
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
@@ -109,6 +137,8 @@ namespace ATV_Allowance.Forms.Report
 
         private void dtpMonth_ValueChanged(object sender, EventArgs e)
         {
+            dtpStartdate.Value = new DateTime(dtpYear.Value.Year, dtpMonth.Value.Month, 1);
+            dtpEnddate.Value = new DateTime(dtpYear.Value.Year, dtpMonth.Value.Month, DateTime.DaysInMonth(dtpYear.Value.Year, dtpMonth.Value.Month));
 
         }
 
@@ -119,6 +149,8 @@ namespace ATV_Allowance.Forms.Report
 
         private void dtpYear_ValueChanged(object sender, EventArgs e)
         {
+            dtpStartdate.Value = new DateTime(dtpYear.Value.Year, dtpMonth.Value.Month, 1);
+            dtpEnddate.Value = new DateTime(dtpYear.Value.Year, dtpMonth.Value.Month, DateTime.DaysInMonth(dtpYear.Value.Year, dtpMonth.Value.Month));
 
         }
 
