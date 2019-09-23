@@ -102,9 +102,10 @@ namespace ATV_Allowance.Services
             }
 
             //title row
-            worksheet.Cells[2, 13].Value = $"{endDate.Month}/{endDate.Year}";
+            worksheet.Cells[2, 12].Value = $"THÁNG {endDate.Month}/{endDate.Year}";
+            worksheet.Cells[2, 11].Value = "(" + (role == EmployeeRole.PV ? "PV" : "CTV") + ")";
 
-            
+
             //report date row
             worksheet.Cells[currentRow + 2, 14].Value = $"Long Xuyên, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
 
@@ -125,6 +126,8 @@ namespace ATV_Allowance.Services
             //money string
             worksheet.Cells[currentRow + 1, 14].Value = $"(Thành tiền bằng chữ: {NumberToTextVN(totalCost)})";
 
+            //set oreintation
+            worksheet.PrinterSettings.Orientation = eOrientation.Landscape;
 
             if (list.Count > 0)
             {
@@ -144,7 +147,7 @@ namespace ATV_Allowance.Services
 
         private void CalculateCost(List<EmployeePointViewModel> list, int price)
         {
-            for(int i =0; i < list.Count; i++)
+            for (int i = 0; i < list.Count; i++)
             {
                 var percent = 0.1;
                 var sum = list[i].DiemTin + list[i].DiemPsu + list[i].DiemQtin + list[i].DiemQPsu;

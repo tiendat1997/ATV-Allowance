@@ -293,6 +293,13 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Templates\TemplatePT.xlsx" />
+    <None Include="Templates\TemplatePTTT.xlsx" />
+    <None Include="Templates\TemplateTS.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\TemplateTS_CTV.xlsx" />
+    <None Include="Templates\TemplateTS_HK.xlsx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
