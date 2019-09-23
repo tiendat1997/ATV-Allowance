@@ -266,7 +266,6 @@
             this.label2.Size = new System.Drawing.Size(94, 18);
             this.label2.TabIndex = 2;
             this.label2.Text = "Tháng - Năm";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // dtpMonth
             // 
@@ -291,7 +290,6 @@
             this.label3.Size = new System.Drawing.Size(16, 18);
             this.label3.TabIndex = 12;
             this.label3.Text = "‒";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // dtpYear
             // 
@@ -316,7 +314,6 @@
             this.label4.Size = new System.Drawing.Size(76, 18);
             this.label4.TabIndex = 4;
             this.label4.Text = "Thời gian: ";
-            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // dtpStartdate
             // 
@@ -342,7 +339,6 @@
             this.label5.Size = new System.Drawing.Size(16, 18);
             this.label5.TabIndex = 4;
             this.label5.Text = "‒";
-            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // dtpEnddate
             // 
@@ -368,7 +364,6 @@
             this.label6.Size = new System.Drawing.Size(39, 18);
             this.label6.TabIndex = 7;
             this.label6.Text = "Giá: ";
-            this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // edtPrice
             // 

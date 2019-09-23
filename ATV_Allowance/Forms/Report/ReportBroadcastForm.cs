@@ -107,11 +107,6 @@ namespace ATV_Allowance.Forms.Report
             }
         }
 
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnExport_Click(object sender, EventArgs e)
         {
             saveFileDialog.FileName = $"BaoCao_TS_{cbRole.Text}_{dtpEnddate.Value.Month}{dtpEnddate.Value.Year}.xlsx";
@@ -124,11 +119,6 @@ namespace ATV_Allowance.Forms.Report
             }
         }
 
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void dtpMonth_ValueChanged(object sender, EventArgs e)
         {
             dtpStartdate.Value = new DateTime(dtpYear.Value.Year, dtpMonth.Value.Month, 1);
@@ -137,26 +127,11 @@ namespace ATV_Allowance.Forms.Report
 
         }
 
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void dtpYear_ValueChanged(object sender, EventArgs e)
         {
             dtpStartdate.Value = new DateTime(dtpYear.Value.Year, dtpMonth.Value.Month, 1);
             dtpEnddate.Value = new DateTime(dtpYear.Value.Year, dtpMonth.Value.Month, DateTime.DaysInMonth(dtpYear.Value.Year, dtpMonth.Value.Month));
             LoadReport();
-
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label6_Click(object sender, EventArgs e)
-        {
 
         }
 
