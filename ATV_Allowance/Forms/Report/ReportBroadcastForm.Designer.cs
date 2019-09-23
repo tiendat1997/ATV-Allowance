@@ -55,7 +55,6 @@
             this.label6 = new System.Windows.Forms.Label();
             this.edtPrice = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
-            this.btnViewReport = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.flowLayoutPanel3.SuspendLayout();
@@ -235,6 +234,7 @@
             this.cbRole.Name = "cbRole";
             this.cbRole.Size = new System.Drawing.Size(62, 21);
             this.cbRole.TabIndex = 1;
+            this.cbRole.SelectedIndexChanged += new System.EventHandler(this.cbRole_SelectedIndexChanged);
             // 
             // flowLayoutPanel2
             // 
@@ -249,7 +249,6 @@
             this.flowLayoutPanel2.Controls.Add(this.label6);
             this.flowLayoutPanel2.Controls.Add(this.edtPrice);
             this.flowLayoutPanel2.Controls.Add(this.label7);
-            this.flowLayoutPanel2.Controls.Add(this.btnViewReport);
             this.flowLayoutPanel2.Location = new System.Drawing.Point(0, 31);
             this.flowLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
@@ -330,6 +329,7 @@
             this.dtpStartdate.Name = "dtpStartdate";
             this.dtpStartdate.Size = new System.Drawing.Size(116, 24);
             this.dtpStartdate.TabIndex = 6;
+            this.dtpStartdate.ValueChanged += new System.EventHandler(this.dtpStartdate_ValueChanged);
             // 
             // label5
             // 
@@ -355,6 +355,7 @@
             this.dtpEnddate.Name = "dtpEnddate";
             this.dtpEnddate.Size = new System.Drawing.Size(116, 24);
             this.dtpEnddate.TabIndex = 5;
+            this.dtpEnddate.ValueChanged += new System.EventHandler(this.dtpEnddate_ValueChanged);
             // 
             // label6
             // 
@@ -387,6 +388,7 @@
             0,
             0,
             0});
+            this.edtPrice.ValueChanged += new System.EventHandler(this.edtPrice_ValueChanged);
             // 
             // label7
             // 
@@ -400,19 +402,6 @@
             this.label7.TabIndex = 9;
             this.label7.Text = "vnđ / điểm";
             // 
-            // btnViewReport
-            // 
-            this.btnViewReport.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.btnViewReport.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnViewReport.Location = new System.Drawing.Point(704, 3);
-            this.btnViewReport.Margin = new System.Windows.Forms.Padding(0);
-            this.btnViewReport.Name = "btnViewReport";
-            this.btnViewReport.Size = new System.Drawing.Size(104, 23);
-            this.btnViewReport.TabIndex = 11;
-            this.btnViewReport.Text = "Xem báo cáo";
-            this.btnViewReport.UseVisualStyleBackColor = true;
-            this.btnViewReport.Click += new System.EventHandler(this.btnViewReport_Click);
-            // 
             // ReportBroadcastForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -420,7 +409,7 @@
             this.ClientSize = new System.Drawing.Size(858, 369);
             this.Controls.Add(this.panel1);
             this.Name = "ReportBroadcastForm";
-            this.Text = "ReportBroadcast";
+            this.Text = "Báo cáo tin thời sự";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -446,7 +435,6 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
-        private System.Windows.Forms.Button btnViewReport;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.DateTimePicker dtpStartdate;

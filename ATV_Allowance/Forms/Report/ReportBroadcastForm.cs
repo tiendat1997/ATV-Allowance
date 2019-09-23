@@ -28,12 +28,6 @@ namespace ATV_Allowance.Forms.Report
 
         public void InitValue()
         {
-            dtpMonth.Value = DateTime.Now;
-            dtpYear.Value = DateTime.Now;
-
-            dtpStartdate.Value = new DateTime(dtpYear.Value.Year, dtpMonth.Value.Month, 1);
-            dtpEnddate.Value = new DateTime(dtpYear.Value.Year, dtpMonth.Value.Month, DateTime.DaysInMonth(dtpYear.Value.Year, dtpMonth.Value.Month));
-
             var positions = new List<PositionViewModel>();
             positions.Add(new PositionViewModel
             {
@@ -49,8 +43,13 @@ namespace ATV_Allowance.Forms.Report
             cbRole.DataSource = positions;
             cbRole.DisplayMember = "Code";
             cbRole.ValueMember = "Id";
-
             cbRole.SelectedValue = EmployeeRole.PV;
+
+            dtpMonth.Value = DateTime.Now;
+            dtpYear.Value = DateTime.Now;
+
+            dtpStartdate.Value = new DateTime(dtpYear.Value.Year, dtpMonth.Value.Month, 1);
+            dtpEnddate.Value = new DateTime(dtpYear.Value.Year, dtpMonth.Value.Month, DateTime.DaysInMonth(dtpYear.Value.Year, dtpMonth.Value.Month));
 
             InitSaveFile();
         }
@@ -61,10 +60,6 @@ namespace ATV_Allowance.Forms.Report
             saveFileDialog.InitialDirectory = @"C:\";
             saveFileDialog.RestoreDirectory = true;
             saveFileDialog.Title = "Lưu báo cáo";
-        }
-
-        private void AutoSize()
-        {
         }
 
         private void LoadReport()
@@ -90,7 +85,9 @@ namespace ATV_Allowance.Forms.Report
                 adgvReportBroadcast.Columns["Sum"].HeaderText = ADGVReportHeader.Cong;
                 adgvReportBroadcast.Columns["Descrease"].HeaderText = ADGVReportHeader.TruChiTieu;
                 adgvReportBroadcast.Columns["TotalPoint"].HeaderText = ADGVReportHeader.TotalPoint;
+                adgvReportBroadcast.Columns["TotalPoint"].DefaultCellStyle.Format = "F1";
                 adgvReportBroadcast.Columns["IncreasePercent"].HeaderText = ADGVReportHeader.TangGiam;
+                adgvReportBroadcast.Columns["IncreasePercent"].DefaultCellStyle.Format = "F1";
                 adgvReportBroadcast.Columns["TotalCost"].HeaderText = ADGVReportHeader.TotalCost;
                 adgvReportBroadcast.Columns["TotalCost"].DefaultCellStyle.Format = "N0";
 
@@ -98,10 +95,7 @@ namespace ATV_Allowance.Forms.Report
 
                 txtPoint.Text = list.Sum(e => e.TotalPoint).ToString();
                 txtCost.Text = list.Sum(e => e.TotalCost).ToString("N0") + " vnđ";
-
                 
-
-                AutoSize();
             }
             catch (Exception ex)
             {
@@ -139,6 +133,7 @@ namespace ATV_Allowance.Forms.Report
         {
             dtpStartdate.Value = new DateTime(dtpYear.Value.Year, dtpMonth.Value.Month, 1);
             dtpEnddate.Value = new DateTime(dtpYear.Value.Year, dtpMonth.Value.Month, DateTime.DaysInMonth(dtpYear.Value.Year, dtpMonth.Value.Month));
+            LoadReport();
 
         }
 
@@ -151,6 +146,7 @@ namespace ATV_Allowance.Forms.Report
         {
             dtpStartdate.Value = new DateTime(dtpYear.Value.Year, dtpMonth.Value.Month, 1);
             dtpEnddate.Value = new DateTime(dtpYear.Value.Year, dtpMonth.Value.Month, DateTime.DaysInMonth(dtpYear.Value.Year, dtpMonth.Value.Month));
+            LoadReport();
 
         }
 
@@ -164,7 +160,22 @@ namespace ATV_Allowance.Forms.Report
 
         }
 
-        private void btnViewReport_Click(object sender, EventArgs e)
+        private void cbRole_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LoadReport();
+        }
+
+        private void dtpStartdate_ValueChanged(object sender, EventArgs e)
+        {
+            LoadReport();
+        }
+
+        private void dtpEnddate_ValueChanged(object sender, EventArgs e)
+        {
+            LoadReport();
+        }
+
+        private void edtPrice_ValueChanged(object sender, EventArgs e)
         {
             LoadReport();
         }
