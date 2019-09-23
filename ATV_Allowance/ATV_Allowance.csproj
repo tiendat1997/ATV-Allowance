@@ -206,6 +206,7 @@
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Validators\ArticleValidator.cs" />
     <Compile Include="ViewModel\ArticleEmployeeViewModel.cs" />
+    <Compile Include="ViewModel\ArticleTypeViewModel.cs" />
     <Compile Include="ViewModel\CriteriaTableViewModel.cs" />
     <Compile Include="ViewModel\CriteriaViewModel.cs" />
     <Compile Include="ViewModel\DeductionTypeViewModel.cs" />

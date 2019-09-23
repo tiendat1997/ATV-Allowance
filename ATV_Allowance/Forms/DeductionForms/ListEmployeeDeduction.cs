@@ -34,8 +34,38 @@ namespace ATV_Allowance.Forms.DeductionForms
 
         private void InitComboboxView()
         {
-            cbArticleType.SelectedIndex = 0;
-            cbEmpRole.SelectedIndex = 0;
+            var types = new List<ArticleTypeViewModel>();
+            types.Add(new ArticleTypeViewModel
+            {
+                Id = ArticleType.THOI_SU,
+                Name = "Thời sự"
+            });
+            types.Add(new ArticleTypeViewModel
+            {
+                Id = ArticleType.PHAT_THANH,
+                Name = "Phát thanh"
+            });
+            cbArticleType.DataSource = types;
+            cbArticleType.DisplayMember = "Name";
+            cbArticleType.ValueMember = "Id";
+            cbArticleType.SelectedValue = ArticleType.THOI_SU;
+
+            var positions = new List<PositionViewModel>();
+            positions.Add(new PositionViewModel
+            {
+                Id = EmployeeRole.PV,
+                Name = "PV"
+            });
+            positions.Add(new PositionViewModel
+            {
+                Id = EmployeeRole.CTV,
+                Name = "CTV"
+            });
+            cbEmpRole.DataSource = positions;
+            cbEmpRole.DisplayMember = "Name";
+            cbEmpRole.ValueMember = "Id";
+            cbEmpRole.SelectedValue = EmployeeRole.PV;
+
         }
 
         public void LoadDeduction(int? month = null, int? year = null, int? employeeRole = null, int? articleType = null)
@@ -80,9 +110,13 @@ namespace ATV_Allowance.Forms.DeductionForms
             cmbCol.HeaderText = "Giam tru"; //fix here
             cmbCol.DisplayMember = "Name";
             cmbCol.ValueMember = "Id";
-            cmbCol.ValueType = typeof(int);
             cmbCol.Name = "cbDeductionCol";
             adgvDeduction.Columns.Add(cmbCol);
+
+            for(int i = 0; i < dataSource.Count; i++)
+            {
+                adgvDeduction.Rows[i].Cells["cbDeductionCol"].Value = ((DeductionTypeViewModel)cmbCol.Items[dataSource[i].DeductionType - 1]).Id;
+            }
 
             adgvDeduction.EditingControlShowing += new DataGridViewEditingControlShowingEventHandler(adgvDeduction_EditingControlShowing);
 
@@ -114,28 +148,44 @@ namespace ATV_Allowance.Forms.DeductionForms
                                             ((DeductionTypeViewModel)comboBox.SelectedItem).Id,
                                             dtpMonth.Value.Month,
                                             dtp.Value.Year,
-                                            EmployeeRole.PV,
-                                            ArticleType.THOI_SU);
+                                            ((PositionViewModel)cbEmpRole.SelectedItem).Id,
+                                            ((ArticleTypeViewModel)cbArticleType.SelectedItem).Id);
         }
 
         private void cbArticleType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            LoadDeduction(dtpMonth.Value.Month, dtp.Value.Year, cbEmpRole.SelectedIndex + 1, cbArticleType.SelectedIndex + 1);
+            if (cbEmpRole.SelectedValue == null || cbArticleType.SelectedValue == null)
+            {
+                return;
+            }
+            LoadDeduction(dtpMonth.Value.Month, dtp.Value.Year, ((PositionViewModel)cbEmpRole.SelectedItem).Id, ((ArticleTypeViewModel)cbArticleType.SelectedItem).Id);
         }
 
         private void cbEmpRole_SelectedIndexChanged(object sender, EventArgs e)
         {
-            LoadDeduction(dtpMonth.Value.Month, dtp.Value.Year, cbEmpRole.SelectedIndex + 1, cbArticleType.SelectedIndex + 1);
+            if (cbEmpRole.SelectedValue == null || cbArticleType.SelectedValue == null)
+            {
+                return;
+            }
+            LoadDeduction(dtpMonth.Value.Month, dtp.Value.Year, ((PositionViewModel)cbEmpRole.SelectedItem).Id, ((ArticleTypeViewModel)cbArticleType.SelectedItem).Id);
         }
 
         private void dtpMonth_ValueChanged(object sender, EventArgs e)
         {
-            LoadDeduction(dtpMonth.Value.Month, dtp.Value.Year, cbEmpRole.SelectedIndex + 1, cbArticleType.SelectedIndex + 1);
+            if (cbEmpRole.SelectedValue == null || cbArticleType.SelectedValue == null)
+            {
+                return;
+            }
+            LoadDeduction(dtpMonth.Value.Month, dtp.Value.Year, ((PositionViewModel)cbEmpRole.SelectedItem).Id, ((ArticleTypeViewModel)cbArticleType.SelectedItem).Id);
         }
 
         private void dtp_ValueChanged(object sender, EventArgs e)
         {
-            LoadDeduction(dtpMonth.Value.Month, dtp.Value.Year, cbEmpRole.SelectedIndex + 1, cbArticleType.SelectedIndex + 1);
+            if (cbEmpRole.SelectedValue == null || cbArticleType.SelectedValue == null)
+            {
+                return;
+            }
+            LoadDeduction(dtpMonth.Value.Month, dtp.Value.Year, ((PositionViewModel)cbEmpRole.SelectedItem).Id, ((ArticleTypeViewModel)cbArticleType.SelectedItem).Id);
         }
     }
 }
