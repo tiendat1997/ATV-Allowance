@@ -171,6 +171,7 @@
             this.Controls.Add(this.adgvDeduction);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Name = "ListEmployeeDeduction";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ListEmployeeDeduction";
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();

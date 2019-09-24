@@ -191,8 +191,9 @@
             this.btnDeduction.Name = "btnDeduction";
             this.btnDeduction.Size = new System.Drawing.Size(93, 23);
             this.btnDeduction.TabIndex = 2;
-            this.btnDeduction.Text = "Giảm trừ PV";
+            this.btnDeduction.Text = "Giảm trừ";
             this.btnDeduction.UseVisualStyleBackColor = true;
+            this.btnDeduction.Click += new System.EventHandler(this.btnDeduction_Click);
             // 
             // flowLayoutPanel4
             // 

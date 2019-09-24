@@ -1,4 +1,5 @@
 ﻿using ATV_Allowance.Common;
+using ATV_Allowance.Forms.DeductionForms;
 using ATV_Allowance.Services;
 using ATV_Allowance.ViewModel;
 using System;
@@ -64,7 +65,12 @@ namespace ATV_Allowance.Forms.Report
 
         private void LoadReport()
         {
-            IReportService reportService = null;
+
+            if (cbRole.SelectedValue.GetType() != typeof(int))
+            {
+                return;
+            }
+
             try
             {
 
@@ -153,6 +159,12 @@ namespace ATV_Allowance.Forms.Report
         private void edtPrice_ValueChanged(object sender, EventArgs e)
         {
             LoadReport();
+        }
+
+        private void btnDeduction_Click(object sender, EventArgs e)
+        {
+            ListEmployeeDeduction deductionForm = new ListEmployeeDeduction(dtpMonth.Value.Month, dtpYear.Value.Year, ArticleType.THOI_SU, (int)cbRole.SelectedValue);
+            deductionForm.ShowDialog();
         }
     }
 }

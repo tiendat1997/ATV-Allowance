@@ -32,7 +32,16 @@ namespace ATV_Allowance.Forms.DeductionForms
             LoadDeduction();
         }
 
-        private void InitComboboxView()
+        public ListEmployeeDeduction(int month, int year, int articleType, int employeeRole)
+        {
+            InitializeComponent();
+            deductionService = new DeductionService();
+            deductionTypeService = new DeductionTypeService();
+            InitComboboxView(articleType, employeeRole);
+            LoadDeduction(month, year, employeeRole, articleType);
+        }
+
+        private void InitComboboxView(int? articleType = null, int? employeeRole = null)
         {
             var types = new List<ArticleTypeViewModel>();
             types.Add(new ArticleTypeViewModel
@@ -48,7 +57,7 @@ namespace ATV_Allowance.Forms.DeductionForms
             cbArticleType.DataSource = types;
             cbArticleType.DisplayMember = "Name";
             cbArticleType.ValueMember = "Id";
-            cbArticleType.SelectedValue = ArticleType.THOI_SU;
+            cbArticleType.SelectedValue = articleType == null ? ArticleType.THOI_SU : articleType;
 
             var positions = new List<PositionViewModel>();
             positions.Add(new PositionViewModel
@@ -64,7 +73,7 @@ namespace ATV_Allowance.Forms.DeductionForms
             cbEmpRole.DataSource = positions;
             cbEmpRole.DisplayMember = "Name";
             cbEmpRole.ValueMember = "Id";
-            cbEmpRole.SelectedValue = EmployeeRole.PV;
+            cbEmpRole.SelectedValue = employeeRole == null ? EmployeeRole.PV : employeeRole; 
 
         }
 
