@@ -244,6 +244,10 @@ namespace ATV_Allowance.Common
                         ReportBroadcastForm reportBroadcastForm = new ReportBroadcastForm();
                         form = (Form)reportBroadcastForm;
                         break;
+                    case "In Phát thanh":
+                        ReportPTForm reportPTForm = new ReportPTForm();
+                        form = (Form)reportPTForm;
+                        break;
                     case "Quản lý đơn vị":
                         ListOrganizationForm listOrgForm = new ListOrganizationForm();
                         form = (Form)listOrgForm;

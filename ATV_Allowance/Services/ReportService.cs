@@ -14,6 +14,7 @@ namespace ATV_Allowance.Services
     {
         List<EmployeePointViewModel> GetReportBroadcast(DateTime startDate, DateTime endDate, int role, int price, int reportType);
         byte[] GetReportTS(DateTime startDate, DateTime endDate, int role, int price, int reportType);
+        byte[] GetReportPT(DateTime startDate, DateTime endDate, int role, int price, int reportType);
     }
     public class ReportService : IReportService
     {
@@ -60,10 +61,35 @@ namespace ATV_Allowance.Services
                 {
                     employeePointVM.DiemQPsu = item.TotalPoint;
                 }
+                else if (item.PointType == PointType_PhatThanh.Bai)
+                {
+                    employeePointVM.SoBai = item.Amount;
+                    employeePointVM.DiemBai = item.TotalPoint;
+                }
+                else if (item.PointType == PointType_PhatThanh.Cd_Cm)
+                {
+                    employeePointVM.SoCd = item.Amount;
+                    employeePointVM.DiemCd = item.TotalPoint;
+                }
+                else if (item.PointType == PointType_PhatThanh.Pv_Pb)
+                {
+                    employeePointVM.SoPv = item.Amount;
+                    employeePointVM.DiemPv = item.TotalPoint;
+                }
+                else if (item.PointType == PointType_PhatThanh.Tlt)
+                {
+                    employeePointVM.SoTLT = item.Amount;
+                    employeePointVM.DiemTLT = item.TotalPoint;
+                }
+                else if (item.PointType == PointType_PhatThanh.Sd)
+                {
+                    employeePointVM.SoSD = item.Amount;
+                    employeePointVM.DiemSD = item.TotalPoint;
+                }
 
             }
 
-            CalculateCost(result, price);
+            CalculateCost(result, price, reportType);
 
             return result;
         }
@@ -145,12 +171,92 @@ namespace ATV_Allowance.Services
             return package.GetAsByteArray();
         }
 
-        private void CalculateCost(List<EmployeePointViewModel> list, int price)
+        public byte[] GetReportPT(DateTime startDate, DateTime endDate, int role, int price, int reportType)
+        {
+            var list = GetReportBroadcast(startDate, endDate, role, price, reportType);
+            ExcelHelper helper = new ExcelHelper();
+            var package = helper.GetPackage(Tempate.PT);
+            var workbook = package.Workbook;
+            var worksheet = workbook.Worksheets.First();
+
+            int currentRow = 5;
+            for (int i = 0; i < list.Count; i++)
+            {
+                worksheet.InsertRow(currentRow, 1);
+                worksheet.Cells[currentRow, PT_COL.STT].Value = i + 1;
+                worksheet.Cells[currentRow, PT_COL.HO_TEN].Value = list[i].EmployeeName;
+                worksheet.Cells[currentRow, PT_COL.DON_VI].Value = list[i].EmployeeName;
+                worksheet.Cells[currentRow, PT_COL.SL_TIN].Value = list[i].SoTin;
+                worksheet.Cells[currentRow, PT_COL.D_TIN].Value = list[i].DiemTin;
+                worksheet.Cells[currentRow, PT_COL.SL_BAI].Value = list[i].SoTin;
+                worksheet.Cells[currentRow, PT_COL.D_BAI].Value = list[i].DiemTin;
+                worksheet.Cells[currentRow, PT_COL.SL_CD].Value = list[i].SoTin;
+                worksheet.Cells[currentRow, PT_COL.D_CD].Value = list[i].DiemTin;
+                worksheet.Cells[currentRow, PT_COL.SL_PV].Value = list[i].SoTin;
+                worksheet.Cells[currentRow, PT_COL.D_PV].Value = list[i].DiemTin;
+                worksheet.Cells[currentRow, PT_COL.SL_TLT].Value = list[i].SoTin;
+                worksheet.Cells[currentRow, PT_COL.D_TLT].Value = list[i].DiemTin;
+                worksheet.Cells[currentRow, PT_COL.SL_SD].Value = list[i].SoTin;
+                worksheet.Cells[currentRow, PT_COL.D_SD].Value = list[i].DiemTin;
+
+                var sum = list[i].Sum;
+                var deduction = 0;
+                var tongcong = (sum - deduction) * 1.1;
+                worksheet.Cells[currentRow, PT_COL.TONGDIEM].Value = sum;
+                worksheet.Cells[currentRow, PT_COL.TANGGIAM].Value = (sum - deduction) * 0.1;
+                worksheet.Cells[currentRow, PT_COL.THANHTIEN].Value = tongcong * price;
+
+                currentRow += 1;
+            }
+
+            //title row
+            worksheet.Cells[2, PT_COL.SL_SD].Value = $"THÁNG {endDate.Month}/{endDate.Year}";
+            worksheet.Cells[2, PT_COL.SL_TLT].Value = "(" + (role == EmployeeRole.PV ? "PV" : "CTV") + ")";
+
+
+            //report date row
+            worksheet.Cells[currentRow + 2, PT_COL.THANHTIEN + 1].Value = $"Long Xuyên, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
+
+            //sum row
+            var totalCost = list.Sum(e => e.TotalCost);
+            worksheet.Cells[currentRow, PT_COL.THANHTIEN].Value = totalCost;
+
+            //money string
+            worksheet.Cells[currentRow + 1, PT_COL.THANHTIEN + 1].Value = $"(Thành tiền bằng chữ: {NumberToTextVN(totalCost)})";
+
+            //set oreintation
+            worksheet.PrinterSettings.Orientation = eOrientation.Landscape;
+
+            if (list.Count > 0)
+            {
+                //border
+                worksheet.Cells[5, 1, currentRow - 1, PT_COL.THANHTIEN + 1].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                worksheet.Cells[5, 1, currentRow - 1, PT_COL.THANHTIEN + 1].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                worksheet.Cells[5, 1, currentRow - 1, PT_COL.THANHTIEN + 1].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                worksheet.Cells[5, 1, currentRow - 1, PT_COL.THANHTIEN + 1].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+            }
+            else
+            {
+
+            }
+
+            return package.GetAsByteArray();
+        }
+
+        private void CalculateCost(List<EmployeePointViewModel> list, int price, int reportType)
         {
             for (int i = 0; i < list.Count; i++)
             {
                 var percent = 0.1;
-                var sum = list[i].DiemTin + list[i].DiemPsu + list[i].DiemQtin + list[i].DiemQPsu;
+                double sum = 0;
+                if (reportType == ArticleType.THOI_SU)
+                {
+                    sum = list[i].DiemTin + list[i].DiemPsu + list[i].DiemQtin + list[i].DiemQPsu;
+                }
+                else if (reportType == ArticleType.PHAT_THANH)
+                {
+                    sum = list[i].DiemTin + list[i].DiemBai + list[i].DiemCd + list[i].DiemPv + list[i].DiemTLT + list[i].DiemSD;
+                }
                 var deduction = 0;
                 var tongcong = (sum - deduction) * (1 + percent);
                 list[i].Sum = sum;
@@ -169,7 +275,7 @@ namespace ATV_Allowance.Services
                 total = Math.Round(total, 0);
                 string[] ch = { "không", "một", "hai", "ba", "bốn", "năm", "sáu", "bảy", "tám", "chín" };
                 string[] rch = { "lẻ", "mốt", "", "", "", "lăm" };
-                string[] u = { "", "mươi", "trăm", "ngàn", "", "", "triệu", "", "", "tỷ", "", "", "ngàn", "", "", "triệu" };
+                string[] u = { "", "mươi", "trăm", "nghìn", "", "", "triệu", "", "", "tỷ", "", "", "nghìn", "", "", "triệu" };
                 string nstr = total.ToString();
 
                 int[] n = new int[nstr.Length];
