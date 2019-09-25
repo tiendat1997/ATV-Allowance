@@ -48,11 +48,13 @@ namespace ATV_Allowance.Services
             List<string> splitter = empName.Split(' ').ToList();                        
             string tempCode = splitter.Last();
             tempCode = Utilities.RemoveSign4VietnameseString(tempCode);
+            string subCode = "";
             for (int i = 0; i < splitter.Count - 1; i++)
             {
                 string partName = Utilities.RemoveSign4VietnameseString(splitter[i]);
-                tempCode = tempCode + partName[0];
+                subCode += partName[0];                
             }
+            tempCode = subCode + tempCode;
             var sameEmp = employeeRepository.GetMany(t => t.Code.Contains(tempCode)).ToList();
             int existedCount = 0;
             foreach (var emp in sameEmp)
