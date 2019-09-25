@@ -1,4 +1,5 @@
 ﻿using ATV_Allowance.Common;
+using ATV_Allowance.Forms.CommonForms;
 using ATV_Allowance.Services;
 using ATV_Allowance.ViewModel;
 using System;
@@ -14,7 +15,7 @@ using static ATV_Allowance.Common.Constants;
 
 namespace ATV_Allowance.Forms.DeductionForms
 {
-    public partial class ListEmployeeDeduction : Form
+    public partial class ListEmployeeDeduction : CommonForm
     {
         private IDeductionService deductionService;
         private IDeductionTypeService deductionTypeService;
