@@ -4,21 +4,25 @@ using ATV_Allowance.Services;
 using ATV_Allowance.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using static ATV_Allowance.Common.Constants;
 
 namespace ATV_Allowance.Forms.Report
 {
-    public partial class ReportBroadcastForm : Form
+    public partial class ReportPTTTForm : Form
     {
         private BindingSource bs;
 
         private IReportService reportService;
         private SaveFileDialog saveFileDialog;
-
-        public ReportBroadcastForm()
+        public ReportPTTTForm()
         {
             InitializeComponent();
             reportService = new ReportService();
@@ -75,43 +79,30 @@ namespace ATV_Allowance.Forms.Report
             {
 
                 reportService = new ReportService();
-                List<EmployeePointViewModel> list = reportService.GetReportBroadcast(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, ArticleType.THOI_SU);
+                List<EmployeePointViewModel> list = reportService.GetReportBroadcast(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, ArticleType.PHAT_THANH_TT);
                 SortableBindingList<EmployeePointViewModel> sbl = new SortableBindingList<EmployeePointViewModel>(list);
                 bs = new BindingSource();
                 bs.DataSource = sbl;
                 adgvReportBroadcast.DataSource = bs;
                 adgvReportBroadcast.Columns["EmployeeName"].HeaderText = ADGVReportHeader.Name;
                 adgvReportBroadcast.Columns["Organization"].HeaderText = ADGVReportHeader.Organization;
-                adgvReportBroadcast.Columns["SoTin"].HeaderText = ADGVReportHeader.SoTin;
-                adgvReportBroadcast.Columns["DiemTin"].HeaderText = ADGVReportHeader.DiemTin;
-                adgvReportBroadcast.Columns["SoPsu"].HeaderText = ADGVReportHeader.SoPsu;
-                adgvReportBroadcast.Columns["DiemPsu"].HeaderText = ADGVReportHeader.DiemPsu;
-                adgvReportBroadcast.Columns["DiemQtin"].HeaderText = ADGVReportHeader.DiemQTin;
-                adgvReportBroadcast.Columns["DiemQPsu"].HeaderText = ADGVReportHeader.DiemQPsu;
-                adgvReportBroadcast.Columns["Sum"].HeaderText = ADGVReportHeader.Cong;
-                adgvReportBroadcast.Columns["Descrease"].HeaderText = ADGVReportHeader.TruChiTieu;
-                adgvReportBroadcast.Columns["TotalPoint"].HeaderText = ADGVReportHeader.TotalPoint;
-                adgvReportBroadcast.Columns["TotalPoint"].DefaultCellStyle.Format = "F1";
+                adgvReportBroadcast.Columns["Sum"].HeaderText = ADGVReportHeader.TongCong;
                 adgvReportBroadcast.Columns["IncreasePercent"].HeaderText = ADGVReportHeader.TangGiam;
                 adgvReportBroadcast.Columns["IncreasePercent"].DefaultCellStyle.Format = "F1";
                 adgvReportBroadcast.Columns["TotalCost"].HeaderText = ADGVReportHeader.TotalCost;
                 adgvReportBroadcast.Columns["TotalCost"].DefaultCellStyle.Format = "N0";
 
                 adgvReportBroadcast.Columns["EmployeeId"].Visible = false;
-                adgvReportBroadcast.Columns["SoBai"].Visible = false;
-                adgvReportBroadcast.Columns["DiemBai"].Visible = false;
-                adgvReportBroadcast.Columns["SoCd"].Visible = false;
-                adgvReportBroadcast.Columns["DiemCd"].Visible = false;
-                adgvReportBroadcast.Columns["SoPv"].Visible = false;
-                adgvReportBroadcast.Columns["DiemPv"].Visible = false;
-                adgvReportBroadcast.Columns["SoTLT"].Visible = false;
-                adgvReportBroadcast.Columns["DiemTLT"].Visible = false;
-                adgvReportBroadcast.Columns["SoSD"].Visible = false;
-                adgvReportBroadcast.Columns["DiemSD"].Visible = false;
+                adgvReportBroadcast.Columns["SoPsu"].Visible = false;
+                adgvReportBroadcast.Columns["DiemPsu"].Visible = false;
+                adgvReportBroadcast.Columns["DiemQtin"].Visible = false;
+                adgvReportBroadcast.Columns["DiemQPsu"].Visible = false;
+                adgvReportBroadcast.Columns["Descrease"].Visible = false;
+                adgvReportBroadcast.Columns["TotalPoint"].Visible = false;
 
                 txtPoint.Text = list.Sum(e => e.TotalPoint).ToString();
                 txtCost.Text = list.Sum(e => e.TotalCost).ToString("N0") + " vnđ";
-                
+
             }
             catch (Exception ex)
             {
@@ -125,8 +116,9 @@ namespace ATV_Allowance.Forms.Report
 
         private void btnExport_Click(object sender, EventArgs e)
         {
-            saveFileDialog.FileName = $"BaoCao_TS_{cbRole.Text}_{dtpEnddate.Value.Month}{dtpEnddate.Value.Year}.xlsx";
-            var data = reportService.GetReportTS(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, ArticleType.THOI_SU);
+            saveFileDialog.FileName = $"BaoCao_PT_{cbRole.Text}_{dtpEnddate.Value.Month}{dtpEnddate.Value.Year}.xlsx";
+            reportService = new ReportService();
+            var data = reportService.GetReportPT(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, ArticleType.PHAT_THANH_TT);
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
@@ -173,7 +165,7 @@ namespace ATV_Allowance.Forms.Report
 
         private void btnDeduction_Click(object sender, EventArgs e)
         {
-            ListEmployeeDeduction deductionForm = new ListEmployeeDeduction(dtpMonth.Value.Month, dtpYear.Value.Year, ArticleType.THOI_SU, (int)cbRole.SelectedValue);
+            ListEmployeeDeduction deductionForm = new ListEmployeeDeduction(dtpMonth.Value.Month, dtpYear.Value.Year, ArticleType.PHAT_THANH, (int)cbRole.SelectedValue);
             deductionForm.ShowDialog();
         }
     }

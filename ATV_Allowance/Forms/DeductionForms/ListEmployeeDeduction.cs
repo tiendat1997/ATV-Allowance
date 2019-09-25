@@ -122,9 +122,13 @@ namespace ATV_Allowance.Forms.DeductionForms
             cmbCol.Name = "cbDeductionCol";
             adgvDeduction.Columns.Add(cmbCol);
 
-            for(int i = 0; i < dataSource.Count; i++)
+            if (deductionTypes != null && deductionTypes.Count > 0)
             {
-                adgvDeduction.Rows[i].Cells["cbDeductionCol"].Value = ((DeductionTypeViewModel)cmbCol.Items[dataSource[i].DeductionType - 1]).Id;
+                for (int i = 0; i < dataSource.Count; i++)
+                {
+                    adgvDeduction.Rows[i].Cells["cbDeductionCol"].Value = ((DeductionTypeViewModel)cmbCol.Items[dataSource[i].DeductionType - 1]).Id;
+                }
+
             }
 
             adgvDeduction.EditingControlShowing += new DataGridViewEditingControlShowingEventHandler(adgvDeduction_EditingControlShowing);
