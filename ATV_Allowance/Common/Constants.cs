@@ -148,6 +148,16 @@ namespace ATV_Allowance.Common
             public static int QTin = 3;
             public static int QPs = 4;
         }
+
+        public static class PointType_TTNM
+        {
+            public static int Tin = 1;
+            public static int PS = 2;
+            public static int QTin = 3;
+            public static int QPs = 4;
+            public static int Tl_tin = 14;
+            public static int Thop = 15;            
+        }
         public static class PointType_PhatThanh
         {
             public static int Tin = 1;

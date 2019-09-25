@@ -18,9 +18,11 @@ namespace ATV_Allowance.Services
         List<ArticleViewModel> GetArticle(int typeId, DateTime fromDate, DateTime toDate, int employeeId);
         List<ArticleEmployeeViewModel> GetArticleEmployee(int articleId);
         void AddArticleEmployeeTS(ArticleEmployeeViewModel model);
+        void AddArticleEmployeeTTNM(ArticleEmployeeViewModel model);
         void AddArticleEmployeePT(ArticleEmployeeViewModel model);
         void AddArticleEmployeePTTT(ArticleEmployeeViewModel model);
         void UpdateArticleEmployeeTS(ArticleEmployeeViewModel model);
+        void UpdateArticleEmployeeTTNM(ArticleEmployeeViewModel model);
         void UpdateArticleEmployeePT(ArticleEmployeeViewModel model);
         void UpdateArticleEmployeePTTT(ArticleEmployeeViewModel model);
         void RemoveArticleEmployee(ArticleEmployeeViewModel model);
@@ -343,6 +345,73 @@ namespace ATV_Allowance.Services
                                 .OrderBy(t => t.Title)
                                 .ToList();
             return articles;
-        }       
+        }
+
+        public void AddArticleEmployeeTTNM(ArticleEmployeeViewModel model)
+        {
+            var existed = articleEmployeeRepository.GetMany(e => e.ArticleId == model.ArticleId && e.EmployeeId == model.EmployeeId).FirstOrDefault();
+            if (existed != null)
+            {
+                model.Id = existed.Id;
+                UpdateArticleEmployeeTS(model);
+            }
+            else
+            {
+                ArticleEmployee articleEmp = new ArticleEmployee()
+                {
+                    ArticleId = model.ArticleId,
+                    EmployeeId = model.EmployeeId
+                };
+                articleEmp.Point = new List<Point>
+            {
+                new Point
+                {
+                    Type = PointType_TTNM.Tin,
+                    Point1 = model.Tin
+                },
+                new Point
+                {
+                    Type = PointType_TTNM.PS,
+                    Point1 = model.PS
+                },
+                new Point
+                {
+                    Type = PointType_TTNM.QTin,
+                    Point1 = model.QTin
+                },
+                new Point
+                {
+                    Type = PointType_TTNM.QPs,
+                    Point1 = model.QPs
+                },
+                new Point
+                {
+                    Type = PointType_TTNM.Tl_tin,
+                    Point1 = model.Tl_Tin
+                },
+                  new Point
+                {
+                    Type = PointType_TTNM.Thop,
+                    Point1 = model.Thop
+                },
+            };
+                articleEmployeeRepository.Add(articleEmp);
+            }
+        }
+
+        public void UpdateArticleEmployeeTTNM(ArticleEmployeeViewModel model)
+        {
+            var articleEmp = articleEmployeeRepository.GetById(model.Id);
+            if (articleEmp != null) // DELETED 
+            {
+                articleEmp.Point.First(t => t.Type == PointType_TTNM.Tin).Point1 = model.Tin;
+                articleEmp.Point.First(t => t.Type == PointType_TTNM.PS).Point1 = model.PS;
+                articleEmp.Point.First(t => t.Type == PointType_TTNM.QTin).Point1 = model.QTin;
+                articleEmp.Point.First(t => t.Type == PointType_TTNM.QPs).Point1 = model.QPs;
+                articleEmp.Point.First(t => t.Type == PointType_TTNM.Tl_tin).Point1 = model.Tl_Tin;
+                articleEmp.Point.First(t => t.Type == PointType_TTNM.Thop).Point1 = model.Thop;
+                articleEmployeeRepository.Update(articleEmp);
+            }
+        }
     }
 }

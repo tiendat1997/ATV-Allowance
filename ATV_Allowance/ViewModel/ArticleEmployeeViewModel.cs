@@ -28,5 +28,7 @@ namespace ATV_Allowance.ViewModel
         public int CDe { get; set; }
         public int Bs_DCT { get; set; }
         public int Bt_Dd { get; set; }
+        public int Tl_Tin { get; set; }
+        public int Thop { get; set; }
     }
 }

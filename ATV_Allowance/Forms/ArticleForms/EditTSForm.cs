@@ -36,8 +36,8 @@ namespace ATV_Allowance.Forms.ArticleForms
         internal Dictionary<Control, ErrorProvider> epDic;               
         public EditTSForm(ArticleViewModel model)
         {
-            InitializeComponent();
             this.components = new System.ComponentModel.Container();
+            InitializeComponent();            
             InitializeErrorProvider();
             this.articleTypeId = model.TypeId;
             this.article = model;
@@ -65,6 +65,8 @@ namespace ATV_Allowance.Forms.ArticleForms
             adgvList.Columns["CDe"].Visible = false;
             adgvList.Columns["Bs_DCT"].Visible = false;
             adgvList.Columns["Bt_Dd"].Visible = false;
+            adgvList.Columns["Tl_tin"].Visible = false;
+            adgvList.Columns["Thop"].Visible = false;
         }
         private void LoadDGV()
         {
@@ -296,6 +298,10 @@ namespace ATV_Allowance.Forms.ArticleForms
                         {
                             articleService.AddArticleEmployeeTS(articleEmployee);
                         }
+                        else if (articleTypeId == ArticleType.PV_TTNM)
+                        {
+                            articleService.AddArticleEmployeeTTNM(articleEmployee);
+                        }
                         else if (articleTypeId == ArticleType.PHAT_THANH)
                         {
                             articleService.AddArticleEmployeePT(articleEmployee);
@@ -310,6 +316,10 @@ namespace ATV_Allowance.Forms.ArticleForms
                         if (articleTypeId == ArticleType.THOI_SU)
                         {
                             articleService.UpdateArticleEmployeeTS(articleEmployee);
+                        }
+                        else if (articleTypeId == ArticleType.PV_TTNM)
+                        {
+                            articleService.UpdateArticleEmployeeTTNM(articleEmployee);
                         }
                         else if (articleTypeId == ArticleType.PHAT_THANH)
                         {
