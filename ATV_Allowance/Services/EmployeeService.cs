@@ -47,14 +47,12 @@ namespace ATV_Allowance.Services
             Regex regex = new Regex(@"^\d+$"); // match all numbers
             List<string> splitter = empName.Split(' ').ToList();                        
             string tempCode = splitter.Last();
-            tempCode = Utilities.RemoveSign4VietnameseString(tempCode);
-            string subCode = "";
+            tempCode = Utilities.RemoveSign4VietnameseString(tempCode);            
             for (int i = 0; i < splitter.Count - 1; i++)
             {
                 string partName = Utilities.RemoveSign4VietnameseString(splitter[i]);
-                subCode += partName[0];                
-            }
-            tempCode = subCode + tempCode;
+                tempCode = tempCode + partName[0];                
+            }            
             var sameEmp = employeeRepository.GetMany(t => t.Code.Contains(tempCode)).ToList();
             int existedCount = 0;
             foreach (var emp in sameEmp)
