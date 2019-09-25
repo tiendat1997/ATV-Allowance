@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.gbStudentInfo = new System.Windows.Forms.GroupBox();
             this.cbOrganizationId = new System.Windows.Forms.ComboBox();
             this.gbPosition = new System.Windows.Forms.GroupBox();
@@ -76,6 +75,7 @@
             this.cbOrganizationId.Name = "cbOrganizationId";
             this.cbOrganizationId.Size = new System.Drawing.Size(373, 28);
             this.cbOrganizationId.TabIndex = 12;
+            this.cbOrganizationId.TextUpdate += new System.EventHandler(this.cbOrganizationId_TextUpdate);
             // 
             // gbPosition
             // 

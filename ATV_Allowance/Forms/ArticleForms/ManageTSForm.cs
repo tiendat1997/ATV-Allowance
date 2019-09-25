@@ -27,9 +27,11 @@ namespace ATV_Allowance.Forms.ArticleForms
         private ArticleViewModel model = null;
         private List<ArticleViewModel> articleList = new List<ArticleViewModel>();
         private List<int> currArticleTypes;
+        private List<EmployeeViewModel> empList;
 
         public ManageTSForm()
         {
+            components = new System.ComponentModel.Container();
             InitializeComponent();
             InitArticleTypeFilter();
             LoadDGV();
@@ -92,7 +94,7 @@ namespace ATV_Allowance.Forms.ArticleForms
             try
             {
                 employeeService = new EmployeeService();
-                List<EmployeeViewModel> list = new List<EmployeeViewModel>
+                empList = new List<EmployeeViewModel>
                 {
                     new EmployeeViewModel
                     {
@@ -100,11 +102,11 @@ namespace ATV_Allowance.Forms.ArticleForms
                         Name = "Tất cả nhân viên" // empty employee
                     }
                 };
-                list.AddRange(employeeService.GetAllActive(true));
+                empList.AddRange(employeeService.GetAllActive(true));
                 cbEmployee.DisplayMember = "Name";
-                cbEmployee.DataSource = list;
-                cbEmployee.AutoCompleteMode = AutoCompleteMode.Suggest;
-                cbEmployee.AutoCompleteSource = AutoCompleteSource.ListItems;
+                cbEmployee.DataSource = empList;
+                //cbEmployee.AutoCompleteMode = AutoCompleteMode.Suggest;
+                //cbEmployee.AutoCompleteSource = AutoCompleteSource.ListItems;
             }
             catch (Exception ex)
             {
@@ -130,7 +132,7 @@ namespace ATV_Allowance.Forms.ArticleForms
 
         private void cbEmployee_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var emp = (EmployeeViewModel)cbEmployee.SelectedValue;
+            var emp = (EmployeeViewModel)cbEmployee.SelectedValue;            
             empId = emp.Id;
             LoadDGV();
         }
@@ -226,6 +228,49 @@ namespace ATV_Allowance.Forms.ArticleForms
             var curItem = (ArticleGroup)cbArticleType.SelectedItem;
             currArticleTypes = curItem.GroupIds;
             LoadDGV();
+        }
+
+        private void cbEmployee_TextUpdate(object sender, EventArgs e)
+        {
+            try
+            {
+                string filter_param = cbEmployee.Text.ToLower();
+
+                List<EmployeeViewModel> filteredItems = empList.FindAll(x => (x.Code != null && x.Code.ToLower().Contains(filter_param))
+                                                                            || (x.Name != null && x.Name.ToLower().Contains(filter_param)));                                                           
+                // another variant for filtering using StartsWith:
+                // List<string> filteredItems = arrProjectList.FindAll(x => x.StartsWith(filter_param));
+
+                cbEmployee.DataSource = filteredItems;
+
+                if (String.IsNullOrWhiteSpace(filter_param))
+                {
+                    cbEmployee.DataSource = empList;
+                }
+                cbEmployee.DroppedDown = true;
+
+                // this will ensure that the drop down is as long as the list
+                cbEmployee.IntegralHeight = true;
+
+                // remove automatically selected first item
+                //cbEmployee.SelectedIndex = 0;
+
+                cbEmployee.Text = filter_param;
+
+                // set the position of the cursor
+                cbEmployee.SelectionStart = filter_param.Length;
+                cbEmployee.SelectionLength = 0;
+                Cursor.Current = Cursors.Default;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+
+            }            
         }
     }
 }

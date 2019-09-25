@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.gbStudentInfo = new System.Windows.Forms.GroupBox();
             this.cbOrganizationId = new System.Windows.Forms.ComboBox();
             this.gbPosition = new System.Windows.Forms.GroupBox();
@@ -43,10 +42,10 @@
             this.lblCode = new System.Windows.Forms.Label();
             this.lblName = new System.Windows.Forms.Label();
             this.gbControl = new System.Windows.Forms.GroupBox();
-            this.btnUpdate = new System.Windows.Forms.Button();            
+            this.btnUpdate = new System.Windows.Forms.Button();
             this.gbStudentInfo.SuspendLayout();
             this.gbPosition.SuspendLayout();
-            this.gbControl.SuspendLayout();            
+            this.gbControl.SuspendLayout();
             this.SuspendLayout();
             // 
             // gbStudentInfo
@@ -76,6 +75,7 @@
             this.cbOrganizationId.Name = "cbOrganizationId";
             this.cbOrganizationId.Size = new System.Drawing.Size(373, 28);
             this.cbOrganizationId.TabIndex = 12;
+            this.cbOrganizationId.TextUpdate += new System.EventHandler(this.cbOrganizationId_TextUpdate);
             // 
             // gbPosition
             // 
@@ -215,9 +215,9 @@
             this.btnUpdate.Size = new System.Drawing.Size(112, 35);
             this.btnUpdate.TabIndex = 0;
             this.btnUpdate.Text = "Cập nhật";
-            this.btnUpdate.UseVisualStyleBackColor = true;            
-            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);            
-            //
+            this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
+            // 
             // UpdateEmployeeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -233,7 +233,7 @@
             this.gbStudentInfo.PerformLayout();
             this.gbPosition.ResumeLayout(false);
             this.gbPosition.PerformLayout();
-            this.gbControl.ResumeLayout(false);            
+            this.gbControl.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

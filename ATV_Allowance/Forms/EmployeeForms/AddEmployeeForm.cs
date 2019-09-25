@@ -26,9 +26,11 @@ namespace ATV_Allowance.Forms.EmployeeForms
         private System.Windows.Forms.ErrorProvider epOrganization;
         private System.Windows.Forms.ErrorProvider epPosition;
         private System.Windows.Forms.ErrorProvider epCode;
+        private List<OrganizationViewModel> orgList;
         internal new Dictionary<Control, ErrorProvider> epDic;
         public AddEmployeeForm()
-        {           
+        {
+            components = new System.ComponentModel.Container();
             InitializeComponent();                
             InitializeErrorProvider();
         }
@@ -49,11 +51,11 @@ namespace ATV_Allowance.Forms.EmployeeForms
             try
             {
                 organizationService = new OrganizationService();
-                List<OrganizationViewModel> list = organizationService.GetAllIsActive(true);
+                orgList = organizationService.GetAllIsActive(true);
                 cbOrganizationId.DisplayMember = "Name";                
-                cbOrganizationId.DataSource = list;
-                cbOrganizationId.AutoCompleteMode = AutoCompleteMode.Suggest;
-                cbOrganizationId.AutoCompleteSource = AutoCompleteSource.ListItems;
+                cbOrganizationId.DataSource = orgList;
+                //cbOrganizationId.AutoCompleteMode = AutoCompleteMode.Suggest;
+                //cbOrganizationId.AutoCompleteSource = AutoCompleteSource.ListItems;                
             }
             catch (Exception ex)
             {
@@ -152,6 +154,36 @@ namespace ATV_Allowance.Forms.EmployeeForms
 
         private void txtName_Validating(object sender, CancelEventArgs e)
         {           
-        }        
+        }
+
+        private void cbOrganizationId_TextUpdate(object sender, EventArgs e)
+        {
+            string filter_param = cbOrganizationId.Text.ToLower();
+
+            List<OrganizationViewModel> filteredItems = orgList.FindAll(x => x.Name.ToLower().Contains(filter_param));
+            // another variant for filtering using StartsWith:
+            // List<string> filteredItems = arrProjectList.FindAll(x => x.StartsWith(filter_param));
+
+            cbOrganizationId.DataSource = filteredItems;
+
+            if (String.IsNullOrWhiteSpace(filter_param))
+            {
+                cbOrganizationId.DataSource = orgList;
+            }
+            cbOrganizationId.DroppedDown = true;
+
+            // this will ensure that the drop down is as long as the list
+            cbOrganizationId.IntegralHeight = true;
+
+            // remove automatically selected first item
+            cbOrganizationId.SelectedIndex = -1;
+
+            cbOrganizationId.Text = filter_param;
+
+            // set the position of the cursor
+            cbOrganizationId.SelectionStart = filter_param.Length;
+            cbOrganizationId.SelectionLength = 0;
+            Cursor.Current = Cursors.Default;
+        }
     }
 }
