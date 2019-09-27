@@ -13,6 +13,10 @@ namespace ATV_Allowance.ViewModel
         public string Organization { get; set; }
         public int SoTin { get; set; }
         public double DiemTin { get; set; }
+        public int SoTTh_Gnh { get; set; }
+        public double DiemTTh_Gnh { get; set; }
+        public int SoCde { get; set; }
+        public double DiemCde { get; set; }
         public int SoPsu { get; set; }
         public double DiemPsu { get; set; }
         public double DiemQtin { get; set; }
@@ -27,6 +31,10 @@ namespace ATV_Allowance.ViewModel
         public double DiemTLT { get; set; }
         public int SoSD { get; set; }
         public double DiemSD { get; set; }
+        public int SoBs_DCT { get; set; }
+        public double DiemBs_DCT { get; set; }
+        public int SoBt_Dd { get; set; }
+        public double DiemBt_Dd { get; set; }
         public double Sum { get; set; }
         public double Descrease { get; set; }
         public double IncreasePercent { get; set; }

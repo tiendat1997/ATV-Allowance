@@ -108,6 +108,14 @@ namespace ATV_Allowance.Forms.Report
                 adgvReportBroadcast.Columns["DiemTLT"].Visible = false;
                 adgvReportBroadcast.Columns["SoSD"].Visible = false;
                 adgvReportBroadcast.Columns["DiemSD"].Visible = false;
+                adgvReportBroadcast.Columns["SoTTh_Gnh"].Visible = false;
+                adgvReportBroadcast.Columns["DiemTTh_Gnh"].Visible = false;
+                adgvReportBroadcast.Columns["SoCde"].Visible = false;
+                adgvReportBroadcast.Columns["DiemCde"].Visible = false;
+                adgvReportBroadcast.Columns["SoBs_DCT"].Visible = false;
+                adgvReportBroadcast.Columns["DiemBs_DCT"].Visible = false;
+                adgvReportBroadcast.Columns["SoBt_Dd"].Visible = false;
+                adgvReportBroadcast.Columns["DiemBt_Dd"].Visible = false;
 
                 txtPoint.Text = list.Sum(e => e.TotalPoint).ToString();
                 txtCost.Text = list.Sum(e => e.TotalCost).ToString("N0") + " vnđ";
