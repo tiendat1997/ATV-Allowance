@@ -64,6 +64,12 @@ namespace ATV_Allowance.Forms.ArticleForms
                 case 4:
                     typeName += "thông tin ngày mới";
                     break;
+                case 5:
+                    typeName += "biên soạn thông tin ngày mới";
+                    break;
+                case 6:
+                    typeName += "khối hậu kỳ biên soạn thông tin ngày mới";
+                    break;
                 default:
                     break;
             }
@@ -98,9 +104,20 @@ namespace ATV_Allowance.Forms.ArticleForms
             adgvList.Columns["CDe"].Visible = false;
             adgvList.Columns["Bs_DCT"].Visible = false;
             adgvList.Columns["Bt_Dd"].Visible = false;
-            adgvList.Columns["Tl_tin"].Visible = false;  
-            adgvList.Columns["Thop"].Visible = false; 
-        }
+            adgvList.Columns["Tl_tin"].Visible = false;
+            adgvList.Columns["Thop"].Visible = false;
+            // BIEN SOAN TTNM
+            adgvList.Columns["Bs_TTN"].Visible = false;
+            adgvList.Columns["Bs_Sapo"].Visible = false;
+            adgvList.Columns["KThinh"].Visible = false;
+            adgvList.Columns["TFile"].Visible = false;
+            adgvList.Columns["Bt_Duyet"].Visible = false;
+            // KHOI HAU KY TTNM
+            adgvList.Columns["DCT"].Visible = false;
+            adgvList.Columns["KTD"].Visible = false;
+            adgvList.Columns["TCT"].Visible = false;
+            adgvList.Columns["KT_TH"].Visible = false;
+    }
         private void LoadArticleData()
         {
             try
@@ -231,7 +248,7 @@ namespace ATV_Allowance.Forms.ArticleForms
                 adgvList.Rows[currRowIndex].Cells["CbEmployeeColumn"].Value = selectedEmp.Code;
                 adgvList.Rows[currRowIndex].Cells["Position"].Value = selectedEmp.Position;
                 adgvList.Rows[currRowIndex].Cells["Organization"].Value = selectedEmp.Organization;
-                adgvList.CurrentCell = adgvList.Rows[currRowIndex].Cells[8]; // the first point column index                
+                //adgvList.CurrentCell = adgvList.Rows[currRowIndex].Cells[8]; // the first point column index                
                 adgvList.BeginEdit(true);
             }
         }
@@ -300,11 +317,19 @@ namespace ATV_Allowance.Forms.ArticleForms
                         {
                             articleService.AddArticleEmployeeTTNM(articleEmployee);
                         }
+                        else if (articleTypeId == ArticleType.BIENSOAN_TTNM)
+                        {
+                            articleService.AddArticleEmployeeBSTTNM(articleEmployee);
+                        }
+                        else if (articleTypeId == ArticleType.KHOIHK_TTNM)
+                        {
+                            articleService.AddArticleEmployeeHKTTNM(articleEmployee);
+                        }
                         else if (articleTypeId == ArticleType.PHAT_THANH)
                         {
                             articleService.AddArticleEmployeePT(articleEmployee);
                         }
-                        else
+                        else if (articleTypeId == ArticleType.PHAT_THANH_TT)
                         {
                             articleService.AddArticleEmployeePTTT(articleEmployee);
                         }
@@ -319,11 +344,19 @@ namespace ATV_Allowance.Forms.ArticleForms
                         {
                             articleService.UpdateArticleEmployeeTTNM(articleEmployee);
                         }
+                        else if (articleTypeId == ArticleType.BIENSOAN_TTNM)
+                        {
+                            articleService.UpdateArticleEmployeeBSTTNM(articleEmployee);
+                        }
+                        else if (articleTypeId == ArticleType.KHOIHK_TTNM)
+                        {
+                            articleService.UpdateArticleEmployeeHKTTNM(articleEmployee);
+                        }
                         else if (articleTypeId == ArticleType.PHAT_THANH)
                         {
                             articleService.UpdateArticleEmployeePT(articleEmployee);
                         }
-                        else
+                        else if (articleTypeId == ArticleType.PHAT_THANH_TT)
                         {
                             articleService.UpdateArticleEmployeePTTT(articleEmployee);
                         }

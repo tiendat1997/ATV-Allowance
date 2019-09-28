@@ -72,22 +72,20 @@ namespace ATV_Allowance.Common
             public static string BTPoint = "Đ B/tập Đ/diễn";
             public static string TotalPoint = "Tổng điểm";
             public static string TotalCost = "Thành tiền";
-            
+
 
         }
         public static class ADGVArticleText
         {
             public static string Title = "Tin";
             public static string Date = "Ngày";
-            public static string Type = "L/T";
+            public static string Type = "Loại"; // Loại tin
         }
 
         public static class ADGVOrganizationText
         {
             public static string Name = "Tên Đơn Vị";
         }
-
-
 
         public static class BusinessLogType
         {
@@ -156,7 +154,22 @@ namespace ATV_Allowance.Common
             public static int QTin = 3;
             public static int QPs = 4;
             public static int Tl_tin = 14;
-            public static int Thop = 15;            
+            public static int Thop = 15;
+        }
+        public static class PointType_BIENSOAN_TTNM
+        {
+            public static int Bs_TTN = 16;
+            public static int Bs_Sapo = 17;
+            public static int KThinh = 18;
+            public static int TFile = 19;
+            public static int Bt_Duyet = 20;
+        }
+        public static class PointType_HAUKY_TTNM
+        {
+            public static int DCT = 21;
+            public static int KTD = 22;
+            public static int TCT = 23;
+            public static int KT_TH = 24;
         }
         public static class PointType_PhatThanh
         {
@@ -200,14 +213,16 @@ namespace ATV_Allowance.Common
             public static int PHAT_THANH_TT = 2;
             public static int THOI_SU = 3;
             public static int PV_TTNM = 4;
-            public static int BIENSOAN_TTNM = 5;            
+            public static int BIENSOAN_TTNM = 5;
+            public static int KHOIHK_TTNM = 6;
         }
         public static class ArticleTypeGroup
         {
             public static List<ArticleGroup> DROPDOWN_VALUE = new List<ArticleGroup>()
         {
             new ArticleGroup { Name = "Nhóm tin truyền hình", GroupIds = new List<int> { 3, 4 } }, // Thời sự , Thông tin ngày mới,
-            new ArticleGroup { Name = "Nhóm tin phát thanh", GroupIds = new List<int> { 1, 2 } } // Phát thanh, Phát thanh trực tiếp    
+            new ArticleGroup { Name = "Nhóm tin phát thanh", GroupIds = new List<int> { 1, 2 } }, // Phát thanh, Phát thanh trực tiếp    
+            new ArticleGroup { Name = "Biên soạn ttnm", GroupIds = new List<int> { 5, 6 } } // Biên soạn ttnm, Khối hậu kỳ    
         };
         }
         public class ArticleGroup
@@ -227,7 +242,7 @@ namespace ATV_Allowance.Common
         {
             public static int STT = 1;
             public static int HO_TEN = 2;
-            public static int TIN =3;
+            public static int TIN = 3;
             public static int TIN_DIEM = 4;
             public static int PHSU = 5;
             public static int PHSU_DIEM = 6;

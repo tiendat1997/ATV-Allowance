@@ -232,6 +232,14 @@ namespace ATV_Allowance.Common
                         ImportArticleForm importPTTTForm = new ImportArticleForm(ArticleType.PHAT_THANH_TT);
                         form = (Form)importPTTTForm;
                         break;
+                    case "Nhập Thù lao biên soạn tnnm":
+                        ImportArticleForm imporBSForm = new ImportArticleForm(ArticleType.BIENSOAN_TTNM);
+                        form = (Form)imporBSForm;
+                        break;                        
+                    case "Nhập Khối hậu kỳ biên soạn tnnm":
+                        ImportArticleForm importHKForm = new ImportArticleForm(ArticleType.KHOIHK_TTNM);
+                        form = (Form)importHKForm;
+                        break;
                     case "Xem nhanh tin":
                         ManageTSForm tsForm = new ManageTSForm();
                         form = (Form)tsForm;
