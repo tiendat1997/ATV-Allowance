@@ -1,6 +1,6 @@
 ﻿namespace ATV_Allowance.Forms.Report
 {
-    partial class ReportBroadcastForm
+    partial class ReportPTTTForm
     {
         /// <summary>
         /// Required designer variable.
@@ -70,10 +70,10 @@
             // 
             this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Controls.Add(this.flowLayoutPanel4);
-            this.panel1.Location = new System.Drawing.Point(1, 0);
+            this.panel1.Location = new System.Drawing.Point(1, 1);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(856, 367);
-            this.panel1.TabIndex = 0;
+            this.panel1.TabIndex = 2;
             // 
             // groupBox1
             // 
@@ -209,7 +209,7 @@
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(236, 31);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(282, 31);
             this.flowLayoutPanel1.TabIndex = 4;
             // 
             // label1
@@ -217,22 +217,21 @@
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(0, 4);
+            this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Margin = new System.Windows.Forms.Padding(0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(166, 18);
+            this.label1.Size = new System.Drawing.Size(282, 18);
             this.label1.TabIndex = 0;
-            this.label1.Text = "BÁO CÁO TIN THỜI SỰ";
+            this.label1.Text = "BÁO CÁO TIN PHÁT THANH TRỰC TIẾP";
             // 
             // cbRole
             // 
             this.cbRole.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbRole.FormattingEnabled = true;
-            this.cbRole.Location = new System.Drawing.Point(169, 3);
+            this.cbRole.Location = new System.Drawing.Point(3, 21);
             this.cbRole.Name = "cbRole";
             this.cbRole.Size = new System.Drawing.Size(62, 21);
             this.cbRole.TabIndex = 1;
-            this.cbRole.SelectedIndexChanged += new System.EventHandler(this.cbRole_SelectedIndexChanged);
             // 
             // flowLayoutPanel2
             // 
@@ -400,14 +399,14 @@
             this.label7.TabIndex = 9;
             this.label7.Text = "vnđ / điểm";
             // 
-            // ReportBroadcastForm
+            // ReportPTTTForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(858, 369);
             this.Controls.Add(this.panel1);
-            this.Name = "ReportBroadcastForm";
-            this.Text = "Báo cáo tin thời sự";
+            this.Name = "ReportPTTTForm";
+            this.Text = "Báo cáo phát thanh trực tiếp";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -429,31 +428,31 @@
         #endregion
 
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel4;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.DateTimePicker dtpStartdate;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.DateTimePicker dtpEnddate;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel3;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label txtPoint;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label txtCost;
         private System.Windows.Forms.DataGridView adgvReportBroadcast;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel5;
         private System.Windows.Forms.Button btnExport;
         private System.Windows.Forms.Button btnDeduction;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label txtCost;
-        private System.Windows.Forms.Label txtPoint;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel3;
-        private System.Windows.Forms.DateTimePicker dtpMonth;
-        private System.Windows.Forms.DateTimePicker dtpYear;
-        private System.Windows.Forms.NumericUpDown edtPrice;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel4;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cbRole;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.DateTimePicker dtpMonth;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.DateTimePicker dtpYear;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.DateTimePicker dtpStartdate;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.DateTimePicker dtpEnddate;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.NumericUpDown edtPrice;
+        private System.Windows.Forms.Label label7;
     }
 }

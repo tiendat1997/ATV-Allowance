@@ -16,15 +16,13 @@ using static ATV_Allowance.Common.Constants;
 
 namespace ATV_Allowance.Forms.Report
 {
-    public partial class ReportPTForm : Form
+    public partial class ReportPTTTForm : Form
     {
-
         private BindingSource bs;
 
         private IReportService reportService;
         private SaveFileDialog saveFileDialog;
-
-        public ReportPTForm()
+        public ReportPTTTForm()
         {
             InitializeComponent();
             reportService = new ReportService();
@@ -81,7 +79,7 @@ namespace ATV_Allowance.Forms.Report
             {
 
                 reportService = new ReportService();
-                List<EmployeePointViewModel> list = reportService.GetReportBroadcast(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, ArticleType.PHAT_THANH);
+                List<EmployeePointViewModel> list = reportService.GetReportBroadcast(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, ArticleType.PHAT_THANH_TT);
                 SortableBindingList<EmployeePointViewModel> sbl = new SortableBindingList<EmployeePointViewModel>(list);
                 bs = new BindingSource();
                 bs.DataSource = sbl;
@@ -101,14 +99,16 @@ namespace ATV_Allowance.Forms.Report
                 adgvReportBroadcast.Columns["DiemQPsu"].Visible = false;
                 adgvReportBroadcast.Columns["Descrease"].Visible = false;
                 adgvReportBroadcast.Columns["TotalPoint"].Visible = false;
-                adgvReportBroadcast.Columns["SoTTh_Gnh"].Visible = false;
-                adgvReportBroadcast.Columns["DiemTTh_Gnh"].Visible = false;
-                adgvReportBroadcast.Columns["SoCde"].Visible = false;
-                adgvReportBroadcast.Columns["DiemCde"].Visible = false;
-                adgvReportBroadcast.Columns["SoBs_DCT"].Visible = false;
-                adgvReportBroadcast.Columns["DiemBs_DCT"].Visible = false;
-                adgvReportBroadcast.Columns["SoBt_Dd"].Visible = false;
-                adgvReportBroadcast.Columns["DiemBt_Dd"].Visible = false;
+                adgvReportBroadcast.Columns["SoBai"].Visible = false;
+                adgvReportBroadcast.Columns["DiemBai"].Visible = false;
+                adgvReportBroadcast.Columns["SoCd"].Visible = false;
+                adgvReportBroadcast.Columns["DiemCd"].Visible = false;
+                adgvReportBroadcast.Columns["SoPv"].Visible = false;
+                adgvReportBroadcast.Columns["DiemPv"].Visible = false;
+                adgvReportBroadcast.Columns["SoTLT"].Visible = false;
+                adgvReportBroadcast.Columns["DiemTLT"].Visible = false;
+                adgvReportBroadcast.Columns["SoSD"].Visible = false;
+                adgvReportBroadcast.Columns["DiemSD"].Visible = false;
 
                 txtPoint.Text = list.Sum(e => e.TotalPoint).ToString();
                 txtCost.Text = list.Sum(e => e.TotalCost).ToString("N0") + " vnđ";
@@ -126,9 +126,9 @@ namespace ATV_Allowance.Forms.Report
 
         private void btnExport_Click(object sender, EventArgs e)
         {
-            saveFileDialog.FileName = $"BaoCao_PT_{cbRole.Text}_{dtpEnddate.Value.Month}{dtpEnddate.Value.Year}.xlsx";
+            saveFileDialog.FileName = $"BaoCao_PTTT_{cbRole.Text}_{dtpEnddate.Value.Month}{dtpEnddate.Value.Year}.xlsx";
             reportService = new ReportService();
-            var data = reportService.GetReportPT(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, ArticleType.PHAT_THANH);
+            var data = reportService.GetReportPTTT(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, ArticleType.PHAT_THANH_TT);
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {

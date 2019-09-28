@@ -98,6 +98,24 @@ namespace ATV_Allowance.Forms.Report
                 adgvReportBroadcast.Columns["TotalCost"].DefaultCellStyle.Format = "N0";
 
                 adgvReportBroadcast.Columns["EmployeeId"].Visible = false;
+                adgvReportBroadcast.Columns["SoBai"].Visible = false;
+                adgvReportBroadcast.Columns["DiemBai"].Visible = false;
+                adgvReportBroadcast.Columns["SoCd"].Visible = false;
+                adgvReportBroadcast.Columns["DiemCd"].Visible = false;
+                adgvReportBroadcast.Columns["SoPv"].Visible = false;
+                adgvReportBroadcast.Columns["DiemPv"].Visible = false;
+                adgvReportBroadcast.Columns["SoTLT"].Visible = false;
+                adgvReportBroadcast.Columns["DiemTLT"].Visible = false;
+                adgvReportBroadcast.Columns["SoSD"].Visible = false;
+                adgvReportBroadcast.Columns["DiemSD"].Visible = false;
+                adgvReportBroadcast.Columns["SoTTh_Gnh"].Visible = false;
+                adgvReportBroadcast.Columns["DiemTTh_Gnh"].Visible = false;
+                adgvReportBroadcast.Columns["SoCde"].Visible = false;
+                adgvReportBroadcast.Columns["DiemCde"].Visible = false;
+                adgvReportBroadcast.Columns["SoBs_DCT"].Visible = false;
+                adgvReportBroadcast.Columns["DiemBs_DCT"].Visible = false;
+                adgvReportBroadcast.Columns["SoBt_Dd"].Visible = false;
+                adgvReportBroadcast.Columns["DiemBt_Dd"].Visible = false;
 
                 txtPoint.Text = list.Sum(e => e.TotalPoint).ToString();
                 txtCost.Text = list.Sum(e => e.TotalCost).ToString("N0") + " vnđ";

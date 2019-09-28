@@ -261,5 +261,26 @@ namespace ATV_Allowance.Common
             public static int TANGGIAM = 17;
             public static int THANHTIEN = 18;
         }
+        public static class PTTT_COL
+        {
+            public static int STT = 1;
+            public static int HO_TEN = 2;
+            public static int DON_VI = 3;
+            public static int SL_TIN = 4;
+            public static int D_TIN = 5;
+            public static int SL_TT = 6;
+            public static int D_TT = 7;
+            public static int SL_CD = 8;
+            public static int D_CD = 9;
+            public static int SL_PV = 10;
+            public static int D_PV = 11;
+            public static int SL_BS = 12;
+            public static int D_BS = 13;
+            public static int SL_BT = 14;
+            public static int D_BT = 15;
+            public static int TONGDIEM = 16;
+            public static int TANGGIAM = 17;
+            public static int THANHTIEN = 18;
+        }
     }
 }

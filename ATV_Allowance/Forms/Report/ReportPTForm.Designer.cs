@@ -46,7 +46,7 @@
             this.cbRole = new System.Windows.Forms.ComboBox();
             this.btnExport = new System.Windows.Forms.Button();
             this.btnDeduction = new System.Windows.Forms.Button();
-            this.adgvReportBroadcast = new ADGV.AdvancedDataGridView();
+            this.adgvReportBroadcast = new System.Windows.Forms.DataGridView();
             this.flowLayoutPanel5 = new System.Windows.Forms.FlowLayoutPanel();
             this.label8 = new System.Windows.Forms.Label();
             this.txtPoint = new System.Windows.Forms.Label();
@@ -298,15 +298,12 @@
             // 
             // adgvReportBroadcast
             // 
-            this.adgvReportBroadcast.AutoGenerateContextFilters = true;
             this.adgvReportBroadcast.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.adgvReportBroadcast.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.adgvReportBroadcast.DateWithTime = false;
             this.adgvReportBroadcast.Location = new System.Drawing.Point(3, 46);
             this.adgvReportBroadcast.Name = "adgvReportBroadcast";
             this.adgvReportBroadcast.Size = new System.Drawing.Size(853, 247);
             this.adgvReportBroadcast.TabIndex = 4;
-            this.adgvReportBroadcast.TimeFilter = false;
             // 
             // flowLayoutPanel5
             // 
@@ -449,7 +446,7 @@
         private System.Windows.Forms.ComboBox cbRole;
         private System.Windows.Forms.Button btnExport;
         private System.Windows.Forms.Button btnDeduction;
-        private ADGV.AdvancedDataGridView adgvReportBroadcast;
+        private System.Windows.Forms.DataGridView adgvReportBroadcast;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel5;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label txtPoint;
