@@ -43,6 +43,7 @@ namespace ATV_Allowance.Common
             public static string Position = "Chức danh";
             public static string AbbrPosition = "Ch/D";
             public static string Organization = "Đơn vị";
+            public static string Title = "Ghi chú";
         }
 
         public static class ADGVReportHeader

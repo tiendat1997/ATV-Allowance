@@ -46,7 +46,7 @@ namespace ATV_Allowance.Forms.EmployeeForms
                 adgvEmployee.Columns["Position"].Visible = true;
                 adgvEmployee.Columns["Organization"].Visible = true;
                 adgvEmployee.Columns["IsActive"].Visible = false;
-
+                
                 adgvEmployee.Columns["Code"].HeaderText = ADGVEmployeeText.Code;
                 adgvEmployee.Columns["Code"].Width = ControlsAttribute.GV_WIDTH_NORMAL;
                 adgvEmployee.Columns["Name"].HeaderText = ADGVEmployeeText.Name;
@@ -55,6 +55,8 @@ namespace ATV_Allowance.Forms.EmployeeForms
                 adgvEmployee.Columns["Position"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 adgvEmployee.Columns["Organization"].HeaderText = ADGVEmployeeText.Organization;
                 adgvEmployee.Columns["Organization"].Width = ControlsAttribute.GV_WIDTH_NORMAL;
+                adgvEmployee.Columns["Title"].HeaderText = ADGVEmployeeText.Title;
+                adgvEmployee.Columns["Title"].Width = ControlsAttribute.GV_WIDTH_SEEM;
 
                 // Set selected employee 
                 if (list.Count > 0)

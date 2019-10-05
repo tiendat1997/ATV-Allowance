@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.gbStudentInfo = new System.Windows.Forms.GroupBox();
+            this.txtTitle = new System.Windows.Forms.TextBox();
+            this.lblTitle = new System.Windows.Forms.Label();
             this.cbOrganizationId = new System.Windows.Forms.ComboBox();
             this.gbPosition = new System.Windows.Forms.GroupBox();
             this.rbPV = new System.Windows.Forms.RadioButton();
@@ -50,6 +52,8 @@
             // 
             // gbStudentInfo
             // 
+            this.gbStudentInfo.Controls.Add(this.txtTitle);
+            this.gbStudentInfo.Controls.Add(this.lblTitle);
             this.gbStudentInfo.Controls.Add(this.cbOrganizationId);
             this.gbStudentInfo.Controls.Add(this.gbPosition);
             this.gbStudentInfo.Controls.Add(this.txtCode);
@@ -62,10 +66,28 @@
             this.gbStudentInfo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.gbStudentInfo.Name = "gbStudentInfo";
             this.gbStudentInfo.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.gbStudentInfo.Size = new System.Drawing.Size(567, 334);
+            this.gbStudentInfo.Size = new System.Drawing.Size(567, 363);
             this.gbStudentInfo.TabIndex = 0;
             this.gbStudentInfo.TabStop = false;
             this.gbStudentInfo.Text = "Thông tin nhân viên";
+            // 
+            // txtTitle
+            // 
+            this.txtTitle.Location = new System.Drawing.Point(168, 235);
+            this.txtTitle.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtTitle.Name = "txtTitle";
+            this.txtTitle.Size = new System.Drawing.Size(264, 26);
+            this.txtTitle.TabIndex = 16;
+            // 
+            // lblTitle
+            // 
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.Location = new System.Drawing.Point(14, 241);
+            this.lblTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(64, 20);
+            this.lblTitle.TabIndex = 15;
+            this.lblTitle.Text = "Ghi chú";
             // 
             // cbOrganizationId
             // 
@@ -83,7 +105,7 @@
             this.gbPosition.Controls.Add(this.rbBTV);
             this.gbPosition.Controls.Add(this.rbPTV);
             this.gbPosition.Controls.Add(this.rbCTV);
-            this.gbPosition.Location = new System.Drawing.Point(168, 240);
+            this.gbPosition.Location = new System.Drawing.Point(168, 278);
             this.gbPosition.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.gbPosition.Name = "gbPosition";
             this.gbPosition.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -158,7 +180,7 @@
             // lblPosition
             // 
             this.lblPosition.AutoSize = true;
-            this.lblPosition.Location = new System.Drawing.Point(10, 240);
+            this.lblPosition.Location = new System.Drawing.Point(14, 307);
             this.lblPosition.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblPosition.Name = "lblPosition";
             this.lblPosition.Size = new System.Drawing.Size(86, 20);
@@ -198,18 +220,18 @@
             // gbControl
             // 
             this.gbControl.Controls.Add(this.btnUpdate);
-            this.gbControl.Location = new System.Drawing.Point(20, 365);
+            this.gbControl.Location = new System.Drawing.Point(20, 384);
             this.gbControl.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.gbControl.Name = "gbControl";
             this.gbControl.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.gbControl.Size = new System.Drawing.Size(567, 102);
+            this.gbControl.Size = new System.Drawing.Size(567, 83);
             this.gbControl.TabIndex = 1;
             this.gbControl.TabStop = false;
             this.gbControl.Text = "Thao tác";
             // 
             // btnUpdate
             // 
-            this.btnUpdate.Location = new System.Drawing.Point(9, 43);
+            this.btnUpdate.Location = new System.Drawing.Point(8, 29);
             this.btnUpdate.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(112, 35);
@@ -253,6 +275,8 @@
         private System.Windows.Forms.GroupBox gbPosition;
         private System.Windows.Forms.GroupBox gbControl;
         private System.Windows.Forms.Button btnUpdate;
-        private System.Windows.Forms.ComboBox cbOrganizationId;        
+        private System.Windows.Forms.ComboBox cbOrganizationId;
+        private System.Windows.Forms.TextBox txtTitle;
+        private System.Windows.Forms.Label lblTitle;
     }
 }

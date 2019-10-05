@@ -43,6 +43,7 @@ namespace ATV_Allowance.Forms.EmployeeForms
             {
                 txtName.Text = model.Name;
                 txtCode.Text = model.Code;
+                txtTitle.Text = model.Title ?? "";
                 currCode = model.Code;
                 cbOrganizationId.SelectedValue = model.OrganizationId;
                 var selectedRb = gbPosition.Controls.OfType<RadioButton>()
@@ -138,7 +139,8 @@ namespace ATV_Allowance.Forms.EmployeeForms
                     Name = empName,
                     OrganizationId = orgId,
                     RoleId = posId,
-                    IsActive = true
+                    IsActive = true,
+                    Title = model.Title
                 };
                 bool result = btnUpdate_Validate(newEmp);
                 if (result)

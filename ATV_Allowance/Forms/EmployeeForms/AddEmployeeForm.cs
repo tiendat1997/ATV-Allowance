@@ -110,7 +110,8 @@ namespace ATV_Allowance.Forms.EmployeeForms
                     Name = empName,
                     OrganizationId = orgId,
                     RoleId = posId,
-                    IsActive = true
+                    IsActive = true,
+                    Title = txtTitle.Text
                 };
                 bool result = btnAdd_Validate(newEmp);
                 if (result)

@@ -68,19 +68,25 @@ namespace ATV_Allowance.Forms.OrganizationForms
         }
         private void AddOrgForm_Closed(object sender, FormClosedEventArgs e)
         {
-            int oldCount = adgvOrg.Rows.Count - 1;
-            int currIndex = adgvOrg.CurrentRow.Index;
-            int selectedIndex = currIndex;
-            LoadDGV();
-            adgvOrg.ClearSelection();
-            int rowIndex = adgvOrg.Rows.Count - 1;
-            if (rowIndex > oldCount)
+            if (adgvOrg.CurrentRow != null)
             {
-                selectedIndex = rowIndex;
+                int oldCount = adgvOrg.Rows.Count - 1;
+                int currIndex = adgvOrg.CurrentRow.Index;
+                int selectedIndex = currIndex;
+                LoadDGV();
+                adgvOrg.ClearSelection();
+                int rowIndex = adgvOrg.Rows.Count - 1;
+                if (rowIndex > oldCount)
+                {
+                    selectedIndex = rowIndex;
+                }
+                adgvOrg.Rows[selectedIndex].Selected = true;
+                adgvOrg.CurrentCell = adgvOrg.Rows[selectedIndex].Cells[1];
+                adgvOrg_SelectionChanged(sender, e);
+            }   
+            else {
+                LoadDGV();
             }
-            adgvOrg.Rows[selectedIndex].Selected = true;
-            adgvOrg.CurrentCell = adgvOrg.Rows[selectedIndex].Cells[1];
-            adgvOrg_SelectionChanged(sender,e);
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
