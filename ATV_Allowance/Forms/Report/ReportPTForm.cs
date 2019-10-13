@@ -93,6 +93,16 @@ namespace ATV_Allowance.Forms.Report
                 adgvReportBroadcast.Columns["IncreasePercent"].DefaultCellStyle.Format = "F1";
                 adgvReportBroadcast.Columns["TotalCost"].HeaderText = ADGVReportHeader.TotalCost;
                 adgvReportBroadcast.Columns["TotalCost"].DefaultCellStyle.Format = "N0";
+                adgvReportBroadcast.Columns["SoBai"].HeaderText = ADGVReportHeader.SoBai;
+                adgvReportBroadcast.Columns["DiemBai"].HeaderText = ADGVReportHeader.DiemBai;
+                adgvReportBroadcast.Columns["SoCd"].HeaderText = ADGVReportHeader.SL_CD;
+                adgvReportBroadcast.Columns["DiemCd"].HeaderText = ADGVReportHeader.D_CD;
+                adgvReportBroadcast.Columns["SoPv"].HeaderText = ADGVReportHeader.SL_PV;
+                adgvReportBroadcast.Columns["DiemPv"].HeaderText = ADGVReportHeader.D_PV;
+                adgvReportBroadcast.Columns["SoTLT"].HeaderText = ADGVReportHeader.SL_TLT;
+                adgvReportBroadcast.Columns["DiemTLT"].HeaderText = ADGVReportHeader.D_TLT;
+                adgvReportBroadcast.Columns["SoSD"].HeaderText = ADGVReportHeader.SL_SD;
+                adgvReportBroadcast.Columns["DiemSD"].HeaderText = ADGVReportHeader.D_SD;
 
                 adgvReportBroadcast.Columns["EmployeeId"].Visible = false;
                 adgvReportBroadcast.Columns["SoPsu"].Visible = false;
