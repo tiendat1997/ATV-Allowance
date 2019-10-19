@@ -29,6 +29,8 @@ namespace DataService.Entity
 
         public bool IsActive { get; set; }
 
+        public string Title { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ArticleEmployee> ArticleEmployee { get; set; }
 

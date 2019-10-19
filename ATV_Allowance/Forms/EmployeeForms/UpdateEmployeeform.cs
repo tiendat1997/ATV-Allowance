@@ -26,11 +26,13 @@ namespace ATV_Allowance.Forms.EmployeeForms
         private System.Windows.Forms.ErrorProvider epPosition;
         private System.Windows.Forms.ErrorProvider epCode;
         internal new Dictionary<Control, ErrorProvider> epDic;
+        private List<OrganizationViewModel> orgList;
         private string currCode;
         public EmployeeViewModel model { get; set; }
         public UpdateEmployeeForm(EmployeeViewModel inputModel)
         {
             this.model = inputModel;
+            components = new System.ComponentModel.Container();
             InitializeComponent();
             InitializeErrorProvider();
             LoadData();            
@@ -41,6 +43,7 @@ namespace ATV_Allowance.Forms.EmployeeForms
             {
                 txtName.Text = model.Name;
                 txtCode.Text = model.Code;
+                txtTitle.Text = model.Title ?? "";
                 currCode = model.Code;
                 cbOrganizationId.SelectedValue = model.OrganizationId;
                 var selectedRb = gbPosition.Controls.OfType<RadioButton>()
@@ -64,9 +67,9 @@ namespace ATV_Allowance.Forms.EmployeeForms
             try
             {
                 organizationService = new OrganizationService();
-                List<Organization> list = organizationService.GetAll();
+                orgList = organizationService.GetAllIsActive(true);
                 cbOrganizationId.DisplayMember = "Name";
-                cbOrganizationId.DataSource = list;
+                cbOrganizationId.DataSource = orgList;
                 cbOrganizationId.AutoCompleteMode = AutoCompleteMode.Suggest;
                 cbOrganizationId.AutoCompleteSource = AutoCompleteSource.ListItems;
             }
@@ -136,7 +139,8 @@ namespace ATV_Allowance.Forms.EmployeeForms
                     Name = empName,
                     OrganizationId = orgId,
                     RoleId = posId,
-                    IsActive = true
+                    IsActive = true,
+                    Title = model.Title
                 };
                 bool result = btnUpdate_Validate(newEmp);
                 if (result)
@@ -163,6 +167,36 @@ namespace ATV_Allowance.Forms.EmployeeForms
                 ValidatorHelper.ShowValidationMessage(gbStudentInfo, result.Errors, epDic);
             }
             return result.IsValid;
+        }
+
+        private void cbOrganizationId_TextUpdate(object sender, EventArgs e)
+        {
+            string filter_param = cbOrganizationId.Text.ToLower();
+
+            List<OrganizationViewModel> filteredItems = orgList.FindAll(x => x.Name.ToLower().Contains(filter_param));
+            // another variant for filtering using StartsWith:
+            // List<string> filteredItems = arrProjectList.FindAll(x => x.StartsWith(filter_param));
+
+            cbOrganizationId.DataSource = filteredItems;
+
+            if (String.IsNullOrWhiteSpace(filter_param))
+            {
+                cbOrganizationId.DataSource = orgList;
+            }
+            cbOrganizationId.DroppedDown = true;
+
+            // this will ensure that the drop down is as long as the list
+            cbOrganizationId.IntegralHeight = true;
+
+            // remove automatically selected first item
+            cbOrganizationId.SelectedIndex = -1;
+
+            cbOrganizationId.Text = filter_param;
+
+            // set the position of the cursor
+            cbOrganizationId.SelectionStart = filter_param.Length;
+            cbOrganizationId.SelectionLength = 0;
+            Cursor.Current = Cursors.Default;
         }
     }
 }

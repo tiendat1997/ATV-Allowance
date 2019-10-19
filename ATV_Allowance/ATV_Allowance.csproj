@@ -201,6 +201,7 @@
       <DependentUpon>ReportPTTTForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ExcelHelper.cs" />
+    <Compile Include="Helpers\LinqHelper.cs" />
     <Compile Include="Helpers\ValidatorHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

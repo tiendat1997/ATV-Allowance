@@ -28,5 +28,18 @@ namespace ATV_Allowance.ViewModel
         public int CDe { get; set; }
         public int Bs_DCT { get; set; }
         public int Bt_Dd { get; set; }
+        public int Tl_Tin { get; set; }
+        public int Thop { get; set; }
+        // BIEN SOAN TTNM
+        public int Bs_TTN { get; set; }
+        public int Bs_Sapo { get; set; }
+        public int KThinh { get; set; }
+        public int TFile { get; set; }
+        public int Bt_Duyet { get; set; }
+        // KHOI HAU KY BIEN SOAN TTNM
+        public int DCT { get; set; }
+        public int KTD { get; set; }
+        public int TCT { get; set; }
+        public int KT_TH { get; set; }
     }
 }
