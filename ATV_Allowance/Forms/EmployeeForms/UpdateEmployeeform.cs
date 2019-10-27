@@ -35,7 +35,6 @@ namespace ATV_Allowance.Forms.EmployeeForms
             components = new System.ComponentModel.Container();
             InitializeComponent();
             InitializeErrorProvider();
-            LoadData();            
         }        
         private void LoadData()
         {
@@ -45,7 +44,8 @@ namespace ATV_Allowance.Forms.EmployeeForms
                 txtCode.Text = model.Code;
                 txtTitle.Text = model.Title ?? "";
                 currCode = model.Code;
-                cbOrganizationId.SelectedValue = model.OrganizationId;
+                int index = orgList.FindIndex(t => t.Id == model.OrganizationId);
+                cbOrganizationId.SelectedIndex = index;
                 var selectedRb = gbPosition.Controls.OfType<RadioButton>()
                                     .FirstOrDefault(r => r.Name.Equals("rb" + model.Position.ToUpper()));
                 selectedRb.Select();
@@ -67,11 +67,12 @@ namespace ATV_Allowance.Forms.EmployeeForms
             try
             {
                 organizationService = new OrganizationService();
-                orgList = organizationService.GetAllIsActive(true);
+                orgList = organizationService.GetAllIsActive(true);                
                 cbOrganizationId.DisplayMember = "Name";
                 cbOrganizationId.DataSource = orgList;
-                cbOrganizationId.AutoCompleteMode = AutoCompleteMode.Suggest;
+                cbOrganizationId.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
                 cbOrganizationId.AutoCompleteSource = AutoCompleteSource.ListItems;
+                LoadData();
             }
             catch (Exception ex)
             {
@@ -112,7 +113,7 @@ namespace ATV_Allowance.Forms.EmployeeForms
                 ValidatorHelper.ClearEPValidation(epDic);
                 var checkedButton = gbPosition.Controls.OfType<RadioButton>()
                                     .FirstOrDefault(r => r.Checked);
-                var org = (Organization)cbOrganizationId.SelectedValue;
+                var org = (OrganizationViewModel)cbOrganizationId.SelectedValue;
                 string empName = txtName.Text;
                 string empCode = txtCode.Text;
                 int posId = -1;
