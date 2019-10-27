@@ -74,6 +74,12 @@
     <Compile Include="Common\PropertyComparer.cs" />
     <Compile Include="Common\Session.cs" />
     <Compile Include="Common\Ultilities.cs" />
+    <Compile Include="Controls\ImportArticleUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ImportArticleUserControl.Designer.cs">
+      <DependentUpon>ImportArticleUserControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ArticleForms\AddArticleForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -91,6 +97,12 @@
     </Compile>
     <Compile Include="Forms\ArticleForms\EditTSForm.Designer.cs">
       <DependentUpon>EditTSForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ArticleForms\ImportBSTTNMForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ArticleForms\ImportBSTTNMForm.Designer.cs">
+      <DependentUpon>ImportBSTTNMForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\ArticleForms\InsertEmployeeForm.cs">
       <SubType>Form</SubType>
@@ -242,6 +254,9 @@
     <EmbeddedResource Include="Forms\ArticleForms\EditTSForm.resx">
       <DependentUpon>EditTSForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ArticleForms\ImportBSTTNMForm.resx">
+      <DependentUpon>ImportBSTTNMForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\ArticleForms\InsertEmployeeForm.resx">
       <DependentUpon>InsertEmployeeForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -347,6 +362,10 @@
     <ProjectReference Include="..\DataService\DataService.csproj">
       <Project>{5a361d07-8b46-4cce-b821-baaf213f3dbd}</Project>
       <Name>DataService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TControl\TControl.csproj">
+      <Project>{441EABC3-DE89-443E-BD5F-052AF6F96160}</Project>
+      <Name>TControl</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
