@@ -50,11 +50,11 @@ namespace ATV_Allowance.Common
         {
             public static string Name = "Họ và tên";
             public static string Organization = "Đơn vị";
-            public static string SoTin = "S_Tin";
+            public static string SoTin = "Tin";
             public static string DiemTin = "D_Tin";
-            public static string SoBai = "S_Bai";
+            public static string SoBai = "Bai";
             public static string DiemBai = "D_Bai";
-            public static string SoPsu = "S_PS";
+            public static string SoPsu = "PS";
             public static string DiemPsu = "D_PS";
             public static string DiemQTin = "D_QTin";
             public static string DiemQPsu = "D_QPsu";
@@ -63,23 +63,41 @@ namespace ATV_Allowance.Common
             public static string TangGiam = "Tăng + Giảm - 10%";
             public static string TongCong = "Tổng cộng";
             public static string ThanhTien = "Thành tiền";
-            public static string SL_TT = "S_TTh_Gnh";
+            public static string SL_TT = "TTh_Gnh";
             public static string D_TT = "D_TTh_Gnh";
-            public static string SL_CD = "S_Cd_Cm";
+            public static string SL_CD = "Cd_Cm";
             public static string D_CD = "D_Cd_Cm";
-            public static string SL_PV = "S_Pv_Pb";
+            public static string SL_PV = "Pv_Pb";
             public static string D_PV = "D_Pv_Pb";
-            public static string SL_BS = "S_Bs_DCT";
+            public static string SL_BS = "Bs_DCT";
             public static string D_BS = "D_Bs_DCT";
-            public static string SL_BT = "S_Bt_Dd";
+            public static string SL_BT = "Bt_Dd";
             public static string D_BT = "D_Bt_Dd";
-            public static string SL_TLT = "S_Tlt";
+            public static string SL_TLT = "Tlt";
             public static string D_TLT = "D_Tlt";
-            public static string SL_SD = "S_Sd";
+            public static string SL_SD = "Sd";
             public static string D_SD = "D_Sd";
+            public static string Diem = "Điểm";
             public static string TotalPoint = "Tổng điểm";
             public static string TotalCost = "Thành tiền";
 
+            //report "thong tin ngay moi"
+            public static string SoQTin = "QTin";
+            public static string SoQPsu = "QPsu";
+            public static string SoTHop = "Thop";
+
+            //report "bien soan thong tin ngay moi"
+            public static string SoBs_TTN = "Bs_TTN";
+            public static string SoBs_Sapo = "Bs_Sapo";
+            public static string SoKThinh = "KThinh";
+            public static string SoTFile = "TFile";
+            public static string SoBt_Duyet = "Bt_Duyet";
+
+            //report "khoi hau ky thong tin ngay moi"
+            public static string SoDCT = "DCT";
+            public static string SoKTD = "KTD";
+            public static string SoTCT = "TCT";
+            public static string SoKT_TH = "KT_TH";
 
         }
         public static class ADGVArticleText
@@ -303,6 +321,66 @@ namespace ATV_Allowance.Common
             public static int TONGDIEM = 16;
             public static int TANGGIAM = 17;
             public static int THANHTIEN = 18;
+        }
+
+        public static class BSTTNM_COL
+        {
+            public static int STT = 1;
+            public static int HO_TEN = 2;
+            public static int DON_VI = 3;
+            public static int SL_TIN = 4;
+            public static int D_TIN = 5;
+            public static int SL_TT = 6;
+            public static int D_TT = 7;
+            public static int SL_CD = 8;
+            public static int D_CD = 9;
+            public static int SL_PV = 10;
+            public static int D_PV = 11;
+            public static int SL_BS = 12;
+            public static int D_BS = 13;
+            public static int SL_BT = 14;
+            public static int D_BT = 15;
+            public static int TONGDIEM = 16;
+            public static int TANGGIAM = 17;
+            public static int THANHTIEN = 18;
+        }
+
+        public static class TTNM_COL
+        {
+            public static int STT = 1;
+            public static int HO_TEN = 2;
+            public static int DON_VI = 3;
+            public static int SL_BS_TTN= 4;
+            public static int D_BS_TTN = 5;
+            public static int SL_Sapo = 6;
+            public static int D_Sapo = 7;
+            public static int SL_Kthinh = 8;
+            public static int D_Kthinh = 9;
+            public static int SL_Tfile = 10;
+            public static int D_Tfile = 11;
+            public static int SL_BtDuyet = 12;
+            public static int D_BtDuyet = 13;
+            public static int TONGDIEM = 14;
+            public static int TANGGIAM = 15;
+            public static int THANHTIEN = 16;
+        }
+
+        public static class KHK_COL
+        {
+            public static int STT = 1;
+            public static int HO_TEN = 2;
+            public static int DON_VI = 3;
+            public static int SL_DCT = 4;
+            public static int D_DCT = 5;
+            public static int SL_KTD = 6;
+            public static int D_KTD = 7;
+            public static int SL_TCT = 8;
+            public static int D_TCT = 9;
+            public static int SL_KTTH = 10;
+            public static int D_KTTH = 11;
+            public static int TONGDIEM = 12;
+            public static int TANGGIAM = 13;
+            public static int THANHTIEN = 14;
         }
     }
 }

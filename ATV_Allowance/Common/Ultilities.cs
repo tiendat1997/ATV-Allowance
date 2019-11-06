@@ -1,20 +1,16 @@
-﻿using ATV_Allowance.Forms.CommonForms;
-using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Configuration;
-using System.Collections;
-using ATV_Allowance.Forms.EmployeeForms;
-using System.Text.RegularExpressions;
-using ATV_Allowance.Forms.OrganizationForms;
-using ATV_Allowance.Forms.ArticleForms;
-using ATV_Allowance.Forms.Report;
+﻿using ATV_Allowance.Forms.ArticleForms;
+using ATV_Allowance.Forms.CommonForms;
 using ATV_Allowance.Forms.CriteriaForms;
 using ATV_Allowance.Forms.DeductionForms;
+using ATV_Allowance.Forms.EmployeeForms;
+using ATV_Allowance.Forms.OrganizationForms;
+using ATV_Allowance.Forms.Report;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data.SqlClient;
+using System.Windows.Forms;
 using static ATV_Allowance.Common.Constants;
 
 namespace ATV_Allowance.Common
@@ -218,59 +214,71 @@ namespace ATV_Allowance.Common
                 {
                     case "Nhập Tin thời sự hàng ngày":
                         ImportArticleForm importTSForm = new ImportArticleForm(ArticleType.THOI_SU);
-                        form = (Form)importTSForm;
+                        form = importTSForm;
                         break;
                     case "Nhập Tin, PS ttnm":
                         ImportArticleForm ttnmForm = new ImportArticleForm(ArticleType.PV_TTNM);
-                        form = (Form)ttnmForm;
+                        form = ttnmForm;
                         break;
                     case "Nhập Tin phát thanh":
                         ImportArticleForm importPTForm = new ImportArticleForm(ArticleType.PHAT_THANH);
-                        form = (Form)importPTForm;
+                        form = importPTForm;
                         break;
                     case "Nhập Tin phát thanh tt":
                         ImportArticleForm importPTTTForm = new ImportArticleForm(ArticleType.PHAT_THANH_TT);
-                        form = (Form)importPTTTForm;
+                        form = importPTTTForm;
                         break;
                     case "Nhập Thù lao biên soạn tnnm":
                         ImportArticleForm imporBSForm = new ImportArticleForm(ArticleType.BIENSOAN_TTNM);
-                        form = (Form)imporBSForm;
-                        break;                        
+                        form = imporBSForm;
+                        break;
                     case "Nhập Khối hậu kỳ biên soạn tnnm":
                         ImportArticleForm importHKForm = new ImportArticleForm(ArticleType.KHOIHK_TTNM);
-                        form = (Form)importHKForm;
+                        form = importHKForm;
                         break;
                     case "Xem nhanh tin":
                         ManageTSForm tsForm = new ManageTSForm();
-                        form = (Form)tsForm;
-                        break;                                    
+                        form = tsForm;
+                        break;
                     case "Quản lý nhân viên":
                         ListEmployeeForm listEmployeesForm = new ListEmployeeForm();
-                        form = (Form)listEmployeesForm;
+                        form = listEmployeesForm;
                         break;
                     case "In Thời sự":
                         ReportBroadcastForm reportBroadcastForm = new ReportBroadcastForm();
-                        form = (Form)reportBroadcastForm;
+                        form = reportBroadcastForm;
                         break;
                     case "In Phát thanh":
                         ReportPTForm reportPTForm = new ReportPTForm();
-                        form = (Form)reportPTForm;
+                        form = reportPTForm;
                         break;
                     case "In Phát thanh trực tiếp":
                         ReportPTTTForm reportPTTTForm = new ReportPTTTForm();
-                        form = (Form)reportPTTTForm;
+                        form = reportPTTTForm;
+                        break;
+                    case "In Thông tin ngày mới":
+                        ReportTTNgayMoiForm reportTTNgayMoiForm = new ReportTTNgayMoiForm();
+                        form = reportTTNgayMoiForm;
+                        break;
+                    case "In Biên soạn thông tin ngày mới":
+                        ReportBienSoanTTForm reportBienSoanTTForm = new ReportBienSoanTTForm();
+                        form = reportBienSoanTTForm;
+                        break;
+                    case "In Khối hậu kỳ biên soạn thông tin ngày mới":
+                        ReportKhoiHauKyForm reportKhoiHauKyForm = new ReportKhoiHauKyForm();
+                        form = reportKhoiHauKyForm;
                         break;
                     case "Quản lý đơn vị":
                         ListOrganizationForm listOrgForm = new ListOrganizationForm();
-                        form = (Form)listOrgForm;
+                        form = listOrgForm;
                         break;
                     case "Quản lý chỉ tiêu":
                         ListCriteriaForm listCriteriaForm = new ListCriteriaForm();
-                        form = (Form)listCriteriaForm;
+                        form = listCriteriaForm;
                         break;
                     case "Quản lý giảm trừ":
                         ListEmployeeDeduction listEmployeeDeduction = new ListEmployeeDeduction();
-                        form = (Form)listEmployeeDeduction;
+                        form = listEmployeeDeduction;
                         break;
                     case "Logout":
                         Session.Logout();
