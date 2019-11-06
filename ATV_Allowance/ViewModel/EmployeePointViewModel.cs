@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ATV_Allowance.ViewModel
+﻿namespace ATV_Allowance.ViewModel
 {
     public class EmployeePointViewModel
     {
@@ -19,7 +13,11 @@ namespace ATV_Allowance.ViewModel
         public double DiemCde { get; set; }
         public int SoPsu { get; set; }
         public double DiemPsu { get; set; }
+        public double SoQtin { get; set; }
+
         public double DiemQtin { get; set; }
+        public double SoQPsu { get; set; }
+
         public double DiemQPsu { get; set; }
         public int SoBai { get; set; }
         public double DiemBai { get; set; }
@@ -35,6 +33,27 @@ namespace ATV_Allowance.ViewModel
         public double DiemBs_DCT { get; set; }
         public int SoBt_Dd { get; set; }
         public double DiemBt_Dd { get; set; }
+        public int SoThop { get; set; }
+        public double DiemThop { get; set; }
+        public int SoBs_TTN { get; set; }
+        public double DiemBs_TTN { get; set; }
+        public int SoBs_Sapo { get; set; }
+        public double DiemBs_Sapo { get; set; }
+        public int SoKThinh { get; set; }
+        public double DiemKThinh { get; set; }
+        public int SoTFile { get; set; }
+        public double DiemTFile { get; set; }
+        public int SoBt_Duyet { get; set; }
+        public double DiemBt_Duyet { get; set; }
+        public int SoDCT { get; set; }
+        public double DiemDCT { get; set; }
+        public int SoKTD { get; set; }
+        public double DiemKTD { get; set; }
+        public int SoTCT { get; set; }
+        public double DiemTCT { get; set; }
+        public int SoKT_TH { get; set; }
+        public double DiemKT_TH { get; set; }
+
         public double Sum { get; set; }
         public double Descrease { get; set; }
         public double IncreasePercent { get; set; }

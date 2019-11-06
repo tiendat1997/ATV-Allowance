@@ -93,16 +93,18 @@ namespace ATV_Allowance.Forms.Report
                 adgvReportBroadcast.Columns["IncreasePercent"].DefaultCellStyle.Format = "F1";
                 adgvReportBroadcast.Columns["TotalCost"].HeaderText = ADGVReportHeader.TotalCost;
                 adgvReportBroadcast.Columns["TotalCost"].DefaultCellStyle.Format = "N0";
+                adgvReportBroadcast.Columns["SoTin"].HeaderText = ADGVReportHeader.SoTin;
+                adgvReportBroadcast.Columns["DiemTin"].HeaderText = ADGVReportHeader.Diem;
                 adgvReportBroadcast.Columns["SoBai"].HeaderText = ADGVReportHeader.SoBai;
-                adgvReportBroadcast.Columns["DiemBai"].HeaderText = ADGVReportHeader.DiemBai;
+                adgvReportBroadcast.Columns["DiemBai"].HeaderText = ADGVReportHeader.Diem;
                 adgvReportBroadcast.Columns["SoCd"].HeaderText = ADGVReportHeader.SL_CD;
-                adgvReportBroadcast.Columns["DiemCd"].HeaderText = ADGVReportHeader.D_CD;
+                adgvReportBroadcast.Columns["DiemCd"].HeaderText = ADGVReportHeader.Diem;
                 adgvReportBroadcast.Columns["SoPv"].HeaderText = ADGVReportHeader.SL_PV;
-                adgvReportBroadcast.Columns["DiemPv"].HeaderText = ADGVReportHeader.D_PV;
+                adgvReportBroadcast.Columns["DiemPv"].HeaderText = ADGVReportHeader.Diem;
                 adgvReportBroadcast.Columns["SoTLT"].HeaderText = ADGVReportHeader.SL_TLT;
-                adgvReportBroadcast.Columns["DiemTLT"].HeaderText = ADGVReportHeader.D_TLT;
+                adgvReportBroadcast.Columns["DiemTLT"].HeaderText = ADGVReportHeader.Diem;
                 adgvReportBroadcast.Columns["SoSD"].HeaderText = ADGVReportHeader.SL_SD;
-                adgvReportBroadcast.Columns["DiemSD"].HeaderText = ADGVReportHeader.D_SD;
+                adgvReportBroadcast.Columns["DiemSD"].HeaderText = ADGVReportHeader.Diem;
 
                 adgvReportBroadcast.Columns["EmployeeId"].Visible = false;
                 adgvReportBroadcast.Columns["SoPsu"].Visible = false;
@@ -111,6 +113,7 @@ namespace ATV_Allowance.Forms.Report
                 adgvReportBroadcast.Columns["DiemQPsu"].Visible = false;
                 adgvReportBroadcast.Columns["Descrease"].Visible = false;
                 adgvReportBroadcast.Columns["TotalPoint"].Visible = false;
+
                 adgvReportBroadcast.Columns["SoTTh_Gnh"].Visible = false;
                 adgvReportBroadcast.Columns["DiemTTh_Gnh"].Visible = false;
                 adgvReportBroadcast.Columns["SoCde"].Visible = false;
@@ -119,6 +122,35 @@ namespace ATV_Allowance.Forms.Report
                 adgvReportBroadcast.Columns["DiemBs_DCT"].Visible = false;
                 adgvReportBroadcast.Columns["SoBt_Dd"].Visible = false;
                 adgvReportBroadcast.Columns["DiemBt_Dd"].Visible = false;
+
+                adgvReportBroadcast.Columns["SoQtin"].Visible = false;
+                adgvReportBroadcast.Columns["DiemQtin"].Visible = false;
+                adgvReportBroadcast.Columns["SoQPsu"].Visible = false;
+                adgvReportBroadcast.Columns["DiemQPsu"].Visible = false;
+                //adgvReportBroadcast.Columns["SoTLT"].Visible = false;
+                //adgvReportBroadcast.Columns["DiemTLT"].Visible = false;
+                adgvReportBroadcast.Columns["SoThop"].Visible = false;
+                adgvReportBroadcast.Columns["DiemThop"].Visible = false;
+
+                adgvReportBroadcast.Columns["SoBs_TTN"].Visible = false;
+                adgvReportBroadcast.Columns["DiemBs_TTN"].Visible = false;
+                adgvReportBroadcast.Columns["SoBs_Sapo"].Visible = false;
+                adgvReportBroadcast.Columns["DiemBs_Sapo"].Visible = false;
+                adgvReportBroadcast.Columns["SoKThinh"].Visible = false;
+                adgvReportBroadcast.Columns["DiemKThinh"].Visible = false;
+                adgvReportBroadcast.Columns["SoTFile"].Visible = false;
+                adgvReportBroadcast.Columns["DiemTFile"].Visible = false;
+                adgvReportBroadcast.Columns["SoBt_Duyet"].Visible = false;
+                adgvReportBroadcast.Columns["DiemBt_Duyet"].Visible = false;
+
+                adgvReportBroadcast.Columns["SoDCT"].Visible = false;
+                adgvReportBroadcast.Columns["DiemDCT"].Visible = false;
+                adgvReportBroadcast.Columns["SoKTD"].Visible = false;
+                adgvReportBroadcast.Columns["DiemKTD"].Visible = false;
+                adgvReportBroadcast.Columns["SoTCT"].Visible = false;
+                adgvReportBroadcast.Columns["DiemTCT"].Visible = false;
+                adgvReportBroadcast.Columns["SoKT_TH"].Visible = false;
+                adgvReportBroadcast.Columns["DiemKT_TH"].Visible = false;
 
                 txtPoint.Text = list.Sum(e => e.TotalPoint).ToString();
                 txtCost.Text = list.Sum(e => e.TotalCost).ToString("N0") + " vnđ";
