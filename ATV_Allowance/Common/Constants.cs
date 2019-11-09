@@ -261,6 +261,8 @@ namespace ATV_Allowance.Common
             public static string TS = "TemplateTS";
             public static string PT = "TemplatePT";
             public static string PTTT = "TemplatePTTT";
+            public static string TTNM = "TemplateTTNM";
+            public static string BSTTNM = "TemplateBSTTNM";
         }
 
         public static class TS_COL
@@ -323,29 +325,29 @@ namespace ATV_Allowance.Common
             public static int THANHTIEN = 18;
         }
 
-        public static class BSTTNM_COL
+        public static class TTNM_COL
         {
             public static int STT = 1;
             public static int HO_TEN = 2;
             public static int DON_VI = 3;
             public static int SL_TIN = 4;
             public static int D_TIN = 5;
-            public static int SL_TT = 6;
-            public static int D_TT = 7;
-            public static int SL_CD = 8;
-            public static int D_CD = 9;
-            public static int SL_PV = 10;
-            public static int D_PV = 11;
-            public static int SL_BS = 12;
-            public static int D_BS = 13;
-            public static int SL_BT = 14;
-            public static int D_BT = 15;
+            public static int SL_PS = 6;
+            public static int D_PS = 7;
+            public static int SL_QTin = 8;
+            public static int D_QTin = 9;
+            public static int SL_QPsu = 10;
+            public static int D_QPsu = 11;
+            public static int SL_Tlt = 12;
+            public static int D_Tlt = 13;
+            public static int SL_Thop = 14;
+            public static int D_Thop = 15;
             public static int TONGDIEM = 16;
             public static int TANGGIAM = 17;
             public static int THANHTIEN = 18;
         }
 
-        public static class TTNM_COL
+        public static class BSTTNM_COL
         {
             public static int STT = 1;
             public static int HO_TEN = 2;

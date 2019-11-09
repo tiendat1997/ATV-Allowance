@@ -168,7 +168,7 @@ namespace ATV_Allowance.Services
                     employeePointVM.SoTCT = item.Amount;
                     employeePointVM.DiemTCT = item.TotalPoint;
                 }
-                
+
 
             }
 
@@ -330,7 +330,7 @@ namespace ATV_Allowance.Services
         {
             var list = GetReportBroadcast(startDate, endDate, role, price, reportType);
             ExcelHelper helper = new ExcelHelper();
-            var package = helper.GetPackage(Tempate.PT);
+            var package = helper.GetPackage(Tempate.PTTT);
             var workbook = package.Workbook;
             var worksheet = workbook.Worksheets.First();
 
@@ -402,7 +402,7 @@ namespace ATV_Allowance.Services
         {
             var list = GetReportBroadcast(startDate, endDate, role, price, reportType);
             ExcelHelper helper = new ExcelHelper();
-            var package = helper.GetPackage(Tempate.PT);
+            var package = helper.GetPackage(Tempate.TTNM);
             var workbook = package.Workbook;
             var worksheet = workbook.Worksheets.First();
 
@@ -410,28 +410,28 @@ namespace ATV_Allowance.Services
             for (int i = 0; i < list.Count; i++)
             {
                 worksheet.InsertRow(currentRow, 1);
-                worksheet.Cells[currentRow, PTTT_COL.STT].Value = i + 1;
-                worksheet.Cells[currentRow, PTTT_COL.HO_TEN].Value = list[i].EmployeeName;
-                worksheet.Cells[currentRow, PTTT_COL.DON_VI].Value = list[i].Organization;
-                worksheet.Cells[currentRow, PTTT_COL.SL_TIN].Value = list[i].SoTin;
-                worksheet.Cells[currentRow, PTTT_COL.D_TIN].Value = list[i].DiemTin;
-                worksheet.Cells[currentRow, PTTT_COL.SL_TT].Value = list[i].SoTTh_Gnh;
-                worksheet.Cells[currentRow, PTTT_COL.D_TT].Value = list[i].DiemTTh_Gnh;
-                worksheet.Cells[currentRow, PTTT_COL.SL_CD].Value = list[i].SoCde;
-                worksheet.Cells[currentRow, PTTT_COL.D_CD].Value = list[i].DiemCde;
-                worksheet.Cells[currentRow, PTTT_COL.SL_PV].Value = list[i].SoPv;
-                worksheet.Cells[currentRow, PTTT_COL.D_PV].Value = list[i].DiemPv;
-                worksheet.Cells[currentRow, PTTT_COL.SL_BS].Value = list[i].SoBs_DCT;
-                worksheet.Cells[currentRow, PTTT_COL.D_BS].Value = list[i].DiemBs_DCT;
-                worksheet.Cells[currentRow, PTTT_COL.SL_BT].Value = list[i].SoBt_Dd;
-                worksheet.Cells[currentRow, PTTT_COL.D_BT].Value = list[i].DiemBt_Dd;
+                worksheet.Cells[currentRow, TTNM_COL.STT].Value = i + 1;
+                worksheet.Cells[currentRow, TTNM_COL.HO_TEN].Value = list[i].EmployeeName;
+                worksheet.Cells[currentRow, TTNM_COL.DON_VI].Value = list[i].Organization;
+                worksheet.Cells[currentRow, TTNM_COL.SL_TIN].Value = list[i].SoTin;
+                worksheet.Cells[currentRow, TTNM_COL.D_TIN].Value = list[i].DiemTin;
+                worksheet.Cells[currentRow, TTNM_COL.SL_PS].Value = list[i].SoTTh_Gnh;
+                worksheet.Cells[currentRow, TTNM_COL.D_PS].Value = list[i].DiemTTh_Gnh;
+                worksheet.Cells[currentRow, TTNM_COL.SL_QTin].Value = list[i].SoCde;
+                worksheet.Cells[currentRow, TTNM_COL.D_QTin].Value = list[i].DiemCde;
+                worksheet.Cells[currentRow, TTNM_COL.SL_QPsu].Value = list[i].SoPv;
+                worksheet.Cells[currentRow, TTNM_COL.D_QPsu].Value = list[i].DiemPv;
+                worksheet.Cells[currentRow, TTNM_COL.SL_Tlt].Value = list[i].SoBs_DCT;
+                worksheet.Cells[currentRow, TTNM_COL.D_Tlt].Value = list[i].DiemBs_DCT;
+                worksheet.Cells[currentRow, TTNM_COL.SL_Thop].Value = list[i].SoBt_Dd;
+                worksheet.Cells[currentRow, TTNM_COL.D_Thop].Value = list[i].DiemBt_Dd;
 
                 var sum = list[i].Sum;
                 var deduction = 0;
                 var tongcong = (sum - deduction) * 1.1;
-                worksheet.Cells[currentRow, PTTT_COL.TONGDIEM].Value = sum;
-                worksheet.Cells[currentRow, PTTT_COL.TANGGIAM].Value = (sum - deduction) * 0.1;
-                worksheet.Cells[currentRow, PTTT_COL.THANHTIEN].Value = tongcong * price;
+                worksheet.Cells[currentRow, TTNM_COL.TONGDIEM].Value = sum;
+                worksheet.Cells[currentRow, TTNM_COL.TANGGIAM].Value = (sum - deduction) * 0.1;
+                worksheet.Cells[currentRow, TTNM_COL.THANHTIEN].Value = tongcong * price;
 
                 currentRow += 1;
             }
@@ -631,6 +631,18 @@ namespace ATV_Allowance.Services
                 else if (reportType == ArticleType.PHAT_THANH_TT)
                 {
                     sum = list[i].DiemTin + list[i].DiemTTh_Gnh + list[i].DiemCde + list[i].DiemPv + list[i].DiemBs_DCT + list[i].DiemBt_Dd;
+                }
+                else if (reportType == ArticleType.PV_TTNM)
+                {
+                    sum = list[i].DiemTin + list[i].DiemPsu + list[i].DiemQtin + list[i].DiemQPsu + list[i].DiemTLT + list[i].DiemThop;
+                }
+                else if (reportType == ArticleType.BIENSOAN_TTNM)
+                {
+                    sum = list[i].DiemBs_TTN + list[i].DiemBs_Sapo + list[i].DiemKThinh + list[i].DiemTFile + list[i].DiemBt_Duyet;
+                }
+                else if (reportType == ArticleType.KHOIHK_TTNM)
+                {
+                    sum = list[i].DiemDCT + list[i].DiemKTD + list[i].DiemTCT + list[i].DiemKT_TH;
                 }
                 var deduction = 0;
                 var tongcong = (sum - deduction) * (1 + percent);
