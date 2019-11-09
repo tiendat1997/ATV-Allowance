@@ -96,6 +96,7 @@
             this.cbRole.Name = "cbRole";
             this.cbRole.Size = new System.Drawing.Size(62, 21);
             this.cbRole.TabIndex = 1;
+            this.cbRole.SelectedIndexChanged += new System.EventHandler(this.cbRole_SelectedIndexChanged);
             // 
             // groupBox1
             // 
@@ -201,6 +202,7 @@
             this.btnExport.TabIndex = 1;
             this.btnExport.Text = "Xuất file";
             this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
             // btnDeduction
             // 
@@ -211,6 +213,7 @@
             this.btnDeduction.TabIndex = 2;
             this.btnDeduction.Text = "Giảm trừ";
             this.btnDeduction.UseVisualStyleBackColor = true;
+            this.btnDeduction.Click += new System.EventHandler(this.btnDeduction_Click);
             // 
             // panel1
             // 
@@ -272,6 +275,7 @@
             this.dtpMonth.ShowUpDown = true;
             this.dtpMonth.Size = new System.Drawing.Size(36, 24);
             this.dtpMonth.TabIndex = 13;
+            this.dtpMonth.ValueChanged += new System.EventHandler(this.dtpMonth_ValueChanged);
             // 
             // label3
             // 
@@ -295,6 +299,7 @@
             this.dtpYear.ShowUpDown = true;
             this.dtpYear.Size = new System.Drawing.Size(48, 24);
             this.dtpYear.TabIndex = 14;
+            this.dtpYear.ValueChanged += new System.EventHandler(this.dtpYear_ValueChanged);
             // 
             // label4
             // 
@@ -319,6 +324,7 @@
             this.dtpStartdate.Name = "dtpStartdate";
             this.dtpStartdate.Size = new System.Drawing.Size(116, 24);
             this.dtpStartdate.TabIndex = 6;
+            this.dtpStartdate.ValueChanged += new System.EventHandler(this.dtpStartdate_ValueChanged);
             // 
             // label5
             // 
@@ -343,6 +349,7 @@
             this.dtpEnddate.Name = "dtpEnddate";
             this.dtpEnddate.Size = new System.Drawing.Size(116, 24);
             this.dtpEnddate.TabIndex = 5;
+            this.dtpEnddate.ValueChanged += new System.EventHandler(this.dtpEnddate_ValueChanged);
             // 
             // label6
             // 
@@ -379,6 +386,7 @@
             0,
             0,
             0});
+            this.edtPrice.ValueChanged += new System.EventHandler(this.edtPrice_ValueChanged);
             // 
             // label7
             // 

@@ -1,4 +1,5 @@
 ﻿using ATV_Allowance.Common;
+using ATV_Allowance.Forms.DeductionForms;
 using ATV_Allowance.Services;
 using ATV_Allowance.ViewModel;
 using System;
@@ -6,6 +7,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -159,6 +161,61 @@ namespace ATV_Allowance.Forms.Report
             {
                 reportService = null;
             }
+        }
+
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            saveFileDialog.FileName = $"BaoCao_BS_TTNM_{cbRole.Text}_{dtpEnddate.Value.Month}{dtpEnddate.Value.Year}.xlsx";
+            reportService = new ReportService();
+            var data = reportService.GetReportBSTTNM(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, ArticleType.BIENSOAN_TTNM);
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                var path = Path.GetFullPath(saveFileDialog.FileName);
+                File.WriteAllBytes(path, data);
+            }
+        }
+
+        private void dtpMonth_ValueChanged(object sender, EventArgs e)
+        {
+            dtpStartdate.Value = new DateTime(dtpYear.Value.Year, dtpMonth.Value.Month, 1);
+            dtpEnddate.Value = new DateTime(dtpYear.Value.Year, dtpMonth.Value.Month, DateTime.DaysInMonth(dtpYear.Value.Year, dtpMonth.Value.Month));
+            LoadReport();
+
+        }
+
+        private void dtpYear_ValueChanged(object sender, EventArgs e)
+        {
+            dtpStartdate.Value = new DateTime(dtpYear.Value.Year, dtpMonth.Value.Month, 1);
+            dtpEnddate.Value = new DateTime(dtpYear.Value.Year, dtpMonth.Value.Month, DateTime.DaysInMonth(dtpYear.Value.Year, dtpMonth.Value.Month));
+            LoadReport();
+
+        }
+
+        private void cbRole_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LoadReport();
+        }
+
+        private void dtpStartdate_ValueChanged(object sender, EventArgs e)
+        {
+            LoadReport();
+        }
+
+        private void dtpEnddate_ValueChanged(object sender, EventArgs e)
+        {
+            LoadReport();
+        }
+
+        private void edtPrice_ValueChanged(object sender, EventArgs e)
+        {
+            LoadReport();
+        }
+
+        private void btnDeduction_Click(object sender, EventArgs e)
+        {
+            ListEmployeeDeduction deductionForm = new ListEmployeeDeduction(dtpMonth.Value.Month, dtpYear.Value.Year, ArticleType.BIENSOAN_TTNM, (int)cbRole.SelectedValue);
+            deductionForm.ShowDialog();
         }
     }
 }

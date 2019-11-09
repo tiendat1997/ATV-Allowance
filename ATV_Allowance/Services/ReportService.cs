@@ -472,40 +472,96 @@ namespace ATV_Allowance.Services
 
         public byte[] GetReportBSTTNM(DateTime startDate, DateTime endDate, int role, int price, int reportType)
         {
-            var list = GetReportBroadcast(startDate, endDate, role, price, reportType);
+            var listBSTTNM = GetReportBroadcast(startDate, endDate, role, price, reportType);
+            var listKHK = GetReportBroadcast(startDate, endDate, role, price, ArticleType.KHOIHK_TTNM);
+
             ExcelHelper helper = new ExcelHelper();
-            var package = helper.GetPackage(Tempate.PT);
+            var package = helper.GetPackage(Tempate.BSTTNM);
             var workbook = package.Workbook;
             var worksheet = workbook.Worksheets.First();
 
             int currentRow = 5;
-            for (int i = 0; i < list.Count; i++)
+            for (int i = 0; i < listBSTTNM.Count; i++)
             {
                 worksheet.InsertRow(currentRow, 1);
-                worksheet.Cells[currentRow, PTTT_COL.STT].Value = i + 1;
-                worksheet.Cells[currentRow, PTTT_COL.HO_TEN].Value = list[i].EmployeeName;
-                worksheet.Cells[currentRow, PTTT_COL.DON_VI].Value = list[i].Organization;
-                worksheet.Cells[currentRow, PTTT_COL.SL_TIN].Value = list[i].SoTin;
-                worksheet.Cells[currentRow, PTTT_COL.D_TIN].Value = list[i].DiemTin;
-                worksheet.Cells[currentRow, PTTT_COL.SL_TT].Value = list[i].SoTTh_Gnh;
-                worksheet.Cells[currentRow, PTTT_COL.D_TT].Value = list[i].DiemTTh_Gnh;
-                worksheet.Cells[currentRow, PTTT_COL.SL_CD].Value = list[i].SoCde;
-                worksheet.Cells[currentRow, PTTT_COL.D_CD].Value = list[i].DiemCde;
-                worksheet.Cells[currentRow, PTTT_COL.SL_PV].Value = list[i].SoPv;
-                worksheet.Cells[currentRow, PTTT_COL.D_PV].Value = list[i].DiemPv;
-                worksheet.Cells[currentRow, PTTT_COL.SL_BS].Value = list[i].SoBs_DCT;
-                worksheet.Cells[currentRow, PTTT_COL.D_BS].Value = list[i].DiemBs_DCT;
-                worksheet.Cells[currentRow, PTTT_COL.SL_BT].Value = list[i].SoBt_Dd;
-                worksheet.Cells[currentRow, PTTT_COL.D_BT].Value = list[i].DiemBt_Dd;
+                worksheet.Cells[currentRow, BSTTNM_COL.STT].Value = i + 1;
+                worksheet.Cells[currentRow, BSTTNM_COL.HO_TEN].Value = listBSTTNM[i].EmployeeName;
+                worksheet.Cells[currentRow, BSTTNM_COL.DON_VI].Value = listBSTTNM[i].Organization;
+                worksheet.Cells[currentRow, BSTTNM_COL.SL_BS_TTN].Value = listBSTTNM[i].SoBs_TTN;
+                worksheet.Cells[currentRow, BSTTNM_COL.D_BS_TTN].Value = listBSTTNM[i].DiemBs_TTN;
+                worksheet.Cells[currentRow, BSTTNM_COL.SL_BtDuyet].Value = listBSTTNM[i].SoBt_Duyet;
+                worksheet.Cells[currentRow, BSTTNM_COL.D_BtDuyet].Value = listBSTTNM[i].DiemBt_Duyet;
+                worksheet.Cells[currentRow, BSTTNM_COL.SL_Kthinh].Value = listBSTTNM[i].SoKThinh;
+                worksheet.Cells[currentRow, BSTTNM_COL.D_Kthinh].Value = listBSTTNM[i].DiemKThinh;
+                worksheet.Cells[currentRow, BSTTNM_COL.SL_Sapo].Value = listBSTTNM[i].SoBs_Sapo;
+                worksheet.Cells[currentRow, BSTTNM_COL.D_Sapo].Value = listBSTTNM[i].DiemBs_Sapo;
+                worksheet.Cells[currentRow, BSTTNM_COL.SL_Tfile].Value = listBSTTNM[i].SoTFile;
+                worksheet.Cells[currentRow, BSTTNM_COL.D_Tfile].Value = listBSTTNM[i].DiemTFile;
 
-                var sum = list[i].Sum;
+                var sum = listBSTTNM[i].Sum;
                 var deduction = 0;
                 var tongcong = (sum - deduction) * 1.1;
-                worksheet.Cells[currentRow, PTTT_COL.TONGDIEM].Value = sum;
-                worksheet.Cells[currentRow, PTTT_COL.TANGGIAM].Value = (sum - deduction) * 0.1;
-                worksheet.Cells[currentRow, PTTT_COL.THANHTIEN].Value = tongcong * price;
+                worksheet.Cells[currentRow, BSTTNM_COL.TONGDIEM].Value = sum;
+                worksheet.Cells[currentRow, BSTTNM_COL.TANGGIAM].Value = (sum - deduction) * 0.1;
+                worksheet.Cells[currentRow, BSTTNM_COL.THANHTIEN].Value = tongcong * price;
 
                 currentRow += 1;
+            }
+
+            //sum row
+            var totalCostBSTTNM = listBSTTNM.Sum(e => e.TotalCost);
+            worksheet.Cells[currentRow, BSTTNM_COL.THANHTIEN].Value = totalCostBSTTNM;
+
+            if (listBSTTNM.Count > 0)
+            {
+                //border
+                worksheet.Cells[5, 1, currentRow - 1, BSTTNM_COL.THANHTIEN + 1].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                worksheet.Cells[5, 1, currentRow - 1, BSTTNM_COL.THANHTIEN + 1].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                worksheet.Cells[5, 1, currentRow - 1, BSTTNM_COL.THANHTIEN + 1].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                worksheet.Cells[5, 1, currentRow - 1, BSTTNM_COL.THANHTIEN + 1].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+            }
+            else
+            {
+
+            }
+
+            currentRow += 3;
+            for (int i = 0; i < listKHK.Count; i++)
+            {
+                worksheet.InsertRow(currentRow, 1);
+                worksheet.Cells[currentRow, KHK_COL.STT].Value = i + 1;
+                worksheet.Cells[currentRow, KHK_COL.HO_TEN].Value = listKHK[i].EmployeeName;
+                worksheet.Cells[currentRow, KHK_COL.DON_VI].Value = listKHK[i].Organization;
+                worksheet.Cells[currentRow, KHK_COL.SL_DCT].Value = listKHK[i].SoDCT;
+                worksheet.Cells[currentRow, KHK_COL.D_DCT].Value = listKHK[i].DiemDCT;
+                worksheet.Cells[currentRow, KHK_COL.SL_KTD].Value = listKHK[i].SoKTD;
+                worksheet.Cells[currentRow, KHK_COL.D_KTD].Value = listKHK[i].DiemKTD;
+                worksheet.Cells[currentRow, KHK_COL.SL_KTTH].Value = listKHK[i].SoKT_TH;
+                worksheet.Cells[currentRow, KHK_COL.D_KTTH].Value = listKHK[i].DiemKT_TH;
+                worksheet.Cells[currentRow, KHK_COL.SL_TCT].Value = listKHK[i].SoTCT;
+                worksheet.Cells[currentRow, KHK_COL.D_TCT].Value = listKHK[i].DiemTCT;
+
+                var sum = listKHK[i].Sum;
+                var deduction = 0;
+                var tongcong = (sum - deduction) * 1.1;
+                worksheet.Cells[currentRow, KHK_COL.TONGDIEM].Value = sum;
+                worksheet.Cells[currentRow, KHK_COL.TANGGIAM].Value = (sum - deduction) * 0.1;
+                worksheet.Cells[currentRow, KHK_COL.THANHTIEN].Value = tongcong * price;
+
+                currentRow += 1;
+            }
+
+            if (listKHK.Count > 0)
+            {
+                //border
+                worksheet.Cells[5, 1, currentRow - 1, KHK_COL.THANHTIEN + 1].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                worksheet.Cells[5, 1, currentRow - 1, KHK_COL.THANHTIEN + 1].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                worksheet.Cells[5, 1, currentRow - 1, KHK_COL.THANHTIEN + 1].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                worksheet.Cells[5, 1, currentRow - 1, KHK_COL.THANHTIEN + 1].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+            }
+            else
+            {
+
             }
 
             //title row
@@ -517,27 +573,14 @@ namespace ATV_Allowance.Services
             worksheet.Cells[currentRow + 2, PTTT_COL.THANHTIEN + 1].Value = $"Long Xuyên, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
 
             //sum row
-            var totalCost = list.Sum(e => e.TotalCost);
-            worksheet.Cells[currentRow, PTTT_COL.THANHTIEN].Value = totalCost;
+            var totalCostKHK = listKHK.Sum(e => e.TotalCost);
+            worksheet.Cells[currentRow, PTTT_COL.THANHTIEN].Value = totalCostKHK;
 
             //money string
-            worksheet.Cells[currentRow + 1, PTTT_COL.THANHTIEN + 1].Value = $"(Thành tiền bằng chữ: {NumberToTextVN(totalCost)})";
+            worksheet.Cells[currentRow + 1, PTTT_COL.THANHTIEN + 1].Value = $"(Thành tiền bằng chữ: {NumberToTextVN(totalCostBSTTNM)})";
 
             //set oreintation
             worksheet.PrinterSettings.Orientation = eOrientation.Landscape;
-
-            if (list.Count > 0)
-            {
-                //border
-                worksheet.Cells[5, 1, currentRow - 1, PTTT_COL.THANHTIEN + 1].Style.Border.Top.Style = ExcelBorderStyle.Thin;
-                worksheet.Cells[5, 1, currentRow - 1, PTTT_COL.THANHTIEN + 1].Style.Border.Right.Style = ExcelBorderStyle.Thin;
-                worksheet.Cells[5, 1, currentRow - 1, PTTT_COL.THANHTIEN + 1].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
-                worksheet.Cells[5, 1, currentRow - 1, PTTT_COL.THANHTIEN + 1].Style.Border.Left.Style = ExcelBorderStyle.Thin;
-            }
-            else
-            {
-
-            }
 
             return package.GetAsByteArray();
         }
