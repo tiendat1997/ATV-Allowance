@@ -381,8 +381,8 @@ namespace ATV_Allowance.Common
             public static int SL_KTTH = 10;
             public static int D_KTTH = 11;
             public static int TONGDIEM = 12;
-            public static int TANGGIAM = 13;
-            public static int THANHTIEN = 14;
+            public static int TANGGIAM = 14;
+            public static int THANHTIEN = 16;
         }
     }
 }

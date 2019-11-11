@@ -525,7 +525,7 @@ namespace ATV_Allowance.Services
 
             }
 
-            currentRow += 3;
+            currentRow += 4;
             for (int i = 0; i < listKHK.Count; i++)
             {
                 worksheet.InsertRow(currentRow, 1);
@@ -565,19 +565,19 @@ namespace ATV_Allowance.Services
             }
 
             //title row
-            worksheet.Cells[2, PTTT_COL.SL_BT].Value = $"THÁNG {endDate.Month}/{endDate.Year}";
-            worksheet.Cells[2, PTTT_COL.SL_BS].Value = "(" + (role == EmployeeRole.PV ? "PV" : "CTV") + ")";
+            worksheet.Cells[2, BSTTNM_COL.TONGDIEM].Value = $"THÁNG {endDate.Month}/{endDate.Year}";
+            worksheet.Cells[2, BSTTNM_COL.D_BtDuyet].Value = "(" + (role == EmployeeRole.PV ? "PV" : "CTV") + ")";
 
 
             //report date row
-            worksheet.Cells[currentRow + 2, PTTT_COL.THANHTIEN + 1].Value = $"Long Xuyên, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
+            worksheet.Cells[currentRow + 2, BSTTNM_COL.THANHTIEN + 1].Value = $"Long Xuyên, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
 
             //sum row
             var totalCostKHK = listKHK.Sum(e => e.TotalCost);
-            worksheet.Cells[currentRow, PTTT_COL.THANHTIEN].Value = totalCostKHK;
+            worksheet.Cells[currentRow, BSTTNM_COL.THANHTIEN].Value = totalCostKHK;
 
             //money string
-            worksheet.Cells[currentRow + 1, PTTT_COL.THANHTIEN + 1].Value = $"(Thành tiền bằng chữ: {NumberToTextVN(totalCostBSTTNM)})";
+            worksheet.Cells[currentRow + 1, BSTTNM_COL.THANHTIEN + 1].Value = $"(Thành tiền bằng chữ: {NumberToTextVN(totalCostBSTTNM)})";
 
             //set oreintation
             worksheet.PrinterSettings.Orientation = eOrientation.Landscape;
