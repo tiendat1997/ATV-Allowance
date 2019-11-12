@@ -268,10 +268,6 @@ namespace ATV_Allowance.Common
                         ReportBienSoanTTForm reportBienSoanTTForm = new ReportBienSoanTTForm();
                         form = reportBienSoanTTForm;
                         break;
-                    case "In Khối hậu kỳ biên soạn thông tin ngày mới":
-                        ReportKhoiHauKyForm reportKhoiHauKyForm = new ReportKhoiHauKyForm();
-                        form = reportKhoiHauKyForm;
-                        break;
                     case "Quản lý đơn vị":
                         ListOrganizationForm listOrgForm = new ListOrganizationForm();
                         form = listOrgForm;

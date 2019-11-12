@@ -55,6 +55,10 @@
             this.label6 = new System.Windows.Forms.Label();
             this.edtPrice = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.adgvKHK = new System.Windows.Forms.DataGridView();
             this.flowLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.flowLayoutPanel3.SuspendLayout();
@@ -64,6 +68,10 @@
             this.flowLayoutPanel4.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.edtPrice)).BeginInit();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.adgvKHK)).BeginInit();
             this.SuspendLayout();
             // 
             // flowLayoutPanel1
@@ -101,8 +109,8 @@
             // groupBox1
             // 
             this.groupBox1.AutoSize = true;
+            this.groupBox1.Controls.Add(this.tabControl1);
             this.groupBox1.Controls.Add(this.flowLayoutPanel3);
-            this.groupBox1.Controls.Add(this.adgvReportBroadcast);
             this.groupBox1.Controls.Add(this.flowLayoutPanel5);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -177,9 +185,9 @@
             // 
             this.adgvReportBroadcast.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.adgvReportBroadcast.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.adgvReportBroadcast.Location = new System.Drawing.Point(3, 46);
+            this.adgvReportBroadcast.Location = new System.Drawing.Point(-1, 0);
             this.adgvReportBroadcast.Name = "adgvReportBroadcast";
-            this.adgvReportBroadcast.Size = new System.Drawing.Size(853, 247);
+            this.adgvReportBroadcast.Size = new System.Drawing.Size(853, 234);
             this.adgvReportBroadcast.TabIndex = 4;
             // 
             // flowLayoutPanel5
@@ -400,6 +408,48 @@
             this.label7.TabIndex = 9;
             this.label7.Text = "vnđ / điểm";
             // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Location = new System.Drawing.Point(0, 46);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(856, 250);
+            this.tabControl1.TabIndex = 6;
+            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.adgvReportBroadcast);
+            this.tabPage1.Location = new System.Drawing.Point(4, 25);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(848, 221);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Biên soạn";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.adgvKHK);
+            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(848, 267);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Khối Hậu kỳ";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // adgvKHK
+            // 
+            this.adgvKHK.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.adgvKHK.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.adgvKHK.Location = new System.Drawing.Point(0, 0);
+            this.adgvKHK.Name = "adgvKHK";
+            this.adgvKHK.Size = new System.Drawing.Size(853, 229);
+            this.adgvKHK.TabIndex = 5;
+            // 
             // ReportBienSoanTTForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -408,6 +458,7 @@
             this.Controls.Add(this.panel1);
             this.Name = "ReportBienSoanTTForm";
             this.Text = "In Biên soạn thù lao";
+            this.Load += new System.EventHandler(this.ReportBienSoanTTForm_Load);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -422,6 +473,10 @@
             this.flowLayoutPanel2.ResumeLayout(false);
             this.flowLayoutPanel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.edtPrice)).EndInit();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.adgvKHK)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -455,5 +510,9 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.NumericUpDown edtPrice;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.DataGridView adgvKHK;
     }
 }

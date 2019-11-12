@@ -4,13 +4,8 @@ using ATV_Allowance.Services;
 using ATV_Allowance.ViewModel;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using static ATV_Allowance.Common.Constants;
 
@@ -67,7 +62,7 @@ namespace ATV_Allowance.Forms.Report
             saveFileDialog.Title = "Lưu báo cáo";
         }
 
-        private void LoadReport()
+        private void LoadBSReport()
         {
 
             if (cbRole.SelectedValue.GetType() != typeof(int))
@@ -163,6 +158,112 @@ namespace ATV_Allowance.Forms.Report
             }
         }
 
+        private void LoadKHKReport()
+        {
+
+            if (cbRole.SelectedValue.GetType() != typeof(int))
+            {
+                return;
+            }
+
+            try
+            {
+
+                reportService = new ReportService();
+                List<EmployeePointViewModel> list = reportService.GetReportBroadcast(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, ArticleType.KHOIHK_TTNM);
+                SortableBindingList<EmployeePointViewModel> sbl = new SortableBindingList<EmployeePointViewModel>(list);
+                bs = new BindingSource();
+                bs.DataSource = sbl;
+                adgvKHK.DataSource = bs;
+                adgvKHK.Columns["EmployeeName"].HeaderText = ADGVReportHeader.Name;
+                adgvKHK.Columns["Organization"].HeaderText = ADGVReportHeader.Organization;
+                adgvKHK.Columns["Sum"].HeaderText = ADGVReportHeader.TongCong;
+                adgvKHK.Columns["IncreasePercent"].HeaderText = ADGVReportHeader.TangGiam;
+                adgvKHK.Columns["IncreasePercent"].DefaultCellStyle.Format = "F1";
+                adgvKHK.Columns["TotalCost"].HeaderText = ADGVReportHeader.TotalCost;
+                adgvKHK.Columns["TotalCost"].DefaultCellStyle.Format = "N0";
+                adgvKHK.Columns["SoDCT"].HeaderText = ADGVReportHeader.SoDCT;
+                adgvKHK.Columns["DiemDCT"].HeaderText = ADGVReportHeader.Diem;
+                adgvKHK.Columns["SoKTD"].HeaderText = ADGVReportHeader.SoKTD;
+                adgvKHK.Columns["DiemKTD"].HeaderText = ADGVReportHeader.Diem;
+                adgvKHK.Columns["SoTCT"].HeaderText = ADGVReportHeader.SoTCT;
+                adgvKHK.Columns["DiemTCT"].HeaderText = ADGVReportHeader.Diem;
+                adgvKHK.Columns["SoKT_TH"].HeaderText = ADGVReportHeader.SoKT_TH;
+                adgvKHK.Columns["DiemKT_TH"].HeaderText = ADGVReportHeader.Diem;
+
+
+                adgvKHK.Columns["EmployeeId"].Visible = false;
+                adgvKHK.Columns["Descrease"].Visible = false;
+                adgvKHK.Columns["TotalPoint"].Visible = false;
+
+                adgvKHK.Columns["SoBai"].Visible = false;
+                adgvKHK.Columns["DiemBai"].Visible = false;
+                adgvKHK.Columns["SoCd"].Visible = false;
+                adgvKHK.Columns["DiemCd"].Visible = false;
+                adgvKHK.Columns["SoPv"].Visible = false;
+                adgvKHK.Columns["DiemPv"].Visible = false;
+                adgvKHK.Columns["SoSD"].Visible = false;
+                adgvKHK.Columns["DiemSD"].Visible = false;
+
+                adgvKHK.Columns["SoTTh_Gnh"].Visible = false;
+                adgvKHK.Columns["DiemTTh_Gnh"].Visible = false;
+                adgvKHK.Columns["SoCde"].Visible = false;
+                adgvKHK.Columns["DiemCde"].Visible = false;
+                adgvKHK.Columns["SoBs_DCT"].Visible = false;
+                adgvKHK.Columns["DiemBs_DCT"].Visible = false;
+                adgvKHK.Columns["SoBt_Dd"].Visible = false;
+                adgvKHK.Columns["DiemBt_Dd"].Visible = false;
+
+                adgvKHK.Columns["SoTin"].Visible = false;
+                adgvKHK.Columns["DiemTin"].Visible = false;
+                adgvKHK.Columns["SoPsu"].Visible = false;
+                adgvKHK.Columns["DiemPsu"].Visible = false;
+                adgvKHK.Columns["SoQtin"].Visible = false;
+                adgvKHK.Columns["DiemQtin"].Visible = false;
+                adgvKHK.Columns["SoQPsu"].Visible = false;
+                adgvKHK.Columns["DiemQPsu"].Visible = false;
+                adgvKHK.Columns["SoTLT"].Visible = false;
+                adgvKHK.Columns["DiemTLT"].Visible = false;
+                adgvKHK.Columns["SoThop"].Visible = false;
+                adgvKHK.Columns["DiemThop"].Visible = false;
+
+                adgvKHK.Columns["SoBs_TTN"].Visible = false;
+                adgvKHK.Columns["DiemBs_TTN"].Visible = false;
+                adgvKHK.Columns["SoBs_Sapo"].Visible = false;
+                adgvKHK.Columns["DiemBs_Sapo"].Visible = false;
+                adgvKHK.Columns["SoKThinh"].Visible = false;
+                adgvKHK.Columns["DiemKThinh"].Visible = false;
+                adgvKHK.Columns["SoTFile"].Visible = false;
+                adgvKHK.Columns["DiemTFile"].Visible = false;
+                adgvKHK.Columns["SoBt_Duyet"].Visible = false;
+                adgvKHK.Columns["DiemBt_Duyet"].Visible = false;
+
+                txtPoint.Text = list.Sum(e => e.TotalPoint).ToString();
+                txtCost.Text = list.Sum(e => e.TotalCost).ToString("N0") + " vnđ";
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                reportService = null;
+            }
+        }
+
+        private void LoadReport()
+        {
+            if (tabControl1.SelectedIndex == 0)
+            {
+                LoadBSReport();
+            }
+            else if (tabControl1.SelectedIndex == 1)
+            {
+                LoadKHKReport();
+            }
+        }
+
         private void btnExport_Click(object sender, EventArgs e)
         {
             saveFileDialog.FileName = $"BaoCao_BS_TTNM_{cbRole.Text}_{dtpEnddate.Value.Month}{dtpEnddate.Value.Year}.xlsx";
@@ -216,6 +317,16 @@ namespace ATV_Allowance.Forms.Report
         {
             ListEmployeeDeduction deductionForm = new ListEmployeeDeduction(dtpMonth.Value.Month, dtpYear.Value.Year, ArticleType.BIENSOAN_TTNM, (int)cbRole.SelectedValue);
             deductionForm.ShowDialog();
+        }
+
+        private void ReportBienSoanTTForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LoadReport();
         }
     }
 }
