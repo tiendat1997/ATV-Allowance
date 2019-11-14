@@ -18,30 +18,24 @@ namespace ATV_Allowance
         [STAThread]
         static void Main()
         {
-            try
+            using (SingleInstanceMutex mutex = new SingleInstanceMutex())
             {
-                using (SingleInstanceMutex mutex = new SingleInstanceMutex())
+                if (mutex.IsOtherInstanceRunning)
                 {
-                    if (mutex.IsOtherInstanceRunning)
-                    {
-                        MessageBox.Show(CommonMessage.APPLICATION_IS_RUNNING,
-                            "Running...",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Stop);
-                        Application.Exit();
-                    }
-                    else
-                    {
-                        Application.EnableVisualStyles();
-                        Application.SetCompatibleTextRenderingDefault(false);
-                        Application.Run(new GlobalForm());
-                    }
+                    MessageBox.Show(CommonMessage.APPLICATION_IS_RUNNING,
+                        "Running...",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Stop);
+                    Application.Exit();
+                }
+                else
+                {
+                    Application.EnableVisualStyles();
+                    Application.SetCompatibleTextRenderingDefault(false);
+                    Application.Run(new GlobalForm());
                 }
             }
-            catch (Exception ex)    
-            {
-                throw ex;
-            }           
+
         }
     }
 
