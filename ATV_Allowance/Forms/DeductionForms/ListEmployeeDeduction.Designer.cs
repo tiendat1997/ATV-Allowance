@@ -1,4 +1,6 @@
-﻿namespace ATV_Allowance.Forms.DeductionForms
+﻿using System.Windows.Forms;
+
+namespace ATV_Allowance.Forms.DeductionForms
 {
     partial class ListEmployeeDeduction
     {
@@ -32,7 +34,7 @@
             this.cbEmpRole = new System.Windows.Forms.ComboBox();
             this.dtpMonth = new System.Windows.Forms.DateTimePicker();
             this.dtp = new System.Windows.Forms.DateTimePicker();
-            this.adgvDeduction = new ADGV.AdvancedDataGridView();
+            this.adgvDeduction = new DataGridView();
             this.gbControl = new System.Windows.Forms.GroupBox();
             this.lblYear = new System.Windows.Forms.Label();
             this.lblMonth = new System.Windows.Forms.Label();
@@ -110,10 +112,8 @@
             this.adgvDeduction.AllowUserToOrderColumns = true;
             this.adgvDeduction.AllowUserToResizeColumns = false;
             this.adgvDeduction.AllowUserToResizeRows = false;
-            this.adgvDeduction.AutoGenerateContextFilters = true;
             this.adgvDeduction.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.adgvDeduction.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.adgvDeduction.DateWithTime = false;
             this.adgvDeduction.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
             this.adgvDeduction.Location = new System.Drawing.Point(9, 32);
             this.adgvDeduction.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -122,7 +122,6 @@
             this.adgvDeduction.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.adgvDeduction.Size = new System.Drawing.Size(398, 568);
             this.adgvDeduction.TabIndex = 8;
-            this.adgvDeduction.TimeFilter = false;
             // 
             // gbControl
             // 
@@ -219,7 +218,7 @@
         private System.Windows.Forms.DateTimePicker dtp;
         private System.Windows.Forms.ComboBox cbEmpRole;
         private System.Windows.Forms.DateTimePicker dtpMonth;
-        private ADGV.AdvancedDataGridView adgvDeduction;
+        private DataGridView adgvDeduction;
         private System.Windows.Forms.GroupBox gbControl;
         private System.Windows.Forms.GroupBox gbList;
         private System.Windows.Forms.Label lblArticleType;
