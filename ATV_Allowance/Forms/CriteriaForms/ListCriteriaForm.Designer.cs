@@ -1,4 +1,6 @@
-﻿namespace ATV_Allowance.Forms.CriteriaForms
+﻿using System.Windows.Forms;
+
+namespace ATV_Allowance.Forms.CriteriaForms
 {
     partial class ListCriteriaForm
     {
@@ -30,7 +32,7 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.adgvCriterias = new ADGV.AdvancedDataGridView();
+            this.adgvCriterias = new System.Windows.Forms.DataGridView();
             this.gbCriterias = new System.Windows.Forms.GroupBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnUpdate = new System.Windows.Forms.Button();
@@ -72,10 +74,8 @@
             this.adgvCriterias.AllowUserToDeleteRows = false;
             this.adgvCriterias.AllowUserToOrderColumns = true;
             this.adgvCriterias.AllowUserToResizeRows = false;
-            this.adgvCriterias.AutoGenerateContextFilters = true;
             this.adgvCriterias.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.adgvCriterias.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.adgvCriterias.DateWithTime = false;
             this.adgvCriterias.Location = new System.Drawing.Point(17, 60);
             this.adgvCriterias.MultiSelect = false;
             this.adgvCriterias.Name = "adgvCriterias";
@@ -83,7 +83,6 @@
             this.adgvCriterias.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.adgvCriterias.Size = new System.Drawing.Size(518, 324);
             this.adgvCriterias.TabIndex = 3;
-            this.adgvCriterias.TimeFilter = false;
             this.adgvCriterias.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.adgvCriterias_CellClick);
             // 
             // gbCriterias
@@ -176,7 +175,7 @@
             this.Controls.Add(this.gbCriterias);
             this.Controls.Add(this.adgvCriterias);
             this.Name = "ListCriteriaForm";
-            this.Text = "ListCriteriaForm";
+            this.Text = "Quản lý chỉ tiêu";
             ((System.ComponentModel.ISupportInitialize)(this.adgvCriterias)).EndInit();
             this.gbCriterias.ResumeLayout(false);
             this.gbCriterias.PerformLayout();
@@ -191,7 +190,7 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private ADGV.AdvancedDataGridView adgvCriterias;
+        private System.Windows.Forms.DataGridView adgvCriterias;
         private System.Windows.Forms.GroupBox gbCriterias;
         private System.Windows.Forms.FlowLayoutPanel fpCriteriaList;
         private System.Windows.Forms.Panel panel1;

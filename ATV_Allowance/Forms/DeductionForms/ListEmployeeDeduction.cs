@@ -55,6 +55,17 @@ namespace ATV_Allowance.Forms.DeductionForms
                 Id = ArticleType.PHAT_THANH,
                 Name = "Phát thanh"
             });
+            types.Add(new ArticleTypeViewModel
+            {
+                Id = ArticleType.PV_TTNM,
+                Name = "Phát thanh TTNM"
+            });
+
+            types.Add(new ArticleTypeViewModel
+            {
+                Id = ArticleType.BIENSOAN_TTNM,
+                Name = "Bien soan TTNM"
+            });
             cbArticleType.DataSource = types;
             cbArticleType.DisplayMember = "Name";
             cbArticleType.ValueMember = "Id";
