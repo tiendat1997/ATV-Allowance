@@ -221,13 +221,20 @@ namespace ATV_Allowance.Controls
         }
         private void KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyValue == 13) // Enter or TAB
+            try
             {
-                var selectedEmp = (EmployeeViewModel)(sender as ComboBox).SelectedItem;
-                if (selectedEmp != null)
+                if (e.KeyValue == 13) // Enter or TAB
                 {
-                    SelectionChangeCommitted(sender, null);
+                    var selectedEmp = (EmployeeViewModel)(sender as ComboBox).SelectedItem;
+                    if (selectedEmp != null)
+                    {
+                        SelectionChangeCommitted(sender, null);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
         private void SelectionChangeCommitted(object sender, EventArgs e)
@@ -256,32 +263,39 @@ namespace ATV_Allowance.Controls
 
         private void adgvList_RowValidating(object sender, DataGridViewCellCancelEventArgs e)
         {
-            // Note the check to see if the current row is dirty
-            string selectedValue = adgvList.Rows[e.RowIndex].Cells["CbEmployeeColumn"].FormattedValue.ToString();
-            string currCodeValue = adgvList.Rows[e.RowIndex].Cells["Code"].FormattedValue.ToString();
-            if ((string.IsNullOrEmpty(currCodeValue) || !selectedValue.Equals(currCodeValue)) && adgvList.IsCurrentRowDirty)
+            try
             {
-                e.Cancel = true;
-                adgvList.Rows[e.RowIndex].Cells["CbEmployeeColumn"].ErrorText = "Vui lòng chọn nhân viên";
-            }
-            else
-            {
-                adgvList.Rows[e.RowIndex].Cells["CbEmployeeColumn"].ErrorText = string.Empty;
-            }
-
-            foreach (var type in listPointType)
-            {
-                string typeValue = adgvList.Rows[e.RowIndex].Cells[type.Code].FormattedValue.ToString();
-                int i;
-                if (!int.TryParse(typeValue, out i) || i < 0)
+                // Note the check to see if the current row is dirty
+                string selectedValue = adgvList.Rows[e.RowIndex].Cells["CbEmployeeColumn"].FormattedValue.ToString();
+                string currCodeValue = adgvList.Rows[e.RowIndex].Cells["Code"].FormattedValue.ToString();
+                if ((string.IsNullOrEmpty(currCodeValue) || !selectedValue.Equals(currCodeValue)) && adgvList.IsCurrentRowDirty)
                 {
                     e.Cancel = true;
-                    adgvList.Rows[e.RowIndex].Cells[type.Code].ErrorText = "Vui lòng nhập định dạng số (điểm >= 0)";
+                    adgvList.Rows[e.RowIndex].Cells["CbEmployeeColumn"].ErrorText = "Vui lòng chọn nhân viên";
                 }
                 else
                 {
-                    adgvList.Rows[e.RowIndex].Cells[type.Code].ErrorText = string.Empty;
+                    adgvList.Rows[e.RowIndex].Cells["CbEmployeeColumn"].ErrorText = string.Empty;
                 }
+
+                foreach (var type in listPointType)
+                {
+                    string typeValue = adgvList.Rows[e.RowIndex].Cells[type.Code].FormattedValue.ToString();
+                    int i;
+                    if (!int.TryParse(typeValue, out i) || i < 0)
+                    {
+                        e.Cancel = true;
+                        adgvList.Rows[e.RowIndex].Cells[type.Code].ErrorText = "Vui lòng nhập định dạng số (điểm >= 0)";
+                    }
+                    else
+                    {
+                        adgvList.Rows[e.RowIndex].Cells[type.Code].ErrorText = string.Empty;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
 
@@ -370,14 +384,21 @@ namespace ATV_Allowance.Controls
 
         private void adgvList_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.ColumnIndex == 0) //Index of your DataGridViewComboBoxColumn 
+            try
             {
-                if (adgvList.Rows[e.RowIndex].IsNewRow == false)
+                if (e.ColumnIndex == 0) //Index of your DataGridViewComboBoxColumn 
                 {
-                    var data = (ArticleEmployeeViewModel)adgvList.Rows[e.RowIndex].DataBoundItem;
-                    e.Value = data.Code;
+                    if (adgvList.Rows[e.RowIndex].IsNewRow == false)
+                    {
+                        var data = (ArticleEmployeeViewModel)adgvList.Rows[e.RowIndex].DataBoundItem;
+                        e.Value = data.Code;
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                throw ex;
+            }            
         }
         private void adgvList_UserDeletedRow(object sender, DataGridViewRowEventArgs e)
         {
@@ -410,11 +431,18 @@ namespace ATV_Allowance.Controls
 
         private void dtpDate_ValueChanged(object sender, EventArgs e)
         {
-            currDate = Utilities.RemoveTimePortion(dtpDate.Value);
-            LoadArticleData();
-            // set the new index
-            nudOrdinal.Value = articleList.Count;
-            ResetDGV();
+            try
+            {
+                currDate = Utilities.RemoveTimePortion(dtpDate.Value);
+                LoadArticleData();
+                // set the new index
+                nudOrdinal.Value = articleList.Count;
+                ResetDGV();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }            
         }
 
         private void txtTitle_KeyPress(object sender, KeyPressEventArgs e)
@@ -472,34 +500,55 @@ namespace ATV_Allowance.Controls
 
         private void nudOrdinal_ValueChanged(object sender, EventArgs e)
         {
-            // change text value
-            int selectedIndex = (int)nudOrdinal.Value;
+            try
+            {
+                // change text value
+                int selectedIndex = (int)nudOrdinal.Value;
 
-            if (selectedIndex < articleList.Count)
-            {
-                // before new article
-                article = articleList[selectedIndex];
-                txtTitle.Text = article.Title;
+                if (selectedIndex < articleList.Count)
+                {
+                    // before new article
+                    article = articleList[selectedIndex];
+                    txtTitle.Text = article.Title;
+                }
+                else
+                {
+                    // check if after new article
+                    article = null;
+                    txtTitle.Text = string.Empty;
+                }
+                ResetDGV();
             }
-            else
+            catch (Exception ex)
             {
-                // check if after new article
-                article = null;
-                txtTitle.Text = string.Empty;
-            }
-            ResetDGV();
+                throw ex;
+            }            
         }
 
         private void ResetDGV()
         {
-            adgvList.Rows.Clear();
-            adgvList.ReadOnly = true;
-            adgvList.Refresh();
+            try
+            {
+                adgvList.Rows.Clear();
+                adgvList.ReadOnly = true;
+                adgvList.Refresh();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }            
         }
 
         private void nudOrdinal_Enter(object sender, EventArgs e)
         {
-            nudOrdinal.Select(0, nudOrdinal.Text.Length);
+            try
+            {
+                nudOrdinal.Select(0, nudOrdinal.Text.Length);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }            
         }
     }
 }

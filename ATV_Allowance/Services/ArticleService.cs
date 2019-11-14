@@ -357,7 +357,7 @@ namespace ATV_Allowance.Services
             if (existed != null)
             {
                 model.Id = existed.Id;
-                UpdateArticleEmployeeTS(model);
+                UpdateArticleEmployeeTTNM(model);
             }
             else
             {
@@ -424,7 +424,7 @@ namespace ATV_Allowance.Services
             if (existed != null)
             {
                 model.Id = existed.Id;
-                UpdateArticleEmployeeTS(model);
+                UpdateArticleEmployeeBSTTNM(model);
             }
             else
             {
@@ -471,7 +471,7 @@ namespace ATV_Allowance.Services
             if (existed != null)
             {
                 model.Id = existed.Id;
-                UpdateArticleEmployeeTS(model);
+                UpdateArticleEmployeeHKTTNM(model);
             }
             else
             {
