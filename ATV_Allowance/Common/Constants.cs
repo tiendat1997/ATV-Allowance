@@ -263,6 +263,7 @@ namespace ATV_Allowance.Common
             public static string PTTT = "TemplatePTTT";
             public static string TTNM = "TemplateTTNM";
             public static string BSTTNM = "TemplateBSTTNM";
+            public static string TSKHK = "TemplateTS_KHK";
         }
 
         public static class TS_COL
@@ -352,7 +353,7 @@ namespace ATV_Allowance.Common
             public static int STT = 1;
             public static int HO_TEN = 2;
             public static int DON_VI = 3;
-            public static int SL_BS_TTN= 4;
+            public static int SL_BS_TTN = 4;
             public static int D_BS_TTN = 5;
             public static int SL_Sapo = 6;
             public static int D_Sapo = 7;
@@ -384,5 +385,27 @@ namespace ATV_Allowance.Common
             public static int TANGGIAM = 14;
             public static int THANHTIEN = 16;
         }
+
+        public static class TS_KHK_COL
+        {
+            public static int STT = 1;
+            public static int BO_PHAN = 2;
+            public static int CONG_THUC = 3;
+            public static int THANHTIEN = 4;
+        }
+
+        public static class Criterias_THOI_SU
+        {
+            public static int BT_CTTS = 3;
+            public static int PTV = 4;
+            public static int KTD = 5;
+            public static int TP_TRUC_CTTS = 6;
+            public static int PV_TD = 7;
+            public static int SO_NGAY = 8;
+            public static int NGUOI_VI_TINH = 9;
+            public static int TIEN_VI_TINH = 10;
+            public static int DANH_SACH = 11;
+        }
+
     }
 }

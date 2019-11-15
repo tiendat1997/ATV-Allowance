@@ -58,8 +58,6 @@ namespace ATV_Allowance.Forms.Report
         public void InitSaveFile()
         {
             saveFileDialog = new SaveFileDialog();
-            saveFileDialog.InitialDirectory = @"C:\";
-            saveFileDialog.RestoreDirectory = true;
             saveFileDialog.Title = "Lưu báo cáo";
         }
 
@@ -73,8 +71,6 @@ namespace ATV_Allowance.Forms.Report
 
             try
             {
-
-                reportService = new ReportService();
                 List<EmployeePointViewModel> list = reportService.GetReportBroadcast(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, ArticleType.THOI_SU);
                 SortableBindingList<EmployeePointViewModel> sbl = new SortableBindingList<EmployeePointViewModel>(list);
                 bs = new BindingSource();
@@ -157,7 +153,6 @@ namespace ATV_Allowance.Forms.Report
             }
             finally
             {
-                reportService = null;
             }
         }
 
@@ -213,6 +208,18 @@ namespace ATV_Allowance.Forms.Report
         {
             ListEmployeeDeduction deductionForm = new ListEmployeeDeduction(dtpMonth.Value.Month, dtpYear.Value.Year, ArticleType.THOI_SU, (int)cbRole.SelectedValue);
             deductionForm.ShowDialog();
+        }
+
+        private void btnExportKHK_Click(object sender, EventArgs e)
+        {
+            saveFileDialog.FileName = $"BaoCao_TS_KHK_{dtpEnddate.Value.Month}{dtpEnddate.Value.Year}.xlsx";
+            var data = reportService.GetReportTS_KHK(dtpStartdate.Value, dtpEnddate.Value, (int)edtPrice.Value);
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                var path = Path.GetFullPath(saveFileDialog.FileName);
+                File.WriteAllBytes(path, data);
+            }
         }
     }
 }
