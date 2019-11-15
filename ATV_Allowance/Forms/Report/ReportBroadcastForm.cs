@@ -16,12 +16,14 @@ namespace ATV_Allowance.Forms.Report
         private BindingSource bs;
 
         private IReportService reportService;
+        private ICriteriaService criteriaService;
         private SaveFileDialog saveFileDialog;
 
         public ReportBroadcastForm()
         {
             InitializeComponent();
             reportService = new ReportService();
+            criteriaService = new CriteriaService();
 
             InitValue();
             LoadReport();
@@ -71,6 +73,7 @@ namespace ATV_Allowance.Forms.Report
 
             try
             {
+                var percent = criteriaService.GetCriteriaValue(dtpStartdate.Value.Month, dtpStartdate.Value.Year, (int)cbRole.SelectedValue == EmployeeRole.PV ? Criterias_Percent.TANG_GIAM_PV_BTV : Criterias_Percent.TANG_GIAM_CTV);
                 List<EmployeePointViewModel> list = reportService.GetReportBroadcast(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, ArticleType.THOI_SU);
                 SortableBindingList<EmployeePointViewModel> sbl = new SortableBindingList<EmployeePointViewModel>(list);
                 bs = new BindingSource();
@@ -88,7 +91,7 @@ namespace ATV_Allowance.Forms.Report
                 adgvReportBroadcast.Columns["Descrease"].HeaderText = ADGVReportHeader.TruChiTieu;
                 adgvReportBroadcast.Columns["TotalPoint"].HeaderText = ADGVReportHeader.TotalPoint;
                 adgvReportBroadcast.Columns["TotalPoint"].DefaultCellStyle.Format = "F1";
-                adgvReportBroadcast.Columns["IncreasePercent"].HeaderText = ADGVReportHeader.TangGiam;
+                adgvReportBroadcast.Columns["IncreasePercent"].HeaderText = "Tăng " + percent + "%";
                 adgvReportBroadcast.Columns["IncreasePercent"].DefaultCellStyle.Format = "F1";
                 adgvReportBroadcast.Columns["TotalCost"].HeaderText = ADGVReportHeader.TotalCost;
                 adgvReportBroadcast.Columns["TotalCost"].DefaultCellStyle.Format = "N0";
@@ -206,7 +209,8 @@ namespace ATV_Allowance.Forms.Report
 
         private void btnDeduction_Click(object sender, EventArgs e)
         {
-            ListEmployeeDeduction deductionForm = new ListEmployeeDeduction(dtpMonth.Value.Month, dtpYear.Value.Year, ArticleType.THOI_SU, (int)cbRole.SelectedValue);
+            //ListEmployeeDeduction deductionForm = new ListEmployeeDeduction(dtpMonth.Value.Month, dtpYear.Value.Year, ArticleType.THOI_SU, (int)cbRole.SelectedValue);
+            ListEmployeeDeduction deductionForm = new ListEmployeeDeduction(dtpMonth.Value.Month, dtpYear.Value.Year, ArticleType.BIENSOAN_TTNM, EmployeeRole.PV);
             deductionForm.ShowDialog();
         }
 

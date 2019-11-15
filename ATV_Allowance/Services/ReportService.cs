@@ -27,11 +27,15 @@ namespace ATV_Allowance.Services
     {
         private readonly IReportRepository _reportRepository;
         private readonly ICriteriaRepository _criteriaRepository;
+        private readonly IDeductionService _deductionService;
+        private readonly ICriteriaService _criteriaService;
 
         public ReportService()
         {
             _reportRepository = new ReportRepository();
             _criteriaRepository = new CriteriaRepository();
+            _deductionService = new DeductionService();
+            _criteriaService = new CriteriaService();
         }
 
         public List<EmployeePointViewModel> GetReportBroadcast(DateTime startDate, DateTime endDate, int role, int price, int reportType)
@@ -176,7 +180,7 @@ namespace ATV_Allowance.Services
 
             }
 
-            CalculateCost(result, price, reportType);
+            CalculateCost(result, price, reportType, role, startDate);
 
             return result;
         }
@@ -190,6 +194,11 @@ namespace ATV_Allowance.Services
             var worksheet = workbook.Worksheets.First();
 
             int currentRow = 5;
+
+            var percent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, role == EmployeeRole.PV ? Criterias_Percent.TANG_GIAM_PV_BTV : Criterias_Percent.TANG_GIAM_CTV);
+            worksheet.Cells[currentRow - 2, TS_COL.TANGGIAM].Value = "Tăng " + percent + "%";
+            percent = percent / 100;
+
             for (int i = 0; i < list.Count; i++)
             {
                 worksheet.InsertRow(currentRow, 1);
@@ -204,10 +213,10 @@ namespace ATV_Allowance.Services
 
                 var sum = list[i].DiemTin + list[i].DiemPsu + list[i].DiemQtin + list[i].DiemQPsu;
                 var deduction = 0;
-                var tongcong = (sum - deduction) * 1.1;
+                var tongcong = (sum - deduction) * (1 + percent);
                 worksheet.Cells[currentRow, TS_COL.CONG].Value = sum;
                 worksheet.Cells[currentRow, TS_COL.TRUCHITIEU].Value = deduction;
-                worksheet.Cells[currentRow, TS_COL.TANGGIAM].Value = (sum - deduction) * 0.1;
+                worksheet.Cells[currentRow, TS_COL.TANGGIAM].Value = (sum - deduction) * percent;
                 worksheet.Cells[currentRow, TS_COL.TONGCONG].Value = tongcong;
                 worksheet.Cells[currentRow, TS_COL.THANHTIEN].Value = tongcong * price;
 
@@ -267,6 +276,10 @@ namespace ATV_Allowance.Services
             var worksheet = workbook.Worksheets.First();
 
             int currentRow = 5;
+            var percent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, role == EmployeeRole.PV ? Criterias_Percent.TANG_GIAM_PV_BTV : Criterias_Percent.TANG_GIAM_CTV);
+            worksheet.Cells[currentRow - 2, TS_COL.TANGGIAM].Value = "Tăng " + percent + "%";
+            percent = percent / 100;
+
             for (int i = 0; i < list.Count; i++)
             {
                 worksheet.InsertRow(currentRow, 1);
@@ -288,7 +301,7 @@ namespace ATV_Allowance.Services
 
                 var sum = list[i].Sum;
                 var deduction = 0;
-                var tongcong = (sum - deduction) * 1.1;
+                var tongcong = (sum - deduction) * percent;
                 worksheet.Cells[currentRow, PT_COL.TONGDIEM].Value = sum;
                 worksheet.Cells[currentRow, PT_COL.TANGGIAM].Value = (sum - deduction) * 0.1;
                 worksheet.Cells[currentRow, PT_COL.THANHTIEN].Value = tongcong * price;
@@ -339,6 +352,10 @@ namespace ATV_Allowance.Services
             var worksheet = workbook.Worksheets.First();
 
             int currentRow = 5;
+            var percent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, role == EmployeeRole.PV ? Criterias_Percent.TANG_GIAM_PV_BTV : Criterias_Percent.TANG_GIAM_CTV);
+            worksheet.Cells[currentRow - 2, TS_COL.TANGGIAM].Value = "Tăng " + percent + "%";
+            percent = percent / 100;
+
             for (int i = 0; i < list.Count; i++)
             {
                 worksheet.InsertRow(currentRow, 1);
@@ -360,9 +377,9 @@ namespace ATV_Allowance.Services
 
                 var sum = list[i].Sum;
                 var deduction = 0;
-                var tongcong = (sum - deduction) * 1.1;
+                var tongcong = (sum - deduction) * (1+percent);
                 worksheet.Cells[currentRow, PTTT_COL.TONGDIEM].Value = sum;
-                worksheet.Cells[currentRow, PTTT_COL.TANGGIAM].Value = (sum - deduction) * 0.1;
+                worksheet.Cells[currentRow, PTTT_COL.TANGGIAM].Value = (sum - deduction) * percent;
                 worksheet.Cells[currentRow, PTTT_COL.THANHTIEN].Value = tongcong * price;
 
                 currentRow += 1;
@@ -411,6 +428,10 @@ namespace ATV_Allowance.Services
             var worksheet = workbook.Worksheets.First();
 
             int currentRow = 5;
+            var percent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, role == EmployeeRole.PV ? Criterias_Percent.TANG_GIAM_PV_BTV : Criterias_Percent.TANG_GIAM_CTV);
+            worksheet.Cells[currentRow - 2, TS_COL.TANGGIAM].Value = "Tăng " + percent + "%";
+            percent = percent / 100;
+
             for (int i = 0; i < list.Count; i++)
             {
                 worksheet.InsertRow(currentRow, 1);
@@ -432,9 +453,9 @@ namespace ATV_Allowance.Services
 
                 var sum = list[i].Sum;
                 var deduction = 0;
-                var tongcong = (sum - deduction) * 1.1;
+                var tongcong = (sum - deduction) * (1+percent);
                 worksheet.Cells[currentRow, TTNM_COL.TONGDIEM].Value = sum;
-                worksheet.Cells[currentRow, TTNM_COL.TANGGIAM].Value = (sum - deduction) * 0.1;
+                worksheet.Cells[currentRow, TTNM_COL.TANGGIAM].Value = (sum - deduction) * percent;
                 worksheet.Cells[currentRow, TTNM_COL.THANHTIEN].Value = tongcong * price;
 
                 currentRow += 1;
@@ -485,6 +506,10 @@ namespace ATV_Allowance.Services
             var worksheet = workbook.Worksheets.First();
 
             int currentRow = 5;
+            var percent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, role == EmployeeRole.PV ? Criterias_Percent.TANG_GIAM_PV_BTV : Criterias_Percent.TANG_GIAM_CTV);
+            worksheet.Cells[currentRow - 2, TS_COL.TANGGIAM].Value = "Tăng " + percent + "%";
+            percent = percent / 100;
+
             for (int i = 0; i < listBSTTNM.Count; i++)
             {
                 worksheet.InsertRow(currentRow, 1);
@@ -504,9 +529,9 @@ namespace ATV_Allowance.Services
 
                 var sum = listBSTTNM[i].Sum;
                 var deduction = 0;
-                var tongcong = (sum - deduction) * 1.1;
+                var tongcong = (sum - deduction) * (1+percent);
                 worksheet.Cells[currentRow, BSTTNM_COL.TONGDIEM].Value = sum;
-                worksheet.Cells[currentRow, BSTTNM_COL.TANGGIAM].Value = (sum - deduction) * 0.1;
+                worksheet.Cells[currentRow, BSTTNM_COL.TANGGIAM].Value = (sum - deduction) * percent;
                 worksheet.Cells[currentRow, BSTTNM_COL.THANHTIEN].Value = tongcong * price;
 
                 currentRow += 1;
@@ -547,9 +572,9 @@ namespace ATV_Allowance.Services
 
                 var sum = listKHK[i].Sum;
                 var deduction = 0;
-                var tongcong = (sum - deduction) * 1.1;
+                var tongcong = (sum - deduction) * (1 + percent);
                 worksheet.Cells[currentRow, KHK_COL.TONGDIEM].Value = sum;
-                worksheet.Cells[currentRow, KHK_COL.TANGGIAM].Value = (sum - deduction) * 0.1;
+                worksheet.Cells[currentRow, KHK_COL.TANGGIAM].Value = (sum - deduction) * percent;
                 worksheet.Cells[currentRow, KHK_COL.THANHTIEN].Value = tongcong * price;
 
                 currentRow += 1;
@@ -598,6 +623,10 @@ namespace ATV_Allowance.Services
             var worksheet = workbook.Worksheets.First();
 
             int currentRow = 5;
+            var percent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, role == EmployeeRole.PV ? Criterias_Percent.TANG_GIAM_PV_BTV : Criterias_Percent.TANG_GIAM_CTV);
+            worksheet.Cells[currentRow - 2, TS_COL.TANGGIAM].Value = "Tăng " + percent + "%";
+            percent = percent / 100;
+
             for (int i = 0; i < list.Count; i++)
             {
                 worksheet.InsertRow(currentRow, 1);
@@ -619,9 +648,9 @@ namespace ATV_Allowance.Services
 
                 var sum = list[i].Sum;
                 var deduction = 0;
-                var tongcong = (sum - deduction) * 1.1;
+                var tongcong = (sum - deduction) * (1 + percent);
                 worksheet.Cells[currentRow, PTTT_COL.TONGDIEM].Value = sum;
-                worksheet.Cells[currentRow, PTTT_COL.TANGGIAM].Value = (sum - deduction) * 0.1;
+                worksheet.Cells[currentRow, PTTT_COL.TANGGIAM].Value = (sum - deduction) * percent;
                 worksheet.Cells[currentRow, PTTT_COL.THANHTIEN].Value = tongcong * price;
 
                 currentRow += 1;
@@ -661,11 +690,11 @@ namespace ATV_Allowance.Services
             return package.GetAsByteArray();
         }
 
-        private void CalculateCost(List<EmployeePointViewModel> list, int price, int reportType)
+        private void CalculateCost(List<EmployeePointViewModel> list, int price, int reportType, int employeeRole, DateTime startDate)
         {
+            var percent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, employeeRole == EmployeeRole.PV ? Criterias_Percent.TANG_GIAM_PV_BTV : Criterias_Percent.TANG_GIAM_CTV) / 100;
             for (int i = 0; i < list.Count; i++)
             {
-                var percent = 0.1;
                 double sum = 0;
                 if (reportType == ArticleType.THOI_SU)
                 {
@@ -691,10 +720,11 @@ namespace ATV_Allowance.Services
                 {
                     sum = list[i].DiemDCT + list[i].DiemKTD + list[i].DiemTCT + list[i].DiemKT_TH;
                 }
-                var deduction = 0;
+
+                var deduction = _deductionService.GetEmployeeDeduction(list[i].EmployeeId, reportType, startDate.Month, startDate.Year);
                 var tongcong = (sum - deduction) * (1 + percent);
                 list[i].Sum = sum;
-                list[i].Descrease = 0;
+                list[i].Descrease = deduction;
                 list[i].IncreasePercent = percent * (sum - deduction);
                 list[i].TotalPoint = tongcong;
                 list[i].TotalCost = (int)(tongcong * price);
@@ -792,11 +822,10 @@ namespace ATV_Allowance.Services
         public byte[] GetReportTS_KHK(DateTime startDate, DateTime endDate, int price)
         {
             var listPV = GetReportBroadcast(startDate, endDate, EmployeeRole.PV, price, ArticleType.THOI_SU);
-            var sumListPV = 0;
-
+            var sumListPV = listPV.Sum(x => x.TotalCost);
 
             var listCTV = GetReportBroadcast(startDate, endDate, EmployeeRole.CTV, price, ArticleType.THOI_SU);
-            var sumListCTV = 0;
+            var sumListCTV = listCTV.Sum(x => x.TotalCost);
 
             var listCriterias = _criteriaRepository.GetAll();
 

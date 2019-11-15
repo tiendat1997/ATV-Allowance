@@ -38,6 +38,7 @@
             this.adgvReportBroadcast = new System.Windows.Forms.DataGridView();
             this.flowLayoutPanel5 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnExport = new System.Windows.Forms.Button();
+            this.btnExportKHK = new System.Windows.Forms.Button();
             this.btnDeduction = new System.Windows.Forms.Button();
             this.flowLayoutPanel4 = new System.Windows.Forms.FlowLayoutPanel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
@@ -55,7 +56,6 @@
             this.label6 = new System.Windows.Forms.Label();
             this.edtPrice = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
-            this.btnExportKHK = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.flowLayoutPanel3.SuspendLayout();
@@ -72,7 +72,7 @@
             this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Controls.Add(this.flowLayoutPanel4);
             this.panel1.Location = new System.Drawing.Point(1, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1141, 452);
             this.panel1.TabIndex = 0;
@@ -86,9 +86,9 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(0, 87);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox1.Size = new System.Drawing.Size(1141, 365);
             this.groupBox1.TabIndex = 13;
             this.groupBox1.TabStop = false;
@@ -159,7 +159,7 @@
             this.adgvReportBroadcast.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.adgvReportBroadcast.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.adgvReportBroadcast.Location = new System.Drawing.Point(4, 57);
-            this.adgvReportBroadcast.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.adgvReportBroadcast.Margin = new System.Windows.Forms.Padding(4);
             this.adgvReportBroadcast.Name = "adgvReportBroadcast";
             this.adgvReportBroadcast.Size = new System.Drawing.Size(1137, 304);
             this.adgvReportBroadcast.TabIndex = 4;
@@ -172,7 +172,7 @@
             this.flowLayoutPanel5.Controls.Add(this.btnDeduction);
             this.flowLayoutPanel5.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
             this.flowLayoutPanel5.Location = new System.Drawing.Point(591, 17);
-            this.flowLayoutPanel5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.flowLayoutPanel5.Margin = new System.Windows.Forms.Padding(4);
             this.flowLayoutPanel5.Name = "flowLayoutPanel5";
             this.flowLayoutPanel5.Size = new System.Drawing.Size(551, 36);
             this.flowLayoutPanel5.TabIndex = 0;
@@ -180,24 +180,36 @@
             // btnExport
             // 
             this.btnExport.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExport.Location = new System.Drawing.Point(450, 4);
-            this.btnExport.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnExport.Location = new System.Drawing.Point(394, 4);
+            this.btnExport.Margin = new System.Windows.Forms.Padding(4);
             this.btnExport.Name = "btnExport";
-            this.btnExport.Size = new System.Drawing.Size(97, 28);
+            this.btnExport.Size = new System.Drawing.Size(153, 28);
             this.btnExport.TabIndex = 1;
             this.btnExport.Text = "Xuất tổng hợp thù lao";
             this.btnExport.UseVisualStyleBackColor = true;
             this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
+            // btnExportKHK
+            // 
+            this.btnExportKHK.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnExportKHK.Location = new System.Drawing.Point(237, 4);
+            this.btnExportKHK.Margin = new System.Windows.Forms.Padding(4);
+            this.btnExportKHK.Name = "btnExportKHK";
+            this.btnExportKHK.Size = new System.Drawing.Size(149, 28);
+            this.btnExportKHK.TabIndex = 3;
+            this.btnExportKHK.Text = "Xuất tổng hợp hậu kỳ";
+            this.btnExportKHK.UseVisualStyleBackColor = true;
+            this.btnExportKHK.Click += new System.EventHandler(this.btnExportKHK_Click);
+            // 
             // btnDeduction
             // 
             this.btnDeduction.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDeduction.Location = new System.Drawing.Point(213, 4);
-            this.btnDeduction.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnDeduction.Location = new System.Drawing.Point(105, 4);
+            this.btnDeduction.Margin = new System.Windows.Forms.Padding(4);
             this.btnDeduction.Name = "btnDeduction";
             this.btnDeduction.Size = new System.Drawing.Size(124, 28);
             this.btnDeduction.TabIndex = 2;
-            this.btnDeduction.Text = "Giảm trừ";
+            this.btnDeduction.Text = "Giảm trừ PV";
             this.btnDeduction.UseVisualStyleBackColor = true;
             this.btnDeduction.Click += new System.EventHandler(this.btnDeduction_Click);
             // 
@@ -207,7 +219,7 @@
             this.flowLayoutPanel4.Controls.Add(this.flowLayoutPanel2);
             this.flowLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Top;
             this.flowLayoutPanel4.Location = new System.Drawing.Point(0, 0);
-            this.flowLayoutPanel4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.flowLayoutPanel4.Margin = new System.Windows.Forms.Padding(4);
             this.flowLayoutPanel4.Name = "flowLayoutPanel4";
             this.flowLayoutPanel4.Size = new System.Drawing.Size(1141, 87);
             this.flowLayoutPanel4.TabIndex = 12;
@@ -239,7 +251,7 @@
             this.cbRole.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbRole.FormattingEnabled = true;
             this.cbRole.Location = new System.Drawing.Point(215, 4);
-            this.cbRole.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbRole.Margin = new System.Windows.Forms.Padding(4);
             this.cbRole.Name = "cbRole";
             this.cbRole.Size = new System.Drawing.Size(81, 24);
             this.cbRole.TabIndex = 1;
@@ -282,7 +294,7 @@
             this.dtpMonth.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpMonth.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpMonth.Location = new System.Drawing.Point(125, 4);
-            this.dtpMonth.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dtpMonth.Margin = new System.Windows.Forms.Padding(4);
             this.dtpMonth.Name = "dtpMonth";
             this.dtpMonth.ShowUpDown = true;
             this.dtpMonth.Size = new System.Drawing.Size(47, 29);
@@ -307,7 +319,7 @@
             this.dtpYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpYear.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpYear.Location = new System.Drawing.Point(201, 4);
-            this.dtpYear.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dtpYear.Margin = new System.Windows.Forms.Padding(4);
             this.dtpYear.Name = "dtpYear";
             this.dtpYear.ShowUpDown = true;
             this.dtpYear.Size = new System.Drawing.Size(63, 29);
@@ -386,7 +398,7 @@
             0,
             0});
             this.edtPrice.Location = new System.Drawing.Point(753, 4);
-            this.edtPrice.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.edtPrice.Margin = new System.Windows.Forms.Padding(4);
             this.edtPrice.Maximum = new decimal(new int[] {
             1000000,
             0,
@@ -414,25 +426,13 @@
             this.label7.TabIndex = 9;
             this.label7.Text = "vnđ / điểm";
             // 
-            // btnExportKHK
-            // 
-            this.btnExportKHK.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExportKHK.Location = new System.Drawing.Point(345, 4);
-            this.btnExportKHK.Margin = new System.Windows.Forms.Padding(4);
-            this.btnExportKHK.Name = "btnExportKHK";
-            this.btnExportKHK.Size = new System.Drawing.Size(97, 28);
-            this.btnExportKHK.TabIndex = 3;
-            this.btnExportKHK.Text = "Xuất tổng hợp hậu kỳ";
-            this.btnExportKHK.UseVisualStyleBackColor = true;
-            this.btnExportKHK.Click += new System.EventHandler(this.btnExportKHK_Click);
-            // 
             // ReportBroadcastForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1144, 454);
             this.Controls.Add(this.panel1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ReportBroadcastForm";
             this.Text = "Báo cáo tin thời sự";
             this.panel1.ResumeLayout(false);

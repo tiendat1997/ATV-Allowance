@@ -407,5 +407,11 @@ namespace ATV_Allowance.Common
             public static int DANH_SACH = 11;
         }
 
+        public static class Criterias_Percent
+        {
+            public static int TANG_GIAM_PV_BTV = 1;
+            public static int TANG_GIAM_CTV = 2;
+        }
+
     }
 }

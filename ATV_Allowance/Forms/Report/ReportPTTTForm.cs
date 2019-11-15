@@ -21,11 +21,13 @@ namespace ATV_Allowance.Forms.Report
         private BindingSource bs;
 
         private IReportService reportService;
+        private ICriteriaService criteriaService;
         private SaveFileDialog saveFileDialog;
         public ReportPTTTForm()
         {
             InitializeComponent();
             reportService = new ReportService();
+            criteriaService = new CriteriaService();
 
             InitValue();
             LoadReport();
@@ -62,8 +64,6 @@ namespace ATV_Allowance.Forms.Report
         public void InitSaveFile()
         {
             saveFileDialog = new SaveFileDialog();
-            saveFileDialog.InitialDirectory = @"C:\";
-            saveFileDialog.RestoreDirectory = true;
             saveFileDialog.Title = "Lưu báo cáo";
         }
 
@@ -78,6 +78,7 @@ namespace ATV_Allowance.Forms.Report
             try
             {
 
+                var percent = criteriaService.GetCriteriaValue(dtpStartdate.Value.Month, dtpStartdate.Value.Year, (int)cbRole.SelectedValue == EmployeeRole.PV ? Criterias_Percent.TANG_GIAM_PV_BTV : Criterias_Percent.TANG_GIAM_CTV);
                 reportService = new ReportService();
                 List<EmployeePointViewModel> list = reportService.GetReportBroadcast(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, ArticleType.PHAT_THANH_TT);
                 SortableBindingList<EmployeePointViewModel> sbl = new SortableBindingList<EmployeePointViewModel>(list);
@@ -87,7 +88,7 @@ namespace ATV_Allowance.Forms.Report
                 adgvReportBroadcast.Columns["EmployeeName"].HeaderText = ADGVReportHeader.Name;
                 adgvReportBroadcast.Columns["Organization"].HeaderText = ADGVReportHeader.Organization;
                 adgvReportBroadcast.Columns["Sum"].HeaderText = ADGVReportHeader.TongCong;
-                adgvReportBroadcast.Columns["IncreasePercent"].HeaderText = ADGVReportHeader.TangGiam;
+                adgvReportBroadcast.Columns["IncreasePercent"].HeaderText = "Tăng " + percent + "%";
                 adgvReportBroadcast.Columns["IncreasePercent"].DefaultCellStyle.Format = "F1";
                 adgvReportBroadcast.Columns["SoTin"].HeaderText = ADGVReportHeader.SoTin;
                 adgvReportBroadcast.Columns["DiemTin"].HeaderText = ADGVReportHeader.Diem;
@@ -215,7 +216,8 @@ namespace ATV_Allowance.Forms.Report
 
         private void btnDeduction_Click(object sender, EventArgs e)
         {
-            ListEmployeeDeduction deductionForm = new ListEmployeeDeduction(dtpMonth.Value.Month, dtpYear.Value.Year, ArticleType.PHAT_THANH, (int)cbRole.SelectedValue);
+            //ListEmployeeDeduction deductionForm = new ListEmployeeDeduction(dtpMonth.Value.Month, dtpYear.Value.Year, ArticleType.PHAT_THANH, (int)cbRole.SelectedValue);
+            ListEmployeeDeduction deductionForm = new ListEmployeeDeduction(dtpMonth.Value.Month, dtpYear.Value.Year, ArticleType.BIENSOAN_TTNM, EmployeeRole.PV);
             deductionForm.ShowDialog();
         }
     }

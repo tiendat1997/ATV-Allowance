@@ -16,6 +16,7 @@ namespace ATV_Allowance.Services
         List<CriteriaViewModel> GetCriterias(int month, int year, int type);
         List<List<CriteriaViewModel>> GetCriterias(int year, int type);
         void UpdateCriterias(List<CriteriaViewModel> criterias, int month, int year);
+        double GetCriteriaValue(int month, int year, int criteriaTypeId);
     }
 
     public class CriteriaService : ICriteriaService
@@ -74,6 +75,13 @@ namespace ATV_Allowance.Services
             }
 
             return result;
+        }
+
+        public double GetCriteriaValue(int month, int year, int criteriaTypeId)
+        {
+            var criteria = criteriaValueRepository.GetMany(x => x.Configuration.Month == month && x.Configuration.Year == year && x.CriteriaId == criteriaTypeId)
+                                            .FirstOrDefault();
+            return criteria != null ? criteria.Value.GetValueOrDefault(0) : 0;
         }
 
         public void UpdateCriterias(List<CriteriaViewModel> criterias, int month, int year)

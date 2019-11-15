@@ -12,6 +12,7 @@ namespace ATV_Allowance.Services
     public interface IDeductionService
     {
         List<EmployeeDeductionViewModel> GetDeductions(int month, int year, int employeeRole, int articleType);
+        double GetEmployeeDeduction(int employeeId, int articleId, int month, int year);
         void UpdateDeduction(int employeeId, int deductionType, int month, int year, int employeeRole, int articleType);
     }
     public class DeductionService : IDeductionService
@@ -51,13 +52,23 @@ namespace ATV_Allowance.Services
             
             foreach(var emp in artEmpList)
             {
-                if (result.Where(e => e.EmployeeId == emp.EmployeeId).Count() == 0)
+                if (result.Any(e => e.EmployeeId == emp.EmployeeId))
                 {
                     result.Add(emp);
                 }
             }
 
             return result;
+        }
+
+        public double GetEmployeeDeduction(int employeeId, int articleTypeId, int month, int year)
+        {
+            var empDeduction = deductionRepository.GetMany(x => x.EmployeeId == employeeId
+                                                                && x.ArticleTypeId == articleTypeId
+                                                                && x.Month == month
+                                                                && x.Year == year
+                                                           ).FirstOrDefault();
+            return empDeduction != null ? empDeduction.DeductionType.Amount.Value : 0;
         }
 
         public void UpdateDeduction(int employeeId, int deductionType, int month, int year, int employeeRole, int articleType)

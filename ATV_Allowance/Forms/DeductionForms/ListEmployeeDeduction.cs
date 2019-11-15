@@ -77,11 +77,11 @@ namespace ATV_Allowance.Forms.DeductionForms
                 Id = EmployeeRole.PV,
                 Name = "PV"
             });
-            positions.Add(new PositionViewModel
-            {
-                Id = EmployeeRole.CTV,
-                Name = "CTV"
-            });
+            //positions.Add(new PositionViewModel
+            //{
+            //    Id = EmployeeRole.CTV,
+            //    Name = "CTV"
+            //});
             cbEmpRole.DataSource = positions;
             cbEmpRole.DisplayMember = "Name";
             cbEmpRole.ValueMember = "Id";
