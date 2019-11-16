@@ -14,12 +14,14 @@ namespace ATV_Allowance.Services
 {
     public interface IEmployeeService
     {
+        List<string> GetAllEmployeeCode(bool isActive);
         List<EmployeeViewModel> GetAllActive(bool isActive);
         string GenerateEmployeeCode(string empName, string currCode);
         Position GetPositionByCode(string code);
         void AddEmployee(Employee emp);
         void UpdateEmployee(Employee newEmp);
         void DeactiveEmployee(Employee emp);
+        EmployeeViewModel GetEmployeeByCode(string code);
     }
     public class EmployeeService : IEmployeeService
     {
@@ -45,19 +47,19 @@ namespace ATV_Allowance.Services
         public string GenerateEmployeeCode(string empName, string currCode)
         {
             Regex regex = new Regex(@"^\d+$"); // match all numbers
-            List<string> splitter = empName.Split(' ').ToList();                        
+            List<string> splitter = empName.Split(' ').ToList();
             string tempCode = splitter.Last();
-            tempCode = Utilities.RemoveSign4VietnameseString(tempCode);            
+            tempCode = Utilities.RemoveSign4VietnameseString(tempCode);
             for (int i = 0; i < splitter.Count - 1; i++)
             {
                 string partName = Utilities.RemoveSign4VietnameseString(splitter[i]);
-                tempCode = tempCode + partName[0];                
-            }            
+                tempCode = tempCode + partName[0];
+            }
             var sameEmp = employeeRepository.GetMany(t => t.Code.Contains(tempCode)).ToList();
             int existedCount = 0;
             foreach (var emp in sameEmp)
             {
-                string postFix = emp.Code.Replace(tempCode, "");                                
+                string postFix = emp.Code.Replace(tempCode, "");
                 if (postFix.Length == 0 || regex.IsMatch(postFix))
                 {
                     existedCount++;
@@ -82,9 +84,37 @@ namespace ATV_Allowance.Services
                         OrganizationId = t.Organization.Id,
                         Position = t.Position.Code,
                         PositionId = t.Position.Id,
-                        IsActive = t.IsActive
+                        IsActive = t.IsActive,
+                        CodeAndName = t.Code + " - " + t.Name
                     }).ToList();
             return list;
+        }
+
+        public List<string> GetAllEmployeeCode(bool isActive)
+        {
+            var list = employeeRepository
+                    .GetAll().Where(e => e.IsActive == isActive)
+                    .Select(e => e.Code).ToList();
+            return list;
+        }
+
+        public EmployeeViewModel GetEmployeeByCode(string code)
+        {
+            var emp = employeeRepository.GetMany(t => t.Code == code)
+                              .Select(t => new EmployeeViewModel
+                              {
+                                  Id = t.Id,
+                                  Code = t.Code,
+                                  Name = t.Name,
+                                  Organization = t.Organization.Name,
+                                  OrganizationId = t.Organization.Id,
+                                  Position = t.Position.Code,
+                                  PositionId = t.Position.Id,
+                                  IsActive = t.IsActive,
+                                  CodeAndName = t.Code + " - " + t.Name
+                              })
+                            .FirstOrDefault();
+            return emp;
         }
 
         public Position GetPositionByCode(string code)

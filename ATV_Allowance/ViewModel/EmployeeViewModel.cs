@@ -24,5 +24,6 @@ namespace ATV_Allowance.ViewModel
         public int OrganizationId { get; set; }
         public bool IsActive { get; set; }
         public string Title { get; set; }
+        public string CodeAndName { get; set; }
     }
 }
