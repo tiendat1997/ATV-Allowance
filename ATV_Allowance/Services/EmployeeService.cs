@@ -94,7 +94,9 @@ namespace ATV_Allowance.Services
         {
             var list = employeeRepository
                     .GetAll().Where(e => e.IsActive == isActive)
-                    .Select(e => e.Code).ToList();
+                    .OrderBy(e => e.Code)
+                    .Select(e => e.Code)
+                    .ToList();
             return list;
         }
 

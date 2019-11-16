@@ -51,13 +51,13 @@ namespace ATV_Allowance.Controls
                 empList = employeeService.GetAllEmployeeCode(true);
             }
             catch (Exception ex)
-            {            
+            {
                 throw ex;
             }
             finally
             {
                 employeeService = null;
-            }            
+            }
         }
         private string GetArticleTypeName(int typeId)
         {
@@ -155,10 +155,10 @@ namespace ATV_Allowance.Controls
             {
                 pointTypeService = new PointTypeService();
                 articleService = new ArticleService();
-                
+
                 bs = new BindingSource();
                 listPointType = pointTypeService.GetPointType(articleTypeId);
-                
+
                 List<ArticleEmployeeViewModel> list = new List<ArticleEmployeeViewModel>();
                 if (article != null)
                 {
@@ -171,13 +171,16 @@ namespace ATV_Allowance.Controls
                 adgvList.Columns["Id"].Visible = false;
                 adgvList.Columns["EmployeeId"].Visible = false;
                 adgvList.Columns["ArticleId"].Visible = false;
-                adgvList.Columns["Code"].Visible = false;
+                adgvList.Columns["Code"].Visible = true;
                 adgvList.Columns["Name"].Visible = true;
                 adgvList.Columns["Organization"].Visible = true;
                 adgvList.Columns["Position"].Visible = true;
+                
+
                 adgvList.Columns["Name"].ReadOnly = true;
                 adgvList.Columns["Organization"].ReadOnly = true;
                 adgvList.Columns["Position"].ReadOnly = true;
+                adgvList.Columns["Code"].ReadOnly = true;
 
                 adgvList.Columns["Code"].HeaderText = ADGVEmployeeText.Code;
                 adgvList.Columns["Code"].Width = ControlsAttribute.GV_WIDTH_SEEM;
@@ -188,18 +191,16 @@ namespace ATV_Allowance.Controls
                 adgvList.Columns["Organization"].HeaderText = ADGVEmployeeText.Organization;
                 adgvList.Columns["Organization"].Width = ControlsAttribute.GV_WIDTH_LARGE;
 
-                if (adgvList.Columns["CbEmployeeColumn"] == null)
-                {
-                    DataGridViewComboBoxColumn cmbCol = new DataGridViewComboBoxColumn();                    
-                    cmbCol.HeaderText = ADGVEmployeeText.Code;
-                    //cmbCol.DisplayMember = "Code";
-                    //cmbCol.ValueMember = "Id";
-                    cmbCol.Name = "CbEmployeeColumn";
-                    cmbCol.DataSource = empList;
-                    cmbCol.DropDownWidth = 150;                    
-                    adgvList.Columns.Add(cmbCol);
-                    adgvList.Columns["CbEmployeeColumn"].DisplayIndex = 2;
-                }
+                //if (adgvList.Columns["CbEmployeeColumn"] == null)
+                //{
+                //    DataGridViewComboBoxColumn cmbCol = new DataGridViewComboBoxColumn();
+                //    cmbCol.HeaderText = ADGVEmployeeText.Code;
+                //    cmbCol.Name = "CbEmployeeColumn";
+                //    cmbCol.DataSource = empList;
+                //    cmbCol.DropDownWidth = 150;
+                //    adgvList.Columns.Add(cmbCol);
+                //    adgvList.Columns["CbEmployeeColumn"].DisplayIndex = 2;
+                //}
 
                 InvisiblePointType();
                 foreach (var type in listPointType)
@@ -231,7 +232,7 @@ namespace ATV_Allowance.Controls
                 comboBox.AutoCompleteSource = AutoCompleteSource.ListItems;
                 comboBox.DropDownWidth = 150;
                 comboBox.SelectionChangeCommitted -= new EventHandler(SelectionChangeCommitted);
-                comboBox.SelectionChangeCommitted += SelectionChangeCommitted;               
+                comboBox.SelectionChangeCommitted += SelectionChangeCommitted;
                 comboBox.SelectedIndex = 0;
             }
         }
@@ -267,10 +268,16 @@ namespace ATV_Allowance.Controls
                     adgvList.Rows[currRowIndex].Cells["Name"].Value = selectedEmp.Name;
                     adgvList.Rows[currRowIndex].Cells["EmployeeId"].Value = selectedEmp.Id;
                     adgvList.Rows[currRowIndex].Cells["Code"].Value = selectedEmp.Code;
-                    adgvList.Rows[currRowIndex].Cells["CbEmployeeColumn"].Value = selectedEmp.Code;
                     adgvList.Rows[currRowIndex].Cells["Position"].Value = selectedEmp.Position;
                     adgvList.Rows[currRowIndex].Cells["Organization"].Value = selectedEmp.Organization;
-                    //adgvList.CurrentCell = adgvList.Rows[currRowIndex].Cells[8]; // the first point column index                
+
+                    var textCell = new DataGridViewTextBoxCell();
+                    textCell.Value = selectedEmp.Code;                    
+
+                    adgvList.Rows[currRowIndex].Cells["Code"] = textCell;
+                    adgvList.Rows[currRowIndex].Cells["Code"].ReadOnly = false;
+                    adgvList.Update();
+
                     adgvList.BeginEdit(true);
                 }
             }
@@ -282,7 +289,7 @@ namespace ATV_Allowance.Controls
             {
                 employeeService = null;
             }
-            
+
         }
         private void EditTSForm_Load(object sender, EventArgs e)
         {
@@ -296,16 +303,16 @@ namespace ATV_Allowance.Controls
             try
             {
                 // Note the check to see if the current row is dirty
-                string selectedValue = adgvList.Rows[e.RowIndex].Cells["CbEmployeeColumn"].FormattedValue.ToString();
+                string selectedValue = adgvList.Rows[e.RowIndex].Cells["Code"].FormattedValue.ToString();
                 string currCodeValue = adgvList.Rows[e.RowIndex].Cells["Code"].FormattedValue.ToString();
                 if ((string.IsNullOrEmpty(currCodeValue) || !selectedValue.Equals(currCodeValue)) && adgvList.IsCurrentRowDirty)
                 {
                     e.Cancel = true;
-                    adgvList.Rows[e.RowIndex].Cells["CbEmployeeColumn"].ErrorText = "Vui lòng chọn nhân viên";
+                    adgvList.Rows[e.RowIndex].Cells["Code"].ErrorText = "Vui lòng chọn nhân viên";
                 }
                 else
                 {
-                    adgvList.Rows[e.RowIndex].Cells["CbEmployeeColumn"].ErrorText = string.Empty;
+                    adgvList.Rows[e.RowIndex].Cells["Code"].ErrorText = string.Empty;
                 }
 
                 foreach (var type in listPointType)
@@ -428,7 +435,7 @@ namespace ATV_Allowance.Controls
             catch (Exception ex)
             {
                 throw ex;
-            }            
+            }
         }
         private void adgvList_UserDeletedRow(object sender, DataGridViewRowEventArgs e)
         {
@@ -472,17 +479,17 @@ namespace ATV_Allowance.Controls
             catch (Exception ex)
             {
                 throw ex;
-            }            
+            }
         }
 
         private void txtTitle_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)Keys.Return) // ENTER
 
-            {                
+            {
                 try
                 {
-                    articleService = new ArticleService();                    
+                    articleService = new ArticleService();
                     if (string.IsNullOrEmpty(txtTitle.Text))
                     {
                         epArticleTitle.SetError(txtTitle, "Vui lòng nhập tiêu đề tin");
@@ -550,7 +557,7 @@ namespace ATV_Allowance.Controls
             catch (Exception ex)
             {
                 throw ex;
-            }            
+            }
         }
 
         private void ResetDGV()
@@ -564,7 +571,7 @@ namespace ATV_Allowance.Controls
             catch (Exception ex)
             {
                 throw ex;
-            }            
+            }
         }
 
         private void nudOrdinal_Enter(object sender, EventArgs e)
@@ -576,15 +583,19 @@ namespace ATV_Allowance.Controls
             catch (Exception ex)
             {
                 throw ex;
-            }            
+            }
         }
-
-        private void adgvList_UserAddedRow(object sender, DataGridViewRowEventArgs e)
+      
+        private void adgvList_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
-            var combobox = sender as ComboBox;                   
-            if (combobox != null)
-            {
-
+            if (e.RowIndex == adgvList.NewRowIndex)
+            {        
+                var cmbCell = new DataGridViewComboBoxCell();
+                cmbCell.DataSource = empList;
+                
+                adgvList.Rows[e.RowIndex].Cells["Code"] = cmbCell;
+                adgvList.Rows[e.RowIndex].Cells["Code"].ReadOnly = false;
+                adgvList.Update();
             }
         }
     }
