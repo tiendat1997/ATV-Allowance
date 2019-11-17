@@ -58,11 +58,7 @@ namespace ATV_Allowance.Forms.ArticleForms
             catch (Exception ex)
             {
                 throw ex;
-            }
-            finally
-            {
-                employeeService = null;
-            }
+            }            
         }
         private string GetArticleTypeName(int typeId)
         {
@@ -148,11 +144,6 @@ namespace ATV_Allowance.Forms.ArticleForms
 
                 throw ex;
             }
-            finally
-            {
-
-            }
-
         }
         private void LoadDGV()
         {
@@ -209,11 +200,7 @@ namespace ATV_Allowance.Forms.ArticleForms
             catch (Exception ex)
             {
                 throw ex;
-            }
-            finally
-            {
-                articleService = null;
-            }
+            }           
         }
 
         private void adgvList_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
@@ -225,6 +212,8 @@ namespace ATV_Allowance.Forms.ArticleForms
                 comboBox.AutoCompleteMode = AutoCompleteMode.Suggest;
                 comboBox.AutoCompleteSource = AutoCompleteSource.ListItems;
                 comboBox.DropDownWidth = 150;
+                comboBox.SelectionChangeCommitted -= new EventHandler(EmployeeCodeSelectionChangeCommitted);
+                comboBox.SelectionChangeCommitted += EmployeeCodeSelectionChangeCommitted;
                 comboBox.KeyDown -= new KeyEventHandler(EmployeeComboboxKeyDown);
                 comboBox.KeyDown += new KeyEventHandler(EmployeeComboboxKeyDown);
                 comboBox.SelectedIndex = 0;
@@ -268,11 +257,15 @@ namespace ATV_Allowance.Forms.ArticleForms
 
                     var textCell = new DataGridViewTextBoxCell();
                     textCell.Value = selectedEmp.Code;
-
+                    
+                    // change employee code column to text and mark it read only
                     adgvList.Rows[currRowIndex].Cells["Code"] = textCell;
-                    adgvList.Rows[currRowIndex].Cells["Code"].ReadOnly = false;
-                    adgvList.Update();
+                    adgvList.Rows[currRowIndex].Cells["Code"].ReadOnly = true;                    
 
+                    // focus on the first point of the column 
+                    adgvList.CurrentCell = adgvList.Rows[currRowIndex].Cells[listPointType[0].Code];
+
+                    adgvList.Update();
                     adgvList.BeginEdit(true);
                 }
             }
@@ -280,11 +273,6 @@ namespace ATV_Allowance.Forms.ArticleForms
             {
                 throw ex;
             }
-            finally
-            {
-                employeeService = null;
-            }
-
         }
         private void EditTSForm_Load(object sender, EventArgs e)
         {
@@ -406,11 +394,7 @@ namespace ATV_Allowance.Forms.ArticleForms
             catch (Exception ex)
             {
                 throw ex;
-            }
-            finally
-            {
-                articleService = null;
-            }
+            }           
         }
 
         private void adgvList_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -450,11 +434,7 @@ namespace ATV_Allowance.Forms.ArticleForms
             catch (Exception ex)
             {
                 throw ex;
-            }
-            finally
-            {
-                articleService = null;
-            }
+            }       
         }
 
         private void dtpDate_ValueChanged(object sender, EventArgs e)
@@ -518,11 +498,7 @@ namespace ATV_Allowance.Forms.ArticleForms
                 {
 
                     throw ex;
-                }
-                finally
-                {
-                    articleService = null;
-                }
+                }               
             }
         }
 

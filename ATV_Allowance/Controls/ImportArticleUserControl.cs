@@ -54,10 +54,6 @@ namespace ATV_Allowance.Controls
             {
                 throw ex;
             }
-            finally
-            {
-                employeeService = null;
-            }
         }
         private string GetArticleTypeName(int typeId)
         {
@@ -143,11 +139,6 @@ namespace ATV_Allowance.Controls
 
                 throw ex;
             }
-            finally
-            {
-                articleService = null;
-            }
-
         }
         private void LoadDGV()
         {
@@ -175,7 +166,7 @@ namespace ATV_Allowance.Controls
                 adgvList.Columns["Name"].Visible = true;
                 adgvList.Columns["Organization"].Visible = true;
                 adgvList.Columns["Position"].Visible = true;
-                
+
 
                 adgvList.Columns["Name"].ReadOnly = true;
                 adgvList.Columns["Organization"].ReadOnly = true;
@@ -190,7 +181,7 @@ namespace ATV_Allowance.Controls
                 adgvList.Columns["Position"].Width = ControlsAttribute.GV_WIDTH_SMALL;
                 adgvList.Columns["Organization"].HeaderText = ADGVEmployeeText.Organization;
                 adgvList.Columns["Organization"].Width = ControlsAttribute.GV_WIDTH_LARGE;
-            
+
                 InvisiblePointType();
                 foreach (var type in listPointType)
                 {
@@ -205,10 +196,6 @@ namespace ATV_Allowance.Controls
             {
                 throw ex;
             }
-            finally
-            {
-                articleService = null;
-            }
         }
 
         private void adgvList_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
@@ -216,11 +203,15 @@ namespace ATV_Allowance.Controls
             comboBox = e.Control as ComboBox;
             if (comboBox != null)
             {
+
                 comboBox.AutoCompleteMode = AutoCompleteMode.Suggest;
                 comboBox.AutoCompleteSource = AutoCompleteSource.ListItems;
-                comboBox.DropDownWidth = 150;
+                comboBox.DropDownWidth = 200;
+                comboBox.SelectionChangeCommitted -= new EventHandler(EmployeeCodeSelectionChangeCommitted);
+                comboBox.SelectionChangeCommitted += EmployeeCodeSelectionChangeCommitted;
                 comboBox.KeyDown -= new KeyEventHandler(EmployeeComboboxKeyDown);
                 comboBox.KeyDown += new KeyEventHandler(EmployeeComboboxKeyDown);
+                comboBox.DropDownStyle = ComboBoxStyle.DropDown;
                 comboBox.SelectedIndex = 0;
             }
         }
@@ -260,24 +251,23 @@ namespace ATV_Allowance.Controls
                     adgvList.Rows[currRowIndex].Cells["Organization"].Value = selectedEmp.Organization;
 
                     var textCell = new DataGridViewTextBoxCell();
-                    textCell.Value = selectedEmp.Code;                    
+                    textCell.Value = selectedEmp.Code;
 
+                    // change employee code column to text and mark it read only
                     adgvList.Rows[currRowIndex].Cells["Code"] = textCell;
-                    adgvList.Rows[currRowIndex].Cells["Code"].ReadOnly = false;
-                    adgvList.Update();
+                    adgvList.Rows[currRowIndex].Cells["Code"].ReadOnly = true;
+
+                    // focus on the first point of the column 
+                    adgvList.CurrentCell = adgvList.Rows[currRowIndex].Cells[listPointType[0].Code];
 
                     adgvList.BeginEdit(true);
+                    adgvList.Update();
                 }
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-            finally
-            {
-                employeeService = null;
-            }
-
         }
         private void EditTSForm_Load(object sender, EventArgs e)
         {
@@ -323,7 +313,7 @@ namespace ATV_Allowance.Controls
                 throw ex;
             }
         }
-      
+
         private void adgvList_RowValidated(object sender, DataGridViewCellEventArgs e)
         {
             try
@@ -393,10 +383,6 @@ namespace ATV_Allowance.Controls
             {
                 throw ex;
             }
-            finally
-            {
-                articleService = null;
-            }
         }
 
         private void adgvList_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -416,7 +402,7 @@ namespace ATV_Allowance.Controls
             {
                 throw ex;
             }
-        }       
+        }
         private void adgvList_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
             try
@@ -435,10 +421,6 @@ namespace ATV_Allowance.Controls
             catch (Exception ex)
             {
                 throw ex;
-            }
-            finally
-            {
-                articleService = null;
             }
         }
 
@@ -502,10 +484,6 @@ namespace ATV_Allowance.Controls
 
                     throw ex;
                 }
-                finally
-                {
-                    articleService = null;
-                }
             }
         }
 
@@ -561,18 +539,18 @@ namespace ATV_Allowance.Controls
                 throw ex;
             }
         }
-      
+
         private void adgvList_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
             // Change Code Column Cell to combobox
-            if (e.RowIndex == adgvList.NewRowIndex) 
-            {        
+            if (e.RowIndex == adgvList.NewRowIndex)
+            {                
                 var cmbCell = new DataGridViewComboBoxCell();
                 cmbCell.DataSource = empList;
                 adgvList.Rows[e.RowIndex].Cells["Code"] = cmbCell;
                 adgvList.Rows[e.RowIndex].Cells["Code"].ReadOnly = false;
                 adgvList.Update();
-            }
+            }          
         }
     }
 }
