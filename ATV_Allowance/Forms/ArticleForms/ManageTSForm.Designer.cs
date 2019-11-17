@@ -103,7 +103,6 @@
             this.cbEmployee.Size = new System.Drawing.Size(201, 28);
             this.cbEmployee.TabIndex = 4;
             this.cbEmployee.SelectedIndexChanged += new System.EventHandler(this.cbEmployee_SelectedIndexChanged);
-            this.cbEmployee.TextUpdate += new System.EventHandler(this.cbEmployee_TextUpdate);
             // 
             // lblEndDate
             // 

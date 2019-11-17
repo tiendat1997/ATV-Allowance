@@ -27,7 +27,7 @@ namespace ATV_Allowance.Forms.ArticleForms
         private ArticleViewModel model = null;
         private List<ArticleViewModel> articleList = new List<ArticleViewModel>();
         private List<int> currArticleTypes;
-        private List<EmployeeViewModel> empList;
+        private List<string> empList;
 
         public ManageTSForm()
         {
@@ -65,7 +65,7 @@ namespace ATV_Allowance.Forms.ArticleForms
                 adgvList.Columns["TypeId"].Visible = false;
                 adgvList.Columns["Title"].Visible = true;
                 adgvList.Columns["Code"].Visible = true;
-                adgvList.Columns["Date"].Visible = true;                
+                adgvList.Columns["Date"].Visible = true;
 
                 adgvList.Columns["Title"].HeaderText = ADGVArticleText.Title;
                 adgvList.Columns["Title"].Width = ControlsAttribute.GV_WIDTH_LARGE_XX;
@@ -76,7 +76,7 @@ namespace ATV_Allowance.Forms.ArticleForms
 
                 if (articleList.Count == 0)
                 {
-                    model = null; 
+                    model = null;
                 }
             }
             catch (Exception ex)
@@ -94,19 +94,13 @@ namespace ATV_Allowance.Forms.ArticleForms
             try
             {
                 employeeService = new EmployeeService();
-                empList = new List<EmployeeViewModel>
-                {
-                    new EmployeeViewModel
-                    {
-                        Id = 0,
-                        Name = "Tất cả nhân viên" // empty employee
-                    }
-                };
-                empList.AddRange(employeeService.GetAllActive(true));
+                empList = new List<string> { "Tất cả" };
+                empList.AddRange(employeeService.GetAllEmployeeCode(true));
                 cbEmployee.DisplayMember = "Name";
                 cbEmployee.DataSource = empList;
-                //cbEmployee.AutoCompleteMode = AutoCompleteMode.Suggest;
-                //cbEmployee.AutoCompleteSource = AutoCompleteSource.ListItems;
+                cbEmployee.DropDownStyle = ComboBoxStyle.DropDown;
+                cbEmployee.AutoCompleteMode = AutoCompleteMode.Suggest;
+                cbEmployee.AutoCompleteSource = AutoCompleteSource.ListItems;
             }
             catch (Exception ex)
             {
@@ -132,9 +126,26 @@ namespace ATV_Allowance.Forms.ArticleForms
 
         private void cbEmployee_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var emp = (EmployeeViewModel)cbEmployee.SelectedValue;            
-            empId = emp.Id;
-            LoadDGV();
+            try
+            {
+                employeeService = new EmployeeService();
+                string empCode = (string)cbEmployee.SelectedValue;
+                EmployeeViewModel emp;
+                if (empCode != "Tất cả")
+                {
+                    emp = employeeService.GetEmployeeByCode(empCode);
+                    empId = emp.Id;
+                }
+                else
+                {
+                    empId = 0;
+                }
+                LoadDGV();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -168,7 +179,7 @@ namespace ATV_Allowance.Forms.ArticleForms
         private void AddTSForm_Closed(object sender, FormClosedEventArgs e)
         {
             int rowIndex = adgvList.CurrentRow.Index;
-            LoadDGV();          
+            LoadDGV();
         }
 
         private void adgvList_SelectionChanged(object sender, EventArgs e)
@@ -209,10 +220,10 @@ namespace ATV_Allowance.Forms.ArticleForms
                     articleService = new ArticleService();
                     articleService.RemoveArticle(model);
                     LoadDGV();
-                }               
+                }
             }
             catch (Exception ex)
-            { 
+            {
                 throw ex;
             }
             finally
@@ -226,49 +237,6 @@ namespace ATV_Allowance.Forms.ArticleForms
             var curItem = (ArticleGroup)cbArticleType.SelectedItem;
             currArticleTypes = curItem.GroupIds;
             LoadDGV();
-        }
-
-        private void cbEmployee_TextUpdate(object sender, EventArgs e)
-        {
-            try
-            {
-                string filter_param = cbEmployee.Text.ToLower();
-
-                List<EmployeeViewModel> filteredItems = empList.FindAll(x => (x.Code != null && x.Code.ToLower().Contains(filter_param))
-                                                                            || (x.Name != null && x.Name.ToLower().Contains(filter_param)));                                                           
-                // another variant for filtering using StartsWith:
-                // List<string> filteredItems = arrProjectList.FindAll(x => x.StartsWith(filter_param));
-
-                cbEmployee.DataSource = filteredItems;
-
-                if (String.IsNullOrWhiteSpace(filter_param))
-                {
-                    cbEmployee.DataSource = empList;
-                }
-                cbEmployee.DroppedDown = true;
-
-                // this will ensure that the drop down is as long as the list
-                cbEmployee.IntegralHeight = true;
-
-                // remove automatically selected first item
-                //cbEmployee.SelectedIndex = 0;
-
-                cbEmployee.Text = filter_param;
-
-                // set the position of the cursor
-                cbEmployee.SelectionStart = filter_param.Length;
-                cbEmployee.SelectionLength = 0;
-                Cursor.Current = Cursors.Default;
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-            finally
-            {
-
-            }            
         }
     }
 }
