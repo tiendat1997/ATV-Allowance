@@ -52,7 +52,7 @@ namespace ATV_Allowance.Services
             
             foreach(var emp in artEmpList)
             {
-                if (result.Any(e => e.EmployeeId == emp.EmployeeId))
+                if (!result.Any(e => e.EmployeeId == emp.EmployeeId))
                 {
                     result.Add(emp);
                 }

@@ -248,6 +248,12 @@ namespace ATV_Allowance.Services
             //money string
             worksheet.Cells[currentRow + 1, 14].Value = $"(Thành tiền bằng chữ: {NumberToTextVN(totalCost)})";
 
+            //hide deduction of CTV
+            if (role == EmployeeRole.CTV)
+            {
+                worksheet.Column(TS_COL.TRUCHITIEU).Hidden = true;
+            }
+
             //set oreintation
             worksheet.PrinterSettings.Orientation = eOrientation.Landscape;
 
@@ -300,8 +306,9 @@ namespace ATV_Allowance.Services
                 worksheet.Cells[currentRow, PT_COL.D_SD].Value = list[i].DiemSD;
 
                 var sum = list[i].Sum;
-                var deduction = 0;
+                var deduction = list[i].Descrease;
                 var tongcong = (sum - deduction) * percent;
+                worksheet.Cells[currentRow, PT_COL.TRUCHITIEU].Value = deduction;
                 worksheet.Cells[currentRow, PT_COL.TONGDIEM].Value = sum;
                 worksheet.Cells[currentRow, PT_COL.TANGGIAM].Value = (sum - deduction) * 0.1;
                 worksheet.Cells[currentRow, PT_COL.THANHTIEN].Value = tongcong * price;
@@ -376,8 +383,9 @@ namespace ATV_Allowance.Services
                 worksheet.Cells[currentRow, PTTT_COL.D_BT].Value = list[i].DiemBt_Dd;
 
                 var sum = list[i].Sum;
-                var deduction = 0;
+                var deduction = list[i].Descrease;
                 var tongcong = (sum - deduction) * (1+percent);
+                worksheet.Cells[currentRow, PTTT_COL.TRUCHITIEU].Value = deduction;
                 worksheet.Cells[currentRow, PTTT_COL.TONGDIEM].Value = sum;
                 worksheet.Cells[currentRow, PTTT_COL.TANGGIAM].Value = (sum - deduction) * percent;
                 worksheet.Cells[currentRow, PTTT_COL.THANHTIEN].Value = tongcong * price;
@@ -452,8 +460,9 @@ namespace ATV_Allowance.Services
                 worksheet.Cells[currentRow, TTNM_COL.D_Thop].Value = list[i].DiemBt_Dd;
 
                 var sum = list[i].Sum;
-                var deduction = 0;
+                var deduction = list[i].Descrease;
                 var tongcong = (sum - deduction) * (1+percent);
+                worksheet.Cells[currentRow, TTNM_COL.TRUCHITIEU].Value = deduction;
                 worksheet.Cells[currentRow, TTNM_COL.TONGDIEM].Value = sum;
                 worksheet.Cells[currentRow, TTNM_COL.TANGGIAM].Value = (sum - deduction) * percent;
                 worksheet.Cells[currentRow, TTNM_COL.THANHTIEN].Value = tongcong * price;
@@ -528,8 +537,9 @@ namespace ATV_Allowance.Services
                 worksheet.Cells[currentRow, BSTTNM_COL.D_Tfile].Value = listBSTTNM[i].DiemTFile;
 
                 var sum = listBSTTNM[i].Sum;
-                var deduction = 0;
+                var deduction = listBSTTNM[i].Descrease;
                 var tongcong = (sum - deduction) * (1+percent);
+                worksheet.Cells[currentRow, BSTTNM_COL.TRUCHITIEU].Value = deduction;
                 worksheet.Cells[currentRow, BSTTNM_COL.TONGDIEM].Value = sum;
                 worksheet.Cells[currentRow, BSTTNM_COL.TANGGIAM].Value = (sum - deduction) * percent;
                 worksheet.Cells[currentRow, BSTTNM_COL.THANHTIEN].Value = tongcong * price;
@@ -571,8 +581,9 @@ namespace ATV_Allowance.Services
                 worksheet.Cells[currentRow, KHK_COL.D_TCT].Value = listKHK[i].DiemTCT;
 
                 var sum = listKHK[i].Sum;
-                var deduction = 0;
+                var deduction = listKHK[i].Descrease;
                 var tongcong = (sum - deduction) * (1 + percent);
+                worksheet.Cells[currentRow, KHK_COL.TRUCHITIEU].Value = deduction;
                 worksheet.Cells[currentRow, KHK_COL.TONGDIEM].Value = sum;
                 worksheet.Cells[currentRow, KHK_COL.TANGGIAM].Value = (sum - deduction) * percent;
                 worksheet.Cells[currentRow, KHK_COL.THANHTIEN].Value = tongcong * price;
