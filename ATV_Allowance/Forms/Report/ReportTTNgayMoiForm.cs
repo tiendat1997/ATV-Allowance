@@ -216,7 +216,7 @@ namespace ATV_Allowance.Forms.Report
         private void btnDeduction_Click(object sender, EventArgs e)
         {
             //ListEmployeeDeduction deductionForm = new ListEmployeeDeduction(dtpMonth.Value.Month, dtpYear.Value.Year, ArticleType.PV_TTNM, (int)cbRole.SelectedValue);
-            ListEmployeeDeduction deductionForm = new ListEmployeeDeduction(dtpMonth.Value.Month, dtpYear.Value.Year, ArticleType.BIENSOAN_TTNM, EmployeeRole.PV);
+            ListEmployeeDeduction deductionForm = new ListEmployeeDeduction(dtpMonth.Value.Month, dtpYear.Value.Year, ArticleType.PV_TTNM, EmployeeRole.PV);
             deductionForm.ShowDialog();
         }
 

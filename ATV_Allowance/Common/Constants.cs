@@ -300,9 +300,10 @@ namespace ATV_Allowance.Common
             public static int D_TLT = 13;
             public static int SL_SD = 14;
             public static int D_SD = 15;
-            public static int TONGDIEM = 16;
-            public static int TANGGIAM = 17;
-            public static int THANHTIEN = 18;
+            public static int TRUCHITIEU = 16;
+            public static int TONGDIEM = 17;
+            public static int TANGGIAM = 18;
+            public static int THANHTIEN = 19;
         }
         public static class PTTT_COL
         {
@@ -321,9 +322,10 @@ namespace ATV_Allowance.Common
             public static int D_BS = 13;
             public static int SL_BT = 14;
             public static int D_BT = 15;
-            public static int TONGDIEM = 16;
-            public static int TANGGIAM = 17;
-            public static int THANHTIEN = 18;
+            public static int TRUCHITIEU = 16;
+            public static int TONGDIEM = 17;
+            public static int TANGGIAM = 18;
+            public static int THANHTIEN = 19;
         }
 
         public static class TTNM_COL
@@ -343,9 +345,10 @@ namespace ATV_Allowance.Common
             public static int D_Tlt = 13;
             public static int SL_Thop = 14;
             public static int D_Thop = 15;
-            public static int TONGDIEM = 16;
-            public static int TANGGIAM = 17;
-            public static int THANHTIEN = 18;
+            public static int TRUCHITIEU = 16;
+            public static int TONGDIEM = 17;
+            public static int TANGGIAM = 18;
+            public static int THANHTIEN = 19;
         }
 
         public static class BSTTNM_COL
@@ -363,9 +366,10 @@ namespace ATV_Allowance.Common
             public static int D_Tfile = 11;
             public static int SL_BtDuyet = 12;
             public static int D_BtDuyet = 13;
-            public static int TONGDIEM = 14;
-            public static int TANGGIAM = 15;
-            public static int THANHTIEN = 16;
+            public static int TRUCHITIEU = 14;
+            public static int TONGDIEM = 15;
+            public static int TANGGIAM = 16;
+            public static int THANHTIEN = 17;
         }
 
         public static class KHK_COL
@@ -381,9 +385,10 @@ namespace ATV_Allowance.Common
             public static int D_TCT = 9;
             public static int SL_KTTH = 10;
             public static int D_KTTH = 11;
-            public static int TONGDIEM = 12;
-            public static int TANGGIAM = 14;
-            public static int THANHTIEN = 16;
+            public static int TRUCHITIEU = 12;
+            public static int TONGDIEM = 13;
+            public static int TANGGIAM = 15;
+            public static int THANHTIEN = 17;
         }
 
         public static class TS_KHK_COL
