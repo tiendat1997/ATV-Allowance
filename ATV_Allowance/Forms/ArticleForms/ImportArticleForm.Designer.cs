@@ -110,11 +110,10 @@
             this.adgvList.Size = new System.Drawing.Size(1108, 257);
             this.adgvList.TabIndex = 0;
             this.adgvList.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.adgvList_CellFormatting);
-            this.adgvList.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.adgvList_DataError);
             this.adgvList.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.adgvList_EditingControlShowing);
+            this.adgvList.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.adgvList_RowEnter);
             this.adgvList.RowValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.adgvList_RowValidated);
             this.adgvList.RowValidating += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.adgvList_RowValidating);
-            this.adgvList.UserDeletedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.adgvList_UserDeletedRow);
             this.adgvList.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.adgvList_UserDeletingRow);
             // 
             // epTitle

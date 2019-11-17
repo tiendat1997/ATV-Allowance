@@ -145,7 +145,7 @@ namespace ATV_Allowance.Controls
             }
             finally
             {
-
+                articleService = null;
             }
 
         }
@@ -190,18 +190,7 @@ namespace ATV_Allowance.Controls
                 adgvList.Columns["Position"].Width = ControlsAttribute.GV_WIDTH_SMALL;
                 adgvList.Columns["Organization"].HeaderText = ADGVEmployeeText.Organization;
                 adgvList.Columns["Organization"].Width = ControlsAttribute.GV_WIDTH_LARGE;
-
-                //if (adgvList.Columns["CbEmployeeColumn"] == null)
-                //{
-                //    DataGridViewComboBoxColumn cmbCol = new DataGridViewComboBoxColumn();
-                //    cmbCol.HeaderText = ADGVEmployeeText.Code;
-                //    cmbCol.Name = "CbEmployeeColumn";
-                //    cmbCol.DataSource = empList;
-                //    cmbCol.DropDownWidth = 150;
-                //    adgvList.Columns.Add(cmbCol);
-                //    adgvList.Columns["CbEmployeeColumn"].DisplayIndex = 2;
-                //}
-
+            
                 InvisiblePointType();
                 foreach (var type in listPointType)
                 {
@@ -214,7 +203,6 @@ namespace ATV_Allowance.Controls
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
             finally
@@ -231,21 +219,21 @@ namespace ATV_Allowance.Controls
                 comboBox.AutoCompleteMode = AutoCompleteMode.Suggest;
                 comboBox.AutoCompleteSource = AutoCompleteSource.ListItems;
                 comboBox.DropDownWidth = 150;
-                comboBox.SelectionChangeCommitted -= new EventHandler(SelectionChangeCommitted);
-                comboBox.SelectionChangeCommitted += SelectionChangeCommitted;
+                comboBox.KeyDown -= new KeyEventHandler(EmployeeComboboxKeyDown);
+                comboBox.KeyDown += new KeyEventHandler(EmployeeComboboxKeyDown);
                 comboBox.SelectedIndex = 0;
             }
         }
-        private void KeyDown(object sender, KeyEventArgs e)
+        private void EmployeeComboboxKeyDown(object sender, KeyEventArgs e)
         {
             try
             {
-                if (e.KeyValue == 13) // Enter or TAB
+                if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Tab) // Enter or TAB 
                 {
-                    var empCode = (string)(sender as ComboBox).SelectedItem;
+                    string empCode = (string)(sender as ComboBox).SelectedItem;
                     if (string.IsNullOrEmpty(empCode) == false)
                     {
-                        SelectionChangeCommitted(sender, null);
+                        EmployeeCodeSelectionChangeCommitted(sender, e);
                     }
                 }
             }
@@ -254,7 +242,7 @@ namespace ATV_Allowance.Controls
                 throw ex;
             }
         }
-        private void SelectionChangeCommitted(object sender, EventArgs e)
+        private void EmployeeCodeSelectionChangeCommitted(object sender, EventArgs e)
         {
             try
             {
@@ -335,15 +323,7 @@ namespace ATV_Allowance.Controls
                 throw ex;
             }
         }
-
-        private void adgvList_DataError(object sender, DataGridViewDataErrorEventArgs e)
-        {
-            //if (e.Context.ToString().Contains("Parsing"))
-            //{
-            //    MessageBox.Show("Vui lòng nhập định dạng số cho điểm");
-            //}
-        }
-
+      
         private void adgvList_RowValidated(object sender, DataGridViewCellEventArgs e)
         {
             try
@@ -436,11 +416,7 @@ namespace ATV_Allowance.Controls
             {
                 throw ex;
             }
-        }
-        private void adgvList_UserDeletedRow(object sender, DataGridViewRowEventArgs e)
-        {
-        }
-
+        }       
         private void adgvList_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
             try
@@ -588,11 +564,11 @@ namespace ATV_Allowance.Controls
       
         private void adgvList_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex == adgvList.NewRowIndex)
+            // Change Code Column Cell to combobox
+            if (e.RowIndex == adgvList.NewRowIndex) 
             {        
                 var cmbCell = new DataGridViewComboBoxCell();
                 cmbCell.DataSource = empList;
-                
                 adgvList.Rows[e.RowIndex].Cells["Code"] = cmbCell;
                 adgvList.Rows[e.RowIndex].Cells["Code"].ReadOnly = false;
                 adgvList.Update();

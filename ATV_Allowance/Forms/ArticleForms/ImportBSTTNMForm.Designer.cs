@@ -57,7 +57,7 @@
             // 
             this.tpPostProduction.Location = new System.Drawing.Point(4, 29);
             this.tpPostProduction.Name = "tpPostProduction";
-            this.tpPostProduction.Size = new System.Drawing.Size(1069, 389);
+            this.tpPostProduction.Size = new System.Drawing.Size(1195, 389);
             this.tpPostProduction.TabIndex = 1;
             this.tpPostProduction.Text = "Khối hậu kỳ";
             this.tpPostProduction.UseVisualStyleBackColor = true;
@@ -69,7 +69,7 @@
             this.ClientSize = new System.Drawing.Size(1228, 447);
             this.Controls.Add(this.tcImportArticle);
             this.Name = "ImportBSTTNMForm";
-            this.Text = "ImportBSTTNMForm";
+            this.Text = "Nhập tin biên soạn thông tin ngày mới";
             this.tcImportArticle.ResumeLayout(false);
             this.ResumeLayout(false);
 

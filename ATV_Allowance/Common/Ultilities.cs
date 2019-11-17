@@ -231,15 +231,7 @@ namespace ATV_Allowance.Common
                     case "Nhập Thù lao biên soạn tnnm":
                         ImportBSTTNMForm importTNNM = new ImportBSTTNMForm();
                         form = (Form)importTNNM;
-                        break;
-                    //case "Nhập Thù lao biên soạn tnnm":
-                    //    ImportArticleForm imporBSForm = new ImportArticleForm(ArticleType.BIENSOAN_TTNM);
-                    //    form = (Form)imporBSForm;
-                    //    break;                        
-                    //case "Nhập Khối hậu kỳ biên soạn tnnm":
-                    //    ImportArticleForm importHKForm = new ImportArticleForm(ArticleType.KHOIHK_TTNM);
-                    //    form = (Form)importHKForm;
-                    //    break;
+                        break;                   
                     case "Xem nhanh tin":
                         ManageTSForm tsForm = new ManageTSForm();
                         form = tsForm;
