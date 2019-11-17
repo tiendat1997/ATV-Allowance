@@ -168,10 +168,7 @@ namespace ATV_Allowance.Forms.ArticleForms
         private void AddTSForm_Closed(object sender, FormClosedEventArgs e)
         {
             int rowIndex = adgvList.CurrentRow.Index;
-            LoadDGV();
-            //adgvList.ClearSelection();
-            //adgvList.Rows[rowIndex].Selected = true;
-            //adgvList.CurrentCell = adgvList.Rows[rowIndex].Cells[1];
+            LoadDGV();          
         }
 
         private void adgvList_SelectionChanged(object sender, EventArgs e)
@@ -190,8 +187,9 @@ namespace ATV_Allowance.Forms.ArticleForms
         }
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
-        {                        
-            var filteredList = articleList.Where(t => t.Title.ToUpper().Contains(txtSearch.Text.ToUpper())).ToList();
+        {
+            string unsignSearchValue = Utilities.RemoveSign4VietnameseString(txtSearch.Text.ToUpper());
+            var filteredList = articleList.Where(t => Utilities.RemoveSign4VietnameseString(t.Title.ToUpper()).Contains(unsignSearchValue)).ToList();
             SortableBindingList<ArticleViewModel> sbl = new SortableBindingList<ArticleViewModel>(filteredList);
             bs = new BindingSource();
             bs.DataSource = sbl;
@@ -206,7 +204,7 @@ namespace ATV_Allowance.Forms.ArticleForms
                 {
                     return;
                 }
-                if (MessageBox.Show("Xác nhận xóa nhân viên", "Message", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                if (MessageBox.Show("Bạn có chắc chắn muốn xóa tin này?", "Message", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     articleService = new ArticleService();
                     articleService.RemoveArticle(model);
