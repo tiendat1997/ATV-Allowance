@@ -192,6 +192,7 @@ namespace ATV_Allowance.Services
             var package = helper.GetPackage(Tempate.TS);
             var workbook = package.Workbook;
             var worksheet = workbook.Worksheets.First();
+            
 
             int currentRow = 5;
 
@@ -280,7 +281,7 @@ namespace ATV_Allowance.Services
 
             int currentRow = 5;
             var percent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, role == EmployeeRole.PV ? Criterias_Percent.TANG_GIAM_PV_BTV : Criterias_Percent.TANG_GIAM_CTV);
-            worksheet.Cells[currentRow - 2, TS_COL.TANGGIAM].Value = "Tăng " + percent + "%";
+            worksheet.Cells[currentRow - 2, PT_COL.TANGGIAM].Value = "Tăng " + percent + "%";
             percent = percent / 100;
 
             for (int i = 0; i < list.Count; i++)
@@ -325,6 +326,12 @@ namespace ATV_Allowance.Services
             //money string
             worksheet.Cells[currentRow + 1, PT_COL.THANHTIEN + 1].Value = $"(Thành tiền bằng chữ: {NumberToTextVN(totalCost)})";
 
+            //hide deduction of CTV
+            if (role == EmployeeRole.CTV)
+            {
+                worksheet.Column(PT_COL.TRUCHITIEU).Hidden = true;
+            }
+
             //set oreintation
             worksheet.PrinterSettings.Orientation = eOrientation.Landscape;
 
@@ -354,7 +361,7 @@ namespace ATV_Allowance.Services
 
             int currentRow = 5;
             var percent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, role == EmployeeRole.PV ? Criterias_Percent.TANG_GIAM_PV_BTV : Criterias_Percent.TANG_GIAM_CTV);
-            worksheet.Cells[currentRow - 2, TS_COL.TANGGIAM].Value = "Tăng " + percent + "%";
+            worksheet.Cells[currentRow - 2, PTTT_COL.TANGGIAM].Value = "Tăng " + percent + "%";
             percent = percent / 100;
 
             for (int i = 0; i < list.Count; i++)
@@ -399,6 +406,12 @@ namespace ATV_Allowance.Services
             //money string
             worksheet.Cells[currentRow + 1, PTTT_COL.THANHTIEN + 1].Value = $"(Thành tiền bằng chữ: {NumberToTextVN(totalCost)})";
 
+            //hide deduction of CTV
+            if (role == EmployeeRole.CTV)
+            {
+                worksheet.Column(PTTT_COL.TRUCHITIEU).Hidden = true;
+            }
+
             //set oreintation
             worksheet.PrinterSettings.Orientation = eOrientation.Landscape;
 
@@ -428,7 +441,7 @@ namespace ATV_Allowance.Services
 
             int currentRow = 5;
             var percent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, role == EmployeeRole.PV ? Criterias_Percent.TANG_GIAM_PV_BTV : Criterias_Percent.TANG_GIAM_CTV);
-            worksheet.Cells[currentRow - 2, TS_COL.TANGGIAM].Value = "Tăng " + percent + "%";
+            worksheet.Cells[currentRow - 2, TTNM_COL.TANGGIAM].Value = "Tăng " + percent + "%";
             percent = percent / 100;
 
             for (int i = 0; i < list.Count; i++)
@@ -459,19 +472,25 @@ namespace ATV_Allowance.Services
             }
 
             //title row
-            worksheet.Cells[2, PTTT_COL.SL_BT].Value = $"THÁNG {endDate.Month}/{endDate.Year}";
-            worksheet.Cells[2, PTTT_COL.SL_BS].Value = "(" + (role == EmployeeRole.PV ? "PV" : "CTV") + ")";
+            worksheet.Cells[2, TTNM_COL.SL_Thop].Value = $"THÁNG {endDate.Month}/{endDate.Year}";
+            worksheet.Cells[2, TTNM_COL.SL_Tlt].Value = "(" + (role == EmployeeRole.PV ? "PV" : "CTV") + ")";
 
 
             //report date row
-            worksheet.Cells[currentRow + 2, PTTT_COL.THANHTIEN + 1].Value = $"Long Xuyên, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
+            worksheet.Cells[currentRow + 2, TTNM_COL.THANHTIEN + 1].Value = $"Long Xuyên, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
 
             //sum row
             var totalCost = list.Sum(e => e.TotalCost);
-            worksheet.Cells[currentRow, PTTT_COL.THANHTIEN].Value = totalCost;
+            worksheet.Cells[currentRow, TTNM_COL.THANHTIEN].Value = totalCost;
 
             //money string
-            worksheet.Cells[currentRow + 1, PTTT_COL.THANHTIEN + 1].Value = $"(Thành tiền bằng chữ: {NumberToTextVN(totalCost)})";
+            worksheet.Cells[currentRow + 1, TTNM_COL.THANHTIEN + 1].Value = $"(Thành tiền bằng chữ: {NumberToTextVN(totalCost)})";
+
+            //hide deduction of CTV
+            if (role == EmployeeRole.CTV)
+            {
+                worksheet.Column(TTNM_COL.TRUCHITIEU).Hidden = true;
+            }
 
             //set oreintation
             worksheet.PrinterSettings.Orientation = eOrientation.Landscape;
@@ -479,10 +498,10 @@ namespace ATV_Allowance.Services
             if (list.Count > 0)
             {
                 //border
-                worksheet.Cells[5, 1, currentRow - 1, PTTT_COL.THANHTIEN + 1].Style.Border.Top.Style = ExcelBorderStyle.Thin;
-                worksheet.Cells[5, 1, currentRow - 1, PTTT_COL.THANHTIEN + 1].Style.Border.Right.Style = ExcelBorderStyle.Thin;
-                worksheet.Cells[5, 1, currentRow - 1, PTTT_COL.THANHTIEN + 1].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
-                worksheet.Cells[5, 1, currentRow - 1, PTTT_COL.THANHTIEN + 1].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                worksheet.Cells[5, 1, currentRow - 1, TTNM_COL.THANHTIEN + 1].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                worksheet.Cells[5, 1, currentRow - 1, TTNM_COL.THANHTIEN + 1].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                worksheet.Cells[5, 1, currentRow - 1, TTNM_COL.THANHTIEN + 1].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                worksheet.Cells[5, 1, currentRow - 1, TTNM_COL.THANHTIEN + 1].Style.Border.Left.Style = ExcelBorderStyle.Thin;
             }
             else
             {
@@ -504,7 +523,7 @@ namespace ATV_Allowance.Services
 
             int currentRow = 5;
             var percent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, role == EmployeeRole.PV ? Criterias_Percent.TANG_GIAM_PV_BTV : Criterias_Percent.TANG_GIAM_CTV);
-            worksheet.Cells[currentRow - 2, TS_COL.TANGGIAM].Value = "Tăng " + percent + "%";
+            worksheet.Cells[currentRow - 2, BSTTNM_COL.TANGGIAM].Value = "Tăng " + percent + "%";
             percent = percent / 100;
 
             for (int i = 0; i < listBSTTNM.Count; i++)
@@ -596,10 +615,16 @@ namespace ATV_Allowance.Services
 
             //sum row
             var totalCostKHK = listKHK.Sum(e => e.TotalCost);
-            worksheet.Cells[currentRow, BSTTNM_COL.THANHTIEN].Value = totalCostKHK;
+            worksheet.Cells[currentRow, KHK_COL.THANHTIEN].Value = totalCostKHK;
 
             //money string
             worksheet.Cells[currentRow + 1, BSTTNM_COL.THANHTIEN + 1].Value = $"(Thành tiền bằng chữ: {NumberToTextVN(totalCostBSTTNM)})";
+
+            //hide deduction of CTV
+            if (role == EmployeeRole.CTV)
+            {
+                worksheet.Column(BSTTNM_COL.TRUCHITIEU).Hidden = true;
+            }
 
             //set oreintation
             worksheet.PrinterSettings.Orientation = eOrientation.Landscape;

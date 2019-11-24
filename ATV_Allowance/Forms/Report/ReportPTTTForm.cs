@@ -87,9 +87,11 @@ namespace ATV_Allowance.Forms.Report
                 adgvReportBroadcast.DataSource = bs;
                 adgvReportBroadcast.Columns["EmployeeName"].HeaderText = ADGVReportHeader.Name;
                 adgvReportBroadcast.Columns["Organization"].HeaderText = ADGVReportHeader.Organization;
-                adgvReportBroadcast.Columns["Sum"].HeaderText = ADGVReportHeader.TongCong;
+                adgvReportBroadcast.Columns["SumPoint"].HeaderText = ADGVReportHeader.TongCong;
                 adgvReportBroadcast.Columns["IncreasePercent"].HeaderText = "Tăng " + percent + "%";
                 adgvReportBroadcast.Columns["IncreasePercent"].DefaultCellStyle.Format = "F1";
+                adgvReportBroadcast.Columns["Descrease"].HeaderText = ADGVReportHeader.TruChiTieu;
+                adgvReportBroadcast.Columns["Descrease"].DefaultCellStyle.Format = "F1";
                 adgvReportBroadcast.Columns["SoTin"].HeaderText = ADGVReportHeader.SoTin;
                 adgvReportBroadcast.Columns["DiemTin"].HeaderText = ADGVReportHeader.Diem;
                 adgvReportBroadcast.Columns["TotalCost"].HeaderText = ADGVReportHeader.TotalCost;
@@ -108,7 +110,6 @@ namespace ATV_Allowance.Forms.Report
                 adgvReportBroadcast.Columns["DiemPsu"].Visible = false;
                 adgvReportBroadcast.Columns["DiemQtin"].Visible = false;
                 adgvReportBroadcast.Columns["DiemQPsu"].Visible = false;
-                adgvReportBroadcast.Columns["Descrease"].Visible = false;
                 adgvReportBroadcast.Columns["TotalPoint"].Visible = false;
 
                 adgvReportBroadcast.Columns["SoBai"].Visible = false;
@@ -194,10 +195,6 @@ namespace ATV_Allowance.Forms.Report
 
         }
 
-        private void cbRole_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            LoadReport();
-        }
 
         private void dtpStartdate_ValueChanged(object sender, EventArgs e)
         {
@@ -219,6 +216,11 @@ namespace ATV_Allowance.Forms.Report
             //ListEmployeeDeduction deductionForm = new ListEmployeeDeduction(dtpMonth.Value.Month, dtpYear.Value.Year, ArticleType.PHAT_THANH, (int)cbRole.SelectedValue);
             ListEmployeeDeduction deductionForm = new ListEmployeeDeduction(dtpMonth.Value.Month, dtpYear.Value.Year, ArticleType.PHAT_THANH, EmployeeRole.PV);
             deductionForm.ShowDialog();
+        }
+
+        private void cbRole_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LoadReport();
         }
     }
 }

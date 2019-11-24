@@ -40,6 +40,7 @@
             this.btnExport = new System.Windows.Forms.Button();
             this.btnExportKHK = new System.Windows.Forms.Button();
             this.btnDeduction = new System.Windows.Forms.Button();
+            this.btnPrintPreview = new System.Windows.Forms.Button();
             this.flowLayoutPanel4 = new System.Windows.Forms.FlowLayoutPanel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
@@ -56,6 +57,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.edtPrice = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
+            this.webBrowser = new System.Windows.Forms.WebBrowser();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.flowLayoutPanel3.SuspendLayout();
@@ -170,17 +172,18 @@
             this.flowLayoutPanel5.Controls.Add(this.btnExport);
             this.flowLayoutPanel5.Controls.Add(this.btnExportKHK);
             this.flowLayoutPanel5.Controls.Add(this.btnDeduction);
+            this.flowLayoutPanel5.Controls.Add(this.btnPrintPreview);
             this.flowLayoutPanel5.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
             this.flowLayoutPanel5.Location = new System.Drawing.Point(591, 17);
             this.flowLayoutPanel5.Margin = new System.Windows.Forms.Padding(4);
             this.flowLayoutPanel5.Name = "flowLayoutPanel5";
-            this.flowLayoutPanel5.Size = new System.Drawing.Size(551, 36);
+            this.flowLayoutPanel5.Size = new System.Drawing.Size(580, 36);
             this.flowLayoutPanel5.TabIndex = 0;
             // 
             // btnExport
             // 
             this.btnExport.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExport.Location = new System.Drawing.Point(394, 4);
+            this.btnExport.Location = new System.Drawing.Point(423, 4);
             this.btnExport.Margin = new System.Windows.Forms.Padding(4);
             this.btnExport.Name = "btnExport";
             this.btnExport.Size = new System.Drawing.Size(153, 28);
@@ -192,7 +195,7 @@
             // btnExportKHK
             // 
             this.btnExportKHK.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExportKHK.Location = new System.Drawing.Point(237, 4);
+            this.btnExportKHK.Location = new System.Drawing.Point(266, 4);
             this.btnExportKHK.Margin = new System.Windows.Forms.Padding(4);
             this.btnExportKHK.Name = "btnExportKHK";
             this.btnExportKHK.Size = new System.Drawing.Size(149, 28);
@@ -204,7 +207,7 @@
             // btnDeduction
             // 
             this.btnDeduction.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDeduction.Location = new System.Drawing.Point(105, 4);
+            this.btnDeduction.Location = new System.Drawing.Point(134, 4);
             this.btnDeduction.Margin = new System.Windows.Forms.Padding(4);
             this.btnDeduction.Name = "btnDeduction";
             this.btnDeduction.Size = new System.Drawing.Size(124, 28);
@@ -212,6 +215,17 @@
             this.btnDeduction.Text = "Giảm trừ PV";
             this.btnDeduction.UseVisualStyleBackColor = true;
             this.btnDeduction.Click += new System.EventHandler(this.btnDeduction_Click);
+            // 
+            // btnPrintPreview
+            // 
+            this.btnPrintPreview.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F);
+            this.btnPrintPreview.Location = new System.Drawing.Point(3, 3);
+            this.btnPrintPreview.Name = "btnPrintPreview";
+            this.btnPrintPreview.Size = new System.Drawing.Size(124, 28);
+            this.btnPrintPreview.TabIndex = 4;
+            this.btnPrintPreview.Text = "Preview";
+            this.btnPrintPreview.UseVisualStyleBackColor = true;
+            this.btnPrintPreview.Click += new System.EventHandler(this.btnPrintPreview_Click);
             // 
             // flowLayoutPanel4
             // 
@@ -228,6 +242,7 @@
             // 
             this.flowLayoutPanel1.Controls.Add(this.label1);
             this.flowLayoutPanel1.Controls.Add(this.cbRole);
+            this.flowLayoutPanel1.Controls.Add(this.webBrowser);
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
@@ -426,6 +441,14 @@
             this.label7.TabIndex = 9;
             this.label7.Text = "vnđ / điểm";
             // 
+            // webBrowser
+            // 
+            this.webBrowser.Location = new System.Drawing.Point(3, 35);
+            this.webBrowser.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webBrowser.Name = "webBrowser";
+            this.webBrowser.Size = new System.Drawing.Size(1145, 448);
+            this.webBrowser.TabIndex = 8;
+            // 
             // ReportBroadcastForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -483,5 +506,7 @@
         private System.Windows.Forms.NumericUpDown edtPrice;
         private System.Windows.Forms.ComboBox cbRole;
         private System.Windows.Forms.Button btnExportKHK;
+        private System.Windows.Forms.Button btnPrintPreview;
+        private System.Windows.Forms.WebBrowser webBrowser;
     }
 }

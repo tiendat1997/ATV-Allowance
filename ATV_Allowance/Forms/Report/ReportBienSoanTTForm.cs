@@ -81,9 +81,11 @@ namespace ATV_Allowance.Forms.Report
                 adgvReportBroadcast.DataSource = bs;
                 adgvReportBroadcast.Columns["EmployeeName"].HeaderText = ADGVReportHeader.Name;
                 adgvReportBroadcast.Columns["Organization"].HeaderText = ADGVReportHeader.Organization;
-                adgvReportBroadcast.Columns["Sum"].HeaderText = ADGVReportHeader.TongCong;
+                adgvReportBroadcast.Columns["SumPoint"].HeaderText = ADGVReportHeader.TongCong;
                 adgvReportBroadcast.Columns["IncreasePercent"].HeaderText = "Tăng " + percent +"%";
                 adgvReportBroadcast.Columns["IncreasePercent"].DefaultCellStyle.Format = "F1";
+                adgvReportBroadcast.Columns["Descrease"].HeaderText = ADGVReportHeader.TruChiTieu;
+                adgvReportBroadcast.Columns["Descrease"].DefaultCellStyle.Format = "F1";
                 adgvReportBroadcast.Columns["TotalCost"].HeaderText = ADGVReportHeader.TotalCost;
                 adgvReportBroadcast.Columns["TotalCost"].DefaultCellStyle.Format = "N0";
                 adgvReportBroadcast.Columns["SoBs_TTN"].HeaderText = ADGVReportHeader.SoBs_TTN;
@@ -99,7 +101,6 @@ namespace ATV_Allowance.Forms.Report
 
 
                 adgvReportBroadcast.Columns["EmployeeId"].Visible = false;
-                adgvReportBroadcast.Columns["Descrease"].Visible = false;
                 adgvReportBroadcast.Columns["TotalPoint"].Visible = false;
 
                 adgvReportBroadcast.Columns["SoBai"].Visible = false;
@@ -177,9 +178,11 @@ namespace ATV_Allowance.Forms.Report
                 adgvKHK.DataSource = bs;
                 adgvKHK.Columns["EmployeeName"].HeaderText = ADGVReportHeader.Name;
                 adgvKHK.Columns["Organization"].HeaderText = ADGVReportHeader.Organization;
-                adgvKHK.Columns["Sum"].HeaderText = ADGVReportHeader.TongCong;
+                adgvKHK.Columns["SumPoint"].HeaderText = ADGVReportHeader.TongCong;
                 adgvKHK.Columns["IncreasePercent"].HeaderText = ADGVReportHeader.TangGiam;
                 adgvKHK.Columns["IncreasePercent"].DefaultCellStyle.Format = "F1";
+                adgvKHK.Columns["Descrease"].HeaderText = ADGVReportHeader.TruChiTieu;
+                adgvKHK.Columns["Descrease"].DefaultCellStyle.Format = "F1";
                 adgvKHK.Columns["TotalCost"].HeaderText = ADGVReportHeader.TotalCost;
                 adgvKHK.Columns["TotalCost"].DefaultCellStyle.Format = "N0";
                 adgvKHK.Columns["SoDCT"].HeaderText = ADGVReportHeader.SoDCT;
@@ -193,7 +196,6 @@ namespace ATV_Allowance.Forms.Report
 
 
                 adgvKHK.Columns["EmployeeId"].Visible = false;
-                adgvKHK.Columns["Descrease"].Visible = false;
                 adgvKHK.Columns["TotalPoint"].Visible = false;
 
                 adgvKHK.Columns["SoBai"].Visible = false;
