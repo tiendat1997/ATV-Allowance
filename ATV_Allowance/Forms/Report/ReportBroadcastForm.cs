@@ -4,6 +4,7 @@ using ATV_Allowance.Services;
 using ATV_Allowance.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -18,6 +19,8 @@ namespace ATV_Allowance.Forms.Report
         private IReportService reportService;
         private ICriteriaService criteriaService;
         private SaveFileDialog saveFileDialog;
+        private StreamReader streamToPrint;
+        private Font printFont;
 
         public ReportBroadcastForm()
         {
@@ -87,7 +90,7 @@ namespace ATV_Allowance.Forms.Report
                 adgvReportBroadcast.Columns["DiemPsu"].HeaderText = ADGVReportHeader.Diem;
                 adgvReportBroadcast.Columns["DiemQtin"].HeaderText = ADGVReportHeader.DiemQTin;
                 adgvReportBroadcast.Columns["DiemQPsu"].HeaderText = ADGVReportHeader.Diem;
-                adgvReportBroadcast.Columns["Sum"].HeaderText = ADGVReportHeader.Cong;
+                adgvReportBroadcast.Columns["SumPoint"].HeaderText = ADGVReportHeader.Cong;
                 adgvReportBroadcast.Columns["Descrease"].HeaderText = ADGVReportHeader.TruChiTieu;
                 adgvReportBroadcast.Columns["TotalPoint"].HeaderText = ADGVReportHeader.TotalPoint;
                 adgvReportBroadcast.Columns["TotalPoint"].DefaultCellStyle.Format = "F1";
@@ -224,6 +227,21 @@ namespace ATV_Allowance.Forms.Report
                 var path = Path.GetFullPath(saveFileDialog.FileName);
                 File.WriteAllBytes(path, data);
             }
+        }
+
+        private void btnPrintPreview_Click(object sender, EventArgs e)
+        {
+            var data = reportService.GetReportTS(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, ArticleType.THOI_SU);
+
+           
+
+            //Process process = new Process();
+            //ProcessStartInfo startInfo = new ProcessStartInfo();
+            //process.StartInfo = startInfo;
+
+            //startInfo.FileName = @"Output.pdf";
+            //process.Start();
+           
         }
     }
 }

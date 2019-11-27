@@ -54,7 +54,7 @@
         public int SoKT_TH { get; set; }
         public double DiemKT_TH { get; set; }
 
-        public double Sum { get; set; }
+        public double SumPoint { get; set; }
         public double Descrease { get; set; }
         public double IncreasePercent { get; set; }
         public double TotalPoint { get; set; }
