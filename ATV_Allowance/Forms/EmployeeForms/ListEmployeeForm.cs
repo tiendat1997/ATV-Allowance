@@ -46,6 +46,7 @@ namespace ATV_Allowance.Forms.EmployeeForms
                 adgvEmployee.Columns["Position"].Visible = true;
                 adgvEmployee.Columns["Organization"].Visible = true;
                 adgvEmployee.Columns["IsActive"].Visible = false;
+                adgvEmployee.Columns["CodeAndName"].Visible = false;
                 
                 adgvEmployee.Columns["Code"].HeaderText = ADGVEmployeeText.Code;
                 adgvEmployee.Columns["Code"].Width = ControlsAttribute.GV_WIDTH_NORMAL;

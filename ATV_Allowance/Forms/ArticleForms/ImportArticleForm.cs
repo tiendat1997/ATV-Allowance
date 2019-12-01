@@ -208,10 +208,10 @@ namespace ATV_Allowance.Forms.ArticleForms
             comboBox = e.Control as ComboBox;
             if (comboBox != null)
             {
-                comboBox.DropDownStyle = ComboBoxStyle.DropDown;
+                comboBox.DropDownStyle = ComboBoxStyle.DropDownList;
                 comboBox.AutoCompleteMode = AutoCompleteMode.Suggest;
                 comboBox.AutoCompleteSource = AutoCompleteSource.ListItems;
-                comboBox.DropDownWidth = 150;
+                comboBox.DropDownWidth = 200;
                 comboBox.SelectionChangeCommitted -= new EventHandler(EmployeeCodeSelectionChangeCommitted);
                 comboBox.SelectionChangeCommitted += EmployeeCodeSelectionChangeCommitted;
                 comboBox.KeyDown -= new KeyEventHandler(EmployeeComboboxKeyDown);

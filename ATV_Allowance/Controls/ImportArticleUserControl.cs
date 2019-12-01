@@ -203,7 +203,7 @@ namespace ATV_Allowance.Controls
             comboBox = e.Control as ComboBox;
             if (comboBox != null)
             {
-
+                comboBox.DropDownStyle = ComboBoxStyle.DropDownList;
                 comboBox.AutoCompleteMode = AutoCompleteMode.Suggest;
                 comboBox.AutoCompleteSource = AutoCompleteSource.ListItems;
                 comboBox.DropDownWidth = 200;
@@ -211,7 +211,6 @@ namespace ATV_Allowance.Controls
                 comboBox.SelectionChangeCommitted += EmployeeCodeSelectionChangeCommitted;
                 comboBox.KeyDown -= new KeyEventHandler(EmployeeComboboxKeyDown);
                 comboBox.KeyDown += new KeyEventHandler(EmployeeComboboxKeyDown);
-                comboBox.DropDownStyle = ComboBoxStyle.DropDown;
                 comboBox.SelectedIndex = 0;
             }
         }

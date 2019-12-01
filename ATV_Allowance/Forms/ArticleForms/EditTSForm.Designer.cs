@@ -30,13 +30,13 @@
         {            
             this.components = new System.ComponentModel.Container();
             this.gbArticleTitle = new System.Windows.Forms.GroupBox();
+            this.btnRemove = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.txtTitle = new System.Windows.Forms.TextBox();
             this.txtDate = new System.Windows.Forms.TextBox();
             this.gbList = new System.Windows.Forms.GroupBox();
             this.adgvList = new System.Windows.Forms.DataGridView();
             this.epTitle = new System.Windows.Forms.ErrorProvider(this.components);
-            this.btnRemove = new System.Windows.Forms.Button();
             this.gbArticleTitle.SuspendLayout();
             this.gbList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.adgvList)).BeginInit();
@@ -55,6 +55,16 @@
             this.gbArticleTitle.TabIndex = 0;
             this.gbArticleTitle.TabStop = false;
             this.gbArticleTitle.Text = "Tiêu đề";
+            // 
+            // btnRemove
+            // 
+            this.btnRemove.Location = new System.Drawing.Point(825, 18);
+            this.btnRemove.Name = "btnRemove";
+            this.btnRemove.Size = new System.Drawing.Size(92, 30);
+            this.btnRemove.TabIndex = 3;
+            this.btnRemove.Text = "Xóa";
+            this.btnRemove.UseVisualStyleBackColor = true;
+            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
             // 
             // btnSave
             // 
@@ -94,13 +104,14 @@
             // adgvList
             // 
             this.adgvList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.adgvList.Location = new System.Drawing.Point(1, 26);
+            this.adgvList.Location = new System.Drawing.Point(0, 32);
             this.adgvList.Name = "adgvList";
             this.adgvList.Size = new System.Drawing.Size(1108, 270);
             this.adgvList.TabIndex = 0;
             this.adgvList.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.adgvList_CellFormatting);
             this.adgvList.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.adgvList_DataError);
             this.adgvList.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.adgvList_EditingControlShowing);
+            this.adgvList.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.adgvList_RowEnter);
             this.adgvList.RowValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.adgvList_RowValidated);
             this.adgvList.RowValidating += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.adgvList_RowValidating);
             this.adgvList.UserDeletedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.adgvList_UserDeletedRow);
@@ -109,16 +120,6 @@
             // epTitle
             // 
             this.epTitle.ContainerControl = this;
-            // 
-            // btnRemove
-            // 
-            this.btnRemove.Location = new System.Drawing.Point(825, 18);
-            this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(92, 30);
-            this.btnRemove.TabIndex = 3;
-            this.btnRemove.Text = "Xóa";
-            this.btnRemove.UseVisualStyleBackColor = true;
-            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
             // 
             // EditTSForm
             // 
