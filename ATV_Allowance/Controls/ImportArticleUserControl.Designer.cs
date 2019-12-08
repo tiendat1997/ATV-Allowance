@@ -54,7 +54,7 @@
             this.gbArticleTitle.Margin = new System.Windows.Forms.Padding(2);
             this.gbArticleTitle.Name = "gbArticleTitle";
             this.gbArticleTitle.Padding = new System.Windows.Forms.Padding(2);
-            this.gbArticleTitle.Size = new System.Drawing.Size(749, 44);
+            this.gbArticleTitle.Size = new System.Drawing.Size(820, 44);
             this.gbArticleTitle.TabIndex = 0;
             this.gbArticleTitle.TabStop = false;
             this.gbArticleTitle.Text = "Thao tác";
@@ -71,7 +71,7 @@
             // 
             // nudOrdinal
             // 
-            this.nudOrdinal.Location = new System.Drawing.Point(281, 16);
+            this.nudOrdinal.Location = new System.Drawing.Point(363, 16);
             this.nudOrdinal.Margin = new System.Windows.Forms.Padding(2);
             this.nudOrdinal.Name = "nudOrdinal";
             this.nudOrdinal.Size = new System.Drawing.Size(35, 20);
@@ -82,7 +82,7 @@
             // lblOrdinal
             // 
             this.lblOrdinal.AutoSize = true;
-            this.lblOrdinal.Location = new System.Drawing.Point(251, 18);
+            this.lblOrdinal.Location = new System.Drawing.Point(333, 18);
             this.lblOrdinal.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblOrdinal.Name = "lblOrdinal";
             this.lblOrdinal.Size = new System.Drawing.Size(28, 13);
@@ -91,7 +91,7 @@
             // 
             // txtTitle
             // 
-            this.txtTitle.Location = new System.Drawing.Point(326, 16);
+            this.txtTitle.Location = new System.Drawing.Point(408, 16);
             this.txtTitle.Margin = new System.Windows.Forms.Padding(2);
             this.txtTitle.Name = "txtTitle";
             this.txtTitle.Size = new System.Drawing.Size(403, 20);
@@ -105,7 +105,7 @@
             this.gbList.Margin = new System.Windows.Forms.Padding(2);
             this.gbList.Name = "gbList";
             this.gbList.Padding = new System.Windows.Forms.Padding(2);
-            this.gbList.Size = new System.Drawing.Size(749, 194);
+            this.gbList.Size = new System.Drawing.Size(824, 194);
             this.gbList.TabIndex = 1;
             this.gbList.TabStop = false;
             this.gbList.Text = "Danh sách";
@@ -116,7 +116,7 @@
             this.adgvList.Location = new System.Drawing.Point(4, 16);
             this.adgvList.Margin = new System.Windows.Forms.Padding(2);
             this.adgvList.Name = "adgvList";
-            this.adgvList.Size = new System.Drawing.Size(739, 167);
+            this.adgvList.Size = new System.Drawing.Size(816, 167);
             this.adgvList.TabIndex = 0;
             this.adgvList.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.adgvList_CellFormatting);
             this.adgvList.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.adgvList_EditingControlShowing);
@@ -137,7 +137,7 @@
             this.Controls.Add(this.gbArticleTitle);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ImportArticleUserControl";
-            this.Size = new System.Drawing.Size(765, 268);
+            this.Size = new System.Drawing.Size(846, 268);
             this.Load += new System.EventHandler(this.EditTSForm_Load);
             this.gbArticleTitle.ResumeLayout(false);
             this.gbArticleTitle.PerformLayout();

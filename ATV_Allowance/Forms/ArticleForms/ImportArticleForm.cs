@@ -179,7 +179,7 @@ namespace ATV_Allowance.Forms.ArticleForms
                 adgvList.Columns["Code"].ReadOnly = true;
 
                 adgvList.Columns["Code"].HeaderText = ADGVEmployeeText.Code;
-                adgvList.Columns["Code"].Width = ControlsAttribute.GV_WIDTH_SEEM;
+                adgvList.Columns["Code"].Width = ControlsAttribute.GV_WIDTH_MEDIUM;
                 adgvList.Columns["Name"].HeaderText = ADGVEmployeeText.Name;
                 adgvList.Columns["Name"].Width = ControlsAttribute.GV_WIDTH_LARGE;
                 adgvList.Columns["Position"].HeaderText = ADGVEmployeeText.AbbrPosition;
@@ -208,10 +208,10 @@ namespace ATV_Allowance.Forms.ArticleForms
             comboBox = e.Control as ComboBox;
             if (comboBox != null)
             {
-                comboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+                comboBox.DropDownStyle = ComboBoxStyle.DropDown;
                 comboBox.AutoCompleteMode = AutoCompleteMode.Suggest;
                 comboBox.AutoCompleteSource = AutoCompleteSource.ListItems;
-                comboBox.DropDownWidth = 200;
+                comboBox.DropDownWidth = 150;
                 comboBox.SelectionChangeCommitted -= new EventHandler(EmployeeCodeSelectionChangeCommitted);
                 comboBox.SelectionChangeCommitted += EmployeeCodeSelectionChangeCommitted;
                 comboBox.KeyDown -= new KeyEventHandler(EmployeeComboboxKeyDown);
@@ -260,7 +260,8 @@ namespace ATV_Allowance.Forms.ArticleForms
                     
                     // change employee code column to text and mark it read only
                     adgvList.Rows[currRowIndex].Cells["Code"] = textCell;
-                    adgvList.Rows[currRowIndex].Cells["Code"].ReadOnly = true;                    
+                    adgvList.Rows[currRowIndex].Cells["Code"].ReadOnly = true;
+                    adgvList.Rows[currRowIndex].ReadOnly = false;
 
                     // focus on the first point of the column 
                     adgvList.CurrentCell = adgvList.Rows[currRowIndex].Cells[listPointType[0].Code];
@@ -550,8 +551,9 @@ namespace ATV_Allowance.Forms.ArticleForms
                 {
                     var cmbCell = new DataGridViewComboBoxCell();
                     cmbCell.DataSource = empList;
+                    adgvList.Rows[e.RowIndex].ReadOnly = true;
                     adgvList.Rows[e.RowIndex].Cells["Code"] = cmbCell;
-                    adgvList.Rows[e.RowIndex].Cells["Code"].ReadOnly = false;
+                    adgvList.Rows[e.RowIndex].Cells["Code"].ReadOnly = false;                    
                     adgvList.Update();
                 }
             }

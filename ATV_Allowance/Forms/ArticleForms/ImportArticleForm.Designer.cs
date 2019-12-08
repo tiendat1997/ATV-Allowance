@@ -52,7 +52,7 @@
             this.gbArticleTitle.Controls.Add(this.txtTitle);
             this.gbArticleTitle.Location = new System.Drawing.Point(13, 12);
             this.gbArticleTitle.Name = "gbArticleTitle";
-            this.gbArticleTitle.Size = new System.Drawing.Size(1123, 67);
+            this.gbArticleTitle.Size = new System.Drawing.Size(1156, 67);
             this.gbArticleTitle.TabIndex = 0;
             this.gbArticleTitle.TabStop = false;
             this.gbArticleTitle.Text = "Thao tác";
@@ -68,7 +68,7 @@
             // 
             // nudOrdinal
             // 
-            this.nudOrdinal.Location = new System.Drawing.Point(421, 25);
+            this.nudOrdinal.Location = new System.Drawing.Point(479, 25);
             this.nudOrdinal.Name = "nudOrdinal";
             this.nudOrdinal.Size = new System.Drawing.Size(53, 26);
             this.nudOrdinal.TabIndex = 5;
@@ -78,7 +78,7 @@
             // lblOrdinal
             // 
             this.lblOrdinal.AutoSize = true;
-            this.lblOrdinal.Location = new System.Drawing.Point(376, 28);
+            this.lblOrdinal.Location = new System.Drawing.Point(434, 28);
             this.lblOrdinal.Name = "lblOrdinal";
             this.lblOrdinal.Size = new System.Drawing.Size(38, 20);
             this.lblOrdinal.TabIndex = 4;
@@ -86,7 +86,7 @@
             // 
             // txtTitle
             // 
-            this.txtTitle.Location = new System.Drawing.Point(489, 25);
+            this.txtTitle.Location = new System.Drawing.Point(547, 25);
             this.txtTitle.Name = "txtTitle";
             this.txtTitle.Size = new System.Drawing.Size(603, 26);
             this.txtTitle.TabIndex = 2;
@@ -97,7 +97,7 @@
             this.gbList.Controls.Add(this.adgvList);
             this.gbList.Location = new System.Drawing.Point(13, 96);
             this.gbList.Name = "gbList";
-            this.gbList.Size = new System.Drawing.Size(1124, 299);
+            this.gbList.Size = new System.Drawing.Size(1156, 299);
             this.gbList.TabIndex = 1;
             this.gbList.TabStop = false;
             this.gbList.Text = "Danh sách";
@@ -107,7 +107,7 @@
             this.adgvList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.adgvList.Location = new System.Drawing.Point(6, 25);
             this.adgvList.Name = "adgvList";
-            this.adgvList.Size = new System.Drawing.Size(1108, 257);
+            this.adgvList.Size = new System.Drawing.Size(1144, 257);
             this.adgvList.TabIndex = 0;
             this.adgvList.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.adgvList_CellFormatting);
             this.adgvList.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.adgvList_EditingControlShowing);
@@ -124,7 +124,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1148, 412);
+            this.ClientSize = new System.Drawing.Size(1181, 412);
             this.Controls.Add(this.gbList);
             this.Controls.Add(this.gbArticleTitle);
             this.Name = "ImportArticleForm";
