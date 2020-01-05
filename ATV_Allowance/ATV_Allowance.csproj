@@ -230,6 +230,7 @@
     <Compile Include="Forms\Report\ReportTTNgayMoiForm.Designer.cs">
       <DependentUpon>ReportTTNgayMoiForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ArticleEmployeeHelper.cs" />
     <Compile Include="Helpers\ExcelHelper.cs" />
     <Compile Include="Helpers\LinqHelper.cs" />
     <Compile Include="Helpers\ValidatorHelper.cs" />

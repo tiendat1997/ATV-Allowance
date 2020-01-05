@@ -13,6 +13,7 @@ using static ATV_Allowance.Common.Constants;
 using ATV_Allowance.Common;
 using DataService.Entity;
 using ArticleType = ATV_Allowance.Common.Constants.ArticleType;
+using ATV_Allowance.Helpers;
 
 namespace ATV_Allowance.Controls
 {
@@ -97,35 +98,6 @@ namespace ATV_Allowance.Controls
             epArticleTitle = new System.Windows.Forms.ErrorProvider(components);
             epDic.Add(txtTitle, epArticleTitle);
         }
-        private void InvisiblePointType()
-        {
-            adgvList.Columns["Tin"].Visible = false;
-            adgvList.Columns["PS"].Visible = false;
-            adgvList.Columns["QTin"].Visible = false;
-            adgvList.Columns["QPs"].Visible = false;
-            adgvList.Columns["Pv_Pb"].Visible = false;
-            adgvList.Columns["Tlt"].Visible = false;
-            adgvList.Columns["Sd"].Visible = false;
-            adgvList.Columns["Cd_Cm"].Visible = false;
-            adgvList.Columns["Bai"].Visible = false;
-            adgvList.Columns["TTh_Gnh"].Visible = false;
-            adgvList.Columns["CDe"].Visible = false;
-            adgvList.Columns["Bs_DCT"].Visible = false;
-            adgvList.Columns["Bt_Dd"].Visible = false;
-            adgvList.Columns["Tl_tin"].Visible = false;
-            adgvList.Columns["Thop"].Visible = false;
-            // BIEN SOAN TTNM
-            adgvList.Columns["Bs_TTN"].Visible = false;
-            adgvList.Columns["Bs_Sapo"].Visible = false;
-            adgvList.Columns["KThinh"].Visible = false;
-            adgvList.Columns["TFile"].Visible = false;
-            adgvList.Columns["Bt_Duyet"].Visible = false;
-            // KHOI HAU KY TTNM
-            adgvList.Columns["DCT"].Visible = false;
-            adgvList.Columns["KTD"].Visible = false;
-            adgvList.Columns["TCT"].Visible = false;
-            adgvList.Columns["KT_TH"].Visible = false;
-        }
         private void LoadArticleData()
         {
             try
@@ -136,7 +108,6 @@ namespace ATV_Allowance.Controls
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
         }
@@ -153,28 +124,34 @@ namespace ATV_Allowance.Controls
                 List<ArticleEmployeeViewModel> list = new List<ArticleEmployeeViewModel>();
                 if (article != null)
                 {
-                    list = articleService.GetArticleEmployee(article.Id);
+                    list = articleService.GetArticleEmployee(article.Id, article.TypeId);
                 }
-                var bindList = new BindingList<ArticleEmployeeViewModel>(list);
+                var bindList = ArticleEmployeeHelper.MapToBindingList(articleTypeId, list);
                 bs.DataSource = bindList;
                 adgvList.DataSource = bs;
 
+                // If you want to change column index, you need to disable auto genrate column                 
+                adgvList.AutoGenerateColumns = false;
+
+                // set indexing for the table                
+                adgvList.Columns["EmployeeCode"].DisplayIndex = 0;
+                adgvList.Columns["Name"].DisplayIndex = 1;
+                adgvList.Columns["Organization"].DisplayIndex = 2;
+                adgvList.Columns["Position"].DisplayIndex = 3;
+
+                // hidden column 
                 adgvList.Columns["Id"].Visible = false;
                 adgvList.Columns["EmployeeId"].Visible = false;
                 adgvList.Columns["ArticleId"].Visible = false;
-                adgvList.Columns["Code"].Visible = true;
-                adgvList.Columns["Name"].Visible = true;
-                adgvList.Columns["Organization"].Visible = true;
-                adgvList.Columns["Position"].Visible = true;
 
-
+                // readonly field before employee selection
                 adgvList.Columns["Name"].ReadOnly = true;
                 adgvList.Columns["Organization"].ReadOnly = true;
                 adgvList.Columns["Position"].ReadOnly = true;
-                adgvList.Columns["Code"].ReadOnly = true;
+                adgvList.Columns["EmployeeCode"].ReadOnly = true;
 
-                adgvList.Columns["Code"].HeaderText = ADGVEmployeeText.Code;
-                adgvList.Columns["Code"].Width = ControlsAttribute.GV_WIDTH_MEDIUM;
+                adgvList.Columns["EmployeeCode"].HeaderText = ADGVEmployeeText.Code;
+                adgvList.Columns["EmployeeCode"].Width = ControlsAttribute.GV_WIDTH_MEDIUM;
                 adgvList.Columns["Name"].HeaderText = ADGVEmployeeText.Name;
                 adgvList.Columns["Name"].Width = ControlsAttribute.GV_WIDTH_LARGE;
                 adgvList.Columns["Position"].HeaderText = ADGVEmployeeText.AbbrPosition;
@@ -182,15 +159,15 @@ namespace ATV_Allowance.Controls
                 adgvList.Columns["Organization"].HeaderText = ADGVEmployeeText.Organization;
                 adgvList.Columns["Organization"].Width = ControlsAttribute.GV_WIDTH_LARGE;
 
-                InvisiblePointType();
+                int nextIndex = 3;
                 foreach (var type in listPointType)
                 {
-                    adgvList.Columns[type.Code].Visible = true;
+                    nextIndex++;
+                    adgvList.Columns[type.Code].DisplayIndex = nextIndex;
                     adgvList.Columns[type.Code].HeaderText = type.Code;
                     adgvList.Columns[type.Code].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 }
                 adgvList.EditingControlShowing += new DataGridViewEditingControlShowingEventHandler(adgvList_EditingControlShowing);
-                adgvList.Refresh();
             }
             catch (Exception ex)
             {
@@ -204,7 +181,7 @@ namespace ATV_Allowance.Controls
             if (comboBox != null)
             {
                 comboBox.DropDownStyle = ComboBoxStyle.DropDown;
-                comboBox.AutoCompleteMode = AutoCompleteMode.Suggest;
+                comboBox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
                 comboBox.AutoCompleteSource = AutoCompleteSource.ListItems;
                 comboBox.DropDownWidth = 150;
                 comboBox.SelectionChangeCommitted -= new EventHandler(EmployeeCodeSelectionChangeCommitted);
@@ -245,22 +222,21 @@ namespace ATV_Allowance.Controls
                     int currColIndex = adgvList.CurrentCell.ColumnIndex;
                     adgvList.Rows[currRowIndex].Cells["Name"].Value = selectedEmp.Name;
                     adgvList.Rows[currRowIndex].Cells["EmployeeId"].Value = selectedEmp.Id;
-                    adgvList.Rows[currRowIndex].Cells["Code"].Value = selectedEmp.Code;
+                    adgvList.Rows[currRowIndex].Cells["EmployeeCode"].Value = selectedEmp.Code;
                     adgvList.Rows[currRowIndex].Cells["Position"].Value = selectedEmp.Position;
                     adgvList.Rows[currRowIndex].Cells["Organization"].Value = selectedEmp.Organization;
 
                     var textCell = new DataGridViewTextBoxCell();
                     textCell.Value = selectedEmp.Code;
 
-                    // change employee code column to text and mark it read only
-                    adgvList.Rows[currRowIndex].Cells["Code"] = textCell;
-                    adgvList.Rows[currRowIndex].Cells["Code"].ReadOnly = true;
                     adgvList.Rows[currRowIndex].ReadOnly = false;
+
+                    // change employee code column to text and mark it read only
+                    adgvList.Rows[currRowIndex].Cells["EmployeeCode"] = textCell;
+                    adgvList.Rows[currRowIndex].Cells["EmployeeCode"].ReadOnly = true;
 
                     // focus on the first point of the column 
                     adgvList.CurrentCell = adgvList.Rows[currRowIndex].Cells[listPointType[0].Code];
-                    adgvList.BeginEdit(true);
-                    adgvList.Update();
                 }
             }
             catch (Exception ex)
@@ -280,16 +256,16 @@ namespace ATV_Allowance.Controls
             try
             {
                 // Note the check to see if the current row is dirty
-                string selectedValue = adgvList.Rows[e.RowIndex].Cells["Code"].FormattedValue.ToString();
-                string currCodeValue = adgvList.Rows[e.RowIndex].Cells["Code"].FormattedValue.ToString();
+                string selectedValue = adgvList.Rows[e.RowIndex].Cells["EmployeeCode"].FormattedValue.ToString();
+                string currCodeValue = adgvList.Rows[e.RowIndex].Cells["EmployeeCode"].FormattedValue.ToString();
                 if ((string.IsNullOrEmpty(currCodeValue) || !selectedValue.Equals(currCodeValue)) && adgvList.IsCurrentRowDirty)
                 {
                     e.Cancel = true;
-                    adgvList.Rows[e.RowIndex].Cells["Code"].ErrorText = "Vui lòng chọn nhân viên";
+                    adgvList.Rows[e.RowIndex].Cells["EmployeeCode"].ErrorText = "Vui lòng chọn nhân viên";
                 }
                 else
                 {
-                    adgvList.Rows[e.RowIndex].Cells["Code"].ErrorText = string.Empty;
+                    adgvList.Rows[e.RowIndex].Cells["EmployeeCode"].ErrorText = string.Empty;
                 }
 
                 foreach (var type in listPointType)
@@ -383,25 +359,7 @@ namespace ATV_Allowance.Controls
                 throw ex;
             }
         }
-
-        private void adgvList_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
-        {
-            try
-            {
-                if (e.ColumnIndex == 0) //Index of your DataGridViewComboBoxColumn 
-                {
-                    if (adgvList.Rows[e.RowIndex].IsNewRow == false)
-                    {
-                        var data = (ArticleEmployeeViewModel)adgvList.Rows[e.RowIndex].DataBoundItem;
-                        e.Value = data.Code;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
+        
         private void adgvList_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
             try
@@ -546,10 +504,18 @@ namespace ATV_Allowance.Controls
                 var cmbCell = new DataGridViewComboBoxCell();
                 cmbCell.DataSource = empList;
                 adgvList.Rows[e.RowIndex].ReadOnly = true;
-                adgvList.Rows[e.RowIndex].Cells["Code"] = cmbCell;                
-                adgvList.Rows[e.RowIndex].Cells["Code"].ReadOnly = false;                
-                adgvList.Update();
+                adgvList.Rows[e.RowIndex].Cells["EmployeeCode"] = cmbCell;                
+                adgvList.Rows[e.RowIndex].Cells["EmployeeCode"].ReadOnly = false;
+
+                //go to first column
+                SendKeys.Send("{Home}");
             }          
+        }
+
+        private void adgvList_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            adgvList.Rows[e.RowIndex].Cells["EmployeeCode"].Value = "";
+            e.Cancel = true;
         }
     }
 }

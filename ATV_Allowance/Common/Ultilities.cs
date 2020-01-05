@@ -209,26 +209,31 @@ namespace ATV_Allowance.Common
                         form = null;
                     }
                 }
+                List<string> codes = new List<string>();
 
                 switch (formName)
                 {
                     case "Nhập Tin thời sự hàng ngày":
-                        ImportArticleForm importTSForm = new ImportArticleForm(ArticleType.THOI_SU);
+                        codes = Constants.ImportArticle_Table_Header.THOI_SU_HANG_NGAY;
+                        ImportArticleForm importTSForm = new ImportArticleForm(ArticleType.THOI_SU, codes);
                         form = importTSForm;
                         break;
                     case "Nhập Tin, PS ttnm":
-                        ImportArticleForm ttnmForm = new ImportArticleForm(ArticleType.PV_TTNM);
+                        codes = Constants.ImportArticle_Table_Header.THONG_TIN_NGAY_MOI;
+                        ImportArticleForm ttnmForm = new ImportArticleForm(ArticleType.PV_TTNM, codes);
                         form = ttnmForm;
                         break;
                     case "Nhập Tin phát thanh":
-                        ImportArticleForm importPTForm = new ImportArticleForm(ArticleType.PHAT_THANH);
+                        codes = Constants.ImportArticle_Table_Header.PHAT_THANH;
+                        ImportArticleForm importPTForm = new ImportArticleForm(ArticleType.PHAT_THANH, codes);
                         form = importPTForm;
                         break;
                     case "Nhập Tin phát thanh tt":
-                        ImportArticleForm importPTTTForm = new ImportArticleForm(ArticleType.PHAT_THANH_TT);
+                        codes = Constants.ImportArticle_Table_Header.PHAT_THANH_TT;
+                        ImportArticleForm importPTTTForm = new ImportArticleForm(ArticleType.PHAT_THANH_TT, codes);
                         form = importPTTTForm;
                         break;
-                    case "Nhập Thù lao biên soạn tnnm":
+                    case "Nhập Thù lao biên soạn tnnm":                        
                         ImportBSTTNMForm importTNNM = new ImportBSTTNMForm();
                         form = (Form)importTNNM;
                         break;                   

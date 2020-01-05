@@ -16,7 +16,7 @@ namespace ATV_Allowance.Services
         void AddArticle(Article article);
         List<ArticleViewModel> GetComboArticle(List<int> typeIds, DateTime fromDate, DateTime toDate, int employeeId);
         List<ArticleViewModel> GetArticle(int typeId, DateTime fromDate, DateTime toDate, int employeeId);
-        List<ArticleEmployeeViewModel> GetArticleEmployee(int articleId);
+        List<ArticleEmployeeViewModel> GetArticleEmployee(int articleId, int articleType);
         void AddArticleEmployeeTS(ArticleEmployeeViewModel model);
         void AddArticleEmployeeTTNM(ArticleEmployeeViewModel model);
         void AddArticleEmployeePT(ArticleEmployeeViewModel model);
@@ -52,8 +52,9 @@ namespace ATV_Allowance.Services
         }
 
         // Tin thời sự
-        public void AddArticleEmployeeTS(ArticleEmployeeViewModel model)
+        public void AddArticleEmployeeTS(ArticleEmployeeViewModel data)
         {
+            ArticleEmployeeThoiSuHangNgayViewModel model = (ArticleEmployeeThoiSuHangNgayViewModel)data;
             var existed = articleEmployeeRepository.GetMany(e => e.ArticleId == model.ArticleId && e.EmployeeId == model.EmployeeId).FirstOrDefault();
             if (existed != null)
             {
@@ -111,19 +112,87 @@ namespace ATV_Allowance.Services
             return articles;
         }
 
-        public List<ArticleEmployeeViewModel> GetArticleEmployee(int articleId)
+        private ArticleEmployeeViewModel ArticleEmployeeMapper(ArticleEmployee entity, int articleType)
+        {
+            ArticleEmployeeViewModel model = null;
+            switch (articleType)
+            {
+                case Common.Constants.ArticleType.THOI_SU:
+                    model = new ArticleEmployeeThoiSuHangNgayViewModel
+                    {
+                        Id = entity.Id,
+                        EmployeeId = entity.Employee.Id,
+                        EmployeeCode = entity.Employee.Code,
+                        Name = entity.Employee.Name,
+                        Position = entity.Employee.Position.Code,
+                        Organization = entity.Employee.Organization.Name
+                    };
+                    break;
+                case Common.Constants.ArticleType.PV_TTNM:
+                    model = new ArticleEmployeeThongTinNgayMoiViewModel
+                    {
+                        Id = entity.Id,
+                        EmployeeId = entity.Employee.Id,
+                        EmployeeCode = entity.Employee.Code,
+                        Name = entity.Employee.Name,
+                        Position = entity.Employee.Position.Code,
+                        Organization = entity.Employee.Organization.Name
+                    };
+                    break;
+                case Common.Constants.ArticleType.PHAT_THANH:
+                    model = new ArticleEmployeePhatThanhViewModel
+                    {
+                        Id = entity.Id,
+                        EmployeeId = entity.Employee.Id,
+                        EmployeeCode = entity.Employee.Code,
+                        Name = entity.Employee.Name,
+                        Position = entity.Employee.Position.Code,
+                        Organization = entity.Employee.Organization.Name
+                    };
+                    break;
+                case Common.Constants.ArticleType.PHAT_THANH_TT:
+                    model = new ArticleEmployeePhatThanhTTViewModel
+                    {
+                        Id = entity.Id,
+                        EmployeeId = entity.Employee.Id,
+                        EmployeeCode = entity.Employee.Code,
+                        Name = entity.Employee.Name,
+                        Position = entity.Employee.Position.Code,
+                        Organization = entity.Employee.Organization.Name
+                    };
+                    break;
+                case Common.Constants.ArticleType.BIENSOAN_TTNM:
+                    model = new ArticleEmployeeBSTTNMViewModel
+                    {
+                        Id = entity.Id,
+                        EmployeeId = entity.Employee.Id,
+                        EmployeeCode = entity.Employee.Code,
+                        Name = entity.Employee.Name,
+                        Position = entity.Employee.Position.Code,
+                        Organization = entity.Employee.Organization.Name
+                    };
+                    break;
+                case Common.Constants.ArticleType.KHOIHK_TTNM:
+                    model = new ArticleEmployeeHauKyViewModel
+                    {
+                        Id = entity.Id,
+                        EmployeeId = entity.Employee.Id,
+                        EmployeeCode = entity.Employee.Code,
+                        Name = entity.Employee.Name,
+                        Position = entity.Employee.Position.Code,
+                        Organization = entity.Employee.Organization.Name
+                    };
+                    break;
+                default:
+                    break;
+            }
+            return model;
+        }
+        public List<ArticleEmployeeViewModel> GetArticleEmployee(int articleId, int articleType)
         {
             var artEmps = articleEmployeeRepository
                         .GetMany(e => e.ArticleId == articleId)
-                        .Select(t => new ArticleEmployeeViewModel
-                        {
-                            Id = t.Id,
-                            EmployeeId = t.Employee.Id,
-                            Code = t.Employee.Code,
-                            Name = t.Employee.Name,
-                            Position = t.Employee.Position.Code,
-                            Organization = t.Employee.Organization.Name
-                        }).ToList();
+                        .Select(t => ArticleEmployeeMapper(t, articleType)).ToList();
 
             foreach (var artEmp in artEmps)
             {
@@ -181,8 +250,9 @@ namespace ATV_Allowance.Services
         //public int PS { get; set; }
         //public int QTin { get; set; }
         //public int QPs { get; set; }
-        public void UpdateArticleEmployeeTS(ArticleEmployeeViewModel model)
+        public void UpdateArticleEmployeeTS(ArticleEmployeeViewModel data)
         {
+            var model = (ArticleEmployeeThoiSuHangNgayViewModel)data;
             var articleEmp = articleEmployeeRepository.GetById(model.Id);
             if (articleEmp != null) // DELETED 
             {
@@ -200,8 +270,9 @@ namespace ATV_Allowance.Services
         //public int Sd { get; set; }
         //public int Cd_Cm { get; set; }
         //public int Bai { get; set; }        
-        public void UpdateArticleEmployeePT(ArticleEmployeeViewModel model)
+        public void UpdateArticleEmployeePT(ArticleEmployeeViewModel data)
         {
+            var model = (ArticleEmployeePhatThanhViewModel)data;
             var articleEmp = articleEmployeeRepository.GetById(model.Id);
             if (articleEmp != null) // DELETED 
             {
@@ -215,8 +286,9 @@ namespace ATV_Allowance.Services
             }
         }
 
-        public void AddArticleEmployeePT(ArticleEmployeeViewModel model)
+        public void AddArticleEmployeePT(ArticleEmployeeViewModel data)
         {
+            var model = (ArticleEmployeePhatThanhViewModel) data;
             var existed = articleEmployeeRepository.GetMany(e => e.ArticleId == model.ArticleId && e.EmployeeId == model.EmployeeId).FirstOrDefault();
             if (existed != null)
             {
@@ -265,8 +337,9 @@ namespace ATV_Allowance.Services
             }
         }
 
-        public void AddArticleEmployeePTTT(ArticleEmployeeViewModel model)
+        public void AddArticleEmployeePTTT(ArticleEmployeeViewModel data)
         {
+            var model = (ArticleEmployeePhatThanhTTViewModel)data;
             var existed = articleEmployeeRepository.GetMany(e => e.ArticleId == model.ArticleId && e.EmployeeId == model.EmployeeId).FirstOrDefault();
             if (existed != null)
             {
@@ -315,8 +388,9 @@ namespace ATV_Allowance.Services
             }
         }
 
-        public void UpdateArticleEmployeePTTT(ArticleEmployeeViewModel model)
+        public void UpdateArticleEmployeePTTT(ArticleEmployeeViewModel data)
         {
+            var model = (ArticleEmployeePhatThanhTTViewModel)data;
             var articleEmp = articleEmployeeRepository.GetById(model.Id);
             if (articleEmp != null) // DELETED 
             {
@@ -351,8 +425,9 @@ namespace ATV_Allowance.Services
             return articles;
         }
 
-        public void AddArticleEmployeeTTNM(ArticleEmployeeViewModel model)
+        public void AddArticleEmployeeTTNM(ArticleEmployeeViewModel data)
         {
+            var model = (ArticleEmployeeThongTinNgayMoiViewModel)data;
             var existed = articleEmployeeRepository.GetMany(e => e.ArticleId == model.ArticleId && e.EmployeeId == model.EmployeeId).FirstOrDefault();
             if (existed != null)
             {
@@ -403,8 +478,9 @@ namespace ATV_Allowance.Services
             }
         }
 
-        public void UpdateArticleEmployeeTTNM(ArticleEmployeeViewModel model)
+        public void UpdateArticleEmployeeTTNM(ArticleEmployeeViewModel data)
         {
+            var model = (ArticleEmployeeThongTinNgayMoiViewModel)data;
             var articleEmp = articleEmployeeRepository.GetById(model.Id);
             if (articleEmp != null) // DELETED 
             {
@@ -418,8 +494,9 @@ namespace ATV_Allowance.Services
             }
         }
 
-        public void AddArticleEmployeeBSTTNM(ArticleEmployeeViewModel model)
+        public void AddArticleEmployeeBSTTNM(ArticleEmployeeViewModel data)
         {
+            var model = (ArticleEmployeeBSTTNMViewModel)data;
             var existed = articleEmployeeRepository.GetMany(e => e.ArticleId == model.ArticleId && e.EmployeeId == model.EmployeeId).FirstOrDefault();
             if (existed != null)
             {
@@ -465,8 +542,9 @@ namespace ATV_Allowance.Services
             }
         }
 
-        public void AddArticleEmployeeHKTTNM(ArticleEmployeeViewModel model)
+        public void AddArticleEmployeeHKTTNM(ArticleEmployeeViewModel data)
         {
+            var model = (ArticleEmployeeHauKyViewModel)data;
             var existed = articleEmployeeRepository.GetMany(e => e.ArticleId == model.ArticleId && e.EmployeeId == model.EmployeeId).FirstOrDefault();
             if (existed != null)
             {
@@ -507,8 +585,9 @@ namespace ATV_Allowance.Services
             }
         }
 
-        public void UpdateArticleEmployeeBSTTNM(ArticleEmployeeViewModel model)
+        public void UpdateArticleEmployeeBSTTNM(ArticleEmployeeViewModel data)
         {
+            var model = (ArticleEmployeeBSTTNMViewModel)data;
             var articleEmp = articleEmployeeRepository.GetById(model.Id);
             if (articleEmp != null) // DELETED 
             {
@@ -521,8 +600,9 @@ namespace ATV_Allowance.Services
             }
         }
 
-        public void UpdateArticleEmployeeHKTTNM(ArticleEmployeeViewModel model)
+        public void UpdateArticleEmployeeHKTTNM(ArticleEmployeeViewModel data)
         {
+            var model = (ArticleEmployeeHauKyViewModel)data;
             var articleEmp = articleEmployeeRepository.GetById(model.Id);
             if (articleEmp != null) // DELETED 
             {

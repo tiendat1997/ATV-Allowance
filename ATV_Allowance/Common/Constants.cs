@@ -234,12 +234,12 @@ namespace ATV_Allowance.Common
 
         public static class ArticleType
         {
-            public static int PHAT_THANH = 1;
-            public static int PHAT_THANH_TT = 2;
-            public static int THOI_SU = 3;
-            public static int PV_TTNM = 4;
-            public static int BIENSOAN_TTNM = 5;
-            public static int KHOIHK_TTNM = 6;
+            public const int PHAT_THANH = 1;
+            public const int PHAT_THANH_TT = 2;
+            public const int THOI_SU = 3;
+            public const int PV_TTNM = 4;
+            public const int BIENSOAN_TTNM = 5;
+            public const int KHOIHK_TTNM = 6;
         }
         public static class ArticleTypeGroup
         {
@@ -416,6 +416,16 @@ namespace ATV_Allowance.Common
         {
             public static int TANG_GIAM_PV_BTV = 1;
             public static int TANG_GIAM_CTV = 2;
+        }
+
+        public static class ImportArticle_Table_Header
+        {
+            public static List<string> THOI_SU_HANG_NGAY = new List<string> { "Tin", "PS", "QTin", "QPs" };
+            public static List<string> THONG_TIN_NGAY_MOI = new List<string> { "Tin", "PS", "QTin", "QPs", "Tl_Tin", "Thop" };
+            public static List<string> PHAT_THANH = new List<string> { "Tin", "Pv_Pb", "Tlt", "Sd", "Cd_Cm", "Bai" };
+            public static List<string> PHAT_THANH_TT = new List<string> { "Tin", "Pv_Pb", "TTh_Gnh", "CDe", "Bs_DCT", "Bt_Dd" };
+            public static List<string> BSTTNM_TIN = new List<string> { "Bs_TTN", "Bs_Sapo", "KThinh", "TFile", "Bt_Duyet" };
+            public static List<string> BSTTNM_KHOI_HAU_KY = new List<string> { "DCT", "KTD", "TCT", "KT_TH" };
         }
 
     }
