@@ -1,6 +1,8 @@
 ﻿using ATV_Allowance.Forms.CommonForms;
+using DataService.Entity;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
@@ -30,6 +32,7 @@ namespace ATV_Allowance
                 }
                 else
                 {
+                    Database.SetInitializer<ATVEntities>(null);
                     Application.EnableVisualStyles();
                     Application.SetCompatibleTextRenderingDefault(false);
                     Application.Run(new GlobalForm());
