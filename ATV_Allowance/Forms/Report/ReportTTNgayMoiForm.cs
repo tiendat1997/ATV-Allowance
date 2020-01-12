@@ -221,5 +221,10 @@ namespace ATV_Allowance.Forms.Report
             deductionForm.ShowDialog();
         }
 
+        private void btnPreview_Click(object sender, EventArgs e)
+        {
+            reportService.InteropPreviewReportTS(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, ArticleType.PV_TTNM);
+
+        }
     }
 }
