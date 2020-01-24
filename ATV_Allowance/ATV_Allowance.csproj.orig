@@ -1,0 +1,440 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{276B06AA-19D3-4D79-BAAF-29E5331B31AC}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>ATV_Allowance</RootNamespace>
+    <AssemblyName>ATV_Allowance</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup />
+  <ItemGroup>
+    <Reference Include="AdvancedDataGridView, Version=0.1.0.10, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ADGV.0.1.0.10\lib\net40\AdvancedDataGridView.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus, Version=4.5.3.2, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.4.5.3.2\lib\net40\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentValidation, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentValidation.8.4.0\lib\net45\FluentValidation.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentValidation.ValidatorAttribute, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentValidation.ValidatorAttribute.8.4.0\lib\net45\FluentValidation.ValidatorAttribute.dll</HintPath>
+    </Reference>
+<<<<<<< HEAD
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.6.8\lib\net45\NLog.dll</HintPath>
+=======
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+>>>>>>> dev-ngoc
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\Constants.cs" />
+    <Compile Include="Common\PropertyComparer.cs" />
+    <Compile Include="Common\Session.cs" />
+    <Compile Include="Common\Ultilities.cs" />
+    <Compile Include="Controls\ImportArticleUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ImportArticleUserControl.Designer.cs">
+      <DependentUpon>ImportArticleUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ArticleForms\AddArticleForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ArticleForms\AddArticleForm.Designer.cs">
+      <DependentUpon>AddArticleForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ArticleForms\ImportArticleForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ArticleForms\ImportArticleForm.Designer.cs">
+      <DependentUpon>ImportArticleForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ArticleForms\EditTSForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ArticleForms\EditTSForm.Designer.cs">
+      <DependentUpon>EditTSForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ArticleForms\ImportBSTTNMForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ArticleForms\ImportBSTTNMForm.Designer.cs">
+      <DependentUpon>ImportBSTTNMForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ArticleForms\InsertEmployeeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ArticleForms\InsertEmployeeForm.Designer.cs">
+      <DependentUpon>InsertEmployeeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ArticleForms\ManageTSForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ArticleForms\ManageTSForm.Designer.cs">
+      <DependentUpon>ManageTSForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CommonForms\CommonForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CommonForms\CommonForm.Designer.cs">
+      <DependentUpon>CommonForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CommonForms\GlobalForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CommonForms\GlobalForm.Designer.cs">
+      <DependentUpon>GlobalForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CommonForms\LoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CommonForms\LoginForm.Designer.cs">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CriteriaForms\ACriteriaTemplate.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\CriteriaForms\ACriteriaTemplate.Designer.cs">
+      <DependentUpon>ACriteriaTemplate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CriteriaForms\ListCriteriaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CriteriaForms\ListCriteriaForm.Designer.cs">
+      <DependentUpon>ListCriteriaForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\DeductionForms\ListEmployeeDeduction.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DeductionForms\ListEmployeeDeduction.Designer.cs">
+      <DependentUpon>ListEmployeeDeduction.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\EmployeeForms\AddEmployeeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EmployeeForms\AddEmployeeForm.Designer.cs">
+      <DependentUpon>AddEmployeeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\EmployeeForms\ListEmployeeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EmployeeForms\ListEmployeeForm.Designer.cs">
+      <DependentUpon>ListEmployeeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Report\ReportBienSoanTTForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Report\ReportBienSoanTTForm.Designer.cs">
+      <DependentUpon>ReportBienSoanTTForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Report\ReportBroadcastForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Report\ReportBroadcastForm.Designer.cs">
+      <DependentUpon>ReportBroadcastForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\EmployeeForms\UpdateEmployeeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EmployeeForms\UpdateEmployeeForm.Designer.cs">
+      <DependentUpon>UpdateEmployeeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\OrganizationForms\AddOrganizationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\OrganizationForms\AddOrganizationForm.Designer.cs">
+      <DependentUpon>AddOrganizationForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\OrganizationForms\ListOrganizationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\OrganizationForms\ListOrganizationForm.Designer.cs">
+      <DependentUpon>ListOrganizationForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\OrganizationForms\UpdateOrganizationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\OrganizationForms\UpdateOrganizationForm.Designer.cs">
+      <DependentUpon>UpdateOrganizationForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Report\ReportKhoiHauKyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Report\ReportKhoiHauKyForm.Designer.cs">
+      <DependentUpon>ReportKhoiHauKyForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Report\ReportPTForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Report\ReportPTForm.Designer.cs">
+      <DependentUpon>ReportPTForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Report\ReportPTTTForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Report\ReportPTTTForm.Designer.cs">
+      <DependentUpon>ReportPTTTForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Report\ReportTTNgayMoiForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Report\ReportTTNgayMoiForm.Designer.cs">
+      <DependentUpon>ReportTTNgayMoiForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\ArticleEmployeeHelper.cs" />
+    <Compile Include="Helpers\ExcelHelper.cs" />
+    <Compile Include="Helpers\LinqHelper.cs" />
+    <Compile Include="Helpers\ValidatorHelper.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\ArticleService.cs" />
+    <Compile Include="Services\CriteriaService.cs" />
+    <Compile Include="Services\DeductionService.cs" />
+    <Compile Include="Services\DeductionTypeService.cs" />
+    <Compile Include="Services\EmployeeService.cs" />
+    <Compile Include="Services\AppLogger.cs" />
+    <Compile Include="Services\MenuItemService.cs" />
+    <Compile Include="Common\SortableBindingList.cs" />
+    <Compile Include="Services\PointTypeService.cs" />
+    <Compile Include="Services\ReportService.cs" />
+    <Compile Include="Services\OrganizationService.cs" />
+    <Compile Include="Services\UserService.cs" />
+    <Compile Include="Validators\ArticleValidator.cs" />
+    <Compile Include="ViewModel\ArticleEmployeeViewModel.cs" />
+    <Compile Include="ViewModel\ArticleTypeViewModel.cs" />
+    <Compile Include="ViewModel\CriteriaTableViewModel.cs" />
+    <Compile Include="ViewModel\CriteriaViewModel.cs" />
+    <Compile Include="ViewModel\DeductionTypeViewModel.cs" />
+    <Compile Include="ViewModel\EmployeeDeductionViewModel.cs" />
+    <Compile Include="ViewModel\EmployeePointViewModel.cs" />
+    <Compile Include="Validators\OrganizationValidator.cs" />
+    <Compile Include="Validators\EmployeeValidator.cs" />
+    <Compile Include="ViewModel\ArticleViewModel.cs" />
+    <Compile Include="ViewModel\EmployeeViewModel.cs" />
+    <Compile Include="ViewModel\OrganizationViewModel.cs" />
+    <Compile Include="ViewModel\PointTypeViewModel.cs" />
+    <Compile Include="ViewModel\PointViewModel.cs" />
+    <Compile Include="ViewModel\PositionViewModel.cs" />
+    <EmbeddedResource Include="Controls\ImportArticleUserControl.resx">
+      <DependentUpon>ImportArticleUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ArticleForms\AddArticleForm.resx">
+      <DependentUpon>AddArticleForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ArticleForms\ImportArticleForm.resx">
+      <DependentUpon>ImportArticleForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ArticleForms\EditTSForm.resx">
+      <DependentUpon>EditTSForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ArticleForms\ImportBSTTNMForm.resx">
+      <DependentUpon>ImportBSTTNMForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ArticleForms\InsertEmployeeForm.resx">
+      <DependentUpon>InsertEmployeeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ArticleForms\ManageTSForm.resx">
+      <DependentUpon>ManageTSForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CommonForms\GlobalForm.resx">
+      <DependentUpon>GlobalForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CommonForms\LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CriteriaForms\ACriteriaTemplate.resx">
+      <DependentUpon>ACriteriaTemplate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CriteriaForms\ListCriteriaForm.resx">
+      <DependentUpon>ListCriteriaForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DeductionForms\ListEmployeeDeduction.resx">
+      <DependentUpon>ListEmployeeDeduction.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Report\ReportBienSoanTTForm.resx">
+      <DependentUpon>ReportBienSoanTTForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Report\ReportBroadcastForm.resx">
+      <DependentUpon>ReportBroadcastForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EmployeeForms\AddEmployeeForm.resx">
+      <DependentUpon>AddEmployeeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EmployeeForms\ListEmployeeForm.resx">
+      <DependentUpon>ListEmployeeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EmployeeForms\UpdateEmployeeform.resx">
+      <DependentUpon>UpdateEmployeeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\OrganizationForms\AddOrganizationForm.resx">
+      <DependentUpon>AddOrganizationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\OrganizationForms\ListOrganizationForm.resx">
+      <DependentUpon>ListOrganizationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\OrganizationForms\UpdateOrganizationForm.resx">
+      <DependentUpon>UpdateOrganizationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Report\ReportKhoiHauKyForm.resx">
+      <DependentUpon>ReportKhoiHauKyForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Report\ReportPTForm.resx">
+      <DependentUpon>ReportPTForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Report\ReportPTTTForm.resx">
+      <DependentUpon>ReportPTTTForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Report\ReportTTNgayMoiForm.resx">
+      <DependentUpon>ReportTTNgayMoiForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+<<<<<<< HEAD
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+=======
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+>>>>>>> dev-ngoc
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="Templates\TemplateTS_KHK.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\TemplatePT.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\TemplateBSTTNM.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\TemplateTTNM.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\TemplatePTTT.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\TemplateTS.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\TemplateTS_CTV.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\TemplateTS_HK.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\background1.jpg" />
+    <Content Include="Assets\background2.png" />
+    <Content Include="Assets\LogoATV.png" />
+    <Content Include="Assets\LogoATVSM.ico" />
+    <Content Include="Assets\LogoATVSM.jpg" />
+    <Content Include="Assets\success.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataService\DataService.csproj">
+      <Project>{5a361d07-8b46-4cce-b821-baaf213f3dbd}</Project>
+      <Name>DataService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TControl\TControl.csproj">
+      <Project>{441EABC3-DE89-443E-BD5F-052AF6F96160}</Project>
+      <Name>TControl</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
