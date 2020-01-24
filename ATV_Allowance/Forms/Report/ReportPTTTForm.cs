@@ -162,7 +162,6 @@ namespace ATV_Allowance.Forms.Report
             }
             finally
             {
-                reportService = null;
             }
         }
 
@@ -221,6 +220,12 @@ namespace ATV_Allowance.Forms.Report
         private void cbRole_SelectedIndexChanged(object sender, EventArgs e)
         {
             LoadReport();
+        }
+
+        private void btnPreview_Click(object sender, EventArgs e)
+        {
+            reportService.InteropPreviewReportTS(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, ArticleType.PHAT_THANH_TT);
+
         }
     }
 }

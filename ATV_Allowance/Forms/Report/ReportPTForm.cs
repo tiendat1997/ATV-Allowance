@@ -164,7 +164,7 @@ namespace ATV_Allowance.Forms.Report
             }
             finally
             {
-                reportService = null;
+                
             }
         }
 
@@ -222,6 +222,11 @@ namespace ATV_Allowance.Forms.Report
             //ListEmployeeDeduction deductionForm = new ListEmployeeDeduction(dtpMonth.Value.Month, dtpYear.Value.Year, ArticleType.PHAT_THANH, (int)cbRole.SelectedValue);
             ListEmployeeDeduction deductionForm = new ListEmployeeDeduction(dtpMonth.Value.Month, dtpYear.Value.Year, ArticleType.PHAT_THANH, EmployeeRole.PV);
             deductionForm.ShowDialog();
+        }
+
+        private void btnPreview_Click(object sender, EventArgs e)
+        {
+            reportService.InteropPreviewReportPT(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, ArticleType.PHAT_THANH);
         }
     }
 }

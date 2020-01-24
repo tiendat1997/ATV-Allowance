@@ -231,17 +231,7 @@ namespace ATV_Allowance.Forms.Report
 
         private void btnPrintPreview_Click(object sender, EventArgs e)
         {
-            var data = reportService.GetReportTS(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, ArticleType.THOI_SU);
-
-           
-
-            //Process process = new Process();
-            //ProcessStartInfo startInfo = new ProcessStartInfo();
-            //process.StartInfo = startInfo;
-
-            //startInfo.FileName = @"Output.pdf";
-            //process.Start();
-           
+            reportService.InteropPreviewReportTS(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, ArticleType.THOI_SU);
         }
     }
 }
