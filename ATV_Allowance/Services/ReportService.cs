@@ -1086,8 +1086,6 @@ namespace ATV_Allowance.Services
             application.Visible = true;
 
             worksheet.PrintPreview();
-            workbook.Close(false);
-            application.Quit();
             #endregion
         }
 
@@ -1181,8 +1179,6 @@ namespace ATV_Allowance.Services
             application.Visible = true;
 
             worksheet.PrintPreview();
-            workbook.Close(false);
-            application.Quit();
             #endregion
         }
 
@@ -1263,8 +1259,6 @@ namespace ATV_Allowance.Services
             application.Visible = true;
 
             worksheet.PrintPreview();
-            workbook.Close(false);
-            application.Quit();
             #endregion
         }
 
@@ -1376,8 +1370,6 @@ namespace ATV_Allowance.Services
             application.Visible = true;
 
             worksheet.PrintPreview();
-            workbook.Close(false);
-            application.Quit();
             #endregion
         }
 
@@ -1462,8 +1454,6 @@ namespace ATV_Allowance.Services
             application.Visible = true;
 
             worksheet.PrintPreview();
-            workbook.Close(false);
-            application.Quit();
             #endregion
         }
 
@@ -1614,8 +1604,6 @@ namespace ATV_Allowance.Services
             application.Visible = true;
 
             worksheet.PrintPreview();
-            workbook.Close(false);
-            application.Quit();
             #endregion
         }
 

@@ -59,7 +59,6 @@
             this.label6 = new System.Windows.Forms.Label();
             this.edtPrice = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
-            this.btnPreview = new System.Windows.Forms.Button();
             this.flowLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -138,7 +137,7 @@
             this.tabPage1.Controls.Add(this.adgvReportBroadcast);
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(848, 221);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Biên soạn";
@@ -158,7 +157,7 @@
             this.tabPage2.Controls.Add(this.adgvKHK);
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(848, 221);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Khối Hậu kỳ";
@@ -238,7 +237,6 @@
             this.flowLayoutPanel5.AutoSize = true;
             this.flowLayoutPanel5.Controls.Add(this.btnExport);
             this.flowLayoutPanel5.Controls.Add(this.btnDeduction);
-            this.flowLayoutPanel5.Controls.Add(this.btnPreview);
             this.flowLayoutPanel5.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
             this.flowLayoutPanel5.Location = new System.Drawing.Point(443, 14);
             this.flowLayoutPanel5.Name = "flowLayoutPanel5";
@@ -252,7 +250,7 @@
             this.btnExport.Name = "btnExport";
             this.btnExport.Size = new System.Drawing.Size(73, 23);
             this.btnExport.TabIndex = 1;
-            this.btnExport.Text = "Xuất file";
+            this.btnExport.Text = "Xem báo cáo";
             this.btnExport.UseVisualStyleBackColor = true;
             this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
@@ -452,16 +450,6 @@
             this.label7.TabIndex = 9;
             this.label7.Text = "vnđ / điểm";
             // 
-            // btnPreview
-            // 
-            this.btnPreview.Location = new System.Drawing.Point(157, 3);
-            this.btnPreview.Name = "btnPreview";
-            this.btnPreview.Size = new System.Drawing.Size(75, 23);
-            this.btnPreview.TabIndex = 3;
-            this.btnPreview.Text = "Preview";
-            this.btnPreview.UseVisualStyleBackColor = true;
-            this.btnPreview.Click += new System.EventHandler(this.btnPreview_Click);
-            // 
             // ReportBienSoanTTForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -526,6 +514,5 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.DataGridView adgvKHK;
-        private System.Windows.Forms.Button btnPreview;
     }
 }

@@ -161,21 +161,22 @@ namespace ATV_Allowance.Forms.Report
             }
             finally
             {
-                reportService = null;
             }
         }
 
         private void btnExport_Click(object sender, EventArgs e)
         {
-            saveFileDialog.FileName = $"BaoCao_TTNM_{cbRole.Text}_{dtpEnddate.Value.Month}{dtpEnddate.Value.Year}.xlsx";
-            reportService = new ReportService();
-            var data = reportService.GetReportTTNM(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, ArticleType.PV_TTNM);
+            //saveFileDialog.FileName = $"BaoCao_TTNM_{cbRole.Text}_{dtpEnddate.Value.Month}{dtpEnddate.Value.Year}.xlsx";
+            //reportService = new ReportService();
+            //var data = reportService.GetReportTTNM(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, ArticleType.PV_TTNM);
 
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                var path = Path.GetFullPath(saveFileDialog.FileName);
-                File.WriteAllBytes(path, data);
-            }
+            //if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            //{
+            //    var path = Path.GetFullPath(saveFileDialog.FileName);
+            //    File.WriteAllBytes(path, data);
+            //}
+            reportService.InteropPreviewReportTTNM(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, ArticleType.PV_TTNM);
+
         }
 
         private void dtpMonth_ValueChanged(object sender, EventArgs e)
@@ -223,7 +224,7 @@ namespace ATV_Allowance.Forms.Report
 
         private void btnPreview_Click(object sender, EventArgs e)
         {
-            reportService.InteropPreviewReportTS(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, ArticleType.PV_TTNM);
+            reportService.InteropPreviewReportTTNM(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, ArticleType.PV_TTNM);
 
         }
     }
