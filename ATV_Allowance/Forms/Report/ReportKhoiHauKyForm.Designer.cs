@@ -338,7 +338,7 @@
             this.btnExport.Name = "btnExport";
             this.btnExport.Size = new System.Drawing.Size(73, 23);
             this.btnExport.TabIndex = 1;
-            this.btnExport.Text = "Xuất file";
+            this.btnExport.Text = "Xem báo cáo";
             this.btnExport.UseVisualStyleBackColor = true;
             // 
             // btnDeduction

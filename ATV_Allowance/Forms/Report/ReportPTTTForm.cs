@@ -167,15 +167,17 @@ namespace ATV_Allowance.Forms.Report
 
         private void btnExport_Click(object sender, EventArgs e)
         {
-            saveFileDialog.FileName = $"BaoCao_PTTT_{cbRole.Text}_{dtpEnddate.Value.Month}{dtpEnddate.Value.Year}.xlsx";
-            reportService = new ReportService();
-            var data = reportService.GetReportPTTT(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, ArticleType.PHAT_THANH_TT);
+            //saveFileDialog.FileName = $"BaoCao_PTTT_{cbRole.Text}_{dtpEnddate.Value.Month}{dtpEnddate.Value.Year}.xlsx";
+            //reportService = new ReportService();
+            //var data = reportService.GetReportPTTT(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, ArticleType.PHAT_THANH_TT);
 
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                var path = Path.GetFullPath(saveFileDialog.FileName);
-                File.WriteAllBytes(path, data);
-            }
+            //if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            //{
+            //    var path = Path.GetFullPath(saveFileDialog.FileName);
+            //    File.WriteAllBytes(path, data);
+            //}
+            reportService.InteropPreviewReportPTTT(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, ArticleType.PHAT_THANH_TT);
+
         }
 
         private void dtpMonth_ValueChanged(object sender, EventArgs e)
@@ -224,7 +226,7 @@ namespace ATV_Allowance.Forms.Report
 
         private void btnPreview_Click(object sender, EventArgs e)
         {
-            reportService.InteropPreviewReportTS(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, ArticleType.PHAT_THANH_TT);
+            reportService.InteropPreviewReportPTTT(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, ArticleType.PHAT_THANH_TT);
 
         }
     }

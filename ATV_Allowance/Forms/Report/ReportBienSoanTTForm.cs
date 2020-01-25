@@ -155,7 +155,6 @@ namespace ATV_Allowance.Forms.Report
             }
             finally
             {
-                reportService = null;
             }
         }
 
@@ -267,15 +266,17 @@ namespace ATV_Allowance.Forms.Report
 
         private void btnExport_Click(object sender, EventArgs e)
         {
-            saveFileDialog.FileName = $"BaoCao_BS_TTNM_{cbRole.Text}_{dtpEnddate.Value.Month}{dtpEnddate.Value.Year}.xlsx";
-            reportService = new ReportService();
-            var data = reportService.GetReportBSTTNM(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, ArticleType.BIENSOAN_TTNM);
+            //saveFileDialog.FileName = $"BaoCao_BS_TTNM_{cbRole.Text}_{dtpEnddate.Value.Month}{dtpEnddate.Value.Year}.xlsx";
+            //reportService = new ReportService();
+            //var data = reportService.GetReportBSTTNM(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, ArticleType.BIENSOAN_TTNM);
 
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                var path = Path.GetFullPath(saveFileDialog.FileName);
-                File.WriteAllBytes(path, data);
-            }
+            //if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            //{
+            //    var path = Path.GetFullPath(saveFileDialog.FileName);
+            //    File.WriteAllBytes(path, data);
+            //}
+            reportService.InteropPreviewReportBSTTNM(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, ArticleType.BIENSOAN_TTNM);
+
         }
 
         private void dtpMonth_ValueChanged(object sender, EventArgs e)
@@ -334,7 +335,7 @@ namespace ATV_Allowance.Forms.Report
         private void btnPreview_Click(object sender, EventArgs e)
         {
 
-            reportService.InteropPreviewReportTS(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, ArticleType.BIENSOAN_TTNM);
+            reportService.InteropPreviewReportBSTTNM(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, ArticleType.BIENSOAN_TTNM);
         }
     }
 }

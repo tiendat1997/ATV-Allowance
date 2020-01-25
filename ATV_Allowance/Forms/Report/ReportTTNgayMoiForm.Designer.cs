@@ -55,7 +55,6 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.flowLayoutPanel4 = new System.Windows.Forms.FlowLayoutPanel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.btnPreview = new System.Windows.Forms.Button();
             this.flowLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.edtPrice)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.adgvReportBroadcast)).BeginInit();
@@ -273,7 +272,7 @@
             this.btnExport.Name = "btnExport";
             this.btnExport.Size = new System.Drawing.Size(73, 23);
             this.btnExport.TabIndex = 1;
-            this.btnExport.Text = "Xuất file";
+            this.btnExport.Text = "Xem báo cáo";
             this.btnExport.UseVisualStyleBackColor = true;
             this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
@@ -291,7 +290,6 @@
             this.flowLayoutPanel5.AutoSize = true;
             this.flowLayoutPanel5.Controls.Add(this.btnExport);
             this.flowLayoutPanel5.Controls.Add(this.btnDeduction);
-            this.flowLayoutPanel5.Controls.Add(this.btnPreview);
             this.flowLayoutPanel5.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
             this.flowLayoutPanel5.Location = new System.Drawing.Point(443, 14);
             this.flowLayoutPanel5.Name = "flowLayoutPanel5";
@@ -402,16 +400,6 @@
             this.flowLayoutPanel1.Size = new System.Drawing.Size(282, 31);
             this.flowLayoutPanel1.TabIndex = 4;
             // 
-            // btnPreview
-            // 
-            this.btnPreview.Location = new System.Drawing.Point(157, 3);
-            this.btnPreview.Name = "btnPreview";
-            this.btnPreview.Size = new System.Drawing.Size(75, 23);
-            this.btnPreview.TabIndex = 3;
-            this.btnPreview.Text = "Preview";
-            this.btnPreview.UseVisualStyleBackColor = true;
-            this.btnPreview.Click += new System.EventHandler(this.btnPreview_Click);
-            // 
             // ReportTTNgayMoiForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -467,6 +455,5 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel4;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-        private System.Windows.Forms.Button btnPreview;
     }
 }

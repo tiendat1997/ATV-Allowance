@@ -164,14 +164,16 @@ namespace ATV_Allowance.Forms.Report
 
         private void btnExport_Click(object sender, EventArgs e)
         {
-            saveFileDialog.FileName = $"BaoCao_TS_{cbRole.Text}_{dtpEnddate.Value.Month}{dtpEnddate.Value.Year}.xlsx";
-            var data = reportService.GetReportTS(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, ArticleType.THOI_SU);
+            //saveFileDialog.FileName = $"BaoCao_TS_{cbRole.Text}_{dtpEnddate.Value.Month}{dtpEnddate.Value.Year}.xlsx";
+            //var data = reportService.GetReportTS(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, ArticleType.THOI_SU);
 
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                var path = Path.GetFullPath(saveFileDialog.FileName);
-                File.WriteAllBytes(path, data);
-            }
+            //if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            //{
+            //    var path = Path.GetFullPath(saveFileDialog.FileName);
+            //    File.WriteAllBytes(path, data);
+            //}
+            reportService.InteropPreviewReportTS(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, ArticleType.THOI_SU);
+
         }
 
         private void dtpMonth_ValueChanged(object sender, EventArgs e)
@@ -219,14 +221,16 @@ namespace ATV_Allowance.Forms.Report
 
         private void btnExportKHK_Click(object sender, EventArgs e)
         {
-            saveFileDialog.FileName = $"BaoCao_TS_KHK_{dtpEnddate.Value.Month}{dtpEnddate.Value.Year}.xlsx";
-            var data = reportService.GetReportTS_KHK(dtpStartdate.Value, dtpEnddate.Value, (int)edtPrice.Value);
+            //saveFileDialog.FileName = $"BaoCao_TS_KHK_{dtpEnddate.Value.Month}{dtpEnddate.Value.Year}.xlsx";
+            //var data = reportService.GetReportTS_KHK(dtpStartdate.Value, dtpEnddate.Value, (int)edtPrice.Value);
 
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                var path = Path.GetFullPath(saveFileDialog.FileName);
-                File.WriteAllBytes(path, data);
-            }
+            //if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            //{
+            //    var path = Path.GetFullPath(saveFileDialog.FileName);
+            //    File.WriteAllBytes(path, data);
+            //}
+            reportService.InteropPreviewReportTS_KHK(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, ArticleType.KHOIHK_TTNM);
+
         }
 
         private void btnPrintPreview_Click(object sender, EventArgs e)
