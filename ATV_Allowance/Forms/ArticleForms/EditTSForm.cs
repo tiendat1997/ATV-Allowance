@@ -252,11 +252,13 @@ namespace ATV_Allowance.Forms.ArticleForms
                     article.Title = txtTitle.Text;
                     articleService.UpdateArticle(article);
                 }
+
+                DialogHelper.OpenActionResultDialog("Lưu thành công", "Lưu tiêu đề tin");
             }
             catch (Exception ex)
             {
-
-                throw;
+                MessageBox.Show("Có lỗi xảy ra", "Lưu tiêu đề tin");
+                throw ex;
             }
             finally
             {
@@ -309,7 +311,7 @@ namespace ATV_Allowance.Forms.ArticleForms
                 ArticleEmployeeViewModel articleEmployee = (ArticleEmployeeViewModel)adgvList.CurrentRow.DataBoundItem;
                 if (articleEmployee != null)
                 {
-                    if (articleEmployee.Id == 0) // Add new records 
+                    if (articleEmployee.Id == 0 && articleEmployee.Name != null) // Add new records 
                     {
                         articleEmployee.ArticleId = article.Id;                        
                         if (articleTypeId == ArticleType.THOI_SU)
@@ -387,11 +389,15 @@ namespace ATV_Allowance.Forms.ArticleForms
                 articleService = new ArticleService();
                 if (adgvList.CurrentRow.IsNewRow == false)
                 {
-                    ArticleEmployeeViewModel articleEmployee = (ArticleEmployeeViewModel)adgvList.CurrentRow.DataBoundItem;                    
-                    if (articleEmployee != null)
+                    var confirmResult = DialogHelper.OpenConfirmationDialog("Bạn có chắc muốn xóa nhân viên ra khỏi tin này không?", "Xác nhận xóa", MessageBoxButtons.YesNo);
+                    if (confirmResult == DialogResult.Yes)
                     {
-                        articleEmployee.ArticleId = article.Id;
-                        articleService.RemoveArticleEmployee(articleEmployee);
+                        ArticleEmployeeViewModel articleEmployee = (ArticleEmployeeViewModel)adgvList.CurrentRow.DataBoundItem;
+                        if (articleEmployee != null)
+                        {
+                            articleEmployee.ArticleId = article.Id;
+                            articleService.RemoveArticleEmployee(articleEmployee);
+                        }
                     }
                 }
             }

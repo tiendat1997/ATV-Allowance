@@ -97,6 +97,12 @@
     <Compile Include="Forms\ArticleForms\AddArticleForm.Designer.cs">
       <DependentUpon>AddArticleForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ArticleForms\ArticleListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ArticleForms\ArticleListForm.Designer.cs">
+      <DependentUpon>ArticleListForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ArticleForms\ImportArticleForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -241,6 +247,7 @@
     <Compile Include="Forms\Report\ReportTTNgayMoiForm.Designer.cs">
       <DependentUpon>ReportTTNgayMoiForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\DialogHelper.cs" />
     <Compile Include="Helpers\ArticleEmployeeHelper.cs" />
     <Compile Include="Helpers\ExcelHelper.cs" />
     <Compile Include="Helpers\LinqHelper.cs" />
@@ -271,6 +278,7 @@
     <Compile Include="Validators\EmployeeValidator.cs" />
     <Compile Include="ViewModel\ArticleViewModel.cs" />
     <Compile Include="ViewModel\EmployeeViewModel.cs" />
+    <Compile Include="ViewModel\IndexedArticleViewModel.cs" />
     <Compile Include="ViewModel\OrganizationViewModel.cs" />
     <Compile Include="ViewModel\PointTypeViewModel.cs" />
     <Compile Include="ViewModel\PointViewModel.cs" />
@@ -280,6 +288,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ArticleForms\AddArticleForm.resx">
       <DependentUpon>AddArticleForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ArticleForms\ArticleListForm.resx">
+      <DependentUpon>ArticleListForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ArticleForms\ImportArticleForm.resx">
       <DependentUpon>ImportArticleForm.cs</DependentUpon>

@@ -129,8 +129,6 @@ namespace ATV_Allowance.Forms.ArticleForms
         {
             try
             {
-                
-
                 pointTypeService = new PointTypeService();
                 articleService = new ArticleService();
                 bs = new BindingSource();
@@ -321,7 +319,8 @@ namespace ATV_Allowance.Forms.ArticleForms
             {
                 articleService = new ArticleService();
                 ArticleEmployeeViewModel articleEmployee = (ArticleEmployeeViewModel)adgvList.CurrentRow.DataBoundItem;
-                if (articleEmployee != null)
+
+                if (articleEmployee != null && articleEmployee.Name != null)
                 {
                     if (articleEmployee.Id == 0) // Add new records 
                     {
@@ -385,7 +384,20 @@ namespace ATV_Allowance.Forms.ArticleForms
                 throw ex;
             }
         }
-       
+        private void ConfirmBeforeDelete()
+        {
+            var confirmResult = DialogHelper.OpenConfirmationDialog("Bạn có chắc muốn xóa nhân viên ra khỏi tin này không?", "Xác nhận xóa", MessageBoxButtons.YesNo);
+            if (confirmResult == DialogResult.Yes)
+            {
+                // If 'Yes', do something here.
+                ArticleEmployeeViewModel articleEmployee = (ArticleEmployeeViewModel)adgvList.CurrentRow.DataBoundItem;
+                if (articleEmployee != null)
+                {
+                    articleEmployee.ArticleId = article.Id;
+                    articleService.RemoveArticleEmployee(articleEmployee);
+                }
+            }           
+        }
         private void adgvList_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
             try
@@ -393,12 +405,7 @@ namespace ATV_Allowance.Forms.ArticleForms
                 articleService = new ArticleService();
                 if (adgvList.CurrentRow.IsNewRow == false)
                 {
-                    ArticleEmployeeViewModel articleEmployee = (ArticleEmployeeViewModel)adgvList.CurrentRow.DataBoundItem;
-                    if (articleEmployee != null)
-                    {
-                        articleEmployee.ArticleId = article.Id;
-                        articleService.RemoveArticleEmployee(articleEmployee);
-                    }
+                    ConfirmBeforeDelete();
                 }
             }
             catch (Exception ex)
@@ -548,6 +555,39 @@ namespace ATV_Allowance.Forms.ArticleForms
         {
             adgvList.Rows[e.RowIndex].Cells["EmployeeCode"].Value = "";            
             e.Cancel = true;
+        }
+
+        private void btnArticleList_Click(object sender, EventArgs e)
+        {
+            List<IndexedArticleViewModel> indexArticleList = new List<IndexedArticleViewModel>();
+            for (int i = 0; i < articleList.Count; i++)
+            {
+                var item = articleList[i];
+                indexArticleList.Add(new IndexedArticleViewModel
+                {
+                    Id = item.Id,
+                    Index = i,
+                    Title = item.Title
+                });
+            }
+            
+            ArticleListForm form = new ArticleListForm(indexArticleList);
+            form.FormClosed += new FormClosedEventHandler(ArticleListForm_Closed);
+            form.ShowDialog();
+        }
+
+        private void ArticleListForm_Closed(object sender, FormClosedEventArgs e)
+        {
+            var form = sender as ArticleListForm;
+            var indexedArticle = form.IndexedArticle;           
+            if (indexedArticle != null)
+            {
+                article = articleList.Where(a => a.Id == indexedArticle.Id).FirstOrDefault();
+                txtTitle.Text = article.Title;
+                nudOrdinal.Value = indexedArticle.Index;
+                adgvList.ReadOnly = false;
+                LoadDGV();
+            }            
         }
     }
 }

@@ -25,7 +25,7 @@ namespace ATV_Allowance.Forms.ArticleForms
         private IEmployeeService employeeService;
         private BindingSource bs = null;
         private ArticleViewModel model = null;
-        private List<ArticleViewModel> articleList = new List<ArticleViewModel>();
+        private List<ArticleViewModel> articleList = null;
         private List<int> currArticleTypes;
         private List<string> empList;
 
@@ -33,8 +33,29 @@ namespace ATV_Allowance.Forms.ArticleForms
         {
             components = new System.ComponentModel.Container();
             InitializeComponent();
-            InitArticleTypeFilter();
-            LoadDGV();
+            InitDataGridView();
+            InitArticleTypeFilter();            
+        }
+        private void InitDataGridView()
+        {
+            articleList = new List<ArticleViewModel>();
+            bs = new BindingSource();
+            SortableBindingList<ArticleViewModel> sbl = new SortableBindingList<ArticleViewModel>(articleList);
+            bs.DataSource = sbl;
+            adgvList.DataSource = bs;
+
+            adgvList.Columns["Id"].Visible = false;
+            adgvList.Columns["TypeId"].Visible = false;
+            adgvList.Columns["Title"].Visible = true;
+            adgvList.Columns["Code"].Visible = true;
+            adgvList.Columns["Date"].Visible = true;
+
+            adgvList.Columns["Title"].HeaderText = ADGVArticleText.Title;
+            adgvList.Columns["Title"].Width = ControlsAttribute.GV_WIDTH_LARGE_XX;
+            adgvList.Columns["Code"].HeaderText = ADGVArticleText.Type;
+            adgvList.Columns["Code"].Width = ControlsAttribute.GV_WIDTH_SEEM;
+            adgvList.Columns["Date"].HeaderText = ADGVArticleText.Date;
+            adgvList.Columns["Date"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
         }
         private void InitArticleTypeFilter()
         {
@@ -61,18 +82,6 @@ namespace ATV_Allowance.Forms.ArticleForms
                 SortableBindingList<ArticleViewModel> sbl = new SortableBindingList<ArticleViewModel>(articleList);
                 bs.DataSource = sbl;
                 adgvList.DataSource = bs;
-                adgvList.Columns["Id"].Visible = false;
-                adgvList.Columns["TypeId"].Visible = false;
-                adgvList.Columns["Title"].Visible = true;
-                adgvList.Columns["Code"].Visible = true;
-                adgvList.Columns["Date"].Visible = true;
-
-                adgvList.Columns["Title"].HeaderText = ADGVArticleText.Title;
-                adgvList.Columns["Title"].Width = ControlsAttribute.GV_WIDTH_LARGE_XX;
-                adgvList.Columns["Code"].HeaderText = ADGVArticleText.Type;
-                adgvList.Columns["Code"].Width = ControlsAttribute.GV_WIDTH_SEEM;
-                adgvList.Columns["Date"].HeaderText = ADGVArticleText.Date;
-                adgvList.Columns["Date"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
                 if (articleList.Count == 0)
                 {

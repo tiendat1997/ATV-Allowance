@@ -14,6 +14,7 @@ using ATV_Allowance.Common;
 using DataService.Entity;
 using ArticleType = ATV_Allowance.Common.Constants.ArticleType;
 using ATV_Allowance.Helpers;
+using ATV_Allowance.Forms.ArticleForms;
 
 namespace ATV_Allowance.Controls
 {
@@ -367,11 +368,15 @@ namespace ATV_Allowance.Controls
                 articleService = new ArticleService();
                 if (adgvList.CurrentRow.IsNewRow == false)
                 {
-                    ArticleEmployeeViewModel articleEmployee = (ArticleEmployeeViewModel)adgvList.CurrentRow.DataBoundItem;
-                    if (articleEmployee != null)
+                    var confirmResult = DialogHelper.OpenConfirmationDialog("Bạn có chắc muốn xóa nhân viên ra khỏi tin này không?", "Xác nhận xóa", MessageBoxButtons.YesNo);
+                    if (confirmResult == DialogResult.Yes)
                     {
-                        articleEmployee.ArticleId = article.Id;
-                        articleService.RemoveArticleEmployee(articleEmployee);
+                        ArticleEmployeeViewModel articleEmployee = (ArticleEmployeeViewModel)adgvList.CurrentRow.DataBoundItem;
+                        if (articleEmployee != null)
+                        {
+                            articleEmployee.ArticleId = article.Id;
+                            articleService.RemoveArticleEmployee(articleEmployee);
+                        }
                     }
                 }
             }
@@ -516,6 +521,39 @@ namespace ATV_Allowance.Controls
         {
             adgvList.Rows[e.RowIndex].Cells["EmployeeCode"].Value = "";
             e.Cancel = true;
+        }
+
+        private void btnArticleList_Click(object sender, EventArgs e)
+        {
+            List<IndexedArticleViewModel> indexArticleList = new List<IndexedArticleViewModel>();
+            for (int i = 0; i < articleList.Count; i++)
+            {
+                var item = articleList[i];
+                indexArticleList.Add(new IndexedArticleViewModel
+                {
+                    Id = item.Id,
+                    Index = i,
+                    Title = item.Title
+                });
+            }
+
+            ArticleListForm form = new ArticleListForm(indexArticleList);
+            form.FormClosed += new FormClosedEventHandler(ArticleListForm_Closed);
+            form.ShowDialog();
+        }
+
+        private void ArticleListForm_Closed(object sender, FormClosedEventArgs e)
+        {
+            var form = sender as ArticleListForm;
+            var indexedArticle = form.IndexedArticle;
+            if (indexedArticle != null)
+            {
+                article = articleList.Where(a => a.Id == indexedArticle.Id).FirstOrDefault();
+                txtTitle.Text = article.Title;
+                nudOrdinal.Value = indexedArticle.Index;
+                adgvList.ReadOnly = false;
+                LoadDGV();
+            }
         }
     }
 }
