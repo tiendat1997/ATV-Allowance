@@ -421,7 +421,6 @@ namespace ATV_Allowance.Forms.ArticleForms
                     }
                     else
                     {
-                        //epArticleTitle.SetError(txtTitle, "");
                         if (article == null)
                         {
                             // add article                            
@@ -448,8 +447,7 @@ namespace ATV_Allowance.Forms.ArticleForms
                 }
                 catch (Exception ex)
                 {
-
-                    throw ex;
+                    _logger.LogSystem(ex, string.Empty);
                 }
             }
         }

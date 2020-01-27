@@ -79,7 +79,7 @@ namespace ATV_Allowance.Forms.OrganizationForms
                     Name = txtName.Text,
                     IsActive = true
                 };
-                actionLog.Message = string.Format(AppActions.Organization_Add, newEmp.Name);
+                actionLog.Message = string.Format(AppActions.Organization_Add, org.Name);
                 bool result = btnUpdate_Validate(org);
                 if (result == true)
                 {

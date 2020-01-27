@@ -55,7 +55,26 @@ namespace ATV_Allowance.Services
 
         public void AddArticle(Article article)
         {
-            articleRepository.Add(article);
+            BusinessLog actionLog = new BusinessLog
+            {
+                ActorId = Common.Session.GetId(),
+                Message = string.Format(AppActions.Article_Add, article.Title),
+                Status = Constants.BusinessLogStatus.SUCCESS,
+                Type = Constants.BusinessLogType.CREATE
+            };
+            try
+            {
+                articleRepository.Add(article);
+            }
+            catch (Exception ex)
+            {
+                actionLog.Status = Constants.BusinessLogStatus.FAIL;
+                throw ex;
+            }
+            finally
+            {
+                _logger.LogBusiness(actionLog);
+            }
         }
 
         // Tin thời sự
@@ -248,9 +267,28 @@ namespace ATV_Allowance.Services
 
         public void UpdateArticle(ArticleViewModel model)
         {
-            Article article = articleRepository.GetById(model.Id);
-            article.Title = model.Title;
-            articleRepository.Update(article);
+            BusinessLog actionLog = new BusinessLog
+            {
+                ActorId = Common.Session.GetId(),
+                Message = string.Format(AppActions.Article_Update, model.Id),
+                Status = Constants.BusinessLogStatus.SUCCESS,
+                Type = Constants.BusinessLogType.CREATE
+            };
+            try
+            {
+                Article article = articleRepository.GetById(model.Id);
+                article.Title = model.Title;
+                articleRepository.Update(article);
+            }
+            catch (Exception ex)
+            {
+                actionLog.Status = Constants.BusinessLogStatus.FAIL;
+                throw ex;
+            }
+            finally
+            {
+                _logger.LogBusiness(actionLog);
+            }
         }
 
         //public int Tin { get; set; }
