@@ -81,6 +81,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\AppActions.cs" />
     <Compile Include="Common\Constants.cs" />
     <Compile Include="Common\PropertyComparer.cs" />
     <Compile Include="Common\Session.cs" />

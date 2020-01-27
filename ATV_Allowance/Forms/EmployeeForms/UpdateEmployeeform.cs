@@ -1,4 +1,6 @@
-﻿using ATV_Allowance.Forms.CommonForms;
+﻿using ATV_Allowance.Common;
+using ATV_Allowance.Common.Actions;
+using ATV_Allowance.Forms.CommonForms;
 using ATV_Allowance.Helpers;
 using ATV_Allowance.Services;
 using ATV_Allowance.Validators;
@@ -29,8 +31,10 @@ namespace ATV_Allowance.Forms.EmployeeForms
         private List<OrganizationViewModel> orgList;
         private string currCode;
         public EmployeeViewModel model { get; set; }
+        private readonly IAppLogger _logger;
         public UpdateEmployeeForm(EmployeeViewModel inputModel)
         {
+            _logger = new AppLogger();
             this.model = inputModel;
             components = new System.ComponentModel.Container();
             InitializeComponent();
@@ -107,6 +111,14 @@ namespace ATV_Allowance.Forms.EmployeeForms
         }
         private void btnUpdate_Click(object sender, EventArgs e)
         {
+            BusinessLog actionLog = new BusinessLog
+            {
+                ActorId = Common.Session.GetId(),
+                
+                Status = Constants.BusinessLogStatus.SUCCESS,
+                Type = Constants.BusinessLogType.UPDATE
+            };
+
             try
             {
                 employeeService = new EmployeeService();
@@ -143,6 +155,7 @@ namespace ATV_Allowance.Forms.EmployeeForms
                     IsActive = true,
                     Title = model.Title
                 };
+                actionLog.Message = string.Format(AppActions.Employee_Update, newEmp.Code);
                 bool result = btnUpdate_Validate(newEmp);
                 if (result)
                 {
@@ -152,10 +165,12 @@ namespace ATV_Allowance.Forms.EmployeeForms
             }
             catch (Exception ex)
             {
-                throw ex;
+                _logger.LogSystem(ex, AppActions.Employee_Update);
+                actionLog.Status = Constants.BusinessLogStatus.FAIL;
             }
             finally
             {
+                _logger.LogBusiness(actionLog);
                 employeeService = null;
             }
         }

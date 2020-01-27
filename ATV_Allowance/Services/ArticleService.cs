@@ -1,4 +1,6 @@
-﻿using ATV_Allowance.ViewModel;
+﻿using ATV_Allowance.Common;
+using ATV_Allowance.Common.Actions;
+using ATV_Allowance.ViewModel;
 using DataService.Entity;
 using DataService.Repository;
 using System;
@@ -32,15 +34,20 @@ namespace ATV_Allowance.Services
         void RemoveArticleEmployee(ArticleEmployeeViewModel model);
         void UpdateArticle(ArticleViewModel model);
         void RemoveArticle(ArticleViewModel model);
+
+        void AddArticleEmployee(ArticleEmployeeViewModel articleEmployee, ArticleViewModel article);
+        void UpdateArticleEmployee(ArticleEmployeeViewModel articleEmployee, ArticleViewModel article);
     }
     public class ArticleService : IArticleService
     {
         private readonly IArticleEmployeeRepository articleEmployeeRepository;
         private readonly IArticleRepository articleRepository;
         private readonly IPointRepository pointRepository;
+        private readonly IAppLogger _logger;
 
         public ArticleService()
         {
+            _logger = new AppLogger();
             articleRepository = new ArticleRepository();
             articleEmployeeRepository = new ArticleEmployeeRepository();
             pointRepository = new PointRepository();
@@ -611,6 +618,116 @@ namespace ATV_Allowance.Services
                 articleEmp.Point.First(t => t.Type == PointType_HAUKY_TTNM.KT_TH).Point1 = model.KT_TH;
                 articleEmp.Point.First(t => t.Type == PointType_HAUKY_TTNM.TCT).Point1 = model.TCT;
                 articleEmployeeRepository.Update(articleEmp);
+            }
+        }
+
+        public void AddArticleEmployee(ArticleEmployeeViewModel articleEmployee, ArticleViewModel article)
+        {
+            BusinessLog actionLog = new BusinessLog
+            {
+                ActorId = Common.Session.GetId(),
+                Message = string.Format(AppActions.ArticleEmployee_Add, articleEmployee.EmployeeCode, article.Id),
+                Status = Constants.BusinessLogStatus.SUCCESS,
+                Type = Constants.BusinessLogType.CREATE
+            };
+
+            try
+            {
+                articleEmployee.ArticleId = article.Id;
+                int articleTypeId = article.TypeId;
+                if (articleTypeId == Constants.ArticleType.THOI_SU)
+                {
+                    actionLog.Message += " [THOI_SU]";
+                    AddArticleEmployeeTS(articleEmployee);
+                }
+                else if (articleTypeId == Constants.ArticleType.PV_TTNM)
+                {
+                    actionLog.Message += " [PV_TTNM]";
+                    AddArticleEmployeeTTNM(articleEmployee);
+                }
+                else if (articleTypeId == Constants.ArticleType.BIENSOAN_TTNM)
+                {
+                    actionLog.Message += " [BIENSOAN_TTNM]";
+                    AddArticleEmployeeBSTTNM(articleEmployee);
+                }
+                else if (articleTypeId == Constants.ArticleType.KHOIHK_TTNM)
+                {
+                    actionLog.Message += " [KHOIHK_TTNM]";
+                    AddArticleEmployeeHKTTNM(articleEmployee);
+                }
+                else if (articleTypeId == Constants.ArticleType.PHAT_THANH)
+                {
+                    actionLog.Message += " [PHAT_THANH]";
+                    AddArticleEmployeePT(articleEmployee);
+                }
+                else if (articleTypeId == Constants.ArticleType.PHAT_THANH_TT)
+                {
+                    actionLog.Message += " [PHAT_THANH_TT]";
+                    AddArticleEmployeePTTT(articleEmployee);
+                }
+            }
+            catch (Exception ex)
+            {
+                actionLog.Status = Constants.BusinessLogStatus.FAIL;
+                throw ex;
+            }
+            finally
+            {
+                _logger.LogBusiness(actionLog);
+            }
+        }
+
+        public void UpdateArticleEmployee(ArticleEmployeeViewModel articleEmployee, ArticleViewModel article)
+        {
+            BusinessLog actionLog = new BusinessLog
+            {
+                ActorId = Common.Session.GetId(),
+                Message = string.Format(AppActions.ArticleEmployee_Update, articleEmployee.EmployeeCode, article.Id),
+                Status = Constants.BusinessLogStatus.SUCCESS,
+                Type = Constants.BusinessLogType.CREATE
+            };
+            try
+            {
+                int articleTypeId = article.TypeId;
+                if (articleTypeId == Constants.ArticleType.THOI_SU)
+                {
+                    actionLog.Message += " [THOI_SU]";
+                    UpdateArticleEmployeeTS(articleEmployee);
+                }
+                else if (articleTypeId == Constants.ArticleType.PV_TTNM)
+                {
+                    actionLog.Message += " [PV_TTNM]";
+                    UpdateArticleEmployeeTTNM(articleEmployee);
+                }
+                else if (articleTypeId == Constants.ArticleType.BIENSOAN_TTNM)
+                {
+                    actionLog.Message += " [BIENSOAN_TTNM]";
+                    UpdateArticleEmployeeBSTTNM(articleEmployee);
+                }
+                else if (articleTypeId == Constants.ArticleType.KHOIHK_TTNM)
+                {
+                    actionLog.Message += " [KHOIHK_TTNM]";
+                    UpdateArticleEmployeeHKTTNM(articleEmployee);
+                }
+                else if (articleTypeId == Constants.ArticleType.PHAT_THANH)
+                {
+                    actionLog.Message += " [PHAT_THANH]";
+                    UpdateArticleEmployeePT(articleEmployee);
+                }
+                else if (articleTypeId == Constants.ArticleType.PHAT_THANH_TT)
+                {
+                    actionLog.Message += " [PHAT_THANH_TT]";
+                    UpdateArticleEmployeePTTT(articleEmployee);
+                }
+            }
+            catch (Exception ex)
+            {
+                actionLog.Status = Constants.BusinessLogStatus.FAIL;
+                throw ex;
+            }
+            finally
+            {
+                _logger.LogBusiness(actionLog);
             }
         }
     }

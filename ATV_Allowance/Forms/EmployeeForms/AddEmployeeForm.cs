@@ -1,4 +1,5 @@
 ﻿using ATV_Allowance.Common;
+using ATV_Allowance.Common.Actions;
 using ATV_Allowance.Forms.CommonForms;
 using ATV_Allowance.Helpers;
 using ATV_Allowance.Services;
@@ -28,11 +29,13 @@ namespace ATV_Allowance.Forms.EmployeeForms
         private System.Windows.Forms.ErrorProvider epCode;
         private List<OrganizationViewModel> orgList;
         internal new Dictionary<Control, ErrorProvider> epDic;
+        private IAppLogger _logger;
         public AddEmployeeForm()
         {
             components = new System.ComponentModel.Container();
-            InitializeComponent();                
+            InitializeComponent();
             InitializeErrorProvider();
+            _logger = new AppLogger();
         }
         private void InitializeErrorProvider()
         {
@@ -47,12 +50,12 @@ namespace ATV_Allowance.Forms.EmployeeForms
         }
 
         private void AddEmployeeForm_Load(object sender, EventArgs e)
-        {            
+        {
             try
             {
                 organizationService = new OrganizationService();
                 orgList = organizationService.GetAllIsActive(true);
-                cbOrganizationId.DisplayMember = "Name";                
+                cbOrganizationId.DisplayMember = "Name";
                 cbOrganizationId.DataSource = orgList;
                 //cbOrganizationId.AutoCompleteMode = AutoCompleteMode.Suggest;
                 //cbOrganizationId.AutoCompleteSource = AutoCompleteSource.ListItems;                
@@ -65,11 +68,11 @@ namespace ATV_Allowance.Forms.EmployeeForms
             {
                 organizationService = null;
             }
-        }              
+        }
         private bool btnAdd_Validate(Employee emp)
-        {            
+        {
             EmployeeValidator validator = new EmployeeValidator();
-            ValidationResult result = validator.Validate(emp);   
+            ValidationResult result = validator.Validate(emp);
             if (result.IsValid == false)
             {
                 ValidatorHelper.ShowValidationMessage(gbStudentInfo, result.Errors, epDic);
@@ -78,6 +81,13 @@ namespace ATV_Allowance.Forms.EmployeeForms
         }
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            BusinessLog actionLog = new BusinessLog
+            {
+                ActorId = Common.Session.GetId(),
+                Status = Constants.BusinessLogStatus.SUCCESS,
+                Type = Constants.BusinessLogType.CREATE
+            };
+
             try
             {
                 employeeService = new EmployeeService();
@@ -113,21 +123,25 @@ namespace ATV_Allowance.Forms.EmployeeForms
                     IsActive = true,
                     Title = txtTitle.Text
                 };
+                actionLog.Message = string.Format(AppActions.Employee_Add, newEmp.Code);
+
                 bool result = btnAdd_Validate(newEmp);
                 if (result)
                 {
                     employeeService.AddEmployee(newEmp);
-                    this.Close();
+                    Close();
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                throw ex;                
+                _logger.LogSystem(ex, AppActions.Employee_Add);
+                actionLog.Status = Constants.BusinessLogStatus.FAIL;
             }
             finally
             {
+                _logger.LogBusiness(actionLog);
                 employeeService = null;
-            }                     
+            }
         }
 
         private void txtName_Leave(object sender, EventArgs e)
@@ -139,7 +153,7 @@ namespace ATV_Allowance.Forms.EmployeeForms
             try
             {
                 employeeService = new EmployeeService();
-                string tmpName = txtName.Text.ToUpper();                
+                string tmpName = txtName.Text.ToUpper();
                 string generatedCode = employeeService.GenerateEmployeeCode(tmpName, null);
                 txtCode.Text = generatedCode;
             }
@@ -154,16 +168,13 @@ namespace ATV_Allowance.Forms.EmployeeForms
         }
 
         private void txtName_Validating(object sender, CancelEventArgs e)
-        {           
+        {
         }
 
         private void cbOrganizationId_TextUpdate(object sender, EventArgs e)
         {
             string filter_param = cbOrganizationId.Text.ToLower();
-
             List<OrganizationViewModel> filteredItems = orgList.FindAll(x => x.Name.ToLower().Contains(filter_param));
-            // another variant for filtering using StartsWith:
-            // List<string> filteredItems = arrProjectList.FindAll(x => x.StartsWith(filter_param));
 
             cbOrganizationId.DataSource = filteredItems;
 
@@ -178,7 +189,6 @@ namespace ATV_Allowance.Forms.EmployeeForms
 
             // remove automatically selected first item
             cbOrganizationId.SelectedIndex = -1;
-
             cbOrganizationId.Text = filter_param;
 
             // set the position of the cursor

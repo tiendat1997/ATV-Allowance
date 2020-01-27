@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static ATV_Allowance.Common.Constants;
 using ATV_Allowance.Common;
+using ATV_Allowance.Common.Actions;
 
 namespace ATV_Allowance.Services
 {
@@ -30,7 +31,7 @@ namespace ATV_Allowance.Services
             BusinessLog actionLog = new BusinessLog
             {
                 ActorId = Common.Session.GetId(),
-                Message = "User Login",
+                Message = AppActions.Login,
                 Status = Constants.BusinessLogStatus.FAIL,
                 Type = Constants.BusinessLogType.LOGIN
             };
