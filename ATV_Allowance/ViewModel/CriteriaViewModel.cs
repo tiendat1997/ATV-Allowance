@@ -13,5 +13,7 @@ namespace ATV_Allowance.ViewModel
         public string Name { get; set; }
         public double Value { get; set; }
         public int Unit { get; set; }
+        public int Month { get; set; }
+        public int Year { get; set; }
     }
 }

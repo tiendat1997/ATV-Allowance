@@ -77,7 +77,7 @@ namespace ATV_Allowance.Forms.CriteriaForms
                 year = DateTime.Now.Year;
             }
 
-            var result = criteriaService.GetCriterias(year.Value, type.Value);
+            var result = criteriaService.GetYearlyCriterias(year.Value, type.Value);
             var dataSource = new List<CriteriaTableViewModel>();
             for (int i = 0; i < 12; i++)
             {
@@ -153,6 +153,13 @@ namespace ATV_Allowance.Forms.CriteriaForms
             LoadCriteriasOfYear(dtp.Value.Year, TYPE_TS);
             LoadCriteriasOfMonth(1, dtp.Value.Year, TYPE_TS);
 
+        }
+
+        private void btnCopyCriteria_Click(object sender, EventArgs e)
+        {
+            criteriaService.CopyYearlyCriterias(DateTime.Now.Year - 1);
+            LoadCriteriasOfYear(dtp.Value.Year, TYPE_TS);
+            LoadCriteriasOfMonth(1, dtp.Value.Year, TYPE_TS);
         }
     }
 }

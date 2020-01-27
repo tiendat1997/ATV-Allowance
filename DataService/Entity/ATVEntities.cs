@@ -95,6 +95,11 @@ namespace DataService.Entity
                 .HasMany(e => e.User)
                 .WithRequired(e => e.Role)
                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Configuration>()
+                .HasMany(e => e.CriteriaValue)
+                .WithRequired(e => e.Configuration)
+                .WillCascadeOnDelete(true);
         }
     }
 }

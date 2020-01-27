@@ -4,8 +4,6 @@ using DataService.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static ATV_Allowance.Common.Constants;
 
 namespace ATV_Allowance.Services
@@ -14,9 +12,11 @@ namespace ATV_Allowance.Services
     public interface ICriteriaService
     {
         List<CriteriaViewModel> GetCriterias(int month, int year, int type);
-        List<List<CriteriaViewModel>> GetCriterias(int year, int type);
+        List<List<CriteriaViewModel>> GetYearlyCriterias(int year, int type);
         void UpdateCriterias(List<CriteriaViewModel> criterias, int month, int year);
         double GetCriteriaValue(int month, int year, int criteriaTypeId);
+        void CopyYearlyCriterias(int year);
+
     }
 
     public class CriteriaService : ICriteriaService
@@ -34,17 +34,17 @@ namespace ATV_Allowance.Services
 
         public List<CriteriaViewModel> GetCriterias(int month, int year, int type)
         {
-            var result = criteriaValueRepository.GetAll().Where(c => c.Configuration.Month == month 
+            var result = criteriaValueRepository.GetAll().Where(c => c.Configuration.Month == month
                                                                     && c.Configuration.Year == year
                                                                     && c.Criteria.ArticleTypeId == type)
                 .Select(c => new CriteriaViewModel
-            {
-                ID = c.Id,
-                Name = c.Criteria.DisplayName,
-                Value = c.Value.Value,
-                Unit = c.Criteria.Unit.HasValue ? c.Criteria.Unit.Value : Unit.None,
-                CriteriaId = c.CriteriaId.Value
-            })
+                {
+                    ID = c.Id,
+                    Name = c.Criteria.DisplayName,
+                    Value = c.Value.Value,
+                    Unit = c.Criteria.Unit.HasValue ? c.Criteria.Unit.Value : Unit.None,
+                    CriteriaId = c.CriteriaId.Value
+                })
             .OrderBy(c => c.CriteriaId)
             .ToList();
 
@@ -53,12 +53,12 @@ namespace ATV_Allowance.Services
                 result = criteriaRepository.GetAll()
                     .Where(c => c.ArticleTypeId == type)
                     .Select(c => new CriteriaViewModel
-                {
-                    CriteriaId = c.Id,
-                    Name = c.DisplayName,
-                    Value = 0,
-                    Unit = c.Unit.HasValue ? c.Unit.Value : Unit.None
-                })
+                    {
+                        CriteriaId = c.Id,
+                        Name = c.DisplayName,
+                        Value = 0,
+                        Unit = c.Unit.HasValue ? c.Unit.Value : Unit.None
+                    })
                 .OrderBy(c => c.CriteriaId)
                 .ToList();
             }
@@ -66,10 +66,10 @@ namespace ATV_Allowance.Services
             return result ?? new List<CriteriaViewModel>();
         }
 
-        public List<List<CriteriaViewModel>> GetCriterias(int year, int type)
+        public List<List<CriteriaViewModel>> GetYearlyCriterias(int year, int type)
         {
             List<List<CriteriaViewModel>> result = new List<List<CriteriaViewModel>>();
-            for (int month = 1; month <=12; month++)
+            for (int month = 1; month <= 12; month++)
             {
                 result.Add(GetCriterias(month, year, type));
             }
@@ -99,12 +99,12 @@ namespace ATV_Allowance.Services
                         CriteriaId = c.CriteriaId
                     }).ToList()
                 });
-                
+
             }
             else
             {
                 var oldCriterias = criteriaValueRepository.Get(cv => cv.ConfigurationId == configuation.Id);
-                foreach(var c in oldCriterias)
+                foreach (var c in oldCriterias)
                 {
                     criteriaValueRepository.Delete(c);
                 }
@@ -120,7 +120,41 @@ namespace ATV_Allowance.Services
                 }
             }
 
-            
+
+        }
+
+        public void CopyYearlyCriterias(int year)
+        {
+            var configurations = configurationRepository.GetAsNoTracking(x => x.Year == year).ToList();
+
+            var currentYear = DateTime.Now.Year;
+            var currentConfigurations = configurationRepository.GetMany(x => x.Year == currentYear).ToList();
+
+            if (currentConfigurations != null && currentConfigurations.Count > 0)
+            {
+                foreach(var c in currentConfigurations)
+                {
+                    configurationRepository.Delete(c);
+                }
+            }
+
+            var copiedConfigurations = configurations.Select(x => new Configuration
+            {
+                Month = x.Month,
+                Year = currentYear,
+                CriteriaValue = x.CriteriaValue.Select(c => new CriteriaValue
+                {
+                    Unit = c.Unit,
+                    Value = c.Value,
+                    CriteriaId = c.CriteriaId
+                }).ToList()
+            });
+
+
+            foreach (var c in copiedConfigurations)
+            {
+                configurationRepository.Add(c);
+            }
         }
     }
 }

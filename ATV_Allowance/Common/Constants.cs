@@ -77,8 +77,8 @@ namespace ATV_Allowance.Common
             public static string D_TLT = "D_Tlt";
             public static string SL_SD = "Sd";
             public static string D_SD = "D_Sd";
-            public static string Diem = "Điểm";
-            public static string TotalPoint = "Tổng điểm";
+            public static string Diem = "Đ";
+            public static string TotalPoint = "Tổng Đ";
             public static string TotalCost = "Thành tiền";
 
             //report "thong tin ngay moi"

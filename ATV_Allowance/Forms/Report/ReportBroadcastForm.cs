@@ -89,7 +89,7 @@ namespace ATV_Allowance.Forms.Report
                 adgvReportBroadcast.Columns["SoPsu"].HeaderText = ADGVReportHeader.SoPsu;
                 adgvReportBroadcast.Columns["DiemPsu"].HeaderText = ADGVReportHeader.Diem;
                 adgvReportBroadcast.Columns["DiemQtin"].HeaderText = ADGVReportHeader.DiemQTin;
-                adgvReportBroadcast.Columns["DiemQPsu"].HeaderText = ADGVReportHeader.Diem;
+                adgvReportBroadcast.Columns["DiemQPsu"].HeaderText = ADGVReportHeader.DiemQPsu;
                 adgvReportBroadcast.Columns["SumPoint"].HeaderText = ADGVReportHeader.Cong;
                 adgvReportBroadcast.Columns["Descrease"].HeaderText = ADGVReportHeader.TruChiTieu;
                 adgvReportBroadcast.Columns["TotalPoint"].HeaderText = ADGVReportHeader.TotalPoint;

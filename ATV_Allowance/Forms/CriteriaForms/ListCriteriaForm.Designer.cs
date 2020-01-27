@@ -40,6 +40,7 @@ namespace ATV_Allowance.Forms.CriteriaForms
             this.dtp = new System.Windows.Forms.DateTimePicker();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.cbArticleType = new System.Windows.Forms.ComboBox();
+            this.btnCopyCriteria = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.adgvCriterias)).BeginInit();
             this.gbCriterias.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -166,11 +167,22 @@ namespace ATV_Allowance.Forms.CriteriaForms
             this.cbArticleType.Visible = false;
             this.cbArticleType.SelectedIndexChanged += new System.EventHandler(this.cbArticleType_SelectedIndexChanged);
             // 
+            // btnCopyCriteria
+            // 
+            this.btnCopyCriteria.Location = new System.Drawing.Point(457, 390);
+            this.btnCopyCriteria.Name = "btnCopyCriteria";
+            this.btnCopyCriteria.Size = new System.Drawing.Size(75, 23);
+            this.btnCopyCriteria.TabIndex = 7;
+            this.btnCopyCriteria.Text = "Copy chỉ tiêu từ năm cũ qua";
+            this.btnCopyCriteria.UseVisualStyleBackColor = true;
+            this.btnCopyCriteria.Click += new System.EventHandler(this.btnCopyCriteria_Click);
+            // 
             // ListCriteriaForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(851, 407);
+            this.Controls.Add(this.btnCopyCriteria);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.gbCriterias);
             this.Controls.Add(this.adgvCriterias);
@@ -198,5 +210,6 @@ namespace ATV_Allowance.Forms.CriteriaForms
         private System.Windows.Forms.DateTimePicker dtp;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.ComboBox cbArticleType;
+        private Button btnCopyCriteria;
     }
 }
