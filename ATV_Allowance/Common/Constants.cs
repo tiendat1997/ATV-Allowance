@@ -274,13 +274,15 @@ namespace ATV_Allowance.Common
             public static int TIN_DIEM = 4;
             public static int PHSU = 5;
             public static int PHSU_DIEM = 6;
-            public static int QTIN_DIEM = 7;
-            public static int QPSU_DIEM = 8;
-            public static int CONG = 9;
-            public static int TRUCHITIEU = 10;
-            public static int TANGGIAM = 11;
-            public static int TONGCONG = 12;
-            public static int THANHTIEN = 13;
+            public static int QTIN = 7;
+            public static int QTIN_DIEM = 8;
+            public static int QPSU = 9;
+            public static int QPSU_DIEM = 10;
+            public static int CONG = 11;
+            public static int TRUCHITIEU = 12;
+            public static int TANGGIAM = 13;
+            public static int TONGCONG = 14;
+            public static int THANHTIEN = 15;
         }
 
         public static class PT_COL

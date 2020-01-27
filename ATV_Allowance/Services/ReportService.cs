@@ -1021,7 +1021,9 @@ namespace ATV_Allowance.Services
                     worksheet.Cells[currentRow, TS_COL.TIN_DIEM].Value = list[i].DiemTin;
                     worksheet.Cells[currentRow, TS_COL.PHSU].Value = list[i].SoPsu;
                     worksheet.Cells[currentRow, TS_COL.PHSU_DIEM].Value = list[i].DiemPsu;
+                    worksheet.Cells[currentRow, TS_COL.QTIN].Value = list[i].SoQtin;
                     worksheet.Cells[currentRow, TS_COL.QTIN_DIEM].Value = list[i].DiemQtin;
+                    worksheet.Cells[currentRow, TS_COL.QPSU].Value = list[i].SoQPsu;
                     worksheet.Cells[currentRow, TS_COL.QPSU_DIEM].Value = list[i].DiemQPsu;
 
                     worksheet.Cells[currentRow, TS_COL.CONG].Value = list[i].SumPoint;
@@ -1041,19 +1043,21 @@ namespace ATV_Allowance.Services
 
 
             //title row
-            worksheet.Cells[2, 12].Value = $"THÁNG {endDate.Month}/{endDate.Year}";
-            worksheet.Cells[2, 11].Value = "(" + (role == EmployeeRole.PV ? "PV" : "CTV") + ")";
+            worksheet.Cells[2, TS_COL.THANHTIEN].Value = $"THÁNG {endDate.Month}/{endDate.Year}";
+            worksheet.Cells[2, TS_COL.TONGCONG].Value = "(" + (role == EmployeeRole.PV ? "PV" : "CTV") + ")";
 
 
             //report date row
-            worksheet.Cells[currentRow + 2, 14].Value = $"Long Xuyên, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
+            worksheet.Cells[currentRow + 2, TS_COL.THANHTIEN + 1].Value = $"Long Xuyên, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
 
             //sum row
             worksheet.Cells[currentRow, TS_COL.TIN].Value = list.Sum(e => e.SoTin);
             worksheet.Cells[currentRow, TS_COL.TIN_DIEM].Value = list.Sum(e => e.DiemTin);
             worksheet.Cells[currentRow, TS_COL.PHSU].Value = list.Sum(e => e.SoPsu);
             worksheet.Cells[currentRow, TS_COL.PHSU_DIEM].Value = list.Sum(e => e.DiemPsu);
+            worksheet.Cells[currentRow, TS_COL.QTIN].Value = list.Sum(e => e.SoQtin);
             worksheet.Cells[currentRow, TS_COL.QTIN_DIEM].Value = list.Sum(e => e.DiemQtin);
+            worksheet.Cells[currentRow, TS_COL.QPSU].Value = list.Sum(e => e.SoQPsu);
             worksheet.Cells[currentRow, TS_COL.QPSU_DIEM].Value = list.Sum(e => e.DiemQPsu);
             worksheet.Cells[currentRow, TS_COL.CONG].Value = list.Sum(e => e.SumPoint);
             worksheet.Cells[currentRow, TS_COL.TRUCHITIEU].Value = list.Sum(e => e.Descrease);
@@ -1063,7 +1067,7 @@ namespace ATV_Allowance.Services
             worksheet.Cells[currentRow, TS_COL.THANHTIEN].Value = totalCost;
 
             //money string
-            worksheet.Cells[currentRow + 1, 14].Value = $"(Thành tiền bằng chữ: {NumberToTextVN(totalCost)})";
+            worksheet.Cells[currentRow + 1, TS_COL.THANHTIEN + 1].Value = $"(Thành tiền bằng chữ: {NumberToTextVN(totalCost)})";
 
             //hide deduction of CTV
             if (role == EmployeeRole.CTV)
