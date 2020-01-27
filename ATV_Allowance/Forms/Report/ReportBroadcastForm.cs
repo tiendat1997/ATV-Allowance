@@ -30,6 +30,9 @@ namespace ATV_Allowance.Forms.Report
 
             InitValue();
             LoadReport();
+
+            adgvReportBroadcast.ReadOnly = true;
+
         }
 
         public void InitValue()
@@ -236,6 +239,11 @@ namespace ATV_Allowance.Forms.Report
         private void btnPrintPreview_Click(object sender, EventArgs e)
         {
             reportService.InteropPreviewReportTS(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, ArticleType.THOI_SU);
+        }
+
+        private void adgvReportBroadcast_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

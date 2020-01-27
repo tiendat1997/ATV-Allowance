@@ -26,6 +26,8 @@ namespace ATV_Allowance.Forms.Report
 
             InitValue();
             LoadReport();
+            adgvReportBroadcast.ReadOnly = true;
+            adgvKHK.ReadOnly = true;
         }
 
         public void InitValue()

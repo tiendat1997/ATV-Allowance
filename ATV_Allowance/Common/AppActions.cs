@@ -22,7 +22,7 @@ namespace ATV_Allowance.Common.Actions
         public const string ArticleEmployee_Add = "Add Employee [{0}] to Article [{1}]";
         public const string ArticleEmployee_Update = "Update Employee [{0}] in Article [{1}]";
         public const string ArticleEmployee_Remove = "Remove Employee [{0}] in Article [{1}]";
-
+        
         public const string Login = "Login";
     }
 }

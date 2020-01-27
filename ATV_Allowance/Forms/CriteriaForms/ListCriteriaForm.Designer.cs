@@ -169,9 +169,9 @@ namespace ATV_Allowance.Forms.CriteriaForms
             // 
             // btnCopyCriteria
             // 
-            this.btnCopyCriteria.Location = new System.Drawing.Point(457, 390);
+            this.btnCopyCriteria.Location = new System.Drawing.Point(381, 390);
             this.btnCopyCriteria.Name = "btnCopyCriteria";
-            this.btnCopyCriteria.Size = new System.Drawing.Size(75, 23);
+            this.btnCopyCriteria.Size = new System.Drawing.Size(151, 23);
             this.btnCopyCriteria.TabIndex = 7;
             this.btnCopyCriteria.Text = "Copy chỉ tiêu từ năm cũ qua";
             this.btnCopyCriteria.UseVisualStyleBackColor = true;

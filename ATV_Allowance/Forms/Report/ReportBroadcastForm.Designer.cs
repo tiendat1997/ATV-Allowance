@@ -160,6 +160,7 @@
             this.adgvReportBroadcast.Name = "adgvReportBroadcast";
             this.adgvReportBroadcast.Size = new System.Drawing.Size(853, 247);
             this.adgvReportBroadcast.TabIndex = 4;
+            this.adgvReportBroadcast.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.adgvReportBroadcast_CellContentClick);
             // 
             // flowLayoutPanel5
             // 
@@ -252,7 +253,7 @@
             // webBrowser
             // 
             this.webBrowser.Location = new System.Drawing.Point(2, 29);
-            this.webBrowser.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.webBrowser.Margin = new System.Windows.Forms.Padding(2);
             this.webBrowser.MinimumSize = new System.Drawing.Size(15, 16);
             this.webBrowser.Name = "webBrowser";
             this.webBrowser.Size = new System.Drawing.Size(859, 364);
