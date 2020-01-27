@@ -119,6 +119,10 @@ namespace ATV_Allowance.Forms.DeductionForms
             adgvDeduction.Columns["EmployeeId"].Visible = false;
             adgvDeduction.Columns["DeductionType"].Visible = false;
 
+            adgvDeduction.Columns["EmployeeName"].HeaderText = "Tên Nhân Viên";
+            adgvDeduction.Columns["Deduction"].HeaderText = "Giảm trừ";
+            adgvDeduction.Columns["DeductionType"].HeaderText = "Loại";
+
             deductionTypes = deductionTypeService.GetDeductionTypes();
 
             if (adgvDeduction.Columns["cbDeductionCol"] != null)
@@ -128,7 +132,7 @@ namespace ATV_Allowance.Forms.DeductionForms
 
             DataGridViewComboBoxColumn cmbCol = new DataGridViewComboBoxColumn();
             cmbCol.DataSource = deductionTypes;
-            cmbCol.HeaderText = "Giam tru"; //fix here
+            cmbCol.HeaderText = "Loại"; 
             cmbCol.DisplayMember = "Name";
             cmbCol.ValueMember = "Id";
             cmbCol.Name = "cbDeductionCol";
