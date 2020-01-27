@@ -74,7 +74,8 @@ namespace ATV_Allowance.Services
 
         public List<EmployeeViewModel> GetAllActive(bool isActive)
         {
-            var list = employeeRepository.GetMany(e => e.IsActive == isActive)
+            var list = employeeRepository
+                    .GetAllEmployees(isActive)
                     .Select(t => new EmployeeViewModel
                     {
                         Id = t.Id,

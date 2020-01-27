@@ -22,6 +22,7 @@ namespace ATV_Allowance.Forms.EmployeeForms
         private BindingSource bs = null;
         private EmployeeViewModel employee = null;
         private IEmployeeService employeeService = null;
+        private List<EmployeeViewModel> list = null;
         public ListEmployeeForm()
         {
             InitializeComponent();
@@ -32,30 +33,32 @@ namespace ATV_Allowance.Forms.EmployeeForms
             try
             {
                 employeeService = new EmployeeService();
-                List<EmployeeViewModel> list = employeeService.GetAllActive(true);
+                list = employeeService.GetAllActive(true);
                 SortableBindingList<EmployeeViewModel> sbl = new SortableBindingList<EmployeeViewModel>(list);
                 bs = new BindingSource();
                 bs.DataSource = sbl;
                 adgvEmployee.DataSource = bs;
+                adgvEmployee.AutoGenerateColumns = false;
 
                 adgvEmployee.Columns["Id"].Visible = false;
                 adgvEmployee.Columns["OrganizationId"].Visible = false;
                 adgvEmployee.Columns["PositionId"].Visible = false;
+                adgvEmployee.Columns["CodeAndName"].Visible = false;
+
                 adgvEmployee.Columns["Code"].Visible = true;
                 adgvEmployee.Columns["Name"].Visible = true;
                 adgvEmployee.Columns["Position"].Visible = true;
                 adgvEmployee.Columns["Organization"].Visible = true;
-                adgvEmployee.Columns["IsActive"].Visible = false;
-                adgvEmployee.Columns["CodeAndName"].Visible = false;
+                adgvEmployee.Columns["IsActive"].Visible = false;                
                 
                 adgvEmployee.Columns["Code"].HeaderText = ADGVEmployeeText.Code;
                 adgvEmployee.Columns["Code"].Width = ControlsAttribute.GV_WIDTH_NORMAL;
                 adgvEmployee.Columns["Name"].HeaderText = ADGVEmployeeText.Name;
-                adgvEmployee.Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                adgvEmployee.Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;                
                 adgvEmployee.Columns["Position"].HeaderText = ADGVEmployeeText.Position;
-                adgvEmployee.Columns["Position"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                adgvEmployee.Columns["Position"].Width = ControlsAttribute.GV_WIDTH_SEEM;
                 adgvEmployee.Columns["Organization"].HeaderText = ADGVEmployeeText.Organization;
-                adgvEmployee.Columns["Organization"].Width = ControlsAttribute.GV_WIDTH_NORMAL;
+                adgvEmployee.Columns["Organization"].Width = ControlsAttribute.GV_WIDTH_LARGE_X;
                 adgvEmployee.Columns["Title"].HeaderText = ADGVEmployeeText.Title;
                 adgvEmployee.Columns["Title"].Width = ControlsAttribute.GV_WIDTH_SEEM;
 
@@ -174,6 +177,16 @@ namespace ATV_Allowance.Forms.EmployeeForms
             {
                 employeeService = null;
             }
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            string unsignSearchValue = Utilities.RemoveSign4VietnameseString(txtSearch.Text.ToUpper());
+            var filteredList = list.Where(t => Utilities.RemoveSign4VietnameseString(t.CodeAndName.ToUpper()).Contains(unsignSearchValue)).ToList();
+            SortableBindingList<EmployeeViewModel> sbl = new SortableBindingList<EmployeeViewModel>(filteredList);
+            bs = new BindingSource();
+            bs.DataSource = sbl;
+            adgvEmployee.DataSource = bs;
         }
     }
 }

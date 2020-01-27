@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.gbEmployeeList = new System.Windows.Forms.GroupBox();
+            this.txtSearch = new System.Windows.Forms.TextBox();
+            this.lblSearch = new System.Windows.Forms.Label();
             this.adgvEmployee = new ADGV.AdvancedDataGridView();
             this.gbControl = new System.Windows.Forms.GroupBox();
             this.btnRemove = new System.Windows.Forms.Button();
@@ -41,15 +43,34 @@
             // 
             // gbEmployeeList
             // 
+            this.gbEmployeeList.Controls.Add(this.txtSearch);
+            this.gbEmployeeList.Controls.Add(this.lblSearch);
             this.gbEmployeeList.Controls.Add(this.adgvEmployee);
-            this.gbEmployeeList.Location = new System.Drawing.Point(18, 38);
+            this.gbEmployeeList.Location = new System.Drawing.Point(18, 14);
             this.gbEmployeeList.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.gbEmployeeList.Name = "gbEmployeeList";
             this.gbEmployeeList.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.gbEmployeeList.Size = new System.Drawing.Size(1164, 457);
+            this.gbEmployeeList.Size = new System.Drawing.Size(1164, 481);
             this.gbEmployeeList.TabIndex = 0;
             this.gbEmployeeList.TabStop = false;
             this.gbEmployeeList.Text = "Danh sách";
+            // 
+            // txtSearch
+            // 
+            this.txtSearch.Location = new System.Drawing.Point(476, 0);
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.Size = new System.Drawing.Size(678, 26);
+            this.txtSearch.TabIndex = 10;
+            this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
+            // 
+            // lblSearch
+            // 
+            this.lblSearch.AutoSize = true;
+            this.lblSearch.Location = new System.Drawing.Point(398, 0);
+            this.lblSearch.Name = "lblSearch";
+            this.lblSearch.Size = new System.Drawing.Size(71, 20);
+            this.lblSearch.TabIndex = 9;
+            this.lblSearch.Text = "Tìm kiếm";
             // 
             // adgvEmployee
             // 
@@ -64,7 +85,7 @@
             this.adgvEmployee.Name = "adgvEmployee";
             this.adgvEmployee.ReadOnly = true;
             this.adgvEmployee.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.adgvEmployee.Size = new System.Drawing.Size(1144, 417);
+            this.adgvEmployee.Size = new System.Drawing.Size(1144, 440);
             this.adgvEmployee.TabIndex = 0;
             this.adgvEmployee.TimeFilter = false;
             this.adgvEmployee.SortStringChanged += new System.EventHandler(this.adgvEmployee_SortStringChanged);
@@ -130,6 +151,7 @@
             this.Name = "ListEmployeeForm";
             this.Text = "Quản lý nhân viên";
             this.gbEmployeeList.ResumeLayout(false);
+            this.gbEmployeeList.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.adgvEmployee)).EndInit();
             this.gbControl.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -144,5 +166,7 @@
         private System.Windows.Forms.Button btnEdit;
         private System.Windows.Forms.Button btnAdd;
         private ADGV.AdvancedDataGridView adgvEmployee;
+        private System.Windows.Forms.TextBox txtSearch;
+        private System.Windows.Forms.Label lblSearch;
     }
 }

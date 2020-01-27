@@ -412,16 +412,16 @@ namespace ATV_Allowance.Services
                                 && (fromDate == null || t.Date >= fromDate)
                                 && (toDate == null || t.Date <= toDate)
                                 && (employeeId == 0 || t.ArticleEmployee.Any(e => e.EmployeeId == employeeId)))
-                                .Select(t => new ArticleViewModel
-                                {
-                                    Id = t.Id,
-                                    Date = t.Date.ToShortDateString(),
-                                    Code = t.ArticleType.Code,
-                                    Title = t.Title,
-                                    TypeId = t.TypeId
-                                })
-                                .OrderBy(t => t.Title)
-                                .ToList();
+                        .Select(t => new ArticleViewModel
+                        {
+                            Id = t.Id,
+                            Date = t.Date.ToShortDateString(),
+                            Code = t.ArticleType.Code,
+                            Title = t.Title,
+                            TypeId = t.TypeId
+                        })
+                        .OrderBy(t => t.Title)
+                        .ToList();
             return articles;
         }
 
