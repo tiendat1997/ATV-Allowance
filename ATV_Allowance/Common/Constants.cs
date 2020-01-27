@@ -114,12 +114,12 @@ namespace ATV_Allowance.Common
 
         public static class BusinessLogType
         {
-            public static int Login = 1;
-            public static int Logout = 2;
-            public static int Create = 3;
-            public static int Delete = 4;
-            public static int Update = 5;
-            public static int ExportData = 6;
+            public const string LOGIN = "Login";
+            public const string LOGOUT = "Logout";
+            public const string CREATE = "Create";
+            public const string DELETE = "Delete";
+            public const string UPDATE = "Update";
+            public const string EXPORT_DATA = "ExportData";
         }
 
         public static class SystemLogType
@@ -428,5 +428,25 @@ namespace ATV_Allowance.Common
             public static List<string> BSTTNM_KHOI_HAU_KY = new List<string> { "DCT", "KTD", "TCT", "KT_TH" };
         }
 
+        public static class BusinessLogStatus {
+            public const string SUCCESS = "Success";
+            public const string FAIL = "Fail";
+        }        
+        public static class LoggerType
+        {
+            public const string BUSINESS = "businessLogger";
+            public const string SYSTEM = "systemLogger";
+        }
+
+        public static class NLogVariable
+        {
+            public const string ACTOR_ID = "actorId";
+            public const string MESSAGE = "message";
+            public const string TYPE = "type";
+            public const string STATUS = "status";
+            public const string ADDITIONAL_INFO = "additionalInfo";
+            public const string CALL_SITE = "callSite";
+        }
+        
     }
 }

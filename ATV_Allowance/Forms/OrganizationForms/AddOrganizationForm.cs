@@ -1,4 +1,6 @@
-﻿using ATV_Allowance.Forms.CommonForms;
+﻿using ATV_Allowance.Common;
+using ATV_Allowance.Common.Actions;
+using ATV_Allowance.Forms.CommonForms;
 using ATV_Allowance.Helpers;
 using ATV_Allowance.Services;
 using ATV_Allowance.Validators;
@@ -21,9 +23,11 @@ namespace ATV_Allowance.Forms.OrganizationForms
         private IOrganizationService organizationService;
         private System.Windows.Forms.ErrorProvider epName;
         internal new Dictionary<Control, ErrorProvider> epDic;
+        private readonly IAppLogger _logger;
 
         public AddOrganizationForm()
         {
+            _logger = new AppLogger();
             InitializeComponent();
             InitializeErrorProvider();
         }
@@ -47,6 +51,13 @@ namespace ATV_Allowance.Forms.OrganizationForms
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            BusinessLog actionLog = new BusinessLog
+            {
+                ActorId = Common.Session.GetId(),
+                Status = Constants.BusinessLogStatus.SUCCESS,
+                Type = Constants.BusinessLogType.CREATE
+            };
+
             try
             {
                 organizationService = new OrganizationService();
@@ -56,6 +67,7 @@ namespace ATV_Allowance.Forms.OrganizationForms
                     Name = txtName.Text,                                        
                     IsActive = true
                 };
+                actionLog.Message = string.Format(AppActions.Organization_Add, newEmp.Name);
                 bool result = btnAdd_Validate(newEmp);
                 if (result == true)
                 {
@@ -64,11 +76,13 @@ namespace ATV_Allowance.Forms.OrganizationForms
                 }
             }
             catch (Exception ex)
-            {
-                throw ex;
+            {                
+                _logger.LogSystem(ex, AppActions.Organization_Add);
+                actionLog.Status = Constants.BusinessLogStatus.FAIL;
             }
             finally
             {
+                _logger.LogBusiness(actionLog);
                 organizationService = null;
             }
         }

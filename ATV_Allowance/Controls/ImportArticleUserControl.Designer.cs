@@ -37,6 +37,7 @@
             this.gbList = new System.Windows.Forms.GroupBox();
             this.adgvList = new System.Windows.Forms.DataGridView();
             this.epTitle = new System.Windows.Forms.ErrorProvider(this.components);
+            this.btnArticleList = new System.Windows.Forms.Button();
             this.gbArticleTitle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudOrdinal)).BeginInit();
             this.gbList.SuspendLayout();
@@ -46,6 +47,7 @@
             // 
             // gbArticleTitle
             // 
+            this.gbArticleTitle.Controls.Add(this.btnArticleList);
             this.gbArticleTitle.Controls.Add(this.dtpDate);
             this.gbArticleTitle.Controls.Add(this.nudOrdinal);
             this.gbArticleTitle.Controls.Add(this.lblOrdinal);
@@ -129,6 +131,16 @@
             // 
             this.epTitle.ContainerControl = this;
             // 
+            // btnArticleList
+            // 
+            this.btnArticleList.Location = new System.Drawing.Point(252, 14);
+            this.btnArticleList.Name = "btnArticleList";
+            this.btnArticleList.Size = new System.Drawing.Size(76, 22);
+            this.btnArticleList.TabIndex = 8;
+            this.btnArticleList.Text = "Chi tiết";
+            this.btnArticleList.UseVisualStyleBackColor = true;
+            this.btnArticleList.Click += new System.EventHandler(this.btnArticleList_Click);
+            // 
             // ImportArticleUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -158,5 +170,6 @@
         private System.Windows.Forms.DateTimePicker dtpDate;
         private System.Windows.Forms.NumericUpDown nudOrdinal;
         private System.Windows.Forms.Label lblOrdinal;
+        private System.Windows.Forms.Button btnArticleList;
     }
 }

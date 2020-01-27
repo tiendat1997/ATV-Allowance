@@ -22,6 +22,7 @@ namespace ATV_Allowance.Forms.OrganizationForms
         private IOrganizationService orgService = null;
         private BindingSource bs = null;
         private OrganizationViewModel model = null;
+        private List<OrganizationViewModel> list = new List<OrganizationViewModel>();
         public ListOrganizationForm()
         {
             InitializeComponent();
@@ -32,7 +33,7 @@ namespace ATV_Allowance.Forms.OrganizationForms
             try
             {
                 orgService = new OrganizationService();
-                var list = orgService.GetAllIsActive(true);
+                list = orgService.GetAllIsActive(true);
                 SortableBindingList<OrganizationViewModel> sbl = new SortableBindingList<OrganizationViewModel>(list);
                 bs = new BindingSource();
                 bs.DataSource = sbl;
@@ -132,6 +133,16 @@ namespace ATV_Allowance.Forms.OrganizationForms
         private void adgvOrg_SelectionChanged(object sender, EventArgs e)
         {
             model = (OrganizationViewModel)adgvOrg.CurrentRow.DataBoundItem;
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            string unsignSearchValue = Utilities.RemoveSign4VietnameseString(txtSearch.Text.ToUpper());
+            var filteredList = list.Where(t => Utilities.RemoveSign4VietnameseString(t.Name.ToUpper()).Contains(unsignSearchValue)).ToList();
+            SortableBindingList<OrganizationViewModel> sbl = new SortableBindingList<OrganizationViewModel>(filteredList);
+            bs = new BindingSource();
+            bs.DataSource = sbl;
+            adgvOrg.DataSource = bs;
         }
     }
 }

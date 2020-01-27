@@ -14,6 +14,7 @@ using ATV_Allowance.Common;
 using DataService.Entity;
 using ArticleType = ATV_Allowance.Common.Constants.ArticleType;
 using ATV_Allowance.Helpers;
+using ATV_Allowance.Forms.ArticleForms;
 
 namespace ATV_Allowance.Controls
 {
@@ -32,8 +33,10 @@ namespace ATV_Allowance.Controls
         private List<PointTypeViewModel> listPointType;
         internal Dictionary<Control, ErrorProvider> epDic;
         private DateTime currDate;
+        private readonly IAppLogger _logger;
         public ImportArticleUserControl(int articleTypeId)
         {
+            _logger = new AppLogger();
             this.components = new System.ComponentModel.Container();
             InitializeComponent();
             InitializeErrorProvider();
@@ -53,7 +56,7 @@ namespace ATV_Allowance.Controls
             }
             catch (Exception ex)
             {
-                throw ex;
+                _logger.LogSystem(ex, string.Empty);
             }
         }
         private string GetArticleTypeName(int typeId)
@@ -108,7 +111,7 @@ namespace ATV_Allowance.Controls
             }
             catch (Exception ex)
             {
-                throw ex;
+                _logger.LogSystem(ex, string.Empty);
             }
         }
         private void LoadDGV()
@@ -171,7 +174,7 @@ namespace ATV_Allowance.Controls
             }
             catch (Exception ex)
             {
-                throw ex;
+                _logger.LogSystem(ex, string.Empty);
             }
         }
 
@@ -206,7 +209,7 @@ namespace ATV_Allowance.Controls
             }
             catch (Exception ex)
             {
-                throw ex;
+                _logger.LogSystem(ex, string.Empty);
             }
         }
         private void EmployeeCodeSelectionChangeCommitted(object sender, EventArgs e)
@@ -241,7 +244,7 @@ namespace ATV_Allowance.Controls
             }
             catch (Exception ex)
             {
-                throw ex;
+                _logger.LogSystem(ex, string.Empty);
             }
         }
         private void EditTSForm_Load(object sender, EventArgs e)
@@ -285,7 +288,7 @@ namespace ATV_Allowance.Controls
             }
             catch (Exception ex)
             {
-                throw ex;
+                _logger.LogSystem(ex, string.Empty);
             }
         }
 
@@ -295,68 +298,18 @@ namespace ATV_Allowance.Controls
             {
                 articleService = new ArticleService();
                 ArticleEmployeeViewModel articleEmployee = (ArticleEmployeeViewModel)adgvList.CurrentRow.DataBoundItem;
-                if (articleEmployee != null && articleEmployee.Name != null) // check if selected employee and inut complete
+                if (articleEmployee.Id == 0 && articleEmployee.Name != null) // Add new records 
                 {
-                    if (articleEmployee.Id == 0) // Add new records 
-                    {
-                        articleEmployee.ArticleId = article.Id;
-                        if (articleTypeId == ArticleType.THOI_SU)
-                        {
-                            articleService.AddArticleEmployeeTS(articleEmployee);
-                        }
-                        else if (articleTypeId == ArticleType.PV_TTNM)
-                        {
-                            articleService.AddArticleEmployeeTTNM(articleEmployee);
-                        }
-                        else if (articleTypeId == ArticleType.BIENSOAN_TTNM)
-                        {
-                            articleService.AddArticleEmployeeBSTTNM(articleEmployee);
-                        }
-                        else if (articleTypeId == ArticleType.KHOIHK_TTNM)
-                        {
-                            articleService.AddArticleEmployeeHKTTNM(articleEmployee);
-                        }
-                        else if (articleTypeId == ArticleType.PHAT_THANH)
-                        {
-                            articleService.AddArticleEmployeePT(articleEmployee);
-                        }
-                        else if (articleTypeId == ArticleType.PHAT_THANH_TT)
-                        {
-                            articleService.AddArticleEmployeePTTT(articleEmployee);
-                        }
-                    }
-                    else
-                    {
-                        if (articleTypeId == ArticleType.THOI_SU)
-                        {
-                            articleService.UpdateArticleEmployeeTS(articleEmployee);
-                        }
-                        else if (articleTypeId == ArticleType.PV_TTNM)
-                        {
-                            articleService.UpdateArticleEmployeeTTNM(articleEmployee);
-                        }
-                        else if (articleTypeId == ArticleType.BIENSOAN_TTNM)
-                        {
-                            articleService.UpdateArticleEmployeeBSTTNM(articleEmployee);
-                        }
-                        else if (articleTypeId == ArticleType.KHOIHK_TTNM)
-                        {
-                            articleService.UpdateArticleEmployeeHKTTNM(articleEmployee);
-                        }
-                        else if (articleTypeId == ArticleType.PHAT_THANH)
-                        {
-                            articleService.UpdateArticleEmployeePT(articleEmployee);
-                        }
-                        else if (articleTypeId == ArticleType.PHAT_THANH_TT)
-                        {
-                            articleService.UpdateArticleEmployeePTTT(articleEmployee);
-                        }
-                    }
+                    articleService.AddArticleEmployee(articleEmployee, article);
+                }
+                else
+                {
+                    articleService.UpdateArticleEmployee(articleEmployee, article);
                 }
             }
             catch (Exception ex)
             {
-                throw ex;
+                _logger.LogSystem(ex, string.Empty);
             }
         }
         
@@ -367,17 +320,21 @@ namespace ATV_Allowance.Controls
                 articleService = new ArticleService();
                 if (adgvList.CurrentRow.IsNewRow == false)
                 {
-                    ArticleEmployeeViewModel articleEmployee = (ArticleEmployeeViewModel)adgvList.CurrentRow.DataBoundItem;
-                    if (articleEmployee != null)
+                    var confirmResult = DialogHelper.OpenConfirmationDialog("Bạn có chắc muốn xóa nhân viên ra khỏi tin này không?", "Xác nhận xóa", MessageBoxButtons.YesNo);
+                    if (confirmResult == DialogResult.Yes)
                     {
-                        articleEmployee.ArticleId = article.Id;
-                        articleService.RemoveArticleEmployee(articleEmployee);
+                        ArticleEmployeeViewModel articleEmployee = (ArticleEmployeeViewModel)adgvList.CurrentRow.DataBoundItem;
+                        if (articleEmployee != null)
+                        {
+                            articleEmployee.ArticleId = article.Id;
+                            articleService.RemoveArticleEmployee(articleEmployee);
+                        }
                     }
                 }
             }
             catch (Exception ex)
             {
-                throw ex;
+                _logger.LogSystem(ex, string.Empty);
             }
         }
 
@@ -393,7 +350,7 @@ namespace ATV_Allowance.Controls
             }
             catch (Exception ex)
             {
-                throw ex;
+                _logger.LogSystem(ex, string.Empty);
             }
         }
 
@@ -438,7 +395,7 @@ namespace ATV_Allowance.Controls
                 }
                 catch (Exception ex)
                 {
-                    throw ex;
+                    _logger.LogSystem(ex, string.Empty);
                 }
             }
         }
@@ -466,7 +423,7 @@ namespace ATV_Allowance.Controls
             }
             catch (Exception ex)
             {
-                throw ex;
+                _logger.LogSystem(ex, string.Empty);
             }
         }
 
@@ -480,7 +437,7 @@ namespace ATV_Allowance.Controls
             }
             catch (Exception ex)
             {
-                throw ex;
+                _logger.LogSystem(ex, string.Empty);
             }
         }
 
@@ -492,7 +449,7 @@ namespace ATV_Allowance.Controls
             }
             catch (Exception ex)
             {
-                throw ex;
+                _logger.LogSystem(ex, string.Empty);
             }
         }
 
@@ -516,6 +473,39 @@ namespace ATV_Allowance.Controls
         {
             adgvList.Rows[e.RowIndex].Cells["EmployeeCode"].Value = "";
             e.Cancel = true;
+        }
+
+        private void btnArticleList_Click(object sender, EventArgs e)
+        {
+            List<IndexedArticleViewModel> indexArticleList = new List<IndexedArticleViewModel>();
+            for (int i = 0; i < articleList.Count; i++)
+            {
+                var item = articleList[i];
+                indexArticleList.Add(new IndexedArticleViewModel
+                {
+                    Id = item.Id,
+                    Index = i,
+                    Title = item.Title
+                });
+            }
+
+            ArticleListForm form = new ArticleListForm(indexArticleList);
+            form.FormClosed += new FormClosedEventHandler(ArticleListForm_Closed);
+            form.ShowDialog();
+        }
+
+        private void ArticleListForm_Closed(object sender, FormClosedEventArgs e)
+        {
+            var form = sender as ArticleListForm;
+            var indexedArticle = form.IndexedArticle;
+            if (indexedArticle != null)
+            {
+                article = articleList.Where(a => a.Id == indexedArticle.Id).FirstOrDefault();
+                txtTitle.Text = article.Title;
+                nudOrdinal.Value = indexedArticle.Index;
+                adgvList.ReadOnly = false;
+                LoadDGV();
+            }
         }
     }
 }

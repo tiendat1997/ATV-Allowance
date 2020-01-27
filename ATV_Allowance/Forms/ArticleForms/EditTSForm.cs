@@ -33,9 +33,11 @@ namespace ATV_Allowance.Forms.ArticleForms
         private ComboBox comboBox;
         private List<string> empList;
         private List<PointTypeViewModel> listPointType;
-        internal Dictionary<Control, ErrorProvider> epDic;               
+        internal Dictionary<Control, ErrorProvider> epDic;
+        private readonly IAppLogger _logger;
         public EditTSForm(ArticleViewModel model)
         {
+            _logger = new AppLogger();
             this.components = new System.ComponentModel.Container();
             InitializeComponent();            
             InitializeErrorProvider();
@@ -53,7 +55,7 @@ namespace ATV_Allowance.Forms.ArticleForms
             }
             catch (Exception ex)
             {
-                throw ex;
+                _logger.LogSystem(ex, string.Empty);
             }
         }
 
@@ -120,8 +122,7 @@ namespace ATV_Allowance.Forms.ArticleForms
             }
             catch (Exception ex)
             {
-
-                throw ex;
+                _logger.LogSystem(ex, string.Empty);
             }           
         }
 
@@ -153,7 +154,7 @@ namespace ATV_Allowance.Forms.ArticleForms
             }
             catch (Exception ex)
             {
-                throw ex;
+                _logger.LogSystem(ex, string.Empty);
             }
             finally
             {
@@ -192,7 +193,7 @@ namespace ATV_Allowance.Forms.ArticleForms
             }
             catch (Exception ex)
             {
-                throw ex;
+                _logger.LogSystem(ex, string.Empty);
             }
         }
         private void EmployeeCodeSelectionChangeCommitted(object sender, EventArgs e)
@@ -227,7 +228,7 @@ namespace ATV_Allowance.Forms.ArticleForms
             }
             catch (Exception ex)
             {
-                throw ex;
+                _logger.LogSystem(ex, string.Empty);
             }
         }
         private void EditTSForm_Load(object sender, EventArgs e)
@@ -252,11 +253,13 @@ namespace ATV_Allowance.Forms.ArticleForms
                     article.Title = txtTitle.Text;
                     articleService.UpdateArticle(article);
                 }
+
+                DialogHelper.OpenActionResultDialog("Lưu thành công", "Lưu tiêu đề tin");
             }
             catch (Exception ex)
             {
-
-                throw;
+                MessageBox.Show("Có lỗi xảy ra", "Lưu tiêu đề tin");
+                _logger.LogSystem(ex, string.Empty);
             }
             finally
             {
@@ -309,66 +312,19 @@ namespace ATV_Allowance.Forms.ArticleForms
                 ArticleEmployeeViewModel articleEmployee = (ArticleEmployeeViewModel)adgvList.CurrentRow.DataBoundItem;
                 if (articleEmployee != null)
                 {
-                    if (articleEmployee.Id == 0) // Add new records 
+                    if (articleEmployee.Id == 0 && articleEmployee.Name != null) // Add new records 
                     {
-                        articleEmployee.ArticleId = article.Id;                        
-                        if (articleTypeId == ArticleType.THOI_SU)
-                        {
-                            articleService.AddArticleEmployeeTS(articleEmployee);
-                        }
-                        else if (articleTypeId == ArticleType.PV_TTNM)
-                        {
-                            articleService.AddArticleEmployeeTTNM(articleEmployee);
-                        }
-                        else if (articleTypeId == ArticleType.BIENSOAN_TTNM)
-                        {
-                            articleService.AddArticleEmployeeBSTTNM(articleEmployee);
-                        }
-                        else if (articleTypeId == ArticleType.KHOIHK_TTNM)
-                        {
-                            articleService.AddArticleEmployeeHKTTNM(articleEmployee);
-                        }
-                        else if (articleTypeId == ArticleType.PHAT_THANH)
-                        {
-                            articleService.AddArticleEmployeePT(articleEmployee);
-                        }
-                        else if (articleTypeId == ArticleType.PHAT_THANH_TT)
-                        {
-                            articleService.AddArticleEmployeePTTT(articleEmployee);
-                        }                        
+                        articleService.AddArticleEmployee(articleEmployee, article);
                     }
                     else
                     {
-                        if (articleTypeId == ArticleType.THOI_SU)
-                        {
-                            articleService.UpdateArticleEmployeeTS(articleEmployee);
-                        }
-                        else if (articleTypeId == ArticleType.PV_TTNM)
-                        {
-                            articleService.UpdateArticleEmployeeTTNM(articleEmployee);
-                        }
-                        else if (articleTypeId == ArticleType.BIENSOAN_TTNM)
-                        {
-                            articleService.UpdateArticleEmployeeBSTTNM(articleEmployee);
-                        }
-                        else if (articleTypeId == ArticleType.KHOIHK_TTNM)
-                        {
-                            articleService.UpdateArticleEmployeeHKTTNM(articleEmployee);
-                        }
-                        else if (articleTypeId == ArticleType.PHAT_THANH)
-                        {
-                            articleService.UpdateArticleEmployeePT(articleEmployee);
-                        }
-                        else if (articleTypeId == ArticleType.PHAT_THANH_TT)
-                        {
-                            articleService.UpdateArticleEmployeePTTT(articleEmployee);
-                        }                       
+                        articleService.UpdateArticleEmployee(articleEmployee, article);
                     }
                 }
             }
             catch (Exception ex)
             {
-                throw ex;
+                _logger.LogSystem(ex, string.Empty);
             }
             finally
             {
@@ -387,17 +343,21 @@ namespace ATV_Allowance.Forms.ArticleForms
                 articleService = new ArticleService();
                 if (adgvList.CurrentRow.IsNewRow == false)
                 {
-                    ArticleEmployeeViewModel articleEmployee = (ArticleEmployeeViewModel)adgvList.CurrentRow.DataBoundItem;                    
-                    if (articleEmployee != null)
+                    var confirmResult = DialogHelper.OpenConfirmationDialog("Bạn có chắc muốn xóa nhân viên ra khỏi tin này không?", "Xác nhận xóa", MessageBoxButtons.YesNo);
+                    if (confirmResult == DialogResult.Yes)
                     {
-                        articleEmployee.ArticleId = article.Id;
-                        articleService.RemoveArticleEmployee(articleEmployee);
+                        ArticleEmployeeViewModel articleEmployee = (ArticleEmployeeViewModel)adgvList.CurrentRow.DataBoundItem;
+                        if (articleEmployee != null)
+                        {
+                            articleEmployee.ArticleId = article.Id;
+                            articleService.RemoveArticleEmployee(articleEmployee);
+                        }
                     }
                 }
             }
             catch (Exception ex)
             {
-                throw ex;
+                _logger.LogSystem(ex, string.Empty);
             }
             finally
             {
@@ -422,7 +382,7 @@ namespace ATV_Allowance.Forms.ArticleForms
             }
             catch (Exception ex)
             {
-                throw ex;
+                _logger.LogSystem(ex, string.Empty);
             }
             finally
             {
@@ -447,7 +407,7 @@ namespace ATV_Allowance.Forms.ArticleForms
             }
             catch (Exception ex)
             {
-                throw ex;
+                _logger.LogSystem(ex, string.Empty);
             }
         }
 

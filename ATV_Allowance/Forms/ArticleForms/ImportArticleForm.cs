@@ -1,4 +1,5 @@
 ﻿using ATV_Allowance.Common;
+using ATV_Allowance.Common.Actions;
 using ATV_Allowance.Forms.CommonForms;
 using ATV_Allowance.Helpers;
 using ATV_Allowance.Services;
@@ -37,8 +38,10 @@ namespace ATV_Allowance.Forms.ArticleForms
         private List<PointTypeViewModel> listPointType;
         internal Dictionary<Control, ErrorProvider> epDic;
         private DateTime currDate;
+        private readonly IAppLogger _logger;
         public ImportArticleForm(int articleTypeId, List<string> pointCodes)
         {
+            _logger = new AppLogger();
             this.components = new System.ComponentModel.Container();
             InitializeComponent();
             InitializeErrorProvider();
@@ -117,8 +120,7 @@ namespace ATV_Allowance.Forms.ArticleForms
             }
             catch (Exception ex)
             {
-
-                throw ex;
+                _logger.LogSystem(ex, string.Empty);
             }
         }
         private void DisplayColumnIndex()
@@ -129,8 +131,6 @@ namespace ATV_Allowance.Forms.ArticleForms
         {
             try
             {
-                
-
                 pointTypeService = new PointTypeService();
                 articleService = new ArticleService();
                 bs = new BindingSource();
@@ -189,7 +189,7 @@ namespace ATV_Allowance.Forms.ArticleForms
             }
             catch (Exception ex)
             {
-                throw ex;
+                _logger.LogSystem(ex, string.Empty);
             }           
         }
 
@@ -224,7 +224,7 @@ namespace ATV_Allowance.Forms.ArticleForms
             }
             catch (Exception ex)
             {
-                throw ex;
+                _logger.LogSystem(ex, string.Empty);
             }
         }
 
@@ -260,7 +260,7 @@ namespace ATV_Allowance.Forms.ArticleForms
             }
             catch (Exception ex)
             {
-                throw ex;
+                _logger.LogSystem(ex, string.Empty);
             }
         }
         private void EditTSForm_Load(object sender, EventArgs e)
@@ -273,7 +273,7 @@ namespace ATV_Allowance.Forms.ArticleForms
             }
             catch (Exception ex)
             {
-                throw ex;
+                _logger.LogSystem(ex, string.Empty);
             }
         }
 
@@ -311,7 +311,7 @@ namespace ATV_Allowance.Forms.ArticleForms
             }
             catch (Exception ex)
             {
-                throw ex;
+                _logger.LogSystem(ex, string.Empty);
             }
         }
 
@@ -320,72 +320,59 @@ namespace ATV_Allowance.Forms.ArticleForms
             try
             {
                 articleService = new ArticleService();
-                ArticleEmployeeViewModel articleEmployee = (ArticleEmployeeViewModel)adgvList.CurrentRow.DataBoundItem;
-                if (articleEmployee != null)
+                ArticleEmployeeViewModel articleEmployee = (ArticleEmployeeViewModel)adgvList.CurrentRow.DataBoundItem;                
+
+                if (articleEmployee != null && articleEmployee.Name != null)
                 {
                     if (articleEmployee.Id == 0) // Add new records 
                     {
-                        articleEmployee.ArticleId = article.Id;
-                        if (articleTypeId == ArticleType.THOI_SU)
-                        {
-                            articleService.AddArticleEmployeeTS(articleEmployee);
-                        }
-                        else if (articleTypeId == ArticleType.PV_TTNM)
-                        {
-                            articleService.AddArticleEmployeeTTNM(articleEmployee);
-                        }
-                        else if (articleTypeId == ArticleType.BIENSOAN_TTNM)
-                        {
-                            articleService.AddArticleEmployeeBSTTNM(articleEmployee);
-                        }
-                        else if (articleTypeId == ArticleType.KHOIHK_TTNM)
-                        {
-                            articleService.AddArticleEmployeeHKTTNM(articleEmployee);
-                        }
-                        else if (articleTypeId == ArticleType.PHAT_THANH)
-                        {
-                            articleService.AddArticleEmployeePT(articleEmployee);
-                        }
-                        else if (articleTypeId == ArticleType.PHAT_THANH_TT)
-                        {
-                            articleService.AddArticleEmployeePTTT(articleEmployee);
-                        }
+                        articleService.AddArticleEmployee(articleEmployee, article);
                     }
                     else
                     {
-                        if (articleTypeId == ArticleType.THOI_SU)
-                        {
-                            articleService.UpdateArticleEmployeeTS(articleEmployee);
-                        }
-                        else if (articleTypeId == ArticleType.PV_TTNM)
-                        {
-                            articleService.UpdateArticleEmployeeTTNM(articleEmployee);
-                        }
-                        else if (articleTypeId == ArticleType.BIENSOAN_TTNM)
-                        {
-                            articleService.UpdateArticleEmployeeBSTTNM(articleEmployee);
-                        }
-                        else if (articleTypeId == ArticleType.KHOIHK_TTNM)
-                        {
-                            articleService.UpdateArticleEmployeeHKTTNM(articleEmployee);
-                        }
-                        else if (articleTypeId == ArticleType.PHAT_THANH)
-                        {
-                            articleService.UpdateArticleEmployeePT(articleEmployee);
-                        }
-                        else if (articleTypeId == ArticleType.PHAT_THANH_TT)
-                        {
-                            articleService.UpdateArticleEmployeePTTT(articleEmployee);
-                        }
+                        articleService.UpdateArticleEmployee(articleEmployee, article);   
                     }
                 }
             }
             catch (Exception ex)
             {
-                throw ex;
+                _logger.LogSystem(ex, string.Empty);
             }
         }
-       
+        private void ConfirmBeforeDelete()
+        {
+            var confirmResult = DialogHelper.OpenConfirmationDialog("Bạn có chắc muốn xóa nhân viên ra khỏi tin này không?", "Xác nhận xóa", MessageBoxButtons.YesNo);
+            if (confirmResult == DialogResult.Yes)
+            {
+                BusinessLog actionLog = new BusinessLog
+                {
+                    ActorId = Common.Session.GetId(),
+                    Status = Constants.BusinessLogStatus.SUCCESS,
+                    Type = Constants.BusinessLogType.CREATE
+                };
+
+                try
+                {
+                    // If 'Yes', do something here.
+                    ArticleEmployeeViewModel articleEmployee = (ArticleEmployeeViewModel)adgvList.CurrentRow.DataBoundItem;
+                    if (articleEmployee != null)
+                    {
+                        actionLog.Message = string.Format(AppActions.ArticleEmployee_Remove, articleEmployee.EmployeeCode, article.Id);
+                        articleEmployee.ArticleId = article.Id;
+                        articleService.RemoveArticleEmployee(articleEmployee);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    actionLog.Status = Constants.BusinessLogStatus.FAIL;
+                    throw ex;
+                }
+                finally
+                {
+                    _logger.LogBusiness(actionLog);
+                }
+            }           
+        }
         private void adgvList_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
             try
@@ -393,17 +380,12 @@ namespace ATV_Allowance.Forms.ArticleForms
                 articleService = new ArticleService();
                 if (adgvList.CurrentRow.IsNewRow == false)
                 {
-                    ArticleEmployeeViewModel articleEmployee = (ArticleEmployeeViewModel)adgvList.CurrentRow.DataBoundItem;
-                    if (articleEmployee != null)
-                    {
-                        articleEmployee.ArticleId = article.Id;
-                        articleService.RemoveArticleEmployee(articleEmployee);
-                    }
+                    ConfirmBeforeDelete();
                 }
             }
             catch (Exception ex)
             {
-                throw ex;
+                _logger.LogSystem(ex, string.Empty);
             }       
         }
 
@@ -419,6 +401,7 @@ namespace ATV_Allowance.Forms.ArticleForms
             }
             catch (Exception ex)
             {
+                _logger.LogSystem(ex, string.Empty);
                 throw ex;
             }
         }
@@ -426,7 +409,6 @@ namespace ATV_Allowance.Forms.ArticleForms
         private void txtTitle_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)Keys.Return) // ENTER
-
             {
                 // Then Do your Thang
                 try
@@ -439,7 +421,6 @@ namespace ATV_Allowance.Forms.ArticleForms
                     }
                     else
                     {
-                        //epArticleTitle.SetError(txtTitle, "");
                         if (article == null)
                         {
                             // add article                            
@@ -466,8 +447,7 @@ namespace ATV_Allowance.Forms.ArticleForms
                 }
                 catch (Exception ex)
                 {
-
-                    throw ex;
+                    _logger.LogSystem(ex, string.Empty);
                 }
             }
         }
@@ -548,6 +528,39 @@ namespace ATV_Allowance.Forms.ArticleForms
         {
             adgvList.Rows[e.RowIndex].Cells["EmployeeCode"].Value = "";            
             e.Cancel = true;
+        }
+
+        private void btnArticleList_Click(object sender, EventArgs e)
+        {
+            List<IndexedArticleViewModel> indexArticleList = new List<IndexedArticleViewModel>();
+            for (int i = 0; i < articleList.Count; i++)
+            {
+                var item = articleList[i];
+                indexArticleList.Add(new IndexedArticleViewModel
+                {
+                    Id = item.Id,
+                    Index = i,
+                    Title = item.Title
+                });
+            }
+            
+            ArticleListForm form = new ArticleListForm(indexArticleList);
+            form.FormClosed += new FormClosedEventHandler(ArticleListForm_Closed);
+            form.ShowDialog();
+        }
+
+        private void ArticleListForm_Closed(object sender, FormClosedEventArgs e)
+        {
+            var form = sender as ArticleListForm;
+            var indexedArticle = form.IndexedArticle;           
+            if (indexedArticle != null)
+            {
+                article = articleList.Where(a => a.Id == indexedArticle.Id).FirstOrDefault();
+                txtTitle.Text = article.Title;
+                nudOrdinal.Value = indexedArticle.Index;
+                adgvList.ReadOnly = false;
+                LoadDGV();
+            }            
         }
     }
 }

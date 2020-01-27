@@ -74,6 +74,15 @@
     <Compile Include="Entity\User.cs" />
     <Compile Include="Infrastructure\HashHelper.cs" />
     <Compile Include="Infrastructure\IRepository.cs" />
+    <Compile Include="Migrations\202001110758539_initial-database.cs" />
+    <Compile Include="Migrations\202001110758539_initial-database.Designer.cs">
+      <DependentUpon>202001110758539_initial-database.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001110804494_add-log-storeprocedure.cs" />
+    <Compile Include="Migrations\202001110804494_add-log-storeprocedure.Designer.cs">
+      <DependentUpon>202001110804494_add-log-storeprocedure.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\ReportModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\DeductionTypeRepository.cs" />
@@ -99,6 +108,14 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202001110758539_initial-database.resx">
+      <DependentUpon>202001110758539_initial-database.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001110804494_add-log-storeprocedure.resx">
+      <DependentUpon>202001110804494_add-log-storeprocedure.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

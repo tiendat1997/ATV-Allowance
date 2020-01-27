@@ -52,12 +52,14 @@
     <Reference Include="FluentValidation.ValidatorAttribute, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentValidation.ValidatorAttribute.8.4.0\lib\net45\FluentValidation.ValidatorAttribute.dll</HintPath>
     </Reference>
+<<<<<<< HEAD
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\packages\NLog.4.6.8\lib\net45\NLog.dll</HintPath>
-    </Reference>
+=======
     <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
+>>>>>>> dev-ngoc
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
@@ -81,7 +83,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\AppActions.cs" />
     <Compile Include="Common\Constants.cs" />
     <Compile Include="Common\PropertyComparer.cs" />
     <Compile Include="Common\Session.cs" />
@@ -97,12 +98,6 @@
     </Compile>
     <Compile Include="Forms\ArticleForms\AddArticleForm.Designer.cs">
       <DependentUpon>AddArticleForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\ArticleForms\ArticleListForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\ArticleForms\ArticleListForm.Designer.cs">
-      <DependentUpon>ArticleListForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\ArticleForms\ImportArticleForm.cs">
       <SubType>Form</SubType>
@@ -248,7 +243,6 @@
     <Compile Include="Forms\Report\ReportTTNgayMoiForm.Designer.cs">
       <DependentUpon>ReportTTNgayMoiForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\DialogHelper.cs" />
     <Compile Include="Helpers\ArticleEmployeeHelper.cs" />
     <Compile Include="Helpers\ExcelHelper.cs" />
     <Compile Include="Helpers\LinqHelper.cs" />
@@ -279,7 +273,6 @@
     <Compile Include="Validators\EmployeeValidator.cs" />
     <Compile Include="ViewModel\ArticleViewModel.cs" />
     <Compile Include="ViewModel\EmployeeViewModel.cs" />
-    <Compile Include="ViewModel\IndexedArticleViewModel.cs" />
     <Compile Include="ViewModel\OrganizationViewModel.cs" />
     <Compile Include="ViewModel\PointTypeViewModel.cs" />
     <Compile Include="ViewModel\PointViewModel.cs" />
@@ -289,9 +282,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ArticleForms\AddArticleForm.resx">
       <DependentUpon>AddArticleForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ArticleForms\ArticleListForm.resx">
-      <DependentUpon>ArticleListForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ArticleForms\ImportArticleForm.resx">
       <DependentUpon>ImportArticleForm.cs</DependentUpon>
@@ -372,6 +362,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+<<<<<<< HEAD
     <Content Include="NLog.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
@@ -380,6 +371,11 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+=======
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+>>>>>>> dev-ngoc
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

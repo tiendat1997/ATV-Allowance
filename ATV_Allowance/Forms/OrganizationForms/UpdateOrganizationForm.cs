@@ -1,4 +1,6 @@
-﻿using ATV_Allowance.Forms.CommonForms;
+﻿using ATV_Allowance.Common;
+using ATV_Allowance.Common.Actions;
+using ATV_Allowance.Forms.CommonForms;
 using ATV_Allowance.Helpers;
 using ATV_Allowance.Services;
 using ATV_Allowance.Validators;
@@ -22,10 +24,12 @@ namespace ATV_Allowance.Forms.OrganizationForms
         private IOrganizationService organizationService;
         private System.Windows.Forms.ErrorProvider epName;
         internal new Dictionary<Control, ErrorProvider> epDic;
+        private readonly IAppLogger _logger;
         public OrganizationViewModel model { get; set; }
 
         public UpdateOrganizationForm(OrganizationViewModel model)
         {
+            _logger = new AppLogger();
             this.model = model;
             InitializeComponent();
             InitializeErrorProvider();
@@ -58,6 +62,13 @@ namespace ATV_Allowance.Forms.OrganizationForms
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
+            BusinessLog actionLog = new BusinessLog
+            {
+                ActorId = Common.Session.GetId(),
+                Status = Constants.BusinessLogStatus.SUCCESS,
+                Type = Constants.BusinessLogType.CREATE
+            };
+
             try
             {
                 organizationService = new OrganizationService();
@@ -68,19 +79,22 @@ namespace ATV_Allowance.Forms.OrganizationForms
                     Name = txtName.Text,
                     IsActive = true
                 };
+                actionLog.Message = string.Format(AppActions.Organization_Add, org.Name);
                 bool result = btnUpdate_Validate(org);
                 if (result == true)
                 {
                     organizationService.UpdateOrganization(org);
-                    this.Close();
+                    Close();
                 }
             }
             catch (Exception ex)
             {
-                throw ex;
+                _logger.LogSystem(ex, AppActions.Organization_Update);
+                actionLog.Status = Constants.BusinessLogStatus.FAIL;
             }
             finally
             {
+                _logger.LogBusiness(actionLog);
                 organizationService = null;
             }
         }
