@@ -181,7 +181,7 @@
             this.btnExport.Name = "btnExport";
             this.btnExport.Size = new System.Drawing.Size(115, 23);
             this.btnExport.TabIndex = 1;
-            this.btnExport.Text = "Xem tổng hợp thù lao";
+            this.btnExport.Text = "In tổng hợp thù lao";
             this.btnExport.UseVisualStyleBackColor = true;
             this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
@@ -192,7 +192,7 @@
             this.btnExportKHK.Name = "btnExportKHK";
             this.btnExportKHK.Size = new System.Drawing.Size(112, 23);
             this.btnExportKHK.TabIndex = 3;
-            this.btnExportKHK.Text = "Xem tổng hợp hậu kỳ";
+            this.btnExportKHK.Text = "In tổng hợp hậu kỳ";
             this.btnExportKHK.UseVisualStyleBackColor = true;
             this.btnExportKHK.Click += new System.EventHandler(this.btnExportKHK_Click);
             // 

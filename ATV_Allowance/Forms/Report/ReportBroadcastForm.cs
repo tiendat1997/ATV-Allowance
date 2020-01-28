@@ -1,7 +1,9 @@
 ﻿using ATV_Allowance.Common;
+using ATV_Allowance.Common.Actions;
 using ATV_Allowance.Forms.DeductionForms;
 using ATV_Allowance.Services;
 using ATV_Allowance.ViewModel;
+using DataService.Entity;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -21,9 +23,11 @@ namespace ATV_Allowance.Forms.Report
         private SaveFileDialog saveFileDialog;
         private StreamReader streamToPrint;
         private Font printFont;
+        private readonly IAppLogger _logger;
 
         public ReportBroadcastForm()
         {
+            _logger = new AppLogger();
             InitializeComponent();
             reportService = new ReportService();
             criteriaService = new CriteriaService();
@@ -80,7 +84,7 @@ namespace ATV_Allowance.Forms.Report
             try
             {
                 var percent = criteriaService.GetCriteriaValue(dtpStartdate.Value.Month, dtpStartdate.Value.Year, (int)cbRole.SelectedValue == EmployeeRole.PV ? Criterias_Percent.TANG_GIAM_PV_BTV : Criterias_Percent.TANG_GIAM_CTV);
-                List<EmployeePointViewModel> list = reportService.GetReportBroadcast(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, ArticleType.THOI_SU);
+                List<EmployeePointViewModel> list = reportService.GetReportBroadcast(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, Constants.ArticleType.THOI_SU);
                 SortableBindingList<EmployeePointViewModel> sbl = new SortableBindingList<EmployeePointViewModel>(list);
                 bs = new BindingSource();
                 bs.DataSource = sbl;
@@ -161,10 +165,7 @@ namespace ATV_Allowance.Forms.Report
             catch (Exception ex)
             {
                 throw ex;
-            }
-            finally
-            {
-            }
+            }           
         }
 
         private void btnExport_Click(object sender, EventArgs e)
@@ -177,8 +178,29 @@ namespace ATV_Allowance.Forms.Report
             //    var path = Path.GetFullPath(saveFileDialog.FileName);
             //    File.WriteAllBytes(path, data);
             //}
-            reportService.InteropPreviewReportTS(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, ArticleType.THOI_SU);
+            BusinessLog actionLog = new BusinessLog
+            {
+                ActorId = Common.Session.GetId(),
+                Status = Constants.BusinessLogStatus.SUCCESS,
+                Type = Constants.BusinessLogType.CREATE
+            };
 
+            try
+            {
+                reportService.InteropPreviewReportTS(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, Constants.ArticleType.THOI_SU);
+                int month = this.dtpMonth.Value.Month;
+                int year = this.dtpYear.Value.Year;
+                actionLog.Message = string.Format(AppActions.Export_ThoiSu_TongHopThuLoa, month, year);
+            }
+            catch (Exception ex)
+            {
+                actionLog.Status = Constants.BusinessLogStatus.FAIL;
+                _logger.LogSystem(ex, string.Empty);                
+            }
+            finally
+            {
+                _logger.LogBusiness(actionLog);
+            }
         }
 
         private void dtpMonth_ValueChanged(object sender, EventArgs e)
@@ -186,7 +208,6 @@ namespace ATV_Allowance.Forms.Report
             dtpStartdate.Value = new DateTime(dtpYear.Value.Year, dtpMonth.Value.Month, 1);
             dtpEnddate.Value = new DateTime(dtpYear.Value.Year, dtpMonth.Value.Month, DateTime.DaysInMonth(dtpYear.Value.Year, dtpMonth.Value.Month));
             LoadReport();
-
         }
 
         private void dtpYear_ValueChanged(object sender, EventArgs e)
@@ -220,7 +241,7 @@ namespace ATV_Allowance.Forms.Report
         private void btnDeduction_Click(object sender, EventArgs e)
         {
             //ListEmployeeDeduction deductionForm = new ListEmployeeDeduction(dtpMonth.Value.Month, dtpYear.Value.Year, ArticleType.THOI_SU, (int)cbRole.SelectedValue);
-            ListEmployeeDeduction deductionForm = new ListEmployeeDeduction(dtpMonth.Value.Month, dtpYear.Value.Year, ArticleType.THOI_SU, EmployeeRole.PV);
+            ListEmployeeDeduction deductionForm = new ListEmployeeDeduction(dtpMonth.Value.Month, dtpYear.Value.Year, Constants.ArticleType.THOI_SU, EmployeeRole.PV);
             deductionForm.ShowDialog();
         }
 
@@ -234,13 +255,34 @@ namespace ATV_Allowance.Forms.Report
             //    var path = Path.GetFullPath(saveFileDialog.FileName);
             //    File.WriteAllBytes(path, data);
             //}
-            reportService.InteropPreviewReportTS_KHK(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, ArticleType.KHOIHK_TTNM);
+            BusinessLog actionLog = new BusinessLog
+            {
+                ActorId = Common.Session.GetId(),
+                Status = Constants.BusinessLogStatus.SUCCESS,
+                Type = Constants.BusinessLogType.CREATE
+            };
 
+            try
+            {
+                reportService.InteropPreviewReportTS_KHK(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, Constants.ArticleType.KHOIHK_TTNM);
+                var month = dtpMonth.Value.Month;
+                var year = dtpYear.Value.Year;
+                actionLog.Message = string.Format(AppActions.Export_ThoiSu_KhoiHauKy, month, year);
+            }
+            catch (Exception ex)
+            {
+                actionLog.Status = Constants.BusinessLogStatus.FAIL;
+                _logger.LogSystem(ex, string.Empty);                
+            }
+            finally
+            {
+                _logger.LogBusiness(actionLog);
+            }
         }
 
         private void btnPrintPreview_Click(object sender, EventArgs e)
         {
-            reportService.InteropPreviewReportTS(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, ArticleType.THOI_SU);
+            reportService.InteropPreviewReportTS(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, Constants.ArticleType.THOI_SU);
         }
 
         private void adgvReportBroadcast_CellContentClick(object sender, DataGridViewCellEventArgs e)

@@ -22,7 +22,14 @@ namespace ATV_Allowance.Common.Actions
         public const string ArticleEmployee_Add = "Add Employee [{0}] to Article [{1}]";
         public const string ArticleEmployee_Update = "Update Employee [{0}] in Article [{1}]";
         public const string ArticleEmployee_Remove = "Remove Employee [{0}] in Article [{1}]";
-        
+
+        public const string Export_ThoiSu_KhoiHauKy = "Export Thoi Su - Khoi Hau Ky {0} - {1}";
+        public const string Export_ThoiSu_TongHopThuLoa = "Export Thoi Su - Tong Hop Thu Lao {0} - {1}";
+        public const string Export_PhatThanh = "Export Phat Thanh {0} - {1}";
+        public const string Export_PhatThanhTT = "Export Phat Thanh Truc Tiep {0} - {1}";
+        public const string Export_BienSoanTTNM = "Export Bien Soan Thong Tin Ngay Moi {0} - {1}";
+        public const string Export_TTNM = "Export Thong tin ngay moi {0} - {1}";
+
         public const string Login = "Login";
     }
 }

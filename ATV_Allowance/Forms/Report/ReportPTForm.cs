@@ -1,7 +1,9 @@
 ﻿using ATV_Allowance.Common;
+using ATV_Allowance.Common.Actions;
 using ATV_Allowance.Forms.DeductionForms;
 using ATV_Allowance.Services;
 using ATV_Allowance.ViewModel;
+using DataService.Entity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,9 +26,11 @@ namespace ATV_Allowance.Forms.Report
         private IReportService reportService;
         private ICriteriaService criteriaService;
         private SaveFileDialog saveFileDialog;
+        private readonly IAppLogger _logger;
 
         public ReportPTForm()
         {
+            _logger = new AppLogger();
             InitializeComponent();
             reportService = new ReportService();
             criteriaService = new CriteriaService();
@@ -83,7 +87,7 @@ namespace ATV_Allowance.Forms.Report
 
                 var percent = criteriaService.GetCriteriaValue(dtpStartdate.Value.Month, dtpStartdate.Value.Year, (int)cbRole.SelectedValue == EmployeeRole.PV ? Criterias_Percent.TANG_GIAM_PV_BTV : Criterias_Percent.TANG_GIAM_CTV);
                 reportService = new ReportService();
-                List<EmployeePointViewModel> list = reportService.GetReportBroadcast(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, ArticleType.PHAT_THANH);
+                List<EmployeePointViewModel> list = reportService.GetReportBroadcast(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, Constants.ArticleType.PHAT_THANH);
                 SortableBindingList<EmployeePointViewModel> sbl = new SortableBindingList<EmployeePointViewModel>(list);
                 bs = new BindingSource();
                 bs.DataSource = sbl;
@@ -180,8 +184,29 @@ namespace ATV_Allowance.Forms.Report
             //    var path = Path.GetFullPath(saveFileDialog.FileName);
             //    File.WriteAllBytes(path, data);
             //}
-            reportService.InteropPreviewReportPT(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, ArticleType.PHAT_THANH);
+            BusinessLog actionLog = new BusinessLog
+            {
+                ActorId = Common.Session.GetId(),
+                Status = Constants.BusinessLogStatus.SUCCESS,
+                Type = Constants.BusinessLogType.CREATE
+            };
 
+            try
+            {
+                reportService.InteropPreviewReportPT(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, Constants.ArticleType.PHAT_THANH);
+                int month = this.dtpMonth.Value.Month;
+                int year = this.dtpYear.Value.Year;
+                actionLog.Message = string.Format(AppActions.Export_PhatThanh, month, year);
+            }
+            catch (Exception ex)
+            {
+                actionLog.Status = Constants.BusinessLogStatus.FAIL;
+                _logger.LogSystem(ex, string.Empty);
+            }
+            finally
+            {
+                _logger.LogBusiness(actionLog);
+            }
         }
 
         private void dtpMonth_ValueChanged(object sender, EventArgs e)
@@ -223,13 +248,13 @@ namespace ATV_Allowance.Forms.Report
         private void btnDeduction_Click(object sender, EventArgs e)
         {
             //ListEmployeeDeduction deductionForm = new ListEmployeeDeduction(dtpMonth.Value.Month, dtpYear.Value.Year, ArticleType.PHAT_THANH, (int)cbRole.SelectedValue);
-            ListEmployeeDeduction deductionForm = new ListEmployeeDeduction(dtpMonth.Value.Month, dtpYear.Value.Year, ArticleType.PHAT_THANH, EmployeeRole.PV);
+            ListEmployeeDeduction deductionForm = new ListEmployeeDeduction(dtpMonth.Value.Month, dtpYear.Value.Year, Constants.ArticleType.PHAT_THANH, EmployeeRole.PV);
             deductionForm.ShowDialog();
         }
 
         private void btnPreview_Click(object sender, EventArgs e)
         {
-            reportService.InteropPreviewReportPT(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, ArticleType.PHAT_THANH);
+            reportService.InteropPreviewReportPT(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, Constants.ArticleType.PHAT_THANH);
         }
     }
 }

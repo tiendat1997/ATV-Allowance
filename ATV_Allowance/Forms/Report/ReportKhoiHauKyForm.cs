@@ -158,5 +158,10 @@ namespace ATV_Allowance.Forms.Report
                 reportService = null;
             }
         }
+
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

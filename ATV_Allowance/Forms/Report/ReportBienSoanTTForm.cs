@@ -1,7 +1,9 @@
 ﻿using ATV_Allowance.Common;
+using ATV_Allowance.Common.Actions;
 using ATV_Allowance.Forms.DeductionForms;
 using ATV_Allowance.Services;
 using ATV_Allowance.ViewModel;
+using DataService.Entity;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,8 +20,10 @@ namespace ATV_Allowance.Forms.Report
         private IReportService reportService;
         private ICriteriaService criteriaService;
         private SaveFileDialog saveFileDialog;
+        private IAppLogger _logger;
         public ReportBienSoanTTForm()
         {
+            _logger = new AppLogger();
             InitializeComponent();
             reportService = new ReportService();
             criteriaService = new CriteriaService();
@@ -76,7 +80,7 @@ namespace ATV_Allowance.Forms.Report
             {
                 var percent = criteriaService.GetCriteriaValue(dtpStartdate.Value.Month, dtpStartdate.Value.Year, (int)cbRole.SelectedValue == EmployeeRole.PV ? Criterias_Percent.TANG_GIAM_PV_BTV : Criterias_Percent.TANG_GIAM_CTV);
                 reportService = new ReportService();
-                List<EmployeePointViewModel> list = reportService.GetReportBroadcast(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, ArticleType.BIENSOAN_TTNM);
+                List<EmployeePointViewModel> list = reportService.GetReportBroadcast(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, Constants.ArticleType.BIENSOAN_TTNM);
                 SortableBindingList<EmployeePointViewModel> sbl = new SortableBindingList<EmployeePointViewModel>(list);
                 bs = new BindingSource();
                 bs.DataSource = sbl;
@@ -172,7 +176,7 @@ namespace ATV_Allowance.Forms.Report
             {
 
                 reportService = new ReportService();
-                List<EmployeePointViewModel> list = reportService.GetReportBroadcast(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, ArticleType.KHOIHK_TTNM);
+                List<EmployeePointViewModel> list = reportService.GetReportBroadcast(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, Constants.ArticleType.KHOIHK_TTNM);
                 SortableBindingList<EmployeePointViewModel> sbl = new SortableBindingList<EmployeePointViewModel>(list);
                 bs = new BindingSource();
                 bs.DataSource = sbl;
@@ -277,7 +281,30 @@ namespace ATV_Allowance.Forms.Report
             //    var path = Path.GetFullPath(saveFileDialog.FileName);
             //    File.WriteAllBytes(path, data);
             //}
-            reportService.InteropPreviewReportBSTTNM(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, ArticleType.BIENSOAN_TTNM);
+            BusinessLog actionLog = new BusinessLog
+            {
+                ActorId = Common.Session.GetId(),
+                Status = Constants.BusinessLogStatus.SUCCESS,
+                Type = Constants.BusinessLogType.CREATE
+            };
+
+            try
+            {
+                reportService.InteropPreviewReportBSTTNM(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, Constants.ArticleType.BIENSOAN_TTNM);
+                int month = this.dtpMonth.Value.Month;
+                int year = this.dtpYear.Value.Year;
+                actionLog.Message = string.Format(AppActions.Export_BienSoanTTNM, month, year);
+            }
+            catch (Exception ex)
+            {
+                actionLog.Status = Constants.BusinessLogStatus.FAIL;
+                _logger.LogSystem(ex, string.Empty);
+            }
+            finally
+            {
+                _logger.LogBusiness(actionLog);
+            }
+            
 
         }
 
@@ -320,7 +347,7 @@ namespace ATV_Allowance.Forms.Report
         private void btnDeduction_Click(object sender, EventArgs e)
         {
             //ListEmployeeDeduction deductionForm = new ListEmployeeDeduction(dtpMonth.Value.Month, dtpYear.Value.Year, ArticleType.BIENSOAN_TTNM, (int)cbRole.SelectedValue);
-            ListEmployeeDeduction deductionForm = new ListEmployeeDeduction(dtpMonth.Value.Month, dtpYear.Value.Year, ArticleType.BIENSOAN_TTNM, EmployeeRole.PV);
+            ListEmployeeDeduction deductionForm = new ListEmployeeDeduction(dtpMonth.Value.Month, dtpYear.Value.Year, Constants.ArticleType.BIENSOAN_TTNM, EmployeeRole.PV);
             deductionForm.ShowDialog();
         }
 
@@ -337,7 +364,7 @@ namespace ATV_Allowance.Forms.Report
         private void btnPreview_Click(object sender, EventArgs e)
         {
 
-            reportService.InteropPreviewReportBSTTNM(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, ArticleType.BIENSOAN_TTNM);
+            reportService.InteropPreviewReportBSTTNM(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, Constants.ArticleType.BIENSOAN_TTNM);
         }
     }
 }

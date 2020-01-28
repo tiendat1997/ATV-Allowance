@@ -177,7 +177,7 @@
             this.btnExport.Name = "btnExport";
             this.btnExport.Size = new System.Drawing.Size(73, 23);
             this.btnExport.TabIndex = 1;
-            this.btnExport.Text = "Xem báo cáo";
+            this.btnExport.Text = "In báo cáo";
             this.btnExport.UseVisualStyleBackColor = true;
             this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
