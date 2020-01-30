@@ -1043,9 +1043,8 @@ namespace ATV_Allowance.Services
 
 
             //title row
-            worksheet.Cells[2, TS_COL.THANHTIEN].Value = $"THÁNG {endDate.Month}/{endDate.Year}";
-            worksheet.Cells[2, TS_COL.TONGCONG].Value = "(" + (role == EmployeeRole.PV ? "PV" : "CTV") + ")";
-
+            var textRole = (role == EmployeeRole.PV ? "PV" : "CTV");
+            worksheet.Cells[2, TS_COL.STT].Value = $"{ReportName.TS} ({textRole}) THÁNG {endDate.Month}/{endDate.Year}";
 
             //report date row
             worksheet.Cells[currentRow + 2, TS_COL.THANHTIEN + 1].Value = $"Long Xuyên, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
@@ -1092,6 +1091,11 @@ namespace ATV_Allowance.Services
             //}
 
             #endregion
+
+            //#region copy with new name
+            //workbook = CopyWorkbook(workbook, application, "TestFileName");
+            //worksheet = workbook.Worksheets[1];
+            //#endregion
 
             #region setup file
             worksheet.PageSetup.Orientation = XlPageOrientation.xlLandscape;
@@ -1160,8 +1164,8 @@ namespace ATV_Allowance.Services
             }
 
             //title row
-            worksheet.Cells[2, PT_COL.SL_SD].Value = $"THÁNG {endDate.Month}/{endDate.Year}";
-            worksheet.Cells[2, PT_COL.SL_TLT].Value = "(" + (role == EmployeeRole.PV ? "PV" : "CTV") + ")";
+            var textRole = (role == EmployeeRole.PV ? "PV" : "CTV");
+            worksheet.Cells[2, PT_COL.STT].Value = $"{ReportName.PT} ({textRole}) THÁNG {endDate.Month}/{endDate.Year}";
 
 
             //report date row
@@ -1260,9 +1264,8 @@ namespace ATV_Allowance.Services
             }
 
             //title row
-            worksheet.Cells[2, PTTT_COL.SL_BT].Value = $"THÁNG {endDate.Month}/{endDate.Year}";
-            worksheet.Cells[2, PTTT_COL.SL_BS].Value = "(" + (role == EmployeeRole.PV ? "PV" : "CTV") + ")";
-
+            var textRole = (role == EmployeeRole.PV ? "PV" : "CTV");
+            worksheet.Cells[2, PTTT_COL.STT].Value = $"{ReportName.PTTT} ({textRole}) THÁNG {endDate.Month}/{endDate.Year}";
 
             //report date row
             worksheet.Cells[currentRow + 2, PTTT_COL.THANHTIEN + 1].Value = $"Long Xuyên, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
@@ -1351,6 +1354,7 @@ namespace ATV_Allowance.Services
             worksheet.Cells[currentRow, BSTTNM_COL.THANHTIEN].Value = totalCostBSTTNM;
 
             currentRow += 4;
+            worksheet.Cells[currentRow - 2, KHK_COL.TANGGIAM].Value = "Tăng " + percent + "%";
             if (listKHK != null && listKHK.Count > 0)
             {
                 for (int i = 0; i < listKHK.Count; i++)
@@ -1387,8 +1391,8 @@ namespace ATV_Allowance.Services
             }
 
             //title row
-            worksheet.Cells[2, BSTTNM_COL.TONGDIEM].Value = $"THÁNG {endDate.Month}/{endDate.Year}";
-            worksheet.Cells[2, BSTTNM_COL.D_BtDuyet].Value = "(" + (role == EmployeeRole.PV ? "PV" : "CTV") + ")";
+            var textRole = (role == EmployeeRole.PV ? "PV" : "CTV");
+            worksheet.Cells[2, BSTTNM_COL.STT].Value = $"{ReportName.BSTTNM} ({textRole}) THÁNG {endDate.Month}/{endDate.Year}";
 
 
             //report date row
@@ -1399,7 +1403,7 @@ namespace ATV_Allowance.Services
             worksheet.Cells[currentRow, KHK_COL.THANHTIEN].Value = totalCostKHK;
 
             //money string
-            worksheet.Cells[currentRow + 1, BSTTNM_COL.THANHTIEN + 1].Value = $"(Thành tiền bằng chữ: {NumberToTextVN(totalCostBSTTNM)})";
+            worksheet.Cells[currentRow + 1, BSTTNM_COL.THANHTIEN + 1].Value = $"(Thành tiền bằng chữ: {NumberToTextVN(totalCostBSTTNM + totalCostKHK)})";
 
             //hide deduction of CTV
             if (role == EmployeeRole.CTV)
@@ -1450,16 +1454,16 @@ namespace ATV_Allowance.Services
                     worksheet.Cells[currentRow, TTNM_COL.DON_VI].Value = list[i].Organization;
                     worksheet.Cells[currentRow, TTNM_COL.SL_TIN].Value = list[i].SoTin;
                     worksheet.Cells[currentRow, TTNM_COL.D_TIN].Value = list[i].DiemTin;
-                    worksheet.Cells[currentRow, TTNM_COL.SL_PS].Value = list[i].SoTTh_Gnh;
-                    worksheet.Cells[currentRow, TTNM_COL.D_PS].Value = list[i].DiemTTh_Gnh;
-                    worksheet.Cells[currentRow, TTNM_COL.SL_QTin].Value = list[i].SoCde;
-                    worksheet.Cells[currentRow, TTNM_COL.D_QTin].Value = list[i].DiemCde;
-                    worksheet.Cells[currentRow, TTNM_COL.SL_QPsu].Value = list[i].SoPv;
-                    worksheet.Cells[currentRow, TTNM_COL.D_QPsu].Value = list[i].DiemPv;
-                    worksheet.Cells[currentRow, TTNM_COL.SL_Tlt].Value = list[i].SoBs_DCT;
-                    worksheet.Cells[currentRow, TTNM_COL.D_Tlt].Value = list[i].DiemBs_DCT;
-                    worksheet.Cells[currentRow, TTNM_COL.SL_Thop].Value = list[i].SoBt_Dd;
-                    worksheet.Cells[currentRow, TTNM_COL.D_Thop].Value = list[i].DiemBt_Dd;
+                    worksheet.Cells[currentRow, TTNM_COL.SL_PS].Value = list[i].SoPsu;
+                    worksheet.Cells[currentRow, TTNM_COL.D_PS].Value = list[i].DiemPsu;
+                    worksheet.Cells[currentRow, TTNM_COL.SL_QTin].Value = list[i].SoQtin;
+                    worksheet.Cells[currentRow, TTNM_COL.D_QTin].Value = list[i].DiemQtin;
+                    worksheet.Cells[currentRow, TTNM_COL.SL_QPsu].Value = list[i].SoQPsu;
+                    worksheet.Cells[currentRow, TTNM_COL.D_QPsu].Value = list[i].DiemQPsu;
+                    worksheet.Cells[currentRow, TTNM_COL.SL_Tlt].Value = list[i].SoTLT;
+                    worksheet.Cells[currentRow, TTNM_COL.D_Tlt].Value = list[i].DiemTLT;
+                    worksheet.Cells[currentRow, TTNM_COL.SL_Thop].Value = list[i].SoThop;
+                    worksheet.Cells[currentRow, TTNM_COL.D_Thop].Value = list[i].DiemThop;
 
                     worksheet.Cells[currentRow, TTNM_COL.TRUCHITIEU].Value = list[i].Descrease;
                     worksheet.Cells[currentRow, TTNM_COL.TONGDIEM].Value = list[i].SumPoint;
@@ -1475,9 +1479,8 @@ namespace ATV_Allowance.Services
             }
 
             //title row
-            worksheet.Cells[2, TTNM_COL.SL_Thop].Value = $"THÁNG {endDate.Month}/{endDate.Year}";
-            worksheet.Cells[2, TTNM_COL.SL_Tlt].Value = "(" + (role == EmployeeRole.PV ? "PV" : "CTV") + ")";
-
+            var textRole = (role == EmployeeRole.PV ? "PV" : "CTV");
+            worksheet.Cells[2, TTNM_COL.STT].Value = $"{ReportName.TTNM} ({textRole}) THÁNG {endDate.Month}/{endDate.Year}";
 
             //report date row
             worksheet.Cells[currentRow + 2, TTNM_COL.THANHTIEN + 1].Value = $"Long Xuyên, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
@@ -1656,6 +1659,15 @@ namespace ATV_Allowance.Services
 
             worksheet.PrintPreview();
             #endregion
+        }
+
+        public Workbook CopyWorkbook(Workbook oldWorkbook, Application application, string fileName)
+        {
+            var newWorkbook = (Workbook)application.Workbooks.Add(Type.Missing);
+            var worksheet = (Worksheet)newWorkbook.Worksheets[1];
+            var newSheet = newWorkbook.Worksheets.Add();
+            newSheet = worksheet;
+            return newWorkbook;
         }
 
     }
