@@ -430,6 +430,15 @@ namespace ATV_Allowance.Common
             public static List<string> BSTTNM_KHOI_HAU_KY = new List<string> { "DCT", "KTD", "TCT", "KT_TH" };
         }
 
+        public static class ReportName
+        {
+            public static string TS = "BẢNG THÙ LAO NHUẬN BÚT THỜI SỰ TRUYỀN HÌNH";
+            public static string PT = "BẢNG TỔNG HỢP NHUẬN BÚT PHÁT THANH";
+            public static string PTTT = "BẢNG TỔNG HỢP NHUẬN BÚT PHÁT THANH TRỰC TIẾP";
+            public static string TTNM = "BẢNG THÙ LAO TIN, PS TRONG THÔNG TIN NGÀY MỚI";
+            public static string BSTTNM = "BẢNG TỔNG HỢP THÙ LAO BIÊN SOẠN THÔNG TIN NGÀY MỚI";
+        }
+
         public static class BusinessLogStatus {
             public const string SUCCESS = "Success";
             public const string FAIL = "Fail";

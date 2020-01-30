@@ -176,6 +176,8 @@ namespace ATV_Allowance.Forms.Report
             {
 
                 reportService = new ReportService();
+                var percent = criteriaService.GetCriteriaValue(dtpStartdate.Value.Month, dtpStartdate.Value.Year, (int)cbRole.SelectedValue == EmployeeRole.PV ? Criterias_Percent.TANG_GIAM_PV_BTV : Criterias_Percent.TANG_GIAM_CTV);
+
                 List<EmployeePointViewModel> list = reportService.GetReportBroadcast(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, Constants.ArticleType.KHOIHK_TTNM);
                 SortableBindingList<EmployeePointViewModel> sbl = new SortableBindingList<EmployeePointViewModel>(list);
                 bs = new BindingSource();
@@ -184,7 +186,7 @@ namespace ATV_Allowance.Forms.Report
                 adgvKHK.Columns["EmployeeName"].HeaderText = ADGVReportHeader.Name;
                 adgvKHK.Columns["Organization"].HeaderText = ADGVReportHeader.Organization;
                 adgvKHK.Columns["SumPoint"].HeaderText = ADGVReportHeader.TongCong;
-                adgvKHK.Columns["IncreasePercent"].HeaderText = ADGVReportHeader.TangGiam;
+                adgvKHK.Columns["IncreasePercent"].HeaderText = "Tăng " + percent + "%";
                 adgvKHK.Columns["IncreasePercent"].DefaultCellStyle.Format = "F1";
                 adgvKHK.Columns["Descrease"].HeaderText = ADGVReportHeader.TruChiTieu;
                 adgvKHK.Columns["Descrease"].DefaultCellStyle.Format = "F1";
