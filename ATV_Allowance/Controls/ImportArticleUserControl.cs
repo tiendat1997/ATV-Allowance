@@ -168,7 +168,7 @@ namespace ATV_Allowance.Controls
                     nextIndex++;
                     adgvList.Columns[type.Code].DisplayIndex = nextIndex;
                     adgvList.Columns[type.Code].HeaderText = type.Code;
-                    adgvList.Columns[type.Code].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    adgvList.Columns[type.Code].Width = ControlsAttribute.GV_WIDTH_SMALL;
                 }
                 adgvList.EditingControlShowing += new DataGridViewEditingControlShowingEventHandler(adgvList_EditingControlShowing);
             }
