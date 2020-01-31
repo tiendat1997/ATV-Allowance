@@ -30,6 +30,7 @@
         {            
             this.components = new System.ComponentModel.Container();
             this.gbArticleTitle = new System.Windows.Forms.GroupBox();
+            this.btnArticleList = new System.Windows.Forms.Button();
             this.dtpDate = new System.Windows.Forms.DateTimePicker();
             this.nudOrdinal = new System.Windows.Forms.NumericUpDown();
             this.lblOrdinal = new System.Windows.Forms.Label();
@@ -37,7 +38,6 @@
             this.gbList = new System.Windows.Forms.GroupBox();
             this.adgvList = new System.Windows.Forms.DataGridView();
             this.epTitle = new System.Windows.Forms.ErrorProvider(this.components);
-            this.btnArticleList = new System.Windows.Forms.Button();
             this.gbArticleTitle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudOrdinal)).BeginInit();
             this.gbList.SuspendLayout();
@@ -52,12 +52,22 @@
             this.gbArticleTitle.Controls.Add(this.nudOrdinal);
             this.gbArticleTitle.Controls.Add(this.lblOrdinal);
             this.gbArticleTitle.Controls.Add(this.txtTitle);
-            this.gbArticleTitle.Location = new System.Drawing.Point(13, 12);
+            this.gbArticleTitle.Location = new System.Drawing.Point(19, 12);
             this.gbArticleTitle.Name = "gbArticleTitle";
-            this.gbArticleTitle.Size = new System.Drawing.Size(1156, 67);
+            this.gbArticleTitle.Size = new System.Drawing.Size(899, 67);
             this.gbArticleTitle.TabIndex = 0;
             this.gbArticleTitle.TabStop = false;
             this.gbArticleTitle.Text = "Thao tác";
+            // 
+            // btnArticleList
+            // 
+            this.btnArticleList.Location = new System.Drawing.Point(189, 20);
+            this.btnArticleList.Name = "btnArticleList";
+            this.btnArticleList.Size = new System.Drawing.Size(76, 31);
+            this.btnArticleList.TabIndex = 7;
+            this.btnArticleList.Text = "Chi tiết";
+            this.btnArticleList.UseVisualStyleBackColor = true;
+            this.btnArticleList.Click += new System.EventHandler(this.btnArticleList_Click);
             // 
             // dtpDate
             // 
@@ -70,7 +80,7 @@
             // 
             // nudOrdinal
             // 
-            this.nudOrdinal.Location = new System.Drawing.Point(479, 25);
+            this.nudOrdinal.Location = new System.Drawing.Point(327, 23);
             this.nudOrdinal.Name = "nudOrdinal";
             this.nudOrdinal.Size = new System.Drawing.Size(53, 26);
             this.nudOrdinal.TabIndex = 5;
@@ -80,7 +90,7 @@
             // lblOrdinal
             // 
             this.lblOrdinal.AutoSize = true;
-            this.lblOrdinal.Location = new System.Drawing.Point(434, 28);
+            this.lblOrdinal.Location = new System.Drawing.Point(282, 26);
             this.lblOrdinal.Name = "lblOrdinal";
             this.lblOrdinal.Size = new System.Drawing.Size(38, 20);
             this.lblOrdinal.TabIndex = 4;
@@ -88,18 +98,18 @@
             // 
             // txtTitle
             // 
-            this.txtTitle.Location = new System.Drawing.Point(547, 25);
+            this.txtTitle.Location = new System.Drawing.Point(395, 23);
             this.txtTitle.Name = "txtTitle";
-            this.txtTitle.Size = new System.Drawing.Size(603, 26);
+            this.txtTitle.Size = new System.Drawing.Size(497, 26);
             this.txtTitle.TabIndex = 2;
             this.txtTitle.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTitle_KeyPress);
             // 
             // gbList
             // 
             this.gbList.Controls.Add(this.adgvList);
-            this.gbList.Location = new System.Drawing.Point(13, 96);
+            this.gbList.Location = new System.Drawing.Point(13, 101);
             this.gbList.Name = "gbList";
-            this.gbList.Size = new System.Drawing.Size(1156, 299);
+            this.gbList.Size = new System.Drawing.Size(905, 299);
             this.gbList.TabIndex = 1;
             this.gbList.TabStop = false;
             this.gbList.Text = "Danh sách";
@@ -107,9 +117,9 @@
             // adgvList
             // 
             this.adgvList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.adgvList.Location = new System.Drawing.Point(6, 25);
+            this.adgvList.Location = new System.Drawing.Point(6, 36);
             this.adgvList.Name = "adgvList";
-            this.adgvList.Size = new System.Drawing.Size(1144, 257);
+            this.adgvList.Size = new System.Drawing.Size(892, 257);
             this.adgvList.TabIndex = 0;
             this.adgvList.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.adgvList_DataError);
             this.adgvList.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.adgvList_EditingControlShowing);
@@ -123,21 +133,11 @@
             // 
             this.epTitle.ContainerControl = this;
             // 
-            // btnArticleList
-            // 
-            this.btnArticleList.Location = new System.Drawing.Point(341, 22);
-            this.btnArticleList.Name = "btnArticleList";
-            this.btnArticleList.Size = new System.Drawing.Size(76, 31);
-            this.btnArticleList.TabIndex = 7;
-            this.btnArticleList.Text = "Chi tiết";
-            this.btnArticleList.UseVisualStyleBackColor = true;
-            this.btnArticleList.Click += new System.EventHandler(this.btnArticleList_Click);
-            // 
             // ImportArticleForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1181, 412);
+            this.ClientSize = new System.Drawing.Size(923, 412);
             this.Controls.Add(this.gbList);
             this.Controls.Add(this.gbArticleTitle);
             this.Name = "ImportArticleForm";

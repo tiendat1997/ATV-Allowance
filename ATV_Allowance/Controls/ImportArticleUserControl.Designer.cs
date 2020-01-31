@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.gbArticleTitle = new System.Windows.Forms.GroupBox();
+            this.btnArticleList = new System.Windows.Forms.Button();
             this.dtpDate = new System.Windows.Forms.DateTimePicker();
             this.nudOrdinal = new System.Windows.Forms.NumericUpDown();
             this.lblOrdinal = new System.Windows.Forms.Label();
@@ -37,7 +38,6 @@
             this.gbList = new System.Windows.Forms.GroupBox();
             this.adgvList = new System.Windows.Forms.DataGridView();
             this.epTitle = new System.Windows.Forms.ErrorProvider(this.components);
-            this.btnArticleList = new System.Windows.Forms.Button();
             this.gbArticleTitle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudOrdinal)).BeginInit();
             this.gbList.SuspendLayout();
@@ -52,14 +52,24 @@
             this.gbArticleTitle.Controls.Add(this.nudOrdinal);
             this.gbArticleTitle.Controls.Add(this.lblOrdinal);
             this.gbArticleTitle.Controls.Add(this.txtTitle);
-            this.gbArticleTitle.Location = new System.Drawing.Point(9, 8);
+            this.gbArticleTitle.Location = new System.Drawing.Point(2, 2);
             this.gbArticleTitle.Margin = new System.Windows.Forms.Padding(2);
             this.gbArticleTitle.Name = "gbArticleTitle";
             this.gbArticleTitle.Padding = new System.Windows.Forms.Padding(2);
-            this.gbArticleTitle.Size = new System.Drawing.Size(820, 44);
+            this.gbArticleTitle.Size = new System.Drawing.Size(622, 44);
             this.gbArticleTitle.TabIndex = 0;
             this.gbArticleTitle.TabStop = false;
             this.gbArticleTitle.Text = "Thao tác";
+            // 
+            // btnArticleList
+            // 
+            this.btnArticleList.Location = new System.Drawing.Point(178, 13);
+            this.btnArticleList.Name = "btnArticleList";
+            this.btnArticleList.Size = new System.Drawing.Size(76, 22);
+            this.btnArticleList.TabIndex = 8;
+            this.btnArticleList.Text = "Chi tiết";
+            this.btnArticleList.UseVisualStyleBackColor = true;
+            this.btnArticleList.Click += new System.EventHandler(this.btnArticleList_Click);
             // 
             // dtpDate
             // 
@@ -73,7 +83,7 @@
             // 
             // nudOrdinal
             // 
-            this.nudOrdinal.Location = new System.Drawing.Point(363, 16);
+            this.nudOrdinal.Location = new System.Drawing.Point(289, 15);
             this.nudOrdinal.Margin = new System.Windows.Forms.Padding(2);
             this.nudOrdinal.Name = "nudOrdinal";
             this.nudOrdinal.Size = new System.Drawing.Size(35, 20);
@@ -84,30 +94,31 @@
             // lblOrdinal
             // 
             this.lblOrdinal.AutoSize = true;
-            this.lblOrdinal.Location = new System.Drawing.Point(333, 18);
+            this.lblOrdinal.Location = new System.Drawing.Point(259, 17);
             this.lblOrdinal.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblOrdinal.Name = "lblOrdinal";
             this.lblOrdinal.Size = new System.Drawing.Size(28, 13);
             this.lblOrdinal.TabIndex = 4;
             this.lblOrdinal.Text = "STT";
+            this.lblOrdinal.Click += new System.EventHandler(this.lblOrdinal_Click);
             // 
             // txtTitle
             // 
-            this.txtTitle.Location = new System.Drawing.Point(408, 16);
+            this.txtTitle.Location = new System.Drawing.Point(340, 15);
             this.txtTitle.Margin = new System.Windows.Forms.Padding(2);
             this.txtTitle.Name = "txtTitle";
-            this.txtTitle.Size = new System.Drawing.Size(403, 20);
+            this.txtTitle.Size = new System.Drawing.Size(278, 20);
             this.txtTitle.TabIndex = 2;
             this.txtTitle.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTitle_KeyPress);
             // 
             // gbList
             // 
             this.gbList.Controls.Add(this.adgvList);
-            this.gbList.Location = new System.Drawing.Point(9, 62);
+            this.gbList.Location = new System.Drawing.Point(2, 59);
             this.gbList.Margin = new System.Windows.Forms.Padding(2);
             this.gbList.Name = "gbList";
             this.gbList.Padding = new System.Windows.Forms.Padding(2);
-            this.gbList.Size = new System.Drawing.Size(824, 194);
+            this.gbList.Size = new System.Drawing.Size(622, 194);
             this.gbList.TabIndex = 1;
             this.gbList.TabStop = false;
             this.gbList.Text = "Danh sách";
@@ -118,7 +129,7 @@
             this.adgvList.Location = new System.Drawing.Point(4, 16);
             this.adgvList.Margin = new System.Windows.Forms.Padding(2);
             this.adgvList.Name = "adgvList";
-            this.adgvList.Size = new System.Drawing.Size(816, 167);
+            this.adgvList.Size = new System.Drawing.Size(614, 167);
             this.adgvList.TabIndex = 0;
             this.adgvList.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.adgvList_DataError);
             this.adgvList.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.adgvList_EditingControlShowing);
@@ -131,16 +142,6 @@
             // 
             this.epTitle.ContainerControl = this;
             // 
-            // btnArticleList
-            // 
-            this.btnArticleList.Location = new System.Drawing.Point(252, 14);
-            this.btnArticleList.Name = "btnArticleList";
-            this.btnArticleList.Size = new System.Drawing.Size(76, 22);
-            this.btnArticleList.TabIndex = 8;
-            this.btnArticleList.Text = "Chi tiết";
-            this.btnArticleList.UseVisualStyleBackColor = true;
-            this.btnArticleList.Click += new System.EventHandler(this.btnArticleList_Click);
-            // 
             // ImportArticleUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -149,7 +150,7 @@
             this.Controls.Add(this.gbArticleTitle);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ImportArticleUserControl";
-            this.Size = new System.Drawing.Size(846, 268);
+            this.Size = new System.Drawing.Size(626, 261);
             this.Load += new System.EventHandler(this.EditTSForm_Load);
             this.gbArticleTitle.ResumeLayout(false);
             this.gbArticleTitle.PerformLayout();

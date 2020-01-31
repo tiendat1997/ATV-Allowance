@@ -51,11 +51,11 @@ namespace ATV_Allowance.Forms.ArticleForms
             adgvList.Columns["Date"].Visible = true;
 
             adgvList.Columns["Title"].HeaderText = ADGVArticleText.Title;
-            adgvList.Columns["Title"].Width = ControlsAttribute.GV_WIDTH_LARGE_XX;
+            adgvList.Columns["Title"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             adgvList.Columns["Code"].HeaderText = ADGVArticleText.Type;
             adgvList.Columns["Code"].Width = ControlsAttribute.GV_WIDTH_SEEM;
             adgvList.Columns["Date"].HeaderText = ADGVArticleText.Date;
-            adgvList.Columns["Date"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            adgvList.Columns["Date"].Width = ControlsAttribute.GV_WIDTH_MEDIUM;
         }
         private void InitArticleTypeFilter()
         {

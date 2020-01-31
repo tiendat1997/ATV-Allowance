@@ -52,15 +52,15 @@ namespace ATV_Allowance.Forms.EmployeeForms
                 adgvEmployee.Columns["IsActive"].Visible = false;                
                 
                 adgvEmployee.Columns["Code"].HeaderText = ADGVEmployeeText.Code;
-                adgvEmployee.Columns["Code"].Width = ControlsAttribute.GV_WIDTH_NORMAL;
+                adgvEmployee.Columns["Code"].Width = ControlsAttribute.GV_WIDTH_SEEM;
                 adgvEmployee.Columns["Name"].HeaderText = ADGVEmployeeText.Name;
-                adgvEmployee.Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;                
+                adgvEmployee.Columns["Name"].Width = ControlsAttribute.GV_WIDTH_LARGE;                
                 adgvEmployee.Columns["Position"].HeaderText = ADGVEmployeeText.Position;
                 adgvEmployee.Columns["Position"].Width = ControlsAttribute.GV_WIDTH_SEEM;
                 adgvEmployee.Columns["Organization"].HeaderText = ADGVEmployeeText.Organization;
-                adgvEmployee.Columns["Organization"].Width = ControlsAttribute.GV_WIDTH_LARGE_X;
+                adgvEmployee.Columns["Organization"].Width = ControlsAttribute.GV_WIDTH_LARGE;
                 adgvEmployee.Columns["Title"].HeaderText = ADGVEmployeeText.Title;
-                adgvEmployee.Columns["Title"].Width = ControlsAttribute.GV_WIDTH_SEEM;
+                adgvEmployee.Columns["Title"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
                 // Set selected employee 
                 if (list.Count > 0)

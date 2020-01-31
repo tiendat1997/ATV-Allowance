@@ -31,8 +31,8 @@
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.CriteriaName = new System.Windows.Forms.Label();
             this.CriteriaValue = new System.Windows.Forms.TextBox();
-            this.CriteriaUnit = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.CriteriaUnit = new System.Windows.Forms.Label();
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -69,17 +69,6 @@
             this.CriteriaValue.TabIndex = 1;
             this.CriteriaValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // CriteriaUnit
-            // 
-            this.CriteriaUnit.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.CriteriaUnit.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CriteriaUnit.Location = new System.Drawing.Point(266, 3);
-            this.CriteriaUnit.Name = "CriteriaUnit";
-            this.CriteriaUnit.Size = new System.Drawing.Size(49, 23);
-            this.CriteriaUnit.TabIndex = 2;
-            this.CriteriaUnit.Text = "Đơn vị";
-            this.CriteriaUnit.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -92,6 +81,17 @@
             this.label1.Size = new System.Drawing.Size(300, 2);
             this.label1.TabIndex = 3;
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // CriteriaUnit
+            // 
+            this.CriteriaUnit.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.CriteriaUnit.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CriteriaUnit.Location = new System.Drawing.Point(266, 3);
+            this.CriteriaUnit.Name = "CriteriaUnit";
+            this.CriteriaUnit.Size = new System.Drawing.Size(49, 23);
+            this.CriteriaUnit.TabIndex = 2;
+            this.CriteriaUnit.Text = "Đơn vị";
+            this.CriteriaUnit.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // ACriteriaTemplate
             // 
@@ -112,7 +112,7 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Label CriteriaName;
         private System.Windows.Forms.TextBox CriteriaValue;
-        private System.Windows.Forms.Label CriteriaUnit;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label CriteriaUnit;
     }
 }

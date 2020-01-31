@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
+using static ATV_Allowance.Common.Constants;
 
 namespace ATV_Allowance.Forms.CriteriaForms
 {
@@ -104,9 +105,13 @@ namespace ATV_Allowance.Forms.CriteriaForms
             bs = new BindingSource();
             bs.DataSource = sbl;
             adgvCriterias.DataSource = bs;
+            adgvCriterias.AutoGenerateColumns = false;
 
             adgvCriterias.Columns["Id"].Visible = false;
             adgvCriterias.Columns["Year"].Visible = false;
+
+            adgvCriterias.Columns["Month"].HeaderText = "Thg";
+            adgvCriterias.Columns["Month"].Width = 30;
 
         }
 

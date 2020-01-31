@@ -102,13 +102,13 @@ namespace ATV_Allowance.Forms.ArticleForms
                 adgvList.Columns["EmployeeCode"].ReadOnly = true;
 
                 adgvList.Columns["EmployeeCode"].HeaderText = ADGVEmployeeText.Code;
-                adgvList.Columns["EmployeeCode"].Width = ControlsAttribute.GV_WIDTH_MEDIUM;
+                adgvList.Columns["EmployeeCode"].Width = ControlsAttribute.GV_WIDTH_SEEM;
                 adgvList.Columns["Name"].HeaderText = ADGVEmployeeText.Name;
-                adgvList.Columns["Name"].Width = ControlsAttribute.GV_WIDTH_LARGE;
+                adgvList.Columns["Name"].Width = ControlsAttribute.GV_WIDTH_MEDIUM;
                 adgvList.Columns["Position"].HeaderText = ADGVEmployeeText.AbbrPosition;
                 adgvList.Columns["Position"].Width = ControlsAttribute.GV_WIDTH_SMALL;
                 adgvList.Columns["Organization"].HeaderText = ADGVEmployeeText.Organization;
-                adgvList.Columns["Organization"].Width = ControlsAttribute.GV_WIDTH_LARGE;
+                adgvList.Columns["Organization"].Width = ControlsAttribute.GV_WIDTH_MEDIUM;
 
                 int nextIndex = 3;
                 foreach (var type in listPointType)
@@ -116,7 +116,8 @@ namespace ATV_Allowance.Forms.ArticleForms
                     nextIndex++;
                     adgvList.Columns[type.Code].DisplayIndex = nextIndex;
                     adgvList.Columns[type.Code].HeaderText = type.Code;
-                    adgvList.Columns[type.Code].Width = ControlsAttribute.GV_WIDTH_SMALL;
+                    adgvList.Columns[type.Code].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    //adgvList.Columns[type.Code].Width = ControlsAttribute.GV_WIDTH_SMALL;
                 }
                 adgvList.EditingControlShowing += new DataGridViewEditingControlShowingEventHandler(adgvList_EditingControlShowing);
             }
@@ -239,32 +240,7 @@ namespace ATV_Allowance.Forms.ArticleForms
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            try
-            {
-                articleService = new ArticleService();
-                // validation            
-                if (string.IsNullOrEmpty(txtTitle.Text))
-                {
-                    epArticleTitle.SetError(txtTitle, "Vui lòng nhập tiêu đề tin");
-                }
-                else
-                {
-                    epArticleTitle.SetError(txtTitle, "");
-                    article.Title = txtTitle.Text;
-                    articleService.UpdateArticle(article);
-                }
-
-                DialogHelper.OpenActionResultDialog("Lưu thành công", "Lưu tiêu đề tin");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Có lỗi xảy ra", "Lưu tiêu đề tin");
-                _logger.LogSystem(ex, string.Empty);
-            }
-            finally
-            {
-                articleService = null;
-            }            
+                 
         }
 
         private void adgvList_RowValidating(object sender, DataGridViewCellCancelEventArgs e)
@@ -417,6 +393,36 @@ namespace ATV_Allowance.Forms.ArticleForms
             {
                 e.SuppressKeyPress = true;
                 SendKeys.Send("{Tab}");//go to first column
+            }
+        }
+
+        private void btnSave_Click_1(object sender, EventArgs e)
+        {
+            try
+            {
+                articleService = new ArticleService();
+                // validation            
+                if (string.IsNullOrEmpty(txtTitle.Text))
+                {
+                    epArticleTitle.SetError(txtTitle, "Vui lòng nhập tiêu đề tin");
+                }
+                else
+                {
+                    epArticleTitle.SetError(txtTitle, "");
+                    article.Title = txtTitle.Text;
+                    articleService.UpdateArticle(article);
+                }
+
+                DialogHelper.OpenActionResultDialog("Lưu thành công", "Lưu tiêu đề tin");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Có lỗi xảy ra", "Lưu tiêu đề tin");
+                _logger.LogSystem(ex, string.Empty);
+            }
+            finally
+            {
+                articleService = null;
             }
         }
     }

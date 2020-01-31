@@ -38,17 +38,17 @@
             // 
             this.tcImportArticle.Controls.Add(this.tpArticle);
             this.tcImportArticle.Controls.Add(this.tpPostProduction);
-            this.tcImportArticle.Location = new System.Drawing.Point(13, 13);
+            this.tcImportArticle.Location = new System.Drawing.Point(0, 13);
             this.tcImportArticle.Name = "tcImportArticle";
             this.tcImportArticle.SelectedIndex = 0;
-            this.tcImportArticle.Size = new System.Drawing.Size(1255, 422);
+            this.tcImportArticle.Size = new System.Drawing.Size(944, 422);
             this.tcImportArticle.TabIndex = 0;
             // 
             // tpArticle
             // 
             this.tpArticle.Location = new System.Drawing.Point(4, 29);
             this.tpArticle.Name = "tpArticle";
-            this.tpArticle.Size = new System.Drawing.Size(1247, 389);
+            this.tpArticle.Size = new System.Drawing.Size(917, 389);
             this.tpArticle.TabIndex = 0;
             this.tpArticle.Text = "Tin";
             this.tpArticle.UseVisualStyleBackColor = true;
@@ -57,7 +57,7 @@
             // 
             this.tpPostProduction.Location = new System.Drawing.Point(4, 29);
             this.tpPostProduction.Name = "tpPostProduction";
-            this.tpPostProduction.Size = new System.Drawing.Size(1195, 389);
+            this.tpPostProduction.Size = new System.Drawing.Size(936, 389);
             this.tpPostProduction.TabIndex = 1;
             this.tpPostProduction.Text = "Khối hậu kỳ";
             this.tpPostProduction.UseVisualStyleBackColor = true;
@@ -66,7 +66,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1280, 447);
+            this.ClientSize = new System.Drawing.Size(944, 447);
             this.Controls.Add(this.tcImportArticle);
             this.Name = "ImportBSTTNMForm";
             this.Text = "Nhập tin biên soạn thông tin ngày mới";

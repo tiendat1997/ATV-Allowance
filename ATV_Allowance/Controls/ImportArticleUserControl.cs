@@ -154,13 +154,13 @@ namespace ATV_Allowance.Controls
                 adgvList.Columns["EmployeeCode"].ReadOnly = true;
 
                 adgvList.Columns["EmployeeCode"].HeaderText = ADGVEmployeeText.Code;
-                adgvList.Columns["EmployeeCode"].Width = ControlsAttribute.GV_WIDTH_MEDIUM;
+                adgvList.Columns["EmployeeCode"].Width = ControlsAttribute.GV_WIDTH_SEEM;
                 adgvList.Columns["Name"].HeaderText = ADGVEmployeeText.Name;
-                adgvList.Columns["Name"].Width = ControlsAttribute.GV_WIDTH_LARGE;
+                adgvList.Columns["Name"].Width = ControlsAttribute.GV_WIDTH_MEDIUM;
                 adgvList.Columns["Position"].HeaderText = ADGVEmployeeText.AbbrPosition;
                 adgvList.Columns["Position"].Width = ControlsAttribute.GV_WIDTH_SMALL;
                 adgvList.Columns["Organization"].HeaderText = ADGVEmployeeText.Organization;
-                adgvList.Columns["Organization"].Width = ControlsAttribute.GV_WIDTH_LARGE;
+                adgvList.Columns["Organization"].Width = ControlsAttribute.GV_WIDTH_MEDIUM;
 
                 int nextIndex = 3;
                 foreach (var type in listPointType)
@@ -168,7 +168,7 @@ namespace ATV_Allowance.Controls
                     nextIndex++;
                     adgvList.Columns[type.Code].DisplayIndex = nextIndex;
                     adgvList.Columns[type.Code].HeaderText = type.Code;
-                    adgvList.Columns[type.Code].Width = ControlsAttribute.GV_WIDTH_SMALL;
+                    adgvList.Columns[type.Code].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 }
                 adgvList.EditingControlShowing += new DataGridViewEditingControlShowingEventHandler(adgvList_EditingControlShowing);
             }
@@ -506,6 +506,11 @@ namespace ATV_Allowance.Controls
                 adgvList.ReadOnly = false;
                 LoadDGV();
             }
+        }
+
+        private void lblOrdinal_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

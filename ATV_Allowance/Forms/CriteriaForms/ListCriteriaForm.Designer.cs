@@ -93,7 +93,7 @@ namespace ATV_Allowance.Forms.CriteriaForms
             this.gbCriterias.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbCriterias.Location = new System.Drawing.Point(538, 13);
             this.gbCriterias.Name = "gbCriterias";
-            this.gbCriterias.Size = new System.Drawing.Size(297, 382);
+            this.gbCriterias.Size = new System.Drawing.Size(311, 400);
             this.gbCriterias.TabIndex = 4;
             this.gbCriterias.TabStop = false;
             this.gbCriterias.Text = "Quản lý chỉ tiêu tháng 9 / 2018";
@@ -102,14 +102,14 @@ namespace ATV_Allowance.Forms.CriteriaForms
             // 
             this.panel1.Controls.Add(this.btnUpdate);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(3, 356);
+            this.panel1.Location = new System.Drawing.Point(3, 374);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(291, 23);
+            this.panel1.Size = new System.Drawing.Size(305, 23);
             this.panel1.TabIndex = 1;
             // 
             // btnUpdate
             // 
-            this.btnUpdate.Location = new System.Drawing.Point(216, 0);
+            this.btnUpdate.Location = new System.Drawing.Point(230, 0);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(75, 23);
             this.btnUpdate.TabIndex = 0;
@@ -123,7 +123,7 @@ namespace ATV_Allowance.Forms.CriteriaForms
             this.fpCriteriaList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fpCriteriaList.Location = new System.Drawing.Point(3, 19);
             this.fpCriteriaList.Name = "fpCriteriaList";
-            this.fpCriteriaList.Size = new System.Drawing.Size(291, 360);
+            this.fpCriteriaList.Size = new System.Drawing.Size(305, 378);
             this.fpCriteriaList.TabIndex = 0;
             // 
             // dtp
@@ -169,7 +169,7 @@ namespace ATV_Allowance.Forms.CriteriaForms
             // 
             // btnCopyCriteria
             // 
-            this.btnCopyCriteria.Location = new System.Drawing.Point(381, 390);
+            this.btnCopyCriteria.Location = new System.Drawing.Point(384, 387);
             this.btnCopyCriteria.Name = "btnCopyCriteria";
             this.btnCopyCriteria.Size = new System.Drawing.Size(151, 23);
             this.btnCopyCriteria.TabIndex = 7;
@@ -181,7 +181,7 @@ namespace ATV_Allowance.Forms.CriteriaForms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(851, 407);
+            this.ClientSize = new System.Drawing.Size(851, 418);
             this.Controls.Add(this.btnCopyCriteria);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.gbCriterias);

@@ -12,24 +12,14 @@ using static ATV_Allowance.Common.Constants;
 
 namespace ATV_Allowance.Forms.CommonForms
 {
-    public partial class LoginForm : Form
+    public partial class LoginFormTest : Form
     {
-        public LoginForm()
+        public LoginFormTest()
         {
             InitializeComponent();
-            // Define the border style of the form to a dialog box.
-            this.FormBorderStyle = FormBorderStyle.FixedDialog;
-
-            // Set the MaximizeBox to false to remove the maximize box.
-            this.MaximizeBox = false;
-
-            // Set the MinimizeBox to false to remove the minimize box.
-            this.MinimizeBox = false;
-
-            // Set the start position of the form to the center of the screen.
-            this.StartPosition = FormStartPosition.CenterScreen;
+            this.BackColor = Color.Beige;
+            this.TransparencyKey = Color.Beige;
         }
-
         private void btnLogin_Click(object sender, EventArgs e)
         {
             try
@@ -55,12 +45,17 @@ namespace ATV_Allowance.Forms.CommonForms
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            Close();
+            this.Close();
         }
 
         private void LoginForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void LoginForm_KeyDown(object sender, KeyEventArgs e)
+        {
+
         }
 
         private void txtPassword_KeyDown(object sender, KeyEventArgs e)

@@ -15,6 +15,7 @@ namespace ATV_Allowance.Forms.CommonForms
         public CommonForm()
         {
             InitializeComponent();
+            StartPosition = FormStartPosition.CenterScreen;
         }
     }
 }
