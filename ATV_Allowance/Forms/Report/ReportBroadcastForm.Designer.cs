@@ -44,7 +44,6 @@
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.cbRole = new System.Windows.Forms.ComboBox();
-            this.webBrowser = new System.Windows.Forms.WebBrowser();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.label2 = new System.Windows.Forms.Label();
             this.dtpMonth = new System.Windows.Forms.DateTimePicker();
@@ -171,15 +170,15 @@
             this.flowLayoutPanel5.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
             this.flowLayoutPanel5.Location = new System.Drawing.Point(443, 14);
             this.flowLayoutPanel5.Name = "flowLayoutPanel5";
-            this.flowLayoutPanel5.Size = new System.Drawing.Size(435, 29);
+            this.flowLayoutPanel5.Size = new System.Drawing.Size(410, 29);
             this.flowLayoutPanel5.TabIndex = 0;
             // 
             // btnExport
             // 
             this.btnExport.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExport.Location = new System.Drawing.Point(317, 3);
+            this.btnExport.Location = new System.Drawing.Point(227, 3);
             this.btnExport.Name = "btnExport";
-            this.btnExport.Size = new System.Drawing.Size(115, 23);
+            this.btnExport.Size = new System.Drawing.Size(180, 23);
             this.btnExport.TabIndex = 1;
             this.btnExport.Text = "In tổng hợp thù lao";
             this.btnExport.UseVisualStyleBackColor = true;
@@ -188,7 +187,7 @@
             // btnExportKHK
             // 
             this.btnExportKHK.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExportKHK.Location = new System.Drawing.Point(199, 3);
+            this.btnExportKHK.Location = new System.Drawing.Point(109, 3);
             this.btnExportKHK.Name = "btnExportKHK";
             this.btnExportKHK.Size = new System.Drawing.Size(112, 23);
             this.btnExportKHK.TabIndex = 3;
@@ -199,7 +198,7 @@
             // btnDeduction
             // 
             this.btnDeduction.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDeduction.Location = new System.Drawing.Point(100, 3);
+            this.btnDeduction.Location = new System.Drawing.Point(10, 3);
             this.btnDeduction.Name = "btnDeduction";
             this.btnDeduction.Size = new System.Drawing.Size(93, 23);
             this.btnDeduction.TabIndex = 2;
@@ -221,7 +220,6 @@
             // 
             this.flowLayoutPanel1.Controls.Add(this.label1);
             this.flowLayoutPanel1.Controls.Add(this.cbRole);
-            this.flowLayoutPanel1.Controls.Add(this.webBrowser);
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
@@ -249,15 +247,6 @@
             this.cbRole.Size = new System.Drawing.Size(62, 21);
             this.cbRole.TabIndex = 1;
             this.cbRole.SelectedIndexChanged += new System.EventHandler(this.cbRole_SelectedIndexChanged);
-            // 
-            // webBrowser
-            // 
-            this.webBrowser.Location = new System.Drawing.Point(2, 29);
-            this.webBrowser.Margin = new System.Windows.Forms.Padding(2);
-            this.webBrowser.MinimumSize = new System.Drawing.Size(15, 16);
-            this.webBrowser.Name = "webBrowser";
-            this.webBrowser.Size = new System.Drawing.Size(859, 364);
-            this.webBrowser.TabIndex = 8;
             // 
             // flowLayoutPanel2
             // 
@@ -429,6 +418,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(858, 369);
             this.Controls.Add(this.panel1);
             this.Name = "ReportBroadcastForm";
@@ -481,6 +471,5 @@
         private System.Windows.Forms.NumericUpDown edtPrice;
         private System.Windows.Forms.ComboBox cbRole;
         private System.Windows.Forms.Button btnExportKHK;
-        private System.Windows.Forms.WebBrowser webBrowser;
     }
 }
