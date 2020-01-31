@@ -161,16 +161,16 @@
             // 
             // txtCode
             // 
-            this.txtCode.Location = new System.Drawing.Point(168, 126);
+            this.txtCode.Location = new System.Drawing.Point(168, 50);
             this.txtCode.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtCode.Name = "txtCode";
-            this.txtCode.ReadOnly = true;
             this.txtCode.Size = new System.Drawing.Size(126, 26);
             this.txtCode.TabIndex = 10;
+            this.txtCode.Leave += new System.EventHandler(this.txtCode_Leave);
             // 
             // txtName
             // 
-            this.txtName.Location = new System.Drawing.Point(168, 65);
+            this.txtName.Location = new System.Drawing.Point(168, 114);
             this.txtName.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(264, 26);
@@ -201,7 +201,7 @@
             // lblCode
             // 
             this.lblCode.AutoSize = true;
-            this.lblCode.Location = new System.Drawing.Point(10, 126);
+            this.lblCode.Location = new System.Drawing.Point(14, 50);
             this.lblCode.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblCode.Name = "lblCode";
             this.lblCode.Size = new System.Drawing.Size(57, 20);
@@ -211,7 +211,7 @@
             // lblName
             // 
             this.lblName.AutoSize = true;
-            this.lblName.Location = new System.Drawing.Point(10, 65);
+            this.lblName.Location = new System.Drawing.Point(10, 114);
             this.lblName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblName.Name = "lblName";
             this.lblName.Size = new System.Drawing.Size(77, 20);

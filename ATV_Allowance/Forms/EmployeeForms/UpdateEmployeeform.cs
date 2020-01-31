@@ -96,9 +96,9 @@ namespace ATV_Allowance.Forms.EmployeeForms
             try
             {
                 employeeService = new EmployeeService();
-                string tmpName = txtName.Text.ToUpper();                
-                string generatedCode = employeeService.GenerateEmployeeCode(tmpName, currCode);
-                txtCode.Text = generatedCode;
+                //string tmpName = txtName.Text.ToUpper();                
+                //string generatedCode = employeeService.GenerateEmployeeCode(tmpName, currCode);
+                //txtCode.Text = generatedCode;
             }
             catch (Exception ex)
             {
@@ -122,7 +122,7 @@ namespace ATV_Allowance.Forms.EmployeeForms
             try
             {
                 employeeService = new EmployeeService();
-                ValidatorHelper.ClearEPValidation(epDic);
+                
                 var checkedButton = gbPosition.Controls.OfType<RadioButton>()
                                     .FirstOrDefault(r => r.Checked);
                 var org = (OrganizationViewModel)cbOrganizationId.SelectedValue;
@@ -160,7 +160,8 @@ namespace ATV_Allowance.Forms.EmployeeForms
                 if (result)
                 {
                     employeeService.UpdateEmployee(newEmp);
-                    this.Close();
+                    ValidatorHelper.ClearEPValidation(epDic);
+                    Close();
                 }
             }
             catch (Exception ex)
@@ -213,6 +214,33 @@ namespace ATV_Allowance.Forms.EmployeeForms
             cbOrganizationId.SelectionStart = filter_param.Length;
             cbOrganizationId.SelectionLength = 0;
             Cursor.Current = Cursors.Default;
+        }
+
+        private void txtCode_Leave(object sender, EventArgs e)
+        {
+            try
+            {
+                string code = txtCode.Text.Trim();
+                
+                employeeService = new EmployeeService();
+                var existedEmployee = employeeService.GetEmployeeByCode(code);
+                if (currCode.Equals(code) == false && existedEmployee != null)
+                {
+                    epCode.SetError(txtCode, "Mã nhân viên đã tồn tại");
+                }
+                else
+                {
+                    epCode.SetError(txtCode, string.Empty);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                employeeService = null;
+            }
         }
     }
 }

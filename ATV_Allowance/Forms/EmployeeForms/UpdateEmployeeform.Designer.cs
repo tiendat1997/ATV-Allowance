@@ -37,14 +37,14 @@
             this.rbBTV = new System.Windows.Forms.RadioButton();
             this.rbPTV = new System.Windows.Forms.RadioButton();
             this.rbCTV = new System.Windows.Forms.RadioButton();
-            this.txtCode = new System.Windows.Forms.TextBox();
             this.txtName = new System.Windows.Forms.TextBox();
             this.lblPosition = new System.Windows.Forms.Label();
             this.lblOrganization = new System.Windows.Forms.Label();
-            this.lblCode = new System.Windows.Forms.Label();
             this.lblName = new System.Windows.Forms.Label();
             this.gbControl = new System.Windows.Forms.GroupBox();
             this.btnUpdate = new System.Windows.Forms.Button();
+            this.txtCode = new System.Windows.Forms.TextBox();
+            this.lblCode = new System.Windows.Forms.Label();
             this.gbStudentInfo.SuspendLayout();
             this.gbPosition.SuspendLayout();
             this.gbControl.SuspendLayout();
@@ -52,15 +52,15 @@
             // 
             // gbStudentInfo
             // 
+            this.gbStudentInfo.Controls.Add(this.txtCode);
+            this.gbStudentInfo.Controls.Add(this.lblCode);
             this.gbStudentInfo.Controls.Add(this.txtTitle);
             this.gbStudentInfo.Controls.Add(this.lblTitle);
             this.gbStudentInfo.Controls.Add(this.cbOrganizationId);
             this.gbStudentInfo.Controls.Add(this.gbPosition);
-            this.gbStudentInfo.Controls.Add(this.txtCode);
             this.gbStudentInfo.Controls.Add(this.txtName);
             this.gbStudentInfo.Controls.Add(this.lblPosition);
             this.gbStudentInfo.Controls.Add(this.lblOrganization);
-            this.gbStudentInfo.Controls.Add(this.lblCode);
             this.gbStudentInfo.Controls.Add(this.lblName);
             this.gbStudentInfo.Location = new System.Drawing.Point(20, 20);
             this.gbStudentInfo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -82,7 +82,7 @@
             // lblTitle
             // 
             this.lblTitle.AutoSize = true;
-            this.lblTitle.Location = new System.Drawing.Point(14, 241);
+            this.lblTitle.Location = new System.Drawing.Point(32, 235);
             this.lblTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(64, 20);
@@ -159,18 +159,9 @@
             this.rbCTV.Text = "CTV";
             this.rbCTV.UseVisualStyleBackColor = true;
             // 
-            // txtCode
-            // 
-            this.txtCode.Location = new System.Drawing.Point(168, 126);
-            this.txtCode.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.txtCode.Name = "txtCode";
-            this.txtCode.ReadOnly = true;
-            this.txtCode.Size = new System.Drawing.Size(126, 26);
-            this.txtCode.TabIndex = 10;
-            // 
             // txtName
             // 
-            this.txtName.Location = new System.Drawing.Point(168, 65);
+            this.txtName.Location = new System.Drawing.Point(168, 116);
             this.txtName.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(264, 26);
@@ -190,27 +181,17 @@
             // lblOrganization
             // 
             this.lblOrganization.AutoSize = true;
-            this.lblOrganization.Location = new System.Drawing.Point(10, 180);
+            this.lblOrganization.Location = new System.Drawing.Point(43, 180);
             this.lblOrganization.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblOrganization.Name = "lblOrganization";
             this.lblOrganization.Size = new System.Drawing.Size(53, 20);
             this.lblOrganization.TabIndex = 2;
             this.lblOrganization.Text = "Đơn vị";
             // 
-            // lblCode
-            // 
-            this.lblCode.AutoSize = true;
-            this.lblCode.Location = new System.Drawing.Point(10, 126);
-            this.lblCode.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblCode.Name = "lblCode";
-            this.lblCode.Size = new System.Drawing.Size(57, 20);
-            this.lblCode.TabIndex = 1;
-            this.lblCode.Text = "Mã NV";
-            // 
             // lblName
             // 
             this.lblName.AutoSize = true;
-            this.lblName.Location = new System.Drawing.Point(10, 65);
+            this.lblName.Location = new System.Drawing.Point(23, 119);
             this.lblName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblName.Name = "lblName";
             this.lblName.Size = new System.Drawing.Size(77, 20);
@@ -240,6 +221,25 @@
             this.btnUpdate.UseVisualStyleBackColor = true;
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
+            // txtCode
+            // 
+            this.txtCode.Location = new System.Drawing.Point(168, 54);
+            this.txtCode.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtCode.Name = "txtCode";
+            this.txtCode.Size = new System.Drawing.Size(126, 26);
+            this.txtCode.TabIndex = 18;
+            this.txtCode.Leave += new System.EventHandler(this.txtCode_Leave);
+            // 
+            // lblCode
+            // 
+            this.lblCode.AutoSize = true;
+            this.lblCode.Location = new System.Drawing.Point(43, 60);
+            this.lblCode.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblCode.Name = "lblCode";
+            this.lblCode.Size = new System.Drawing.Size(57, 20);
+            this.lblCode.TabIndex = 17;
+            this.lblCode.Text = "Mã NV";
+            // 
             // UpdateEmployeeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -266,9 +266,7 @@
         private System.Windows.Forms.RadioButton rbPV;
         private System.Windows.Forms.Label lblPosition;
         private System.Windows.Forms.Label lblOrganization;
-        private System.Windows.Forms.Label lblCode;
         private System.Windows.Forms.Label lblName;
-        private System.Windows.Forms.TextBox txtCode;
         private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.RadioButton rbCTV;
         private System.Windows.Forms.RadioButton rbPTV;
@@ -278,5 +276,7 @@
         private System.Windows.Forms.ComboBox cbOrganizationId;
         private System.Windows.Forms.TextBox txtTitle;
         private System.Windows.Forms.Label lblTitle;
+        private System.Windows.Forms.TextBox txtCode;
+        private System.Windows.Forms.Label lblCode;
     }
 }
