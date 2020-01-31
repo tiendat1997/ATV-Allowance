@@ -27,7 +27,7 @@ namespace ATV_Allowance.Forms.ArticleForms
         private ArticleViewModel model = null;
         private List<ArticleViewModel> articleList = null;
         private List<int> currArticleTypes;
-        private List<string> empList;
+        private List<EmployeeViewModel> empList;
 
         public ManageTSForm()
         {
@@ -103,9 +103,15 @@ namespace ATV_Allowance.Forms.ArticleForms
             try
             {
                 employeeService = new EmployeeService();
-                empList = new List<string> { "Tất cả" };
-                empList.AddRange(employeeService.GetAllEmployeeCode(true));
-                cbEmployee.DisplayMember = "Name";
+                empList = new List<EmployeeViewModel> {
+                    new EmployeeViewModel {
+                        CodeAndName = "Tất cả",
+                        Code = "0"
+                    }
+                };                
+                empList.AddRange(employeeService.GetAllActive(true));
+                cbEmployee.DisplayMember = "CodeAndName";
+                cbEmployee.ValueMember = "Code";
                 cbEmployee.DataSource = empList;
                 cbEmployee.DropDownStyle = ComboBoxStyle.DropDown;
                 cbEmployee.AutoCompleteMode = AutoCompleteMode.Suggest;
@@ -138,9 +144,9 @@ namespace ATV_Allowance.Forms.ArticleForms
             try
             {
                 employeeService = new EmployeeService();
-                string empCode = (string)cbEmployee.SelectedValue;
+                string empCode = cbEmployee.SelectedValue.ToString();
                 EmployeeViewModel emp;
-                if (empCode != "Tất cả")
+                if (empCode != "0")
                 {
                     emp = employeeService.GetEmployeeByCode(empCode);
                     empId = emp.Id;
