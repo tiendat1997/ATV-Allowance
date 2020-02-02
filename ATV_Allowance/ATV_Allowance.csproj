@@ -197,6 +197,30 @@
     <Compile Include="Forms\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\PrintReportForms\ReportBienSoanTTNM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PrintReportForms\ReportBienSoanTTNM.Designer.cs">
+      <DependentUpon>ReportBienSoanTTNM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\PrintReportForms\ReportBroadcastForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PrintReportForms\ReportBroadcastForm.Designer.cs">
+      <DependentUpon>ReportBroadcastForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\PrintReportForms\ReportPTForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PrintReportForms\ReportPTForm.Designer.cs">
+      <DependentUpon>ReportPTForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\PrintReportForms\ReportTTNMForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PrintReportForms\ReportTTNMForm.Designer.cs">
+      <DependentUpon>ReportTTNMForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Report\ReportBienSoanTTForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -337,6 +361,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PrintReportForms\ReportBienSoanTTNM.resx">
+      <DependentUpon>ReportBienSoanTTNM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PrintReportForms\ReportBroadcastForm.resx">
+      <DependentUpon>ReportBroadcastForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PrintReportForms\ReportPTForm.resx">
+      <DependentUpon>ReportPTForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PrintReportForms\ReportTTNMForm.resx">
+      <DependentUpon>ReportTTNMForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Report\ReportBienSoanTTForm.resx">
       <DependentUpon>ReportBienSoanTTForm.cs</DependentUpon>
