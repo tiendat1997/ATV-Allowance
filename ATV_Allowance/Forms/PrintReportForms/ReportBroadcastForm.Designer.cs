@@ -42,7 +42,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnEditCriteria = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.edtPrice)).BeginInit();
             this.SuspendLayout();
             // 
@@ -231,16 +231,17 @@
             this.button1.Text = "Giảm từ PTV";
             this.button1.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // btnEditCriteria
             // 
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(347, 36);
-            this.button2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(139, 35);
-            this.button2.TabIndex = 19;
-            this.button2.Text = "Nhập chỉ tiêu";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnEditCriteria.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEditCriteria.Location = new System.Drawing.Point(347, 36);
+            this.btnEditCriteria.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnEditCriteria.Name = "btnEditCriteria";
+            this.btnEditCriteria.Size = new System.Drawing.Size(139, 35);
+            this.btnEditCriteria.TabIndex = 19;
+            this.btnEditCriteria.Text = "Nhập chỉ tiêu";
+            this.btnEditCriteria.UseVisualStyleBackColor = true;
+            this.btnEditCriteria.Click += new System.EventHandler(this.btnEditCriteria_Click);
             // 
             // ReportBroadcastForm
             // 
@@ -248,7 +249,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(514, 282);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.btnEditCriteria);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.btnExport);
             this.Controls.Add(this.label5);
@@ -287,6 +288,6 @@
         private System.Windows.Forms.Button btnDeduction;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnEditCriteria;
     }
 }

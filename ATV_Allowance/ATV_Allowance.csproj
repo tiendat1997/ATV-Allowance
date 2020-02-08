@@ -167,6 +167,36 @@
     <Compile Include="Forms\CriteriaForms\ACriteriaTemplate.Designer.cs">
       <DependentUpon>ACriteriaTemplate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\CriteriaForms\CriteriaBSTTNMForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CriteriaForms\CriteriaBSTTNMForm.Designer.cs">
+      <DependentUpon>CriteriaBSTTNMForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CriteriaForms\CriteriaDetailForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CriteriaForms\CriteriaDetailForm.Designer.cs">
+      <DependentUpon>CriteriaDetailForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CriteriaForms\CriteriaPTForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CriteriaForms\CriteriaPTForm.Designer.cs">
+      <DependentUpon>CriteriaPTForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CriteriaForms\CriteriaTSForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CriteriaForms\CriteriaTSForm.Designer.cs">
+      <DependentUpon>CriteriaTSForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CriteriaForms\CriteriaTTNMForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CriteriaForms\CriteriaTTNMForm.Designer.cs">
+      <DependentUpon>CriteriaTTNMForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\CriteriaForms\ListCriteriaForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -352,6 +382,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\CriteriaForms\ACriteriaTemplate.resx">
       <DependentUpon>ACriteriaTemplate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CriteriaForms\CriteriaBSTTNMForm.resx">
+      <DependentUpon>CriteriaBSTTNMForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CriteriaForms\CriteriaDetailForm.resx">
+      <DependentUpon>CriteriaDetailForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CriteriaForms\CriteriaPTForm.resx">
+      <DependentUpon>CriteriaPTForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CriteriaForms\CriteriaTSForm.resx">
+      <DependentUpon>CriteriaTSForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CriteriaForms\CriteriaTTNMForm.resx">
+      <DependentUpon>CriteriaTTNMForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\CriteriaForms\ListCriteriaForm.resx">
       <DependentUpon>ListCriteriaForm.cs</DependentUpon>

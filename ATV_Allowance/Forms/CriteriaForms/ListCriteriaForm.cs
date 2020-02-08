@@ -79,10 +79,10 @@ namespace ATV_Allowance.Forms.CriteriaForms
             }
 
             var result = criteriaService.GetYearlyCriterias(year.Value, type.Value);
-            var dataSource = new List<CriteriaTableViewModel>();
+            var dataSource = new List<CriteriaTSTableViewModel>();
             for (int i = 0; i < 12; i++)
             {
-                var model = new CriteriaTableViewModel()
+                var model = new CriteriaTSTableViewModel()
                 {
                     Month = i + 1,
                     PV = result[i].Where(c => c.CriteriaId == 1).FirstOrDefault().Value,
@@ -101,7 +101,7 @@ namespace ATV_Allowance.Forms.CriteriaForms
                 dataSource.Add(model);
             }
 
-            SortableBindingList<CriteriaTableViewModel> sbl = new SortableBindingList<CriteriaTableViewModel>(dataSource);
+            SortableBindingList<CriteriaTSTableViewModel> sbl = new SortableBindingList<CriteriaTSTableViewModel>(dataSource);
             bs = new BindingSource();
             bs.DataSource = sbl;
             adgvCriterias.DataSource = bs;

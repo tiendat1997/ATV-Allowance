@@ -211,6 +211,11 @@ namespace ATV_Allowance.Forms.PrintReportForms
         private void btnPrintPreview_Click(object sender, EventArgs e)
         {
             //reportService.InteropPreviewReportTS(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, Constants.ArticleType.THOI_SU);
-        }        
+        }
+
+        private void btnEditCriteria_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

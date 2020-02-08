@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ATV_Allowance.ViewModel
 {
-    public class CriteriaTableViewModel
+    public class CriteriaTSTableViewModel
     {
         public int Id { get; set; }
         public int Month { get; set; }
