@@ -51,12 +51,13 @@
             // 
             // btnCopyCriteria
             // 
-            this.btnCopyCriteria.Location = new System.Drawing.Point(562, 19);
+            this.btnCopyCriteria.Location = new System.Drawing.Point(624, 18);
             this.btnCopyCriteria.Name = "btnCopyCriteria";
             this.btnCopyCriteria.Size = new System.Drawing.Size(226, 29);
             this.btnCopyCriteria.TabIndex = 10;
             this.btnCopyCriteria.Text = "Copy chỉ tiêu từ năm cũ qua";
             this.btnCopyCriteria.UseVisualStyleBackColor = true;
+            this.btnCopyCriteria.Click += new System.EventHandler(this.btnCopyCriteria_Click);
             // 
             // flowLayoutPanel1
             // 
@@ -100,19 +101,20 @@
             this.adgvCriterias.AllowUserToResizeRows = false;
             this.adgvCriterias.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.adgvCriterias.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.adgvCriterias.Location = new System.Drawing.Point(12, 60);
+            this.adgvCriterias.Location = new System.Drawing.Point(3, 60);
             this.adgvCriterias.MultiSelect = false;
             this.adgvCriterias.Name = "adgvCriterias";
             this.adgvCriterias.ReadOnly = true;
             this.adgvCriterias.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.adgvCriterias.Size = new System.Drawing.Size(776, 359);
+            this.adgvCriterias.Size = new System.Drawing.Size(855, 366);
             this.adgvCriterias.TabIndex = 8;
+            this.adgvCriterias.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.adgvCriterias_CellDoubleClick);
             // 
             // CriteriaTSForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 430);
+            this.ClientSize = new System.Drawing.Size(862, 430);
             this.Controls.Add(this.btnCopyCriteria);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.adgvCriterias);

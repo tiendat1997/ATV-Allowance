@@ -246,7 +246,7 @@ namespace ATV_Allowance.Common
                         form = listEmployeesForm;
                         break;
                     case "In Thời sự":
-                        ReportBroadcastForm reportBroadcastForm = new ReportBroadcastForm();
+                        Forms.PrintReportForms.ReportBroadcastForm reportBroadcastForm = new Forms.PrintReportForms.ReportBroadcastForm();
                         form = reportBroadcastForm;
                         break;
                     case "In Phát thanh":

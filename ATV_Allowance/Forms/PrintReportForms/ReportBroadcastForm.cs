@@ -1,6 +1,7 @@
 ﻿using ATV_Allowance.Common;
 using ATV_Allowance.Common.Actions;
 using ATV_Allowance.Forms.CommonForms;
+using ATV_Allowance.Forms.CriteriaForms;
 using ATV_Allowance.Forms.DeductionForms;
 using ATV_Allowance.Services;
 using ATV_Allowance.ViewModel;
@@ -215,7 +216,14 @@ namespace ATV_Allowance.Forms.PrintReportForms
 
         private void btnEditCriteria_Click(object sender, EventArgs e)
         {
+            CriteriaTSForm criteriaForm = new CriteriaTSForm();
+            criteriaForm.FormClosed += new FormClosedEventHandler(CriteriaTSForm_Closed);
+            criteriaForm.ShowDialog();
+        }
 
+        private void CriteriaTSForm_Closed(object sender, FormClosedEventArgs e)
+        {
+            
         }
     }
 }

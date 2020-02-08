@@ -24,8 +24,7 @@ namespace ATV_Allowance.Forms.CriteriaForms
         {
             InitializeComponent();
             criteriaService = new CriteriaService();
-            LoadCriteriasOfYear();
-            LoadCriteriasOfMonth();
+            LoadCriteriasOfYear();            
         }
 
         private void LoadCriteriasOfYear(int? year = null, int? type = TYPE_TS)
@@ -71,25 +70,29 @@ namespace ATV_Allowance.Forms.CriteriaForms
             adgvCriterias.Columns["Month"].Width = 30;
 
         }
-
-        private void LoadCriteriasOfMonth(int? month = null, int? year = null, int? type = 3)
-        {
-            if (month == null)
-            {
-                month = DateTime.Now.Month;
-            }
-
-            if (year == null)
-            {
-                year = DateTime.Now.Year;
-            }            
-            var result = criteriaService.GetCriterias(month.Value, year.Value, type.Value);
-        }
-
+       
         private void dtpYear_ValueChanged(object sender, EventArgs e)
         {
-            LoadCriteriasOfYear(dtpYear.Value.Year, TYPE_TS);
-            LoadCriteriasOfMonth(1, dtpYear.Value.Year, TYPE_TS);
+            LoadCriteriasOfYear(dtpYear.Value.Year, TYPE_TS);            
+        }
+
+        private void adgvCriterias_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int month = (int)adgvCriterias.SelectedRows[0].Cells["Month"].Value;
+            int year = dtpYear.Value.Year;
+            CriteriaDetailForm detailForm = new CriteriaDetailForm(month, year, TYPE_TS);
+            detailForm.FormClosed += new FormClosedEventHandler(CriteriaDetailForm_Closed);
+            detailForm.ShowDialog();
+        }
+
+        private void CriteriaDetailForm_Closed(object sender, FormClosedEventArgs e)
+        {
+            LoadCriteriasOfYear();
+        }
+
+        private void btnCopyCriteria_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
