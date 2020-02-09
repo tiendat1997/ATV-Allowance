@@ -33,7 +33,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.cbArticleType = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.dtp = new System.Windows.Forms.DateTimePicker();
+            this.dtpYear = new System.Windows.Forms.DateTimePicker();
             this.adgvCriterias = new System.Windows.Forms.DataGridView();
             this.flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.adgvCriterias)).BeginInit();
@@ -53,7 +53,7 @@
             this.flowLayoutPanel1.Controls.Add(this.label1);
             this.flowLayoutPanel1.Controls.Add(this.cbArticleType);
             this.flowLayoutPanel1.Controls.Add(this.label2);
-            this.flowLayoutPanel1.Controls.Add(this.dtp);
+            this.flowLayoutPanel1.Controls.Add(this.dtpYear);
             this.flowLayoutPanel1.Location = new System.Drawing.Point(11, 13);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(454, 33);
@@ -97,17 +97,17 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "Năm";
             // 
-            // dtp
+            // dtpYear
             // 
-            this.dtp.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.dtp.CustomFormat = "yyyy";
-            this.dtp.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtp.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtp.Location = new System.Drawing.Point(336, 4);
-            this.dtp.Name = "dtp";
-            this.dtp.ShowUpDown = true;
-            this.dtp.Size = new System.Drawing.Size(65, 26);
-            this.dtp.TabIndex = 5;
+            this.dtpYear.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.dtpYear.CustomFormat = "yyyy";
+            this.dtpYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpYear.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpYear.Location = new System.Drawing.Point(336, 4);
+            this.dtpYear.Name = "dtpYear";
+            this.dtpYear.ShowUpDown = true;
+            this.dtpYear.Size = new System.Drawing.Size(65, 26);
+            this.dtpYear.TabIndex = 5;
             // 
             // adgvCriterias
             // 
@@ -124,6 +124,7 @@
             this.adgvCriterias.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.adgvCriterias.Size = new System.Drawing.Size(776, 359);
             this.adgvCriterias.TabIndex = 11;
+            this.adgvCriterias.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.adgvCriterias_CellDoubleClick);
             // 
             // CriteriaBSTTNMForm
             // 
@@ -150,7 +151,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cbArticleType;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.DateTimePicker dtp;
+        private System.Windows.Forms.DateTimePicker dtpYear;
         private System.Windows.Forms.DataGridView adgvCriterias;
     }
 }

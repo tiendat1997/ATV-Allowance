@@ -333,7 +333,10 @@
     <Compile Include="Validators\ArticleValidator.cs" />
     <Compile Include="ViewModel\ArticleEmployeeViewModel.cs" />
     <Compile Include="ViewModel\ArticleTypeViewModel.cs" />
+    <Compile Include="ViewModel\CriteriaBSTTNMTableViewModel.cs" />
+    <Compile Include="ViewModel\CriteriaPTTableViewModel.cs" />
     <Compile Include="ViewModel\CriteriaTableViewModel.cs" />
+    <Compile Include="ViewModel\CriteriaTTNMTableViewModel.cs" />
     <Compile Include="ViewModel\CriteriaViewModel.cs" />
     <Compile Include="ViewModel\DeductionTypeViewModel.cs" />
     <Compile Include="ViewModel\EmployeeDeductionViewModel.cs" />
