@@ -40,5 +40,10 @@ namespace ATV_Allowance.Forms.PrintReportForms
         {
 
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            reportService.InteropPreviewReportPTTT(dtpStartdate.Value, dtpEnddate.Value, (int)edtPrice.Value);
+        }
     }
 }

@@ -292,7 +292,7 @@ namespace ATV_Allowance.Forms.Report
 
             try
             {
-                reportService.InteropPreviewReportBSTTNM(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, Constants.ArticleType.BIENSOAN_TTNM);
+                reportService.InteropPreviewReportBSTTNM(dtpStartdate.Value, dtpEnddate.Value, (int)edtPrice.Value);
                 int month = this.dtpMonth.Value.Month;
                 int year = this.dtpYear.Value.Year;
                 actionLog.Message = string.Format(AppActions.Export_BienSoanTTNM, month, year);
@@ -366,7 +366,7 @@ namespace ATV_Allowance.Forms.Report
         private void btnPreview_Click(object sender, EventArgs e)
         {
 
-            reportService.InteropPreviewReportBSTTNM(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, Constants.ArticleType.BIENSOAN_TTNM);
+            reportService.InteropPreviewReportBSTTNM(dtpStartdate.Value, dtpEnddate.Value, (int)edtPrice.Value);
         }
     }
 }

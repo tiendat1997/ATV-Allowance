@@ -17,9 +17,9 @@ namespace ATV_Allowance.Services
         List<EmployeePointViewModel> GetReportBroadcast(DateTime startDate, DateTime endDate, int role, int price, int reportType);
         void InteropPreviewReportTS(DateTime startDate, DateTime endDate, int price);
         void InteropPreviewReportPT(DateTime startDate, DateTime endDate, int price);
-        void InteropPreviewReportPTTT(DateTime startDate, DateTime endDate, int role, int price, int reportType);
-        void InteropPreviewReportBSTTNM(DateTime startDate, DateTime endDate, int role, int price, int reportType);
-        void InteropPreviewReportTTNM(DateTime startDate, DateTime endDate, int role, int price, int reportType);
+        void InteropPreviewReportPTTT(DateTime startDate, DateTime endDate, int price);
+        void InteropPreviewReportBSTTNM(DateTime startDate, DateTime endDate, int price);
+        void InteropPreviewReportTTNM(DateTime startDate, DateTime endDate, int price);
         //void InteropPreviewReportKHK(DateTime startDate, DateTime endDate, int role, int price, int reportType);
         void InteropPreviewReportTS_KHK(DateTime startDate, DateTime endDate, int role, int price, int reportType);
 
@@ -374,380 +374,68 @@ namespace ATV_Allowance.Services
             #endregion
         }
 
-        public void InteropPreviewReportPTTT(DateTime startDate, DateTime endDate, int role, int price, int reportType)
+        public void InteropPreviewReportPTTT(DateTime startDate, DateTime endDate, int price)
         {
             #region create excel file with template
             Application application = new Application();
 
             var workbook = application.Workbooks.Add(AppDomain.CurrentDomain.BaseDirectory + $"Templates\\{Tempate.PTTT}.xlsx");
-            var worksheet = (Worksheet)workbook.Worksheets[1];
-
+            var worksheetPV = (Worksheet)workbook.Worksheets[1];
+            var worksheetCTV = (Worksheet)workbook.Worksheets[2];
             #endregion
 
-            #region fill data
-            var list = GetReportBroadcast(startDate, endDate, role, price, reportType);
-
-            int currentRow = 5;
-            var percent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, role == EmployeeRole.PV ? Criterias_PTTT.PV_PTV : Criterias_PTTT.CTV);
-            worksheet.Cells[currentRow - 2, PTTT_COL.TANGGIAM].Value = "Tăng " + percent + "%";
-            percent = percent / 100;
-
-            if (list != null && list.Count > 0)
-            {
-                for (int i = 0; i < list.Count; i++)
-                {
-                    if (i > 0)
-                    {
-                        Range line = (Range)worksheet.Rows[currentRow];
-                        line.Insert();
-                    }
-                    worksheet.Cells[currentRow, PTTT_COL.STT].Value = i + 1;
-                    worksheet.Cells[currentRow, PTTT_COL.HO_TEN].Value = list[i].EmployeeName;
-                    worksheet.Cells[currentRow, PTTT_COL.DON_VI].Value = list[i].Organization;
-                    worksheet.Cells[currentRow, PTTT_COL.SL_TIN].Value = list[i].SoTin;
-                    worksheet.Cells[currentRow, PTTT_COL.D_TIN].Value = list[i].DiemTin;
-                    worksheet.Cells[currentRow, PTTT_COL.SL_TT].Value = list[i].SoTTh_Gnh;
-                    worksheet.Cells[currentRow, PTTT_COL.D_TT].Value = list[i].DiemTTh_Gnh;
-                    worksheet.Cells[currentRow, PTTT_COL.SL_CD].Value = list[i].SoCde;
-                    worksheet.Cells[currentRow, PTTT_COL.D_CD].Value = list[i].DiemCde;
-                    worksheet.Cells[currentRow, PTTT_COL.SL_PV].Value = list[i].SoPv;
-                    worksheet.Cells[currentRow, PTTT_COL.D_PV].Value = list[i].DiemPv;
-                    worksheet.Cells[currentRow, PTTT_COL.SL_BS].Value = list[i].SoBs_DCT;
-                    worksheet.Cells[currentRow, PTTT_COL.D_BS].Value = list[i].DiemBs_DCT;
-                    worksheet.Cells[currentRow, PTTT_COL.SL_BT].Value = list[i].SoBt_Dd;
-                    worksheet.Cells[currentRow, PTTT_COL.D_BT].Value = list[i].DiemBt_Dd;
-
-                    worksheet.Cells[currentRow, PTTT_COL.TRUCHITIEU].Value = list[i].Descrease;
-                    worksheet.Cells[currentRow, PTTT_COL.TONGDIEM].Value = list[i].SumPoint;
-                    worksheet.Cells[currentRow, PTTT_COL.TANGGIAM].Value = list[i].IncreasePercent;
-                    worksheet.Cells[currentRow, PTTT_COL.THANHTIEN].Value = list[i].TotalCost;
-
-                    currentRow += 1;
-                }
-            }
-            else
-            {
-                worksheet.Rows[currentRow].Delete();
-            }
-
-            //title row
-            var textRole = (role == EmployeeRole.PV ? "PV" : "CTV");
-            worksheet.Cells[2, PTTT_COL.STT].Value = $"{ReportName.PTTT} ({textRole}) THÁNG {endDate.Month}/{endDate.Year}";
-
-            //sum row
-            var totalCost = list.Sum(e => e.TotalCost);
-            worksheet.Cells[currentRow, PTTT_COL.THANHTIEN].Value = totalCost;
-
-            if (role == EmployeeRole.CTV)
-            {
-                worksheet.Rows[currentRow + 1].Hidden = true;
-                worksheet.Rows[currentRow + 2].Hidden = true;
-                worksheet.Rows[currentRow + 3].Hidden = true;
-                worksheet.Rows[currentRow + 4].Hidden = true;
-            }
-            else
-            {
-                var toBaAm = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, Criterias_PTTT.ToBaAm);
-                var daysOfMonth = DateTime.DaysInMonth(startDate.Year, startDate.Month);
-                var BBT = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, Criterias_PTTT.BBT);
-
-                var toBaAmCost = toBaAm * daysOfMonth * price;
-                var BBTPoint = list.Sum(e => e.TotalPoint) * (BBT / 100);
-                var BBTCost = BBTPoint * price;
-                totalCost += (long)toBaAmCost + (long)BBTCost;
-
-                //fill header
-                worksheet.Cells[currentRow + 2, PTTT_COL.STT].Value = PTTT_COL.GetToBaAmHeader(toBaAm, daysOfMonth);
-                worksheet.Cells[currentRow + 3, PTTT_COL.STT].Value = PTTT_COL.GetBBTHeader(BBTPoint);
-
-                //fill value
-                worksheet.Cells[currentRow + 2, PTTT_COL.TANGGIAM].Value = toBaAmCost;
-                worksheet.Cells[currentRow + 3, PTTT_COL.TANGGIAM].Value = BBTCost;
-                worksheet.Cells[currentRow + 4, PTTT_COL.TANGGIAM].Value = totalCost;
-            }
-
-            currentRow += 4;
-
-            //money string
-            worksheet.Cells[currentRow + 1, PTTT_COL.THANHTIEN + 1].Value = $"(Thành tiền bằng chữ: {NumberToTextVN(totalCost)})";
-
-            //report date row
-            worksheet.Cells[currentRow + 2, PTTT_COL.THANHTIEN + 1].Value = $"Long Xuyên, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
-
-            //hide deduction of CTV
-            if (role == EmployeeRole.CTV)
-            {
-                worksheet.Columns[PTTT_COL.TRUCHITIEU].Hidden = true;
-            }
-            #endregion
+            FillDataIntoWorksheetPTTT(worksheetPV, startDate, endDate, EmployeeRole.PV, price);
+            FillDataIntoWorksheetPTTT(worksheetCTV, startDate, endDate, EmployeeRole.CTV, price);
 
             #region setup file
-            worksheet.PageSetup.Orientation = XlPageOrientation.xlLandscape;
-
             application.Visible = true;
 
-            worksheet.PrintPreview();
+            worksheetPV.PrintPreview();
+            worksheetCTV.PrintPreview();
             #endregion
         }
 
-        public void InteropPreviewReportBSTTNM(DateTime startDate, DateTime endDate, int role, int price, int reportType)
+        public void InteropPreviewReportBSTTNM(DateTime startDate, DateTime endDate, int price)
         {
             #region create excel file with template
             Application application = new Application();
 
             var workbook = application.Workbooks.Add(AppDomain.CurrentDomain.BaseDirectory + $"Templates\\{Tempate.BSTTNM}.xlsx");
-            var worksheet = (Worksheet)workbook.Worksheets[1];
+            var worksheetPV = (Worksheet)workbook.Worksheets[1];
+            var worksheetCTV = (Worksheet)workbook.Worksheets[2];
 
             #endregion
 
-            #region fill data
-            var listBSTTNM = GetReportBroadcast(startDate, endDate, role, price, reportType);
-            var listKHK = GetReportBroadcast(startDate, endDate, role, price, ArticleType.KHOIHK_TTNM);
-
-            int currentRow = 5;
-            var percent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, role == EmployeeRole.PV ? Criterias_Percent.TANG_GIAM_PV_BTV : Criterias_Percent.TANG_GIAM_CTV);
-            worksheet.Cells[currentRow - 2, BSTTNM_COL.TANGGIAM].Value = "Tăng " + percent + "%";
-            percent = percent / 100;
-
-            if (listBSTTNM != null && listBSTTNM.Count > 0)
-            {
-                for (int i = 0; i < listBSTTNM.Count; i++)
-                {
-                    if (i > 0)
-                    {
-                        Range line = (Range)worksheet.Rows[currentRow];
-                        line.Insert();
-                    }
-                    worksheet.Cells[currentRow, BSTTNM_COL.STT].Value = i + 1;
-                    worksheet.Cells[currentRow, BSTTNM_COL.HO_TEN].Value = listBSTTNM[i].EmployeeName;
-                    worksheet.Cells[currentRow, BSTTNM_COL.DON_VI].Value = listBSTTNM[i].Organization;
-                    worksheet.Cells[currentRow, BSTTNM_COL.SL_BS_TTN].Value = listBSTTNM[i].SoBs_TTN;
-                    worksheet.Cells[currentRow, BSTTNM_COL.D_BS_TTN].Value = listBSTTNM[i].DiemBs_TTN;
-                    worksheet.Cells[currentRow, BSTTNM_COL.SL_BtDuyet].Value = listBSTTNM[i].SoBt_Duyet;
-                    worksheet.Cells[currentRow, BSTTNM_COL.D_BtDuyet].Value = listBSTTNM[i].DiemBt_Duyet;
-                    worksheet.Cells[currentRow, BSTTNM_COL.SL_Kthinh].Value = listBSTTNM[i].SoKThinh;
-                    worksheet.Cells[currentRow, BSTTNM_COL.D_Kthinh].Value = listBSTTNM[i].DiemKThinh;
-                    worksheet.Cells[currentRow, BSTTNM_COL.SL_Sapo].Value = listBSTTNM[i].SoBs_Sapo;
-                    worksheet.Cells[currentRow, BSTTNM_COL.D_Sapo].Value = listBSTTNM[i].DiemBs_Sapo;
-                    worksheet.Cells[currentRow, BSTTNM_COL.SL_Tfile].Value = listBSTTNM[i].SoTFile;
-                    worksheet.Cells[currentRow, BSTTNM_COL.D_Tfile].Value = listBSTTNM[i].DiemTFile;
-
-                    worksheet.Cells[currentRow, BSTTNM_COL.TRUCHITIEU].Value = listBSTTNM[i].Descrease;
-                    worksheet.Cells[currentRow, BSTTNM_COL.TONGDIEM].Value = listBSTTNM[i].SumPoint;
-                    worksheet.Cells[currentRow, BSTTNM_COL.TANGGIAM].Value = listBSTTNM[i].IncreasePercent;
-                    worksheet.Cells[currentRow, BSTTNM_COL.THANHTIEN].Value = listBSTTNM[i].TotalCost;
-
-                    currentRow += 1;
-                }
-            }
-            else
-            {
-                worksheet.Rows[currentRow].Delete();
-            }
-
-
-            //sum row
-            var totalCostBSTTNM = listBSTTNM.Sum(e => e.TotalCost);
-            worksheet.Cells[currentRow, BSTTNM_COL.THANHTIEN].Value = totalCostBSTTNM;
-
-            currentRow += 4;
-            worksheet.Cells[currentRow - 2, KHK_COL.TANGGIAM].Value = "Tăng " + percent + "%";
-            if (listKHK != null && listKHK.Count > 0)
-            {
-                for (int i = 0; i < listKHK.Count; i++)
-                {
-                    if (i > 0)
-                    {
-                        Range line = (Range)worksheet.Rows[currentRow];
-                        line.Insert();
-                    }
-                    worksheet.Cells[currentRow, KHK_COL.STT].Value = i + 1;
-                    worksheet.Cells[currentRow, KHK_COL.HO_TEN].Value = listKHK[i].EmployeeName;
-                    worksheet.Cells[currentRow, KHK_COL.DON_VI].Value = listKHK[i].Organization;
-                    worksheet.Cells[currentRow, KHK_COL.SL_DCT].Value = listKHK[i].SoDCT;
-                    worksheet.Cells[currentRow, KHK_COL.D_DCT].Value = listKHK[i].DiemDCT;
-                    worksheet.Cells[currentRow, KHK_COL.SL_KTD].Value = listKHK[i].SoKTD;
-                    worksheet.Cells[currentRow, KHK_COL.D_KTD].Value = listKHK[i].DiemKTD;
-                    worksheet.Cells[currentRow, KHK_COL.SL_KTTH].Value = listKHK[i].SoKT_TH;
-                    worksheet.Cells[currentRow, KHK_COL.D_KTTH].Value = listKHK[i].DiemKT_TH;
-                    worksheet.Cells[currentRow, KHK_COL.SL_TCT].Value = listKHK[i].SoTCT;
-                    worksheet.Cells[currentRow, KHK_COL.D_TCT].Value = listKHK[i].DiemTCT;
-
-                    worksheet.Cells[currentRow, KHK_COL.TRUCHITIEU].Value = listKHK[i].Descrease;
-                    worksheet.Cells[currentRow, KHK_COL.TONGDIEM].Value = listKHK[i].SumPoint;
-                    worksheet.Cells[currentRow, KHK_COL.TANGGIAM].Value = listKHK[i].IncreasePercent;
-                    worksheet.Cells[currentRow, KHK_COL.THANHTIEN].Value = listKHK[i].TotalCost;
-
-                    currentRow += 1;
-                }
-
-            }
-            else
-            {
-                worksheet.Rows[currentRow].Delete();
-            }
-
-            //title row
-            var textRole = (role == EmployeeRole.PV ? "PV" : "CTV");
-            worksheet.Cells[2, BSTTNM_COL.STT].Value = $"{ReportName.BSTTNM} ({textRole}) THÁNG {endDate.Month}/{endDate.Year}";
-
-
-            //report date row
-            worksheet.Cells[currentRow + 2, BSTTNM_COL.THANHTIEN + 1].Value = $"Long Xuyên, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
-
-            //sum row
-            var totalCostKHK = listKHK.Sum(e => e.TotalCost);
-            worksheet.Cells[currentRow, KHK_COL.THANHTIEN].Value = totalCostKHK;
-
-            //money string
-            worksheet.Cells[currentRow + 1, BSTTNM_COL.THANHTIEN + 1].Value = $"(Thành tiền bằng chữ: {NumberToTextVN(totalCostBSTTNM + totalCostKHK)})";
-
-            //hide deduction of CTV
-            if (role == EmployeeRole.CTV)
-            {
-                worksheet.Columns[BSTTNM_COL.TRUCHITIEU].Hidden = true;
-            }
-            #endregion
+            FillDataIntoWorksheetBSTTNM(worksheetPV, startDate, endDate, EmployeeRole.PV, price);
+            FillDataIntoWorksheetBSTTNM(worksheetCTV, startDate, endDate, EmployeeRole.CTV, price);
 
             #region setup file
-            worksheet.PageSetup.Orientation = XlPageOrientation.xlLandscape;
-
             application.Visible = true;
 
-            worksheet.PrintPreview();
+            worksheetPV.PrintPreview();
+            worksheetCTV.PrintPreview();
             #endregion
         }
 
-        public void InteropPreviewReportTTNM(DateTime startDate, DateTime endDate, int role, int price, int reportType)
+        public void InteropPreviewReportTTNM(DateTime startDate, DateTime endDate, int price)
         {
             #region create excel file with template
             Application application = new Application();
 
             var workbook = application.Workbooks.Add(AppDomain.CurrentDomain.BaseDirectory + $"Templates\\{Tempate.TTNM}.xlsx");
-            var worksheet = (Worksheet)workbook.Worksheets[1];
+            var worksheetPV = (Worksheet)workbook.Worksheets[1];
+            var worksheetCTV = (Worksheet)workbook.Worksheets[2];
 
             #endregion
 
-            #region fill data
-
-            var list = GetReportBroadcast(startDate, endDate, role, price, reportType);
-
-            int currentRow = 5;
-            var percent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, role == EmployeeRole.PV ? Criterias_Percent.TANG_GIAM_PV_BTV : Criterias_Percent.TANG_GIAM_CTV);
-            worksheet.Cells[currentRow - 2, TTNM_COL.TANGGIAM].Value = "Tăng " + percent + "%";
-            percent = percent / 100;
-
-            if (list != null && list.Count > 0)
-            {
-                for (int i = 0; i < list.Count; i++)
-                {
-                    if (i > 0)
-                    {
-                        Range line = (Range)worksheet.Rows[currentRow];
-                        line.Insert();
-                    }
-                    worksheet.Cells[currentRow, TTNM_COL.STT].Value = i + 1;
-                    worksheet.Cells[currentRow, TTNM_COL.HO_TEN].Value = list[i].EmployeeName;
-                    worksheet.Cells[currentRow, TTNM_COL.DON_VI].Value = list[i].Organization;
-                    worksheet.Cells[currentRow, TTNM_COL.SL_TIN].Value = list[i].SoTin;
-                    worksheet.Cells[currentRow, TTNM_COL.D_TIN].Value = list[i].DiemTin;
-                    worksheet.Cells[currentRow, TTNM_COL.SL_PS].Value = list[i].SoPsu;
-                    worksheet.Cells[currentRow, TTNM_COL.D_PS].Value = list[i].DiemPsu;
-                    worksheet.Cells[currentRow, TTNM_COL.SL_QTin].Value = list[i].SoQtin;
-                    worksheet.Cells[currentRow, TTNM_COL.D_QTin].Value = list[i].DiemQtin;
-                    worksheet.Cells[currentRow, TTNM_COL.SL_QPsu].Value = list[i].SoQPsu;
-                    worksheet.Cells[currentRow, TTNM_COL.D_QPsu].Value = list[i].DiemQPsu;
-                    worksheet.Cells[currentRow, TTNM_COL.SL_Tlt].Value = list[i].SoTLT;
-                    worksheet.Cells[currentRow, TTNM_COL.D_Tlt].Value = list[i].DiemTLT;
-                    worksheet.Cells[currentRow, TTNM_COL.SL_Thop].Value = list[i].SoThop;
-                    worksheet.Cells[currentRow, TTNM_COL.D_Thop].Value = list[i].DiemThop;
-
-                    worksheet.Cells[currentRow, TTNM_COL.TRUCHITIEU].Value = list[i].Descrease;
-                    worksheet.Cells[currentRow, TTNM_COL.TONGDIEM].Value = list[i].SumPoint;
-                    worksheet.Cells[currentRow, TTNM_COL.TANGGIAM].Value = list[i].IncreasePercent;
-                    worksheet.Cells[currentRow, TTNM_COL.THANHTIEN].Value = list[i].TotalCost;
-
-                    currentRow += 1;
-                }
-            }
-            else
-            {
-                worksheet.Rows[currentRow].Delete();
-            }
-
-            //title row
-            var textRole = (role == EmployeeRole.PV ? "PV" : "CTV");
-            worksheet.Cells[2, TTNM_COL.STT].Value = $"{ReportName.TTNM} ({textRole}) THÁNG {endDate.Month}/{endDate.Year}";
-
-            //sum row
-            var totalCost = list.Sum(e => e.TotalCost);
-            worksheet.Cells[currentRow, TTNM_COL.THANHTIEN].Value = totalCost;
-
-            if (role == EmployeeRole.CTV)
-            {
-                worksheet.Rows[currentRow + 1].Hidden = true;
-                worksheet.Rows[currentRow + 2].Hidden = true;
-                worksheet.Rows[currentRow + 3].Hidden = true;
-                worksheet.Rows[currentRow + 4].Hidden = true;
-                worksheet.Rows[currentRow + 5].Hidden = true;
-            }
-            else
-            {
-                var BBT = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, Criterias_TTNM.BBT);
-                var PTV = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, Criterias_TTNM.PTV);
-                var KTD = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, Criterias_TTNM.KTD);
-
-                var totalPoint = list.Sum(e => e.TotalPoint);
-                var BBTPoint = totalPoint * (BBT / 100);
-                var BBTCost = BBTPoint * price;
-
-                var PTVPoint = totalPoint * (PTV / 100);
-                var PTVCost = PTVPoint * price;
-
-                var KTDPoint = totalPoint * (KTD / 100);
-                var KTDCost = KTDPoint * price;
-
-                totalCost += (long)BBTCost + (long)PTVCost + (long)KTDCost;
-
-                //fill header
-                worksheet.Cells[currentRow + 2, TTNM_COL.HO_TEN].Value = TTNM_COL.GetBBTHeader(BBT);
-                worksheet.Cells[currentRow + 3, TTNM_COL.HO_TEN].Value = TTNM_COL.GetPTVHeader(PTV);
-                worksheet.Cells[currentRow + 4, TTNM_COL.HO_TEN].Value = TTNM_COL.GetKTDHeader(KTD);
-
-                //fill value
-                worksheet.Cells[currentRow + 2, TTNM_COL.SL_TIN].Value = BBTCost; //must fix
-                worksheet.Cells[currentRow + 3, TTNM_COL.SL_TIN].Value = PTVCost;//must fix
-                worksheet.Cells[currentRow + 4, TTNM_COL.SL_TIN].Value = KTDCost;//must fix
-
-                worksheet.Cells[currentRow + 2, TTNM_COL.THANHTIEN].Value = BBTCost;
-                worksheet.Cells[currentRow + 3, TTNM_COL.THANHTIEN].Value = PTVCost;
-                worksheet.Cells[currentRow + 4, TTNM_COL.THANHTIEN].Value = KTDCost;
-                worksheet.Cells[currentRow + 5, TTNM_COL.THANHTIEN].Value = totalCost;
-            }
-            currentRow += 5;
-
-            //money string
-            worksheet.Cells[currentRow + 1, TTNM_COL.THANHTIEN + 1].Value = $"(Thành tiền bằng chữ: {NumberToTextVN(totalCost)})";
-
-            //report date row
-            worksheet.Cells[currentRow + 2, TTNM_COL.THANHTIEN + 1].Value = $"Long Xuyên, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
-
-            //hide deduction of CTV
-            if (role == EmployeeRole.CTV)
-            {
-                worksheet.Columns[TTNM_COL.TRUCHITIEU].Hidden = true;
-            }
-
-
-
-            #endregion
+            FillDataIntoWorksheetTTNM(worksheetPV, startDate, endDate, EmployeeRole.PV, price);
+            FillDataIntoWorksheetTTNM(worksheetCTV, startDate, endDate, EmployeeRole.CTV, price);
 
             #region setup file
-            worksheet.PageSetup.Orientation = XlPageOrientation.xlLandscape;
-
             application.Visible = true;
 
-            worksheet.PrintPreview();
+            worksheetPV.PrintPreview();
+            worksheetCTV.PrintPreview();
             #endregion
         }
 
@@ -1054,6 +742,335 @@ namespace ATV_Allowance.Services
             {
                 worksheet.Columns[PT_COL.TRUCHITIEU].Hidden = true;
             }
+        }
+
+        private void FillDataIntoWorksheetPTTT(Worksheet worksheet, DateTime startDate, DateTime endDate, int role, int price)
+        {
+            #region fill data
+            var list = GetReportBroadcast(startDate, endDate, role, price, ArticleType.PHAT_THANH_TT);
+
+            int currentRow = 5;
+            var percent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, role == EmployeeRole.PV ? Criterias_PTTT.PV_PTV : Criterias_PTTT.CTV);
+            worksheet.Cells[currentRow - 2, PTTT_COL.TANGGIAM].Value = "Tăng " + percent + "%";
+            percent = percent / 100;
+
+            if (list != null && list.Count > 0)
+            {
+                for (int i = 0; i < list.Count; i++)
+                {
+                    if (i > 0)
+                    {
+                        Range line = (Range)worksheet.Rows[currentRow];
+                        line.Insert();
+                    }
+                    worksheet.Cells[currentRow, PTTT_COL.STT].Value = i + 1;
+                    worksheet.Cells[currentRow, PTTT_COL.HO_TEN].Value = list[i].EmployeeName;
+                    worksheet.Cells[currentRow, PTTT_COL.DON_VI].Value = list[i].Organization;
+                    worksheet.Cells[currentRow, PTTT_COL.SL_TIN].Value = list[i].SoTin;
+                    worksheet.Cells[currentRow, PTTT_COL.D_TIN].Value = list[i].DiemTin;
+                    worksheet.Cells[currentRow, PTTT_COL.SL_TT].Value = list[i].SoTTh_Gnh;
+                    worksheet.Cells[currentRow, PTTT_COL.D_TT].Value = list[i].DiemTTh_Gnh;
+                    worksheet.Cells[currentRow, PTTT_COL.SL_CD].Value = list[i].SoCde;
+                    worksheet.Cells[currentRow, PTTT_COL.D_CD].Value = list[i].DiemCde;
+                    worksheet.Cells[currentRow, PTTT_COL.SL_PV].Value = list[i].SoPv;
+                    worksheet.Cells[currentRow, PTTT_COL.D_PV].Value = list[i].DiemPv;
+                    worksheet.Cells[currentRow, PTTT_COL.SL_BS].Value = list[i].SoBs_DCT;
+                    worksheet.Cells[currentRow, PTTT_COL.D_BS].Value = list[i].DiemBs_DCT;
+                    worksheet.Cells[currentRow, PTTT_COL.SL_BT].Value = list[i].SoBt_Dd;
+                    worksheet.Cells[currentRow, PTTT_COL.D_BT].Value = list[i].DiemBt_Dd;
+
+                    worksheet.Cells[currentRow, PTTT_COL.TRUCHITIEU].Value = list[i].Descrease;
+                    worksheet.Cells[currentRow, PTTT_COL.TONGDIEM].Value = list[i].SumPoint;
+                    worksheet.Cells[currentRow, PTTT_COL.TANGGIAM].Value = list[i].IncreasePercent;
+                    worksheet.Cells[currentRow, PTTT_COL.THANHTIEN].Value = list[i].TotalCost;
+
+                    currentRow += 1;
+                }
+            }
+            else
+            {
+                worksheet.Rows[currentRow].Delete();
+            }
+
+            //title row
+            var textRole = (role == EmployeeRole.PV ? "PV" : "CTV");
+            worksheet.Cells[2, PTTT_COL.STT].Value = $"{ReportName.PTTT} ({textRole}) THÁNG {endDate.Month}/{endDate.Year}";
+
+            //sum row
+            var totalCost = list.Sum(e => e.TotalCost);
+            worksheet.Cells[currentRow, PTTT_COL.THANHTIEN].Value = totalCost;
+
+            if (role == EmployeeRole.CTV)
+            {
+                worksheet.Rows[currentRow + 1].Hidden = true;
+                worksheet.Rows[currentRow + 2].Hidden = true;
+                worksheet.Rows[currentRow + 3].Hidden = true;
+                worksheet.Rows[currentRow + 4].Hidden = true;
+            }
+            else
+            {
+                var toBaAm = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, Criterias_PTTT.ToBaAm);
+                var daysOfMonth = DateTime.DaysInMonth(startDate.Year, startDate.Month);
+                var BBT = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, Criterias_PTTT.BBT);
+
+                var toBaAmCost = toBaAm * daysOfMonth * price;
+                var BBTPoint = list.Sum(e => e.TotalPoint) * (BBT / 100);
+                var BBTCost = BBTPoint * price;
+                totalCost += (long)toBaAmCost + (long)BBTCost;
+
+                //fill header
+                worksheet.Cells[currentRow + 2, PTTT_COL.STT].Value = PTTT_COL.GetToBaAmHeader(toBaAm, daysOfMonth);
+                worksheet.Cells[currentRow + 3, PTTT_COL.STT].Value = PTTT_COL.GetBBTHeader(BBTPoint);
+
+                //fill value
+                worksheet.Cells[currentRow + 2, PTTT_COL.TANGGIAM].Value = toBaAmCost;
+                worksheet.Cells[currentRow + 3, PTTT_COL.TANGGIAM].Value = BBTCost;
+                worksheet.Cells[currentRow + 4, PTTT_COL.TANGGIAM].Value = totalCost;
+            }
+
+            currentRow += 4;
+
+            //money string
+            worksheet.Cells[currentRow + 1, PTTT_COL.THANHTIEN + 1].Value = $"(Thành tiền bằng chữ: {NumberToTextVN(totalCost)})";
+
+            //report date row
+            worksheet.Cells[currentRow + 2, PTTT_COL.THANHTIEN + 1].Value = $"Long Xuyên, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
+
+            //hide deduction of CTV
+            if (role == EmployeeRole.CTV)
+            {
+                worksheet.Columns[PTTT_COL.TRUCHITIEU].Hidden = true;
+            }
+            #endregion
+        }
+
+        private void FillDataIntoWorksheetTTNM(Worksheet worksheet, DateTime startDate, DateTime endDate, int role, int price)
+        {
+            #region fill data
+
+            var list = GetReportBroadcast(startDate, endDate, role, price, ArticleType.PV_TTNM);
+
+            int currentRow = 5;
+            var percent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, role == EmployeeRole.PV ? Criterias_Percent.TANG_GIAM_PV_BTV : Criterias_Percent.TANG_GIAM_CTV);
+            worksheet.Cells[currentRow - 2, TTNM_COL.TANGGIAM].Value = "Tăng " + percent + "%";
+            percent = percent / 100;
+
+            if (list != null && list.Count > 0)
+            {
+                for (int i = 0; i < list.Count; i++)
+                {
+                    if (i > 0)
+                    {
+                        Range line = (Range)worksheet.Rows[currentRow];
+                        line.Insert();
+                    }
+                    worksheet.Cells[currentRow, TTNM_COL.STT].Value = i + 1;
+                    worksheet.Cells[currentRow, TTNM_COL.HO_TEN].Value = list[i].EmployeeName;
+                    worksheet.Cells[currentRow, TTNM_COL.DON_VI].Value = list[i].Organization;
+                    worksheet.Cells[currentRow, TTNM_COL.SL_TIN].Value = list[i].SoTin;
+                    worksheet.Cells[currentRow, TTNM_COL.D_TIN].Value = list[i].DiemTin;
+                    worksheet.Cells[currentRow, TTNM_COL.SL_PS].Value = list[i].SoPsu;
+                    worksheet.Cells[currentRow, TTNM_COL.D_PS].Value = list[i].DiemPsu;
+                    worksheet.Cells[currentRow, TTNM_COL.SL_QTin].Value = list[i].SoQtin;
+                    worksheet.Cells[currentRow, TTNM_COL.D_QTin].Value = list[i].DiemQtin;
+                    worksheet.Cells[currentRow, TTNM_COL.SL_QPsu].Value = list[i].SoQPsu;
+                    worksheet.Cells[currentRow, TTNM_COL.D_QPsu].Value = list[i].DiemQPsu;
+                    worksheet.Cells[currentRow, TTNM_COL.SL_Tlt].Value = list[i].SoTLT;
+                    worksheet.Cells[currentRow, TTNM_COL.D_Tlt].Value = list[i].DiemTLT;
+                    worksheet.Cells[currentRow, TTNM_COL.SL_Thop].Value = list[i].SoThop;
+                    worksheet.Cells[currentRow, TTNM_COL.D_Thop].Value = list[i].DiemThop;
+
+                    worksheet.Cells[currentRow, TTNM_COL.TRUCHITIEU].Value = list[i].Descrease;
+                    worksheet.Cells[currentRow, TTNM_COL.TONGDIEM].Value = list[i].SumPoint;
+                    worksheet.Cells[currentRow, TTNM_COL.TANGGIAM].Value = list[i].IncreasePercent;
+                    worksheet.Cells[currentRow, TTNM_COL.THANHTIEN].Value = list[i].TotalCost;
+
+                    currentRow += 1;
+                }
+            }
+            else
+            {
+                worksheet.Rows[currentRow].Delete();
+            }
+
+            //title row
+            var textRole = (role == EmployeeRole.PV ? "PV" : "CTV");
+            worksheet.Cells[2, TTNM_COL.STT].Value = $"{ReportName.TTNM} ({textRole}) THÁNG {endDate.Month}/{endDate.Year}";
+
+            //sum row
+            var totalCost = list.Sum(e => e.TotalCost);
+            worksheet.Cells[currentRow, TTNM_COL.THANHTIEN].Value = totalCost;
+
+            if (role == EmployeeRole.CTV)
+            {
+                worksheet.Rows[currentRow + 1].Hidden = true;
+                worksheet.Rows[currentRow + 2].Hidden = true;
+                worksheet.Rows[currentRow + 3].Hidden = true;
+                worksheet.Rows[currentRow + 4].Hidden = true;
+                worksheet.Rows[currentRow + 5].Hidden = true;
+            }
+            else
+            {
+                var BBT = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, Criterias_TTNM.BBT);
+                var PTV = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, Criterias_TTNM.PTV);
+                var KTD = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, Criterias_TTNM.KTD);
+
+                var totalPoint = list.Sum(e => e.TotalPoint);
+                var BBTPoint = totalPoint * (BBT / 100);
+                var BBTCost = BBTPoint * price;
+
+                var PTVPoint = totalPoint * (PTV / 100);
+                var PTVCost = PTVPoint * price;
+
+                var KTDPoint = totalPoint * (KTD / 100);
+                var KTDCost = KTDPoint * price;
+
+                totalCost += (long)BBTCost + (long)PTVCost + (long)KTDCost;
+
+                //fill header
+                worksheet.Cells[currentRow + 2, TTNM_COL.HO_TEN].Value = TTNM_COL.GetBBTHeader(BBT);
+                worksheet.Cells[currentRow + 3, TTNM_COL.HO_TEN].Value = TTNM_COL.GetPTVHeader(PTV);
+                worksheet.Cells[currentRow + 4, TTNM_COL.HO_TEN].Value = TTNM_COL.GetKTDHeader(KTD);
+
+                //fill value
+                worksheet.Cells[currentRow + 2, TTNM_COL.SL_TIN].Value = BBTCost; //must fix
+                worksheet.Cells[currentRow + 3, TTNM_COL.SL_TIN].Value = PTVCost;//must fix
+                worksheet.Cells[currentRow + 4, TTNM_COL.SL_TIN].Value = KTDCost;//must fix
+
+                worksheet.Cells[currentRow + 2, TTNM_COL.THANHTIEN].Value = BBTCost;
+                worksheet.Cells[currentRow + 3, TTNM_COL.THANHTIEN].Value = PTVCost;
+                worksheet.Cells[currentRow + 4, TTNM_COL.THANHTIEN].Value = KTDCost;
+                worksheet.Cells[currentRow + 5, TTNM_COL.THANHTIEN].Value = totalCost;
+            }
+            currentRow += 5;
+
+            //money string
+            worksheet.Cells[currentRow + 1, TTNM_COL.THANHTIEN + 1].Value = $"(Thành tiền bằng chữ: {NumberToTextVN(totalCost)})";
+
+            //report date row
+            worksheet.Cells[currentRow + 2, TTNM_COL.THANHTIEN + 1].Value = $"Long Xuyên, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
+
+            //hide deduction of CTV
+            if (role == EmployeeRole.CTV)
+            {
+                worksheet.Columns[TTNM_COL.TRUCHITIEU].Hidden = true;
+            }
+
+
+
+            #endregion
+        }
+
+        private void FillDataIntoWorksheetBSTTNM(Worksheet worksheet, DateTime startDate, DateTime endDate, int role, int price)
+        {
+            #region fill data
+            var listBSTTNM = GetReportBroadcast(startDate, endDate, role, price, ArticleType.BIENSOAN_TTNM);
+            var listKHK = GetReportBroadcast(startDate, endDate, role, price, ArticleType.KHOIHK_TTNM);
+
+            int currentRow = 5;
+            var percent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, role == EmployeeRole.PV ? Criterias_Percent.TANG_GIAM_PV_BTV : Criterias_Percent.TANG_GIAM_CTV);
+            worksheet.Cells[currentRow - 2, BSTTNM_COL.TANGGIAM].Value = "Tăng " + percent + "%";
+            percent = percent / 100;
+
+            if (listBSTTNM != null && listBSTTNM.Count > 0)
+            {
+                for (int i = 0; i < listBSTTNM.Count; i++)
+                {
+                    if (i > 0)
+                    {
+                        Range line = (Range)worksheet.Rows[currentRow];
+                        line.Insert();
+                    }
+                    worksheet.Cells[currentRow, BSTTNM_COL.STT].Value = i + 1;
+                    worksheet.Cells[currentRow, BSTTNM_COL.HO_TEN].Value = listBSTTNM[i].EmployeeName;
+                    worksheet.Cells[currentRow, BSTTNM_COL.DON_VI].Value = listBSTTNM[i].Organization;
+                    worksheet.Cells[currentRow, BSTTNM_COL.SL_BS_TTN].Value = listBSTTNM[i].SoBs_TTN;
+                    worksheet.Cells[currentRow, BSTTNM_COL.D_BS_TTN].Value = listBSTTNM[i].DiemBs_TTN;
+                    worksheet.Cells[currentRow, BSTTNM_COL.SL_BtDuyet].Value = listBSTTNM[i].SoBt_Duyet;
+                    worksheet.Cells[currentRow, BSTTNM_COL.D_BtDuyet].Value = listBSTTNM[i].DiemBt_Duyet;
+                    worksheet.Cells[currentRow, BSTTNM_COL.SL_Kthinh].Value = listBSTTNM[i].SoKThinh;
+                    worksheet.Cells[currentRow, BSTTNM_COL.D_Kthinh].Value = listBSTTNM[i].DiemKThinh;
+                    worksheet.Cells[currentRow, BSTTNM_COL.SL_Sapo].Value = listBSTTNM[i].SoBs_Sapo;
+                    worksheet.Cells[currentRow, BSTTNM_COL.D_Sapo].Value = listBSTTNM[i].DiemBs_Sapo;
+                    worksheet.Cells[currentRow, BSTTNM_COL.SL_Tfile].Value = listBSTTNM[i].SoTFile;
+                    worksheet.Cells[currentRow, BSTTNM_COL.D_Tfile].Value = listBSTTNM[i].DiemTFile;
+
+                    worksheet.Cells[currentRow, BSTTNM_COL.TRUCHITIEU].Value = listBSTTNM[i].Descrease;
+                    worksheet.Cells[currentRow, BSTTNM_COL.TONGDIEM].Value = listBSTTNM[i].SumPoint;
+                    worksheet.Cells[currentRow, BSTTNM_COL.TANGGIAM].Value = listBSTTNM[i].IncreasePercent;
+                    worksheet.Cells[currentRow, BSTTNM_COL.THANHTIEN].Value = listBSTTNM[i].TotalCost;
+
+                    currentRow += 1;
+                }
+            }
+            else
+            {
+                worksheet.Rows[currentRow].Delete();
+            }
+
+
+            //sum row
+            var totalCostBSTTNM = listBSTTNM.Sum(e => e.TotalCost);
+            worksheet.Cells[currentRow, BSTTNM_COL.THANHTIEN].Value = totalCostBSTTNM;
+
+            currentRow += 4;
+            worksheet.Cells[currentRow - 2, KHK_COL.TANGGIAM].Value = "Tăng " + percent + "%";
+            if (listKHK != null && listKHK.Count > 0)
+            {
+                for (int i = 0; i < listKHK.Count; i++)
+                {
+                    if (i > 0)
+                    {
+                        Range line = (Range)worksheet.Rows[currentRow];
+                        line.Insert();
+                    }
+                    worksheet.Cells[currentRow, KHK_COL.STT].Value = i + 1;
+                    worksheet.Cells[currentRow, KHK_COL.HO_TEN].Value = listKHK[i].EmployeeName;
+                    worksheet.Cells[currentRow, KHK_COL.DON_VI].Value = listKHK[i].Organization;
+                    worksheet.Cells[currentRow, KHK_COL.SL_DCT].Value = listKHK[i].SoDCT;
+                    worksheet.Cells[currentRow, KHK_COL.D_DCT].Value = listKHK[i].DiemDCT;
+                    worksheet.Cells[currentRow, KHK_COL.SL_KTD].Value = listKHK[i].SoKTD;
+                    worksheet.Cells[currentRow, KHK_COL.D_KTD].Value = listKHK[i].DiemKTD;
+                    worksheet.Cells[currentRow, KHK_COL.SL_KTTH].Value = listKHK[i].SoKT_TH;
+                    worksheet.Cells[currentRow, KHK_COL.D_KTTH].Value = listKHK[i].DiemKT_TH;
+                    worksheet.Cells[currentRow, KHK_COL.SL_TCT].Value = listKHK[i].SoTCT;
+                    worksheet.Cells[currentRow, KHK_COL.D_TCT].Value = listKHK[i].DiemTCT;
+
+                    worksheet.Cells[currentRow, KHK_COL.TRUCHITIEU].Value = listKHK[i].Descrease;
+                    worksheet.Cells[currentRow, KHK_COL.TONGDIEM].Value = listKHK[i].SumPoint;
+                    worksheet.Cells[currentRow, KHK_COL.TANGGIAM].Value = listKHK[i].IncreasePercent;
+                    worksheet.Cells[currentRow, KHK_COL.THANHTIEN].Value = listKHK[i].TotalCost;
+
+                    currentRow += 1;
+                }
+
+            }
+            else
+            {
+                worksheet.Rows[currentRow].Delete();
+            }
+
+            //title row
+            var textRole = (role == EmployeeRole.PV ? "PV" : "CTV");
+            worksheet.Cells[2, BSTTNM_COL.STT].Value = $"{ReportName.BSTTNM} ({textRole}) THÁNG {endDate.Month}/{endDate.Year}";
+
+
+            //report date row
+            worksheet.Cells[currentRow + 2, BSTTNM_COL.THANHTIEN + 1].Value = $"Long Xuyên, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
+
+            //sum row
+            var totalCostKHK = listKHK.Sum(e => e.TotalCost);
+            worksheet.Cells[currentRow, KHK_COL.THANHTIEN].Value = totalCostKHK;
+
+            //money string
+            worksheet.Cells[currentRow + 1, BSTTNM_COL.THANHTIEN + 1].Value = $"(Thành tiền bằng chữ: {NumberToTextVN(totalCostBSTTNM + totalCostKHK)})";
+
+            //hide deduction of CTV
+            if (role == EmployeeRole.CTV)
+            {
+                worksheet.Columns[BSTTNM_COL.TRUCHITIEU].Hidden = true;
+            }
+            #endregion
         }
 
         private void CalculateCost(List<EmployeePointViewModel> list, int price, int reportType, int employeeRole, DateTime startDate)
