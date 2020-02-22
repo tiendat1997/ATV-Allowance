@@ -58,6 +58,6 @@
         public double Descrease { get; set; }
         public double IncreasePercent { get; set; }
         public double TotalPoint { get; set; }
-        public int TotalCost { get; set; }
+        public long TotalCost { get; set; }
     }
 }

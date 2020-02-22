@@ -68,6 +68,7 @@
             this.btnExport.TabIndex = 64;
             this.btnExport.Text = "In báo cáo";
             this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
             // label5
             // 

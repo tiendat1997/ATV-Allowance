@@ -68,6 +68,7 @@
             this.btnExport.TabIndex = 20;
             this.btnExport.Text = "In tổng hợp PT";
             this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
             // label5
             // 
@@ -235,6 +236,7 @@
             this.button1.TabIndex = 35;
             this.button1.Text = "In tổng hợp PTTT";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // ReportPTForm
             // 

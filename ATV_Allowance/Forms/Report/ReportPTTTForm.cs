@@ -190,7 +190,7 @@ namespace ATV_Allowance.Forms.Report
 
             try
             {
-                reportService.InteropPreviewReportPTTT(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, Constants.ArticleType.PHAT_THANH_TT);
+                reportService.InteropPreviewReportPTTT(dtpStartdate.Value, dtpEnddate.Value, (int)edtPrice.Value);
                 int month = this.dtpMonth.Value.Month;
                 int year = this.dtpYear.Value.Year;
                 actionLog.Message = string.Format(AppActions.Export_PhatThanhTT, month, year);
@@ -252,7 +252,7 @@ namespace ATV_Allowance.Forms.Report
 
         private void btnPreview_Click(object sender, EventArgs e)
         {
-            reportService.InteropPreviewReportPTTT(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, Constants.ArticleType.PHAT_THANH_TT);
+            reportService.InteropPreviewReportPTTT(dtpStartdate.Value, dtpEnddate.Value, (int)edtPrice.Value);
 
         }
     }
