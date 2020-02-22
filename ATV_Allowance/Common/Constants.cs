@@ -328,6 +328,11 @@ namespace ATV_Allowance.Common
             public static int TONGDIEM = 17;
             public static int TANGGIAM = 18;
             public static int THANHTIEN = 19;
+
+            public static string GetToBaAmHeader(double toBaAmCriteria, double daysOfMonth) 
+                => $"Tổ bá âm: Thu tin qua điện thoại + Vận hành máy ({toBaAmCriteria}đ/1CT). Tổng cộng: {daysOfMonth} chương trình";
+            public static string GetBBTHeader(double BBTPoint) 
+                => $"Trích Ban Biên tập nội dung chương trình hàng ngày. Tổng cộng: {BBTPoint} điểm";
         }
 
         public static class TTNM_COL
@@ -351,6 +356,13 @@ namespace ATV_Allowance.Common
             public static int TONGDIEM = 17;
             public static int TANGGIAM = 18;
             public static int THANHTIEN = 19;
+
+            public static string GetBBTHeader(double BBTPercent)
+                => $"Ban biên tập {BBTPercent}%";
+            public static string GetPTVHeader(double PTVPercent)
+                => $"Phát thanh viên {PTVPercent}%";
+            public static string GetKTDHeader(double KTDPercent)
+                => $"Kỹ thuật dựng {KTDPercent}%";
         }
 
         public static class BSTTNM_COL
@@ -412,6 +424,23 @@ namespace ATV_Allowance.Common
             public static int NGUOI_VI_TINH = 9;
             public static int TIEN_VI_TINH = 10;
             public static int DANH_SACH = 11;
+        }
+
+        public static class Criterias_PTTT
+        {
+            public static int PV_PTV = 15;
+            public static int CTV = 16;
+            public static int ToBaAm = 17;
+            public static int BBT = 18;
+        }
+
+        public static class Criterias_TTNM
+        {
+            public static int PV_PTV = 19;
+            public static int CTV = 20;
+            public static int KTD = 21;
+            public static int BBT = 22;
+            public static int PTV = 23;
         }
 
         public static class Criterias_Percent

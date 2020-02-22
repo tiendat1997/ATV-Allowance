@@ -15,16 +15,8 @@ namespace ATV_Allowance.Services
     public interface IReportService
     {
         List<EmployeePointViewModel> GetReportBroadcast(DateTime startDate, DateTime endDate, int role, int price, int reportType);
-        byte[] GetReportTS(DateTime startDate, DateTime endDate, int role, int price, int reportType);
-        byte[] GetReportPT(DateTime startDate, DateTime endDate, int role, int price, int reportType);
-        byte[] GetReportPTTT(DateTime startDate, DateTime endDate, int role, int price, int reportType);
-        byte[] GetReportBSTTNM(DateTime startDate, DateTime endDate, int role, int price, int reportType);
-        byte[] GetReportTTNM(DateTime startDate, DateTime endDate, int role, int price, int reportType);
-        byte[] GetReportKHK(DateTime startDate, DateTime endDate, int role, int price, int reportType);
-        byte[] GetReportTS_KHK(DateTime startDate, DateTime endDate, int price);
-
-        void InteropPreviewReportTS(DateTime startDate, DateTime endDate, int role, int price, int reportType);
-        void InteropPreviewReportPT(DateTime startDate, DateTime endDate, int role, int price, int reportType);
+        void InteropPreviewReportTS(DateTime startDate, DateTime endDate, int price);
+        void InteropPreviewReportPT(DateTime startDate, DateTime endDate, int price);
         void InteropPreviewReportPTTT(DateTime startDate, DateTime endDate, int role, int price, int reportType);
         void InteropPreviewReportBSTTNM(DateTime startDate, DateTime endDate, int role, int price, int reportType);
         void InteropPreviewReportTTNM(DateTime startDate, DateTime endDate, int role, int price, int reportType);
@@ -194,656 +186,6 @@ namespace ATV_Allowance.Services
             return result;
         }
 
-        public byte[] GetReportTS(DateTime startDate, DateTime endDate, int role, int price, int reportType)
-        {
-            var list = GetReportBroadcast(startDate, endDate, role, price, reportType);
-            ExcelHelper helper = new ExcelHelper();
-            var package = helper.GetPackage(Tempate.TS);
-            var workbook = package.Workbook;
-            var worksheet = workbook.Worksheets.First();
-
-
-            int currentRow = 5;
-
-            var percent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, role == EmployeeRole.PV ? Criterias_Percent.TANG_GIAM_PV_BTV : Criterias_Percent.TANG_GIAM_CTV);
-            worksheet.Cells[currentRow - 2, TS_COL.TANGGIAM].Value = "Tăng " + percent + "%";
-            percent = percent / 100;
-
-            for (int i = 0; i < list.Count; i++)
-            {
-                worksheet.InsertRow(currentRow, 1);
-                worksheet.Cells[currentRow, TS_COL.STT].Value = i + 1;
-                worksheet.Cells[currentRow, TS_COL.HO_TEN].Value = list[i].EmployeeName;
-                worksheet.Cells[currentRow, TS_COL.TIN].Value = list[i].SoTin;
-                worksheet.Cells[currentRow, TS_COL.TIN_DIEM].Value = list[i].DiemTin;
-                worksheet.Cells[currentRow, TS_COL.PHSU].Value = list[i].SoPsu;
-                worksheet.Cells[currentRow, TS_COL.PHSU_DIEM].Value = list[i].DiemPsu;
-                worksheet.Cells[currentRow, TS_COL.QTIN_DIEM].Value = list[i].DiemQtin;
-                worksheet.Cells[currentRow, TS_COL.QPSU_DIEM].Value = list[i].DiemQPsu;
-
-                worksheet.Cells[currentRow, TS_COL.CONG].Value = list[i].SumPoint;
-                worksheet.Cells[currentRow, TS_COL.TRUCHITIEU].Value = list[i].Descrease;
-                worksheet.Cells[currentRow, TS_COL.TANGGIAM].Value = list[i].IncreasePercent;
-                worksheet.Cells[currentRow, TS_COL.TONGCONG].Value = list[i].TotalPoint;
-                worksheet.Cells[currentRow, TS_COL.THANHTIEN].Value = list[i].TotalCost;
-
-                currentRow += 1;
-            }
-
-            //title row
-            worksheet.Cells[2, 12].Value = $"THÁNG {endDate.Month}/{endDate.Year}";
-            worksheet.Cells[2, 11].Value = "(" + (role == EmployeeRole.PV ? "PV" : "CTV") + ")";
-
-
-            //report date row
-            worksheet.Cells[currentRow + 2, 14].Value = $"Long Xuyên, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
-
-            //sum row
-            worksheet.Cells[currentRow, TS_COL.TIN].Value = list.Sum(e => e.SoTin);
-            worksheet.Cells[currentRow, TS_COL.TIN_DIEM].Value = list.Sum(e => e.DiemTin);
-            worksheet.Cells[currentRow, TS_COL.PHSU].Value = list.Sum(e => e.SoPsu);
-            worksheet.Cells[currentRow, TS_COL.PHSU_DIEM].Value = list.Sum(e => e.DiemPsu);
-            worksheet.Cells[currentRow, TS_COL.QTIN_DIEM].Value = list.Sum(e => e.DiemQtin);
-            worksheet.Cells[currentRow, TS_COL.QPSU_DIEM].Value = list.Sum(e => e.DiemQPsu);
-            worksheet.Cells[currentRow, TS_COL.CONG].Value = list.Sum(e => e.SumPoint);
-            worksheet.Cells[currentRow, TS_COL.TRUCHITIEU].Value = list.Sum(e => e.Descrease);
-            worksheet.Cells[currentRow, TS_COL.TANGGIAM].Value = list.Sum(e => e.IncreasePercent);
-            worksheet.Cells[currentRow, TS_COL.TONGCONG].Value = list.Sum(e => e.TotalPoint);
-            var totalCost = list.Sum(e => e.TotalCost);
-            worksheet.Cells[currentRow, TS_COL.THANHTIEN].Value = totalCost;
-
-            //money string
-            worksheet.Cells[currentRow + 1, 14].Value = $"(Thành tiền bằng chữ: {NumberToTextVN(totalCost)})";
-
-            //hide deduction of CTV
-            if (role == EmployeeRole.CTV)
-            {
-                worksheet.Column(TS_COL.TRUCHITIEU).Hidden = true;
-            }
-
-            //set oreintation
-            worksheet.PrinterSettings.Orientation = eOrientation.Landscape;
-
-            if (list.Count > 0)
-            {
-                //border
-                worksheet.Cells[5, 1, currentRow - 1, 14].Style.Border.Top.Style = ExcelBorderStyle.Thin;
-                worksheet.Cells[5, 1, currentRow - 1, 14].Style.Border.Right.Style = ExcelBorderStyle.Thin;
-                worksheet.Cells[5, 1, currentRow - 1, 14].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
-                worksheet.Cells[5, 1, currentRow - 1, 14].Style.Border.Left.Style = ExcelBorderStyle.Thin;
-            }
-            else
-            {
-
-            }
-
-            return package.GetAsByteArray();
-        }
-
-        public byte[] GetReportPT(DateTime startDate, DateTime endDate, int role, int price, int reportType)
-        {
-            var list = GetReportBroadcast(startDate, endDate, role, price, reportType);
-            ExcelHelper helper = new ExcelHelper();
-            var package = helper.GetPackage(Tempate.PT);
-            var workbook = package.Workbook;
-            var worksheet = workbook.Worksheets.First();
-
-            int currentRow = 5;
-            var percent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, role == EmployeeRole.PV ? Criterias_Percent.TANG_GIAM_PV_BTV : Criterias_Percent.TANG_GIAM_CTV);
-            worksheet.Cells[currentRow - 2, PT_COL.TANGGIAM].Value = "Tăng " + percent + "%";
-            percent = percent / 100;
-
-            for (int i = 0; i < list.Count; i++)
-            {
-                worksheet.InsertRow(currentRow, 1);
-                worksheet.Cells[currentRow, PT_COL.STT].Value = i + 1;
-                worksheet.Cells[currentRow, PT_COL.HO_TEN].Value = list[i].EmployeeName;
-                worksheet.Cells[currentRow, PT_COL.DON_VI].Value = list[i].Organization;
-                worksheet.Cells[currentRow, PT_COL.SL_TIN].Value = list[i].SoTin;
-                worksheet.Cells[currentRow, PT_COL.D_TIN].Value = list[i].DiemTin;
-                worksheet.Cells[currentRow, PT_COL.SL_BAI].Value = list[i].SoBai;
-                worksheet.Cells[currentRow, PT_COL.D_BAI].Value = list[i].DiemBai;
-                worksheet.Cells[currentRow, PT_COL.SL_CD].Value = list[i].SoCd;
-                worksheet.Cells[currentRow, PT_COL.D_CD].Value = list[i].DiemCd;
-                worksheet.Cells[currentRow, PT_COL.SL_PV].Value = list[i].SoPv;
-                worksheet.Cells[currentRow, PT_COL.D_PV].Value = list[i].DiemPv;
-                worksheet.Cells[currentRow, PT_COL.SL_TLT].Value = list[i].SoTLT;
-                worksheet.Cells[currentRow, PT_COL.D_TLT].Value = list[i].DiemTLT;
-                worksheet.Cells[currentRow, PT_COL.SL_SD].Value = list[i].SoSD;
-                worksheet.Cells[currentRow, PT_COL.D_SD].Value = list[i].DiemSD;
-
-                worksheet.Cells[currentRow, PT_COL.TRUCHITIEU].Value = list[i].Descrease;
-                worksheet.Cells[currentRow, PT_COL.TONGDIEM].Value = list[i].SumPoint;
-                worksheet.Cells[currentRow, PT_COL.TANGGIAM].Value = list[i].IncreasePercent;
-                worksheet.Cells[currentRow, PT_COL.THANHTIEN].Value = list[i].TotalCost;
-
-                currentRow += 1;
-            }
-
-            //title row
-            worksheet.Cells[2, PT_COL.SL_SD].Value = $"THÁNG {endDate.Month}/{endDate.Year}";
-            worksheet.Cells[2, PT_COL.SL_TLT].Value = "(" + (role == EmployeeRole.PV ? "PV" : "CTV") + ")";
-
-
-            //report date row
-            worksheet.Cells[currentRow + 2, PT_COL.THANHTIEN + 1].Value = $"Long Xuyên, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
-
-            //sum row
-            var totalCost = list.Sum(e => e.TotalCost);
-            worksheet.Cells[currentRow, PT_COL.THANHTIEN].Value = totalCost;
-
-            //money string
-            worksheet.Cells[currentRow + 1, PT_COL.THANHTIEN + 1].Value = $"(Thành tiền bằng chữ: {NumberToTextVN(totalCost)})";
-
-            //hide deduction of CTV
-            if (role == EmployeeRole.CTV)
-            {
-                worksheet.Column(PT_COL.TRUCHITIEU).Hidden = true;
-            }
-
-            //set oreintation
-            worksheet.PrinterSettings.Orientation = eOrientation.Landscape;
-
-            if (list.Count > 0)
-            {
-                //border
-                worksheet.Cells[5, 1, currentRow - 1, PT_COL.THANHTIEN + 1].Style.Border.Top.Style = ExcelBorderStyle.Thin;
-                worksheet.Cells[5, 1, currentRow - 1, PT_COL.THANHTIEN + 1].Style.Border.Right.Style = ExcelBorderStyle.Thin;
-                worksheet.Cells[5, 1, currentRow - 1, PT_COL.THANHTIEN + 1].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
-                worksheet.Cells[5, 1, currentRow - 1, PT_COL.THANHTIEN + 1].Style.Border.Left.Style = ExcelBorderStyle.Thin;
-            }
-            else
-            {
-
-            }
-
-            return package.GetAsByteArray();
-        }
-
-        public byte[] GetReportPTTT(DateTime startDate, DateTime endDate, int role, int price, int reportType)
-        {
-            var list = GetReportBroadcast(startDate, endDate, role, price, reportType);
-            ExcelHelper helper = new ExcelHelper();
-            var package = helper.GetPackage(Tempate.PTTT);
-            var workbook = package.Workbook;
-            var worksheet = workbook.Worksheets.First();
-
-            int currentRow = 5;
-            var percent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, role == EmployeeRole.PV ? Criterias_Percent.TANG_GIAM_PV_BTV : Criterias_Percent.TANG_GIAM_CTV);
-            worksheet.Cells[currentRow - 2, PTTT_COL.TANGGIAM].Value = "Tăng " + percent + "%";
-            percent = percent / 100;
-
-            for (int i = 0; i < list.Count; i++)
-            {
-                worksheet.InsertRow(currentRow, 1);
-                worksheet.Cells[currentRow, PTTT_COL.STT].Value = i + 1;
-                worksheet.Cells[currentRow, PTTT_COL.HO_TEN].Value = list[i].EmployeeName;
-                worksheet.Cells[currentRow, PTTT_COL.DON_VI].Value = list[i].Organization;
-                worksheet.Cells[currentRow, PTTT_COL.SL_TIN].Value = list[i].SoTin;
-                worksheet.Cells[currentRow, PTTT_COL.D_TIN].Value = list[i].DiemTin;
-                worksheet.Cells[currentRow, PTTT_COL.SL_TT].Value = list[i].SoTTh_Gnh;
-                worksheet.Cells[currentRow, PTTT_COL.D_TT].Value = list[i].DiemTTh_Gnh;
-                worksheet.Cells[currentRow, PTTT_COL.SL_CD].Value = list[i].SoCde;
-                worksheet.Cells[currentRow, PTTT_COL.D_CD].Value = list[i].DiemCde;
-                worksheet.Cells[currentRow, PTTT_COL.SL_PV].Value = list[i].SoPv;
-                worksheet.Cells[currentRow, PTTT_COL.D_PV].Value = list[i].DiemPv;
-                worksheet.Cells[currentRow, PTTT_COL.SL_BS].Value = list[i].SoBs_DCT;
-                worksheet.Cells[currentRow, PTTT_COL.D_BS].Value = list[i].DiemBs_DCT;
-                worksheet.Cells[currentRow, PTTT_COL.SL_BT].Value = list[i].SoBt_Dd;
-                worksheet.Cells[currentRow, PTTT_COL.D_BT].Value = list[i].DiemBt_Dd;
-
-                worksheet.Cells[currentRow, PTTT_COL.TRUCHITIEU].Value = list[i].Descrease;
-                worksheet.Cells[currentRow, PTTT_COL.TONGDIEM].Value = list[i].SumPoint;
-                worksheet.Cells[currentRow, PTTT_COL.TANGGIAM].Value = list[i].IncreasePercent;
-                worksheet.Cells[currentRow, PTTT_COL.THANHTIEN].Value = list[i].TotalCost;
-
-                currentRow += 1;
-            }
-
-            //title row
-            worksheet.Cells[2, PTTT_COL.SL_BT].Value = $"THÁNG {endDate.Month}/{endDate.Year}";
-            worksheet.Cells[2, PTTT_COL.SL_BS].Value = "(" + (role == EmployeeRole.PV ? "PV" : "CTV") + ")";
-
-
-            //report date row
-            worksheet.Cells[currentRow + 2, PTTT_COL.THANHTIEN + 1].Value = $"Long Xuyên, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
-
-            //sum row
-            var totalCost = list.Sum(e => e.TotalCost);
-            worksheet.Cells[currentRow, PTTT_COL.THANHTIEN].Value = totalCost;
-
-            //money string
-            worksheet.Cells[currentRow + 1, PTTT_COL.THANHTIEN + 1].Value = $"(Thành tiền bằng chữ: {NumberToTextVN(totalCost)})";
-
-            //hide deduction of CTV
-            if (role == EmployeeRole.CTV)
-            {
-                worksheet.Column(PTTT_COL.TRUCHITIEU).Hidden = true;
-            }
-
-            //set oreintation
-            worksheet.PrinterSettings.Orientation = eOrientation.Landscape;
-
-            if (list.Count > 0)
-            {
-                //border
-                worksheet.Cells[5, 1, currentRow - 1, PTTT_COL.THANHTIEN + 1].Style.Border.Top.Style = ExcelBorderStyle.Thin;
-                worksheet.Cells[5, 1, currentRow - 1, PTTT_COL.THANHTIEN + 1].Style.Border.Right.Style = ExcelBorderStyle.Thin;
-                worksheet.Cells[5, 1, currentRow - 1, PTTT_COL.THANHTIEN + 1].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
-                worksheet.Cells[5, 1, currentRow - 1, PTTT_COL.THANHTIEN + 1].Style.Border.Left.Style = ExcelBorderStyle.Thin;
-            }
-            else
-            {
-
-            }
-
-            return package.GetAsByteArray();
-        }
-
-        public byte[] GetReportTTNM(DateTime startDate, DateTime endDate, int role, int price, int reportType)
-        {
-            var list = GetReportBroadcast(startDate, endDate, role, price, reportType);
-            ExcelHelper helper = new ExcelHelper();
-            var package = helper.GetPackage(Tempate.TTNM);
-            var workbook = package.Workbook;
-            var worksheet = workbook.Worksheets.First();
-
-            int currentRow = 5;
-            var percent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, role == EmployeeRole.PV ? Criterias_Percent.TANG_GIAM_PV_BTV : Criterias_Percent.TANG_GIAM_CTV);
-            worksheet.Cells[currentRow - 2, TTNM_COL.TANGGIAM].Value = "Tăng " + percent + "%";
-            percent = percent / 100;
-
-            for (int i = 0; i < list.Count; i++)
-            {
-                worksheet.InsertRow(currentRow, 1);
-                worksheet.Cells[currentRow, TTNM_COL.STT].Value = i + 1;
-                worksheet.Cells[currentRow, TTNM_COL.HO_TEN].Value = list[i].EmployeeName;
-                worksheet.Cells[currentRow, TTNM_COL.DON_VI].Value = list[i].Organization;
-                worksheet.Cells[currentRow, TTNM_COL.SL_TIN].Value = list[i].SoTin;
-                worksheet.Cells[currentRow, TTNM_COL.D_TIN].Value = list[i].DiemTin;
-                worksheet.Cells[currentRow, TTNM_COL.SL_PS].Value = list[i].SoTTh_Gnh;
-                worksheet.Cells[currentRow, TTNM_COL.D_PS].Value = list[i].DiemTTh_Gnh;
-                worksheet.Cells[currentRow, TTNM_COL.SL_QTin].Value = list[i].SoCde;
-                worksheet.Cells[currentRow, TTNM_COL.D_QTin].Value = list[i].DiemCde;
-                worksheet.Cells[currentRow, TTNM_COL.SL_QPsu].Value = list[i].SoPv;
-                worksheet.Cells[currentRow, TTNM_COL.D_QPsu].Value = list[i].DiemPv;
-                worksheet.Cells[currentRow, TTNM_COL.SL_Tlt].Value = list[i].SoBs_DCT;
-                worksheet.Cells[currentRow, TTNM_COL.D_Tlt].Value = list[i].DiemBs_DCT;
-                worksheet.Cells[currentRow, TTNM_COL.SL_Thop].Value = list[i].SoBt_Dd;
-                worksheet.Cells[currentRow, TTNM_COL.D_Thop].Value = list[i].DiemBt_Dd;
-
-                worksheet.Cells[currentRow, TTNM_COL.TRUCHITIEU].Value = list[i].Descrease;
-                worksheet.Cells[currentRow, TTNM_COL.TONGDIEM].Value = list[i].SumPoint;
-                worksheet.Cells[currentRow, TTNM_COL.TANGGIAM].Value = list[i].IncreasePercent;
-                worksheet.Cells[currentRow, TTNM_COL.THANHTIEN].Value = list[i].TotalCost;
-
-                currentRow += 1;
-            }
-
-            //title row
-            worksheet.Cells[2, TTNM_COL.SL_Thop].Value = $"THÁNG {endDate.Month}/{endDate.Year}";
-            worksheet.Cells[2, TTNM_COL.SL_Tlt].Value = "(" + (role == EmployeeRole.PV ? "PV" : "CTV") + ")";
-
-
-            //report date row
-            worksheet.Cells[currentRow + 2, TTNM_COL.THANHTIEN + 1].Value = $"Long Xuyên, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
-
-            //sum row
-            var totalCost = list.Sum(e => e.TotalCost);
-            worksheet.Cells[currentRow, TTNM_COL.THANHTIEN].Value = totalCost;
-
-            //money string
-            worksheet.Cells[currentRow + 1, TTNM_COL.THANHTIEN + 1].Value = $"(Thành tiền bằng chữ: {NumberToTextVN(totalCost)})";
-
-            //hide deduction of CTV
-            if (role == EmployeeRole.CTV)
-            {
-                worksheet.Column(TTNM_COL.TRUCHITIEU).Hidden = true;
-            }
-
-            //set oreintation
-            worksheet.PrinterSettings.Orientation = eOrientation.Landscape;
-
-            if (list.Count > 0)
-            {
-                //border
-                worksheet.Cells[5, 1, currentRow - 1, TTNM_COL.THANHTIEN + 1].Style.Border.Top.Style = ExcelBorderStyle.Thin;
-                worksheet.Cells[5, 1, currentRow - 1, TTNM_COL.THANHTIEN + 1].Style.Border.Right.Style = ExcelBorderStyle.Thin;
-                worksheet.Cells[5, 1, currentRow - 1, TTNM_COL.THANHTIEN + 1].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
-                worksheet.Cells[5, 1, currentRow - 1, TTNM_COL.THANHTIEN + 1].Style.Border.Left.Style = ExcelBorderStyle.Thin;
-            }
-            else
-            {
-
-            }
-
-            return package.GetAsByteArray();
-        }
-
-        public byte[] GetReportBSTTNM(DateTime startDate, DateTime endDate, int role, int price, int reportType)
-        {
-            var listBSTTNM = GetReportBroadcast(startDate, endDate, role, price, reportType);
-            var listKHK = GetReportBroadcast(startDate, endDate, role, price, ArticleType.KHOIHK_TTNM);
-
-            ExcelHelper helper = new ExcelHelper();
-            var package = helper.GetPackage(Tempate.BSTTNM);
-            var workbook = package.Workbook;
-            var worksheet = workbook.Worksheets.First();
-
-            int currentRow = 5;
-            var percent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, role == EmployeeRole.PV ? Criterias_Percent.TANG_GIAM_PV_BTV : Criterias_Percent.TANG_GIAM_CTV);
-            worksheet.Cells[currentRow - 2, BSTTNM_COL.TANGGIAM].Value = "Tăng " + percent + "%";
-            percent = percent / 100;
-
-            for (int i = 0; i < listBSTTNM.Count; i++)
-            {
-                worksheet.InsertRow(currentRow, 1);
-                worksheet.Cells[currentRow, BSTTNM_COL.STT].Value = i + 1;
-                worksheet.Cells[currentRow, BSTTNM_COL.HO_TEN].Value = listBSTTNM[i].EmployeeName;
-                worksheet.Cells[currentRow, BSTTNM_COL.DON_VI].Value = listBSTTNM[i].Organization;
-                worksheet.Cells[currentRow, BSTTNM_COL.SL_BS_TTN].Value = listBSTTNM[i].SoBs_TTN;
-                worksheet.Cells[currentRow, BSTTNM_COL.D_BS_TTN].Value = listBSTTNM[i].DiemBs_TTN;
-                worksheet.Cells[currentRow, BSTTNM_COL.SL_BtDuyet].Value = listBSTTNM[i].SoBt_Duyet;
-                worksheet.Cells[currentRow, BSTTNM_COL.D_BtDuyet].Value = listBSTTNM[i].DiemBt_Duyet;
-                worksheet.Cells[currentRow, BSTTNM_COL.SL_Kthinh].Value = listBSTTNM[i].SoKThinh;
-                worksheet.Cells[currentRow, BSTTNM_COL.D_Kthinh].Value = listBSTTNM[i].DiemKThinh;
-                worksheet.Cells[currentRow, BSTTNM_COL.SL_Sapo].Value = listBSTTNM[i].SoBs_Sapo;
-                worksheet.Cells[currentRow, BSTTNM_COL.D_Sapo].Value = listBSTTNM[i].DiemBs_Sapo;
-                worksheet.Cells[currentRow, BSTTNM_COL.SL_Tfile].Value = listBSTTNM[i].SoTFile;
-                worksheet.Cells[currentRow, BSTTNM_COL.D_Tfile].Value = listBSTTNM[i].DiemTFile;
-
-                worksheet.Cells[currentRow, BSTTNM_COL.TRUCHITIEU].Value = listBSTTNM[i].Descrease;
-                worksheet.Cells[currentRow, BSTTNM_COL.TONGDIEM].Value = listBSTTNM[i].SumPoint;
-                worksheet.Cells[currentRow, BSTTNM_COL.TANGGIAM].Value = listBSTTNM[i].IncreasePercent;
-                worksheet.Cells[currentRow, BSTTNM_COL.THANHTIEN].Value = listBSTTNM[i].TotalCost;
-
-                currentRow += 1;
-            }
-
-            //sum row
-            var totalCostBSTTNM = listBSTTNM.Sum(e => e.TotalCost);
-            worksheet.Cells[currentRow, BSTTNM_COL.THANHTIEN].Value = totalCostBSTTNM;
-
-            if (listBSTTNM.Count > 0)
-            {
-                //border
-                worksheet.Cells[5, 1, currentRow - 1, BSTTNM_COL.THANHTIEN + 1].Style.Border.Top.Style = ExcelBorderStyle.Thin;
-                worksheet.Cells[5, 1, currentRow - 1, BSTTNM_COL.THANHTIEN + 1].Style.Border.Right.Style = ExcelBorderStyle.Thin;
-                worksheet.Cells[5, 1, currentRow - 1, BSTTNM_COL.THANHTIEN + 1].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
-                worksheet.Cells[5, 1, currentRow - 1, BSTTNM_COL.THANHTIEN + 1].Style.Border.Left.Style = ExcelBorderStyle.Thin;
-            }
-            else
-            {
-
-            }
-
-            currentRow += 4;
-            for (int i = 0; i < listKHK.Count; i++)
-            {
-                worksheet.InsertRow(currentRow, 1);
-                worksheet.Cells[currentRow, KHK_COL.STT].Value = i + 1;
-                worksheet.Cells[currentRow, KHK_COL.HO_TEN].Value = listKHK[i].EmployeeName;
-                worksheet.Cells[currentRow, KHK_COL.DON_VI].Value = listKHK[i].Organization;
-                worksheet.Cells[currentRow, KHK_COL.SL_DCT].Value = listKHK[i].SoDCT;
-                worksheet.Cells[currentRow, KHK_COL.D_DCT].Value = listKHK[i].DiemDCT;
-                worksheet.Cells[currentRow, KHK_COL.SL_KTD].Value = listKHK[i].SoKTD;
-                worksheet.Cells[currentRow, KHK_COL.D_KTD].Value = listKHK[i].DiemKTD;
-                worksheet.Cells[currentRow, KHK_COL.SL_KTTH].Value = listKHK[i].SoKT_TH;
-                worksheet.Cells[currentRow, KHK_COL.D_KTTH].Value = listKHK[i].DiemKT_TH;
-                worksheet.Cells[currentRow, KHK_COL.SL_TCT].Value = listKHK[i].SoTCT;
-                worksheet.Cells[currentRow, KHK_COL.D_TCT].Value = listKHK[i].DiemTCT;
-
-                worksheet.Cells[currentRow, KHK_COL.TRUCHITIEU].Value = listKHK[i].Descrease;
-                worksheet.Cells[currentRow, KHK_COL.TONGDIEM].Value = listKHK[i].SumPoint;
-                worksheet.Cells[currentRow, KHK_COL.TANGGIAM].Value = listKHK[i].IncreasePercent;
-                worksheet.Cells[currentRow, KHK_COL.THANHTIEN].Value = listKHK[i].TotalCost;
-
-                currentRow += 1;
-            }
-
-            if (listKHK.Count > 0)
-            {
-                //border
-                worksheet.Cells[5, 1, currentRow - 1, KHK_COL.THANHTIEN + 1].Style.Border.Top.Style = ExcelBorderStyle.Thin;
-                worksheet.Cells[5, 1, currentRow - 1, KHK_COL.THANHTIEN + 1].Style.Border.Right.Style = ExcelBorderStyle.Thin;
-                worksheet.Cells[5, 1, currentRow - 1, KHK_COL.THANHTIEN + 1].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
-                worksheet.Cells[5, 1, currentRow - 1, KHK_COL.THANHTIEN + 1].Style.Border.Left.Style = ExcelBorderStyle.Thin;
-            }
-            else
-            {
-
-            }
-
-            //title row
-            worksheet.Cells[2, BSTTNM_COL.TONGDIEM].Value = $"THÁNG {endDate.Month}/{endDate.Year}";
-            worksheet.Cells[2, BSTTNM_COL.D_BtDuyet].Value = "(" + (role == EmployeeRole.PV ? "PV" : "CTV") + ")";
-
-
-            //report date row
-            worksheet.Cells[currentRow + 2, BSTTNM_COL.THANHTIEN + 1].Value = $"Long Xuyên, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
-
-            //sum row
-            var totalCostKHK = listKHK.Sum(e => e.TotalCost);
-            worksheet.Cells[currentRow, KHK_COL.THANHTIEN].Value = totalCostKHK;
-
-            //money string
-            worksheet.Cells[currentRow + 1, BSTTNM_COL.THANHTIEN + 1].Value = $"(Thành tiền bằng chữ: {NumberToTextVN(totalCostBSTTNM)})";
-
-            //hide deduction of CTV
-            if (role == EmployeeRole.CTV)
-            {
-                worksheet.Column(BSTTNM_COL.TRUCHITIEU).Hidden = true;
-            }
-
-            //set oreintation
-            worksheet.PrinterSettings.Orientation = eOrientation.Landscape;
-
-            return package.GetAsByteArray();
-        }
-
-        public byte[] GetReportKHK(DateTime startDate, DateTime endDate, int role, int price, int reportType)
-        {
-            var list = GetReportBroadcast(startDate, endDate, role, price, reportType);
-            ExcelHelper helper = new ExcelHelper();
-            var package = helper.GetPackage(Tempate.PT);
-            var workbook = package.Workbook;
-            var worksheet = workbook.Worksheets.First();
-
-            int currentRow = 5;
-            var percent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, role == EmployeeRole.PV ? Criterias_Percent.TANG_GIAM_PV_BTV : Criterias_Percent.TANG_GIAM_CTV);
-            worksheet.Cells[currentRow - 2, TS_COL.TANGGIAM].Value = "Tăng " + percent + "%";
-            percent = percent / 100;
-
-            for (int i = 0; i < list.Count; i++)
-            {
-                worksheet.InsertRow(currentRow, 1);
-                worksheet.Cells[currentRow, PTTT_COL.STT].Value = i + 1;
-                worksheet.Cells[currentRow, PTTT_COL.HO_TEN].Value = list[i].EmployeeName;
-                worksheet.Cells[currentRow, PTTT_COL.DON_VI].Value = list[i].Organization;
-                worksheet.Cells[currentRow, PTTT_COL.SL_TIN].Value = list[i].SoTin;
-                worksheet.Cells[currentRow, PTTT_COL.D_TIN].Value = list[i].DiemTin;
-                worksheet.Cells[currentRow, PTTT_COL.SL_TT].Value = list[i].SoTTh_Gnh;
-                worksheet.Cells[currentRow, PTTT_COL.D_TT].Value = list[i].DiemTTh_Gnh;
-                worksheet.Cells[currentRow, PTTT_COL.SL_CD].Value = list[i].SoCde;
-                worksheet.Cells[currentRow, PTTT_COL.D_CD].Value = list[i].DiemCde;
-                worksheet.Cells[currentRow, PTTT_COL.SL_PV].Value = list[i].SoPv;
-                worksheet.Cells[currentRow, PTTT_COL.D_PV].Value = list[i].DiemPv;
-                worksheet.Cells[currentRow, PTTT_COL.SL_BS].Value = list[i].SoBs_DCT;
-                worksheet.Cells[currentRow, PTTT_COL.D_BS].Value = list[i].DiemBs_DCT;
-                worksheet.Cells[currentRow, PTTT_COL.SL_BT].Value = list[i].SoBt_Dd;
-                worksheet.Cells[currentRow, PTTT_COL.D_BT].Value = list[i].DiemBt_Dd;
-
-                var sum = list[i].SumPoint;
-                var deduction = 0;
-                var tongcong = (sum - deduction) * (1 + percent);
-                worksheet.Cells[currentRow, PTTT_COL.TONGDIEM].Value = sum;
-                worksheet.Cells[currentRow, PTTT_COL.TANGGIAM].Value = (sum - deduction) * percent;
-                worksheet.Cells[currentRow, PTTT_COL.THANHTIEN].Value = tongcong * price;
-
-                currentRow += 1;
-            }
-
-            //title row
-            worksheet.Cells[2, PTTT_COL.SL_BT].Value = $"THÁNG {endDate.Month}/{endDate.Year}";
-            worksheet.Cells[2, PTTT_COL.SL_BS].Value = "(" + (role == EmployeeRole.PV ? "PV" : "CTV") + ")";
-
-
-            //report date row
-            worksheet.Cells[currentRow + 2, PTTT_COL.THANHTIEN + 1].Value = $"Long Xuyên, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
-
-            //sum row
-            var totalCost = list.Sum(e => e.TotalCost);
-            worksheet.Cells[currentRow, PTTT_COL.THANHTIEN].Value = totalCost;
-
-            //money string
-            worksheet.Cells[currentRow + 1, PTTT_COL.THANHTIEN + 1].Value = $"(Thành tiền bằng chữ: {NumberToTextVN(totalCost)})";
-
-            //set oreintation
-            worksheet.PrinterSettings.Orientation = eOrientation.Landscape;
-
-            if (list.Count > 0)
-            {
-                //border
-                worksheet.Cells[5, 1, currentRow - 1, PTTT_COL.THANHTIEN + 1].Style.Border.Top.Style = ExcelBorderStyle.Thin;
-                worksheet.Cells[5, 1, currentRow - 1, PTTT_COL.THANHTIEN + 1].Style.Border.Right.Style = ExcelBorderStyle.Thin;
-                worksheet.Cells[5, 1, currentRow - 1, PTTT_COL.THANHTIEN + 1].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
-                worksheet.Cells[5, 1, currentRow - 1, PTTT_COL.THANHTIEN + 1].Style.Border.Left.Style = ExcelBorderStyle.Thin;
-            }
-            else
-            {
-
-            }
-
-            return package.GetAsByteArray();
-        }
-
-        private void CalculateCost(List<EmployeePointViewModel> list, int price, int reportType, int employeeRole, DateTime startDate)
-        {
-            var percent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, employeeRole == EmployeeRole.PV ? Criterias_Percent.TANG_GIAM_PV_BTV : Criterias_Percent.TANG_GIAM_CTV) / 100;
-            for (int i = 0; i < list.Count; i++)
-            {
-                double sumPoint = 0;
-                if (reportType == ArticleType.THOI_SU)
-                {
-                    sumPoint = list[i].DiemTin + list[i].DiemPsu + list[i].DiemQtin + list[i].DiemQPsu;
-                }
-                else if (reportType == ArticleType.PHAT_THANH)
-                {
-                    sumPoint = list[i].DiemTin + list[i].DiemBai + list[i].DiemCd + list[i].DiemPv + list[i].DiemTLT + list[i].DiemSD;
-                }
-                else if (reportType == ArticleType.PHAT_THANH_TT)
-                {
-                    sumPoint = list[i].DiemTin + list[i].DiemTTh_Gnh + list[i].DiemCde + list[i].DiemPv + list[i].DiemBs_DCT + list[i].DiemBt_Dd;
-                }
-                else if (reportType == ArticleType.PV_TTNM)
-                {
-                    sumPoint = list[i].DiemTin + list[i].DiemPsu + list[i].DiemQtin + list[i].DiemQPsu + list[i].DiemTLT + list[i].DiemThop;
-                }
-                else if (reportType == ArticleType.BIENSOAN_TTNM)
-                {
-                    sumPoint = list[i].DiemBs_TTN + list[i].DiemBs_Sapo + list[i].DiemKThinh + list[i].DiemTFile + list[i].DiemBt_Duyet;
-                }
-                else if (reportType == ArticleType.KHOIHK_TTNM)
-                {
-                    sumPoint = list[i].DiemDCT + list[i].DiemKTD + list[i].DiemTCT + list[i].DiemKT_TH;
-                }
-
-                var deduction = _deductionService.GetEmployeeDeduction(list[i].EmployeeId, reportType, startDate.Month, startDate.Year);
-                list[i].SumPoint = sumPoint;
-                list[i].Descrease = deduction;
-                list[i].IncreasePercent = percent * (sumPoint - deduction);
-                list[i].TotalPoint = list[i].SumPoint - list[i].Descrease + list[i].IncreasePercent;
-                list[i].TotalCost = (int)(list[i].TotalPoint * price);
-            }
-        }
-
-        private string NumberToTextVN(decimal total)
-        {
-            try
-            {
-                string rs = "";
-                total = Math.Round(total, 0);
-                string[] ch = { "không", "một", "hai", "ba", "bốn", "năm", "sáu", "bảy", "tám", "chín" };
-                string[] rch = { "lẻ", "mốt", "", "", "", "lăm" };
-                string[] u = { "", "mươi", "trăm", "nghìn", "", "", "triệu", "", "", "tỷ", "", "", "nghìn", "", "", "triệu" };
-                string nstr = total.ToString();
-
-                int[] n = new int[nstr.Length];
-                int len = n.Length;
-                for (int i = 0; i < len; i++)
-                {
-                    n[len - 1 - i] = Convert.ToInt32(nstr.Substring(i, 1));
-                }
-
-                for (int i = len - 1; i >= 0; i--)
-                {
-                    if (i % 3 == 2)// số 0 ở hàng trăm
-                    {
-                        if (n[i] == 0 && n[i - 1] == 0 && n[i - 2] == 0) continue;//nếu cả 3 số là 0 thì bỏ qua không đọc
-                    }
-                    else if (i % 3 == 1) // số ở hàng chục
-                    {
-                        if (n[i] == 0)
-                        {
-                            if (n[i - 1] == 0) { continue; }// nếu hàng chục và hàng đơn vị đều là 0 thì bỏ qua.
-                            else
-                            {
-                                rs += " " + rch[n[i]]; continue;// hàng chục là 0 thì bỏ qua, đọc số hàng đơn vị
-                            }
-                        }
-                        if (n[i] == 1)//nếu số hàng chục là 1 thì đọc là mười
-                        {
-                            rs += " mười"; continue;
-                        }
-                    }
-                    else if (i != len - 1)// số ở hàng đơn vị (không phải là số đầu tiên)
-                    {
-                        if (n[i] == 0)// số hàng đơn vị là 0 thì chỉ đọc đơn vị
-                        {
-                            if (i + 2 <= len - 1 && n[i + 2] == 0 && n[i + 1] == 0) continue;
-                            rs += " " + (i % 3 == 0 ? u[i] : u[i % 3]);
-                            continue;
-                        }
-                        if (n[i] == 1)// nếu là 1 thì tùy vào số hàng chục mà đọc: 0,1: một / còn lại: mốt
-                        {
-                            rs += " " + ((n[i + 1] == 1 || n[i + 1] == 0) ? ch[n[i]] : rch[n[i]]);
-                            rs += " " + (i % 3 == 0 ? u[i] : u[i % 3]);
-                            continue;
-                        }
-                        if (n[i] == 5) // cách đọc số 5
-                        {
-                            if (n[i + 1] != 0) //nếu số hàng chục khác 0 thì đọc số 5 là lăm
-                            {
-                                rs += " " + rch[n[i]];// đọc số 
-                                rs += " " + (i % 3 == 0 ? u[i] : u[i % 3]);// đọc đơn vị
-                                continue;
-                            }
-                        }
-                    }
-
-                    rs += (rs == "" ? " " : ", ") + ch[n[i]];// đọc số
-                    rs += " " + (i % 3 == 0 ? u[i] : u[i % 3]);// đọc đơn vị
-                }
-                if (rs[rs.Length - 1] != ' ')
-                    rs += " đồng";
-                else
-                    rs += "đồng";
-
-                if (rs.Length > 2)
-                {
-                    string rs1 = rs.Substring(0, 2);
-                    rs1 = rs1.ToUpper();
-                    rs = rs.Substring(2);
-                    rs = rs1 + rs;
-                }
-                return rs.Trim().Replace("lẻ,", "lẻ").Replace("mươi,", "mươi").Replace("trăm,", "trăm").Replace("mười,", "mười");
-            }
-            catch
-            {
-                return "";
-            }
-
-        }
 
         public byte[] GetReportTS_KHK(DateTime startDate, DateTime endDate, int price)
         {
@@ -985,225 +327,50 @@ namespace ATV_Allowance.Services
             return package.GetAsByteArray();
         }
 
-        public void InteropPreviewReportTS(DateTime startDate, DateTime endDate, int role, int price, int reportType)
+        public void InteropPreviewReportTS(DateTime startDate, DateTime endDate, int price)
         {
             #region create excel file with template
             Application application = new Application();
 
             var workbook = application.Workbooks.Add(AppDomain.CurrentDomain.BaseDirectory + $"Templates\\{Tempate.TS}.xlsx");
-            var worksheet = (Worksheet)workbook.Worksheets[1];
-
+            var worksheetPV = (Worksheet)workbook.Worksheets[1];
+            var worksheetCTV = (Worksheet)workbook.Worksheets[2];
             #endregion
 
-            #region fill data here
-
-            var list = GetReportBroadcast(startDate, endDate, role, price, reportType);
-
-            int currentRow = 5;
-
-            var percent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, role == EmployeeRole.PV ? Criterias_Percent.TANG_GIAM_PV_BTV : Criterias_Percent.TANG_GIAM_CTV);
-            worksheet.Cells[currentRow - 2, TS_COL.TANGGIAM].Value = "Tăng " + percent + "%";
-            percent = percent / 100;
-
-            if (list != null && list.Count > 0)
-            {
-                for (int i = 0; i < list.Count; i++)
-                {
-                    if (i > 0)
-                    {
-                        Range line = (Range)worksheet.Rows[currentRow];
-                        line.Insert();
-                    }
-
-                    worksheet.Cells[currentRow, TS_COL.STT].Value = i + 1;
-                    worksheet.Cells[currentRow, TS_COL.HO_TEN].Value = list[i].EmployeeName;
-                    worksheet.Cells[currentRow, TS_COL.TIN].Value = list[i].SoTin;
-                    worksheet.Cells[currentRow, TS_COL.TIN_DIEM].Value = list[i].DiemTin;
-                    worksheet.Cells[currentRow, TS_COL.PHSU].Value = list[i].SoPsu;
-                    worksheet.Cells[currentRow, TS_COL.PHSU_DIEM].Value = list[i].DiemPsu;
-                    worksheet.Cells[currentRow, TS_COL.QTIN].Value = list[i].SoQtin;
-                    worksheet.Cells[currentRow, TS_COL.QTIN_DIEM].Value = list[i].DiemQtin;
-                    worksheet.Cells[currentRow, TS_COL.QPSU].Value = list[i].SoQPsu;
-                    worksheet.Cells[currentRow, TS_COL.QPSU_DIEM].Value = list[i].DiemQPsu;
-
-                    worksheet.Cells[currentRow, TS_COL.CONG].Value = list[i].SumPoint;
-                    worksheet.Cells[currentRow, TS_COL.TRUCHITIEU].Value = list[i].Descrease;
-                    worksheet.Cells[currentRow, TS_COL.TANGGIAM].Value = list[i].IncreasePercent;
-                    worksheet.Cells[currentRow, TS_COL.TONGCONG].Value = list[i].TotalPoint;
-                    worksheet.Cells[currentRow, TS_COL.THANHTIEN].Value = list[i].TotalCost;
-
-                    currentRow += 1;
-                }
-            }
-            else
-            {
-                worksheet.Rows[currentRow].Delete();
-            }
-
-
-
-            //title row
-            var textRole = (role == EmployeeRole.PV ? "PV" : "CTV");
-            worksheet.Cells[2, TS_COL.STT].Value = $"{ReportName.TS} ({textRole}) THÁNG {endDate.Month}/{endDate.Year}";
-
-            //report date row
-            worksheet.Cells[currentRow + 2, TS_COL.THANHTIEN + 1].Value = $"Long Xuyên, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
-
-            //sum row
-            worksheet.Cells[currentRow, TS_COL.TIN].Value = list.Sum(e => e.SoTin);
-            worksheet.Cells[currentRow, TS_COL.TIN_DIEM].Value = list.Sum(e => e.DiemTin);
-            worksheet.Cells[currentRow, TS_COL.PHSU].Value = list.Sum(e => e.SoPsu);
-            worksheet.Cells[currentRow, TS_COL.PHSU_DIEM].Value = list.Sum(e => e.DiemPsu);
-            worksheet.Cells[currentRow, TS_COL.QTIN].Value = list.Sum(e => e.SoQtin);
-            worksheet.Cells[currentRow, TS_COL.QTIN_DIEM].Value = list.Sum(e => e.DiemQtin);
-            worksheet.Cells[currentRow, TS_COL.QPSU].Value = list.Sum(e => e.SoQPsu);
-            worksheet.Cells[currentRow, TS_COL.QPSU_DIEM].Value = list.Sum(e => e.DiemQPsu);
-            worksheet.Cells[currentRow, TS_COL.CONG].Value = list.Sum(e => e.SumPoint);
-            worksheet.Cells[currentRow, TS_COL.TRUCHITIEU].Value = list.Sum(e => e.Descrease);
-            worksheet.Cells[currentRow, TS_COL.TANGGIAM].Value = list.Sum(e => e.IncreasePercent);
-            worksheet.Cells[currentRow, TS_COL.TONGCONG].Value = list.Sum(e => e.TotalPoint);
-            var totalCost = list.Sum(e => e.TotalCost);
-            worksheet.Cells[currentRow, TS_COL.THANHTIEN].Value = totalCost;
-
-            //money string
-            worksheet.Cells[currentRow + 1, TS_COL.THANHTIEN + 1].Value = $"(Thành tiền bằng chữ: {NumberToTextVN(totalCost)})";
-
-            //hide deduction of CTV
-            if (role == EmployeeRole.CTV)
-            {
-                worksheet.Columns[TS_COL.TRUCHITIEU].Hidden = true;
-            }
-
-            //set oreintation
-            //worksheet.PrinterSettings.Orientation = eOrientation.Landscape;
-
-            //if (list.Count > 0)
-            //{
-            //    //border
-            //    worksheet.Cells[5, 1, currentRow - 1, 14].Style.Border.Top.Style = ExcelBorderStyle.Thin;
-            //    worksheet.Cells[5, 1, currentRow - 1, 14].Style.Border.Right.Style = ExcelBorderStyle.Thin;
-            //    worksheet.Cells[5, 1, currentRow - 1, 14].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
-            //    worksheet.Cells[5, 1, currentRow - 1, 14].Style.Border.Left.Style = ExcelBorderStyle.Thin;
-            //}
-            //else
-            //{
-
-            //}
-
-            #endregion
-
-            //#region copy with new name
-            //workbook = CopyWorkbook(workbook, application, "TestFileName");
-            //worksheet = workbook.Worksheets[1];
-            //#endregion
+            FillDataIntoWorksheetTS(worksheetPV, startDate, endDate, EmployeeRole.PV, price);
+            FillDataIntoWorksheetTS(worksheetCTV, startDate, endDate, EmployeeRole.CTV, price);
 
             #region setup file
-            worksheet.PageSetup.Orientation = XlPageOrientation.xlLandscape;
+            worksheetPV.PageSetup.Orientation = XlPageOrientation.xlLandscape;
+            worksheetCTV.PageSetup.Orientation = XlPageOrientation.xlLandscape;
 
             application.Visible = true;
 
-            worksheet.PrintPreview();
+            worksheetCTV.PrintPreview();
+            worksheetPV.PrintPreview();
+
             #endregion
         }
 
-        public void InteropPreviewReportPT(DateTime startDate, DateTime endDate, int role, int price, int reportType)
+        public void InteropPreviewReportPT(DateTime startDate, DateTime endDate, int price)
         {
             #region create excel file with template
             Application application = new Application();
 
             var workbook = application.Workbooks.Add(AppDomain.CurrentDomain.BaseDirectory + $"Templates\\{Tempate.PT}.xlsx");
-            var worksheet = (Worksheet)workbook.Worksheets[1];
+            var worksheetPV = (Worksheet)workbook.Worksheets[1];
+            var worksheetCTV = (Worksheet)workbook.Worksheets[2];
 
             #endregion
 
-            #region fill data
-            var list = GetReportBroadcast(startDate, endDate, role, price, reportType);
-
-            int currentRow = 5;
-            var percent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, role == EmployeeRole.PV ? Criterias_Percent.TANG_GIAM_PV_BTV : Criterias_Percent.TANG_GIAM_CTV);
-            worksheet.Cells[currentRow - 2, PT_COL.TANGGIAM].Value = "Tăng " + percent + "%";
-            percent = percent / 100;
-
-
-            if (list != null && list.Count > 0)
-            {
-                for (int i = 0; i < list.Count; i++)
-                {
-                    if (i > 0)
-                    {
-                        Range line = (Range)worksheet.Rows[currentRow];
-                        line.Insert();
-                    }
-                    worksheet.Cells[currentRow, PT_COL.STT].Value = i + 1;
-                    worksheet.Cells[currentRow, PT_COL.HO_TEN].Value = list[i].EmployeeName;
-                    worksheet.Cells[currentRow, PT_COL.DON_VI].Value = list[i].Organization;
-                    worksheet.Cells[currentRow, PT_COL.SL_TIN].Value = list[i].SoTin;
-                    worksheet.Cells[currentRow, PT_COL.D_TIN].Value = list[i].DiemTin;
-                    worksheet.Cells[currentRow, PT_COL.SL_BAI].Value = list[i].SoBai;
-                    worksheet.Cells[currentRow, PT_COL.D_BAI].Value = list[i].DiemBai;
-                    worksheet.Cells[currentRow, PT_COL.SL_CD].Value = list[i].SoCd;
-                    worksheet.Cells[currentRow, PT_COL.D_CD].Value = list[i].DiemCd;
-                    worksheet.Cells[currentRow, PT_COL.SL_PV].Value = list[i].SoPv;
-                    worksheet.Cells[currentRow, PT_COL.D_PV].Value = list[i].DiemPv;
-                    worksheet.Cells[currentRow, PT_COL.SL_TLT].Value = list[i].SoTLT;
-                    worksheet.Cells[currentRow, PT_COL.D_TLT].Value = list[i].DiemTLT;
-                    worksheet.Cells[currentRow, PT_COL.SL_SD].Value = list[i].SoSD;
-                    worksheet.Cells[currentRow, PT_COL.D_SD].Value = list[i].DiemSD;
-
-                    worksheet.Cells[currentRow, PT_COL.TRUCHITIEU].Value = list[i].Descrease;
-                    worksheet.Cells[currentRow, PT_COL.TONGDIEM].Value = list[i].SumPoint;
-                    worksheet.Cells[currentRow, PT_COL.TANGGIAM].Value = list[i].IncreasePercent;
-                    worksheet.Cells[currentRow, PT_COL.THANHTIEN].Value = list[i].TotalCost;
-
-                    currentRow += 1;
-                }
-            }
-            else
-            {
-                worksheet.Rows[currentRow].Delete();
-            }
-
-            //title row
-            var textRole = (role == EmployeeRole.PV ? "PV" : "CTV");
-            worksheet.Cells[2, PT_COL.STT].Value = $"{ReportName.PT} ({textRole}) THÁNG {endDate.Month}/{endDate.Year}";
-
-
-            //report date row
-            worksheet.Cells[currentRow + 2, PT_COL.THANHTIEN + 1].Value = $"Long Xuyên, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
-
-            //sum row
-            var totalCost = list.Sum(e => e.TotalCost);
-            worksheet.Cells[currentRow, PT_COL.THANHTIEN].Value = totalCost;
-
-            //money string
-            worksheet.Cells[currentRow + 1, PT_COL.THANHTIEN + 1].Value = $"(Thành tiền bằng chữ: {NumberToTextVN(totalCost)})";
-
-            //hide deduction of CTV
-            if (role == EmployeeRole.CTV)
-            {
-                worksheet.Columns[PT_COL.TRUCHITIEU].Hidden = true;
-            }
-
-            //if (list.Count > 0)
-            //{
-            //    //border
-            //    worksheet.Cells[5, 1, currentRow - 1, PT_COL.THANHTIEN + 1].Style.Border.Top.Style = ExcelBorderStyle.Thin;
-            //    worksheet.Cells[5, 1, currentRow - 1, PT_COL.THANHTIEN + 1].Style.Border.Right.Style = ExcelBorderStyle.Thin;
-            //    worksheet.Cells[5, 1, currentRow - 1, PT_COL.THANHTIEN + 1].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
-            //    worksheet.Cells[5, 1, currentRow - 1, PT_COL.THANHTIEN + 1].Style.Border.Left.Style = ExcelBorderStyle.Thin;
-            //}
-            //else
-            //{
-
-            //}
-            #endregion
+            FillDataIntoWorksheetPT(worksheetPV, startDate, endDate, EmployeeRole.PV, price);
+            FillDataIntoWorksheetPT(worksheetCTV, startDate, endDate, EmployeeRole.CTV, price);
 
             #region setup file
-            worksheet.PageSetup.Orientation = XlPageOrientation.xlLandscape;
-
             application.Visible = true;
 
-            worksheet.PrintPreview();
+            worksheetPV.PrintPreview();
+            worksheetCTV.PrintPreview();
             #endregion
         }
 
@@ -1221,7 +388,7 @@ namespace ATV_Allowance.Services
             var list = GetReportBroadcast(startDate, endDate, role, price, reportType);
 
             int currentRow = 5;
-            var percent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, role == EmployeeRole.PV ? Criterias_Percent.TANG_GIAM_PV_BTV : Criterias_Percent.TANG_GIAM_CTV);
+            var percent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, role == EmployeeRole.PV ? Criterias_PTTT.PV_PTV : Criterias_PTTT.CTV);
             worksheet.Cells[currentRow - 2, PTTT_COL.TANGGIAM].Value = "Tăng " + percent + "%";
             percent = percent / 100;
 
@@ -1267,15 +434,45 @@ namespace ATV_Allowance.Services
             var textRole = (role == EmployeeRole.PV ? "PV" : "CTV");
             worksheet.Cells[2, PTTT_COL.STT].Value = $"{ReportName.PTTT} ({textRole}) THÁNG {endDate.Month}/{endDate.Year}";
 
-            //report date row
-            worksheet.Cells[currentRow + 2, PTTT_COL.THANHTIEN + 1].Value = $"Long Xuyên, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
-
             //sum row
             var totalCost = list.Sum(e => e.TotalCost);
             worksheet.Cells[currentRow, PTTT_COL.THANHTIEN].Value = totalCost;
 
+            if (role == EmployeeRole.CTV)
+            {
+                worksheet.Rows[currentRow + 1].Hidden = true;
+                worksheet.Rows[currentRow + 2].Hidden = true;
+                worksheet.Rows[currentRow + 3].Hidden = true;
+                worksheet.Rows[currentRow + 4].Hidden = true;
+            }
+            else
+            {
+                var toBaAm = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, Criterias_PTTT.ToBaAm);
+                var daysOfMonth = DateTime.DaysInMonth(startDate.Year, startDate.Month);
+                var BBT = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, Criterias_PTTT.BBT);
+
+                var toBaAmCost = toBaAm * daysOfMonth * price;
+                var BBTPoint = list.Sum(e => e.TotalPoint) * (BBT / 100);
+                var BBTCost = BBTPoint * price;
+                totalCost += (long)toBaAmCost + (long)BBTCost;
+
+                //fill header
+                worksheet.Cells[currentRow + 2, PTTT_COL.STT].Value = PTTT_COL.GetToBaAmHeader(toBaAm, daysOfMonth);
+                worksheet.Cells[currentRow + 3, PTTT_COL.STT].Value = PTTT_COL.GetBBTHeader(BBTPoint);
+
+                //fill value
+                worksheet.Cells[currentRow + 2, PTTT_COL.TANGGIAM].Value = toBaAmCost;
+                worksheet.Cells[currentRow + 3, PTTT_COL.TANGGIAM].Value = BBTCost;
+                worksheet.Cells[currentRow + 4, PTTT_COL.TANGGIAM].Value = totalCost;
+            }
+
+            currentRow += 4;
+
             //money string
             worksheet.Cells[currentRow + 1, PTTT_COL.THANHTIEN + 1].Value = $"(Thành tiền bằng chữ: {NumberToTextVN(totalCost)})";
+
+            //report date row
+            worksheet.Cells[currentRow + 2, PTTT_COL.THANHTIEN + 1].Value = $"Long Xuyên, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
 
             //hide deduction of CTV
             if (role == EmployeeRole.CTV)
@@ -1482,15 +679,58 @@ namespace ATV_Allowance.Services
             var textRole = (role == EmployeeRole.PV ? "PV" : "CTV");
             worksheet.Cells[2, TTNM_COL.STT].Value = $"{ReportName.TTNM} ({textRole}) THÁNG {endDate.Month}/{endDate.Year}";
 
-            //report date row
-            worksheet.Cells[currentRow + 2, TTNM_COL.THANHTIEN + 1].Value = $"Long Xuyên, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
-
             //sum row
             var totalCost = list.Sum(e => e.TotalCost);
             worksheet.Cells[currentRow, TTNM_COL.THANHTIEN].Value = totalCost;
 
+            if (role == EmployeeRole.CTV)
+            {
+                worksheet.Rows[currentRow + 1].Hidden = true;
+                worksheet.Rows[currentRow + 2].Hidden = true;
+                worksheet.Rows[currentRow + 3].Hidden = true;
+                worksheet.Rows[currentRow + 4].Hidden = true;
+                worksheet.Rows[currentRow + 5].Hidden = true;
+            }
+            else
+            {
+                var BBT = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, Criterias_TTNM.BBT);
+                var PTV = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, Criterias_TTNM.PTV);
+                var KTD = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, Criterias_TTNM.KTD);
+
+                var totalPoint = list.Sum(e => e.TotalPoint);
+                var BBTPoint = totalPoint * (BBT / 100);
+                var BBTCost = BBTPoint * price;
+
+                var PTVPoint = totalPoint * (PTV / 100);
+                var PTVCost = PTVPoint * price;
+
+                var KTDPoint = totalPoint * (KTD / 100);
+                var KTDCost = KTDPoint * price;
+
+                totalCost += (long)BBTCost + (long)PTVCost + (long)KTDCost;
+
+                //fill header
+                worksheet.Cells[currentRow + 2, TTNM_COL.HO_TEN].Value = TTNM_COL.GetBBTHeader(BBT);
+                worksheet.Cells[currentRow + 3, TTNM_COL.HO_TEN].Value = TTNM_COL.GetPTVHeader(PTV);
+                worksheet.Cells[currentRow + 4, TTNM_COL.HO_TEN].Value = TTNM_COL.GetKTDHeader(KTD);
+
+                //fill value
+                worksheet.Cells[currentRow + 2, TTNM_COL.SL_TIN].Value = BBTCost; //must fix
+                worksheet.Cells[currentRow + 3, TTNM_COL.SL_TIN].Value = PTVCost;//must fix
+                worksheet.Cells[currentRow + 4, TTNM_COL.SL_TIN].Value = KTDCost;//must fix
+
+                worksheet.Cells[currentRow + 2, TTNM_COL.THANHTIEN].Value = BBTCost;
+                worksheet.Cells[currentRow + 3, TTNM_COL.THANHTIEN].Value = PTVCost;
+                worksheet.Cells[currentRow + 4, TTNM_COL.THANHTIEN].Value = KTDCost;
+                worksheet.Cells[currentRow + 5, TTNM_COL.THANHTIEN].Value = totalCost;
+            }
+            currentRow += 5;
+
             //money string
             worksheet.Cells[currentRow + 1, TTNM_COL.THANHTIEN + 1].Value = $"(Thành tiền bằng chữ: {NumberToTextVN(totalCost)})";
+
+            //report date row
+            worksheet.Cells[currentRow + 2, TTNM_COL.THANHTIEN + 1].Value = $"Long Xuyên, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
 
             //hide deduction of CTV
             if (role == EmployeeRole.CTV)
@@ -1661,14 +901,295 @@ namespace ATV_Allowance.Services
             #endregion
         }
 
-        public Workbook CopyWorkbook(Workbook oldWorkbook, Application application, string fileName)
+        #region private function
+        private void FillDataIntoWorksheetTS(Worksheet worksheet, DateTime startDate, DateTime endDate, int role, int price)
         {
-            var newWorkbook = (Workbook)application.Workbooks.Add(Type.Missing);
-            var worksheet = (Worksheet)newWorkbook.Worksheets[1];
-            var newSheet = newWorkbook.Worksheets.Add();
-            newSheet = worksheet;
-            return newWorkbook;
+            #region fill data here
+
+            var list = GetReportBroadcast(startDate, endDate, role, price, ArticleType.THOI_SU);
+
+            int currentRow = 5;
+
+            var percent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, role == EmployeeRole.PV ? Criterias_Percent.TANG_GIAM_PV_BTV : Criterias_Percent.TANG_GIAM_CTV);
+            worksheet.Cells[currentRow - 2, TS_COL.TANGGIAM].Value = "Tăng " + percent + "%";
+            percent = percent / 100;
+
+            if (list != null && list.Count > 0)
+            {
+                for (int i = 0; i < list.Count; i++)
+                {
+                    if (i > 0)
+                    {
+                        Range line = (Range)worksheet.Rows[currentRow];
+                        line.Insert();
+                    }
+
+                    worksheet.Cells[currentRow, TS_COL.STT].Value = i + 1;
+                    worksheet.Cells[currentRow, TS_COL.HO_TEN].Value = list[i].EmployeeName;
+                    worksheet.Cells[currentRow, TS_COL.TIN].Value = list[i].SoTin;
+                    worksheet.Cells[currentRow, TS_COL.TIN_DIEM].Value = list[i].DiemTin;
+                    worksheet.Cells[currentRow, TS_COL.PHSU].Value = list[i].SoPsu;
+                    worksheet.Cells[currentRow, TS_COL.PHSU_DIEM].Value = list[i].DiemPsu;
+                    worksheet.Cells[currentRow, TS_COL.QTIN].Value = list[i].SoQtin;
+                    worksheet.Cells[currentRow, TS_COL.QTIN_DIEM].Value = list[i].DiemQtin;
+                    worksheet.Cells[currentRow, TS_COL.QPSU].Value = list[i].SoQPsu;
+                    worksheet.Cells[currentRow, TS_COL.QPSU_DIEM].Value = list[i].DiemQPsu;
+
+                    worksheet.Cells[currentRow, TS_COL.CONG].Value = list[i].SumPoint;
+                    worksheet.Cells[currentRow, TS_COL.TRUCHITIEU].Value = list[i].Descrease;
+                    worksheet.Cells[currentRow, TS_COL.TANGGIAM].Value = list[i].IncreasePercent;
+                    worksheet.Cells[currentRow, TS_COL.TONGCONG].Value = list[i].TotalPoint;
+                    worksheet.Cells[currentRow, TS_COL.THANHTIEN].Value = list[i].TotalCost;
+
+                    currentRow += 1;
+                }
+            }
+            else
+            {
+                worksheet.Rows[currentRow].Delete();
+            }
+
+
+
+            //title row
+            var textRole = (role == EmployeeRole.PV ? "PV" : "CTV");
+            worksheet.Cells[2, TS_COL.STT].Value = $"{ReportName.TS} ({textRole}) THÁNG {endDate.Month}/{endDate.Year}";
+
+            //report date row
+            worksheet.Cells[currentRow + 2, TS_COL.THANHTIEN + 1].Value = $"Long Xuyên, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
+
+            //sum row
+            worksheet.Cells[currentRow, TS_COL.TIN].Value = list.Sum(e => e.SoTin);
+            worksheet.Cells[currentRow, TS_COL.TIN_DIEM].Value = list.Sum(e => e.DiemTin);
+            worksheet.Cells[currentRow, TS_COL.PHSU].Value = list.Sum(e => e.SoPsu);
+            worksheet.Cells[currentRow, TS_COL.PHSU_DIEM].Value = list.Sum(e => e.DiemPsu);
+            worksheet.Cells[currentRow, TS_COL.QTIN].Value = list.Sum(e => e.SoQtin);
+            worksheet.Cells[currentRow, TS_COL.QTIN_DIEM].Value = list.Sum(e => e.DiemQtin);
+            worksheet.Cells[currentRow, TS_COL.QPSU].Value = list.Sum(e => e.SoQPsu);
+            worksheet.Cells[currentRow, TS_COL.QPSU_DIEM].Value = list.Sum(e => e.DiemQPsu);
+            worksheet.Cells[currentRow, TS_COL.CONG].Value = list.Sum(e => e.SumPoint);
+            worksheet.Cells[currentRow, TS_COL.TRUCHITIEU].Value = list.Sum(e => e.Descrease);
+            worksheet.Cells[currentRow, TS_COL.TANGGIAM].Value = list.Sum(e => e.IncreasePercent);
+            worksheet.Cells[currentRow, TS_COL.TONGCONG].Value = list.Sum(e => e.TotalPoint);
+            var totalCost = list.Sum(e => e.TotalCost);
+            worksheet.Cells[currentRow, TS_COL.THANHTIEN].Value = totalCost;
+
+            //money string
+            worksheet.Cells[currentRow + 1, TS_COL.THANHTIEN + 1].Value = $"(Thành tiền bằng chữ: {NumberToTextVN(totalCost)})";
+
+            //hide deduction of CTV
+            if (role == EmployeeRole.CTV)
+            {
+                worksheet.Columns[TS_COL.TRUCHITIEU].Hidden = true;
+            }
+
+            #endregion
         }
+
+        private void FillDataIntoWorksheetPT(Worksheet worksheet, DateTime startDate, DateTime endDate, int role, int price)
+        {
+            var list = GetReportBroadcast(startDate, endDate, role, price, ArticleType.PHAT_THANH);
+
+            int currentRow = 5;
+            var percent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, role == EmployeeRole.PV ? Criterias_Percent.TANG_GIAM_PV_BTV : Criterias_Percent.TANG_GIAM_CTV);
+            worksheet.Cells[currentRow - 2, PT_COL.TANGGIAM].Value = "Tăng " + percent + "%";
+            percent = percent / 100;
+
+
+            if (list != null && list.Count > 0)
+            {
+                for (int i = 0; i < list.Count; i++)
+                {
+                    if (i > 0)
+                    {
+                        Range line = (Range)worksheet.Rows[currentRow];
+                        line.Insert();
+                    }
+                    worksheet.Cells[currentRow, PT_COL.STT].Value = i + 1;
+                    worksheet.Cells[currentRow, PT_COL.HO_TEN].Value = list[i].EmployeeName;
+                    worksheet.Cells[currentRow, PT_COL.DON_VI].Value = list[i].Organization;
+                    worksheet.Cells[currentRow, PT_COL.SL_TIN].Value = list[i].SoTin;
+                    worksheet.Cells[currentRow, PT_COL.D_TIN].Value = list[i].DiemTin;
+                    worksheet.Cells[currentRow, PT_COL.SL_BAI].Value = list[i].SoBai;
+                    worksheet.Cells[currentRow, PT_COL.D_BAI].Value = list[i].DiemBai;
+                    worksheet.Cells[currentRow, PT_COL.SL_CD].Value = list[i].SoCd;
+                    worksheet.Cells[currentRow, PT_COL.D_CD].Value = list[i].DiemCd;
+                    worksheet.Cells[currentRow, PT_COL.SL_PV].Value = list[i].SoPv;
+                    worksheet.Cells[currentRow, PT_COL.D_PV].Value = list[i].DiemPv;
+                    worksheet.Cells[currentRow, PT_COL.SL_TLT].Value = list[i].SoTLT;
+                    worksheet.Cells[currentRow, PT_COL.D_TLT].Value = list[i].DiemTLT;
+                    worksheet.Cells[currentRow, PT_COL.SL_SD].Value = list[i].SoSD;
+                    worksheet.Cells[currentRow, PT_COL.D_SD].Value = list[i].DiemSD;
+
+                    worksheet.Cells[currentRow, PT_COL.TRUCHITIEU].Value = list[i].Descrease;
+                    worksheet.Cells[currentRow, PT_COL.TONGDIEM].Value = list[i].SumPoint;
+                    worksheet.Cells[currentRow, PT_COL.TANGGIAM].Value = list[i].IncreasePercent;
+                    worksheet.Cells[currentRow, PT_COL.THANHTIEN].Value = list[i].TotalCost;
+
+                    currentRow += 1;
+                }
+            }
+            else
+            {
+                worksheet.Rows[currentRow].Delete();
+            }
+
+            //title row
+            var textRole = (role == EmployeeRole.PV ? "PV" : "CTV");
+            worksheet.Cells[2, PT_COL.STT].Value = $"{ReportName.PT} ({textRole}) THÁNG {endDate.Month}/{endDate.Year}";
+
+
+            //report date row
+            worksheet.Cells[currentRow + 2, PT_COL.THANHTIEN + 1].Value = $"Long Xuyên, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
+
+            //sum row
+            var totalCost = list.Sum(e => e.TotalCost);
+            worksheet.Cells[currentRow, PT_COL.THANHTIEN].Value = totalCost;
+
+            //money string
+            worksheet.Cells[currentRow + 1, PT_COL.THANHTIEN + 1].Value = $"(Thành tiền bằng chữ: {NumberToTextVN(totalCost)})";
+
+            //hide deduction of CTV
+            if (role == EmployeeRole.CTV)
+            {
+                worksheet.Columns[PT_COL.TRUCHITIEU].Hidden = true;
+            }
+        }
+
+        private void CalculateCost(List<EmployeePointViewModel> list, int price, int reportType, int employeeRole, DateTime startDate)
+        {
+            var percent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, employeeRole == EmployeeRole.PV ? Criterias_Percent.TANG_GIAM_PV_BTV : Criterias_Percent.TANG_GIAM_CTV) / 100;
+            for (int i = 0; i < list.Count; i++)
+            {
+                double sumPoint = 0;
+                if (reportType == ArticleType.THOI_SU)
+                {
+                    sumPoint = list[i].DiemTin + list[i].DiemPsu + list[i].DiemQtin + list[i].DiemQPsu;
+                }
+                else if (reportType == ArticleType.PHAT_THANH)
+                {
+                    sumPoint = list[i].DiemTin + list[i].DiemBai + list[i].DiemCd + list[i].DiemPv + list[i].DiemTLT + list[i].DiemSD;
+                }
+                else if (reportType == ArticleType.PHAT_THANH_TT)
+                {
+                    sumPoint = list[i].DiemTin + list[i].DiemTTh_Gnh + list[i].DiemCde + list[i].DiemPv + list[i].DiemBs_DCT + list[i].DiemBt_Dd;
+                }
+                else if (reportType == ArticleType.PV_TTNM)
+                {
+                    sumPoint = list[i].DiemTin + list[i].DiemPsu + list[i].DiemQtin + list[i].DiemQPsu + list[i].DiemTLT + list[i].DiemThop;
+                }
+                else if (reportType == ArticleType.BIENSOAN_TTNM)
+                {
+                    sumPoint = list[i].DiemBs_TTN + list[i].DiemBs_Sapo + list[i].DiemKThinh + list[i].DiemTFile + list[i].DiemBt_Duyet;
+                }
+                else if (reportType == ArticleType.KHOIHK_TTNM)
+                {
+                    sumPoint = list[i].DiemDCT + list[i].DiemKTD + list[i].DiemTCT + list[i].DiemKT_TH;
+                }
+
+                var deduction = _deductionService.GetEmployeeDeduction(list[i].EmployeeId, reportType, startDate.Month, startDate.Year);
+                list[i].SumPoint = sumPoint;
+                list[i].Descrease = deduction;
+                list[i].IncreasePercent = percent * (sumPoint - deduction);
+                list[i].TotalPoint = list[i].SumPoint - list[i].Descrease + list[i].IncreasePercent;
+                list[i].TotalCost = (int)(list[i].TotalPoint * price);
+            }
+        }
+
+        private string NumberToTextVN(decimal total)
+        {
+            try
+            {
+                string rs = "";
+                total = Math.Round(total, 0);
+                string[] ch = { "không", "một", "hai", "ba", "bốn", "năm", "sáu", "bảy", "tám", "chín" };
+                string[] rch = { "lẻ", "mốt", "", "", "", "lăm" };
+                string[] u = { "", "mươi", "trăm", "nghìn", "", "", "triệu", "", "", "tỷ", "", "", "nghìn", "", "", "triệu" };
+                string nstr = total.ToString();
+
+                int[] n = new int[nstr.Length];
+                int len = n.Length;
+                for (int i = 0; i < len; i++)
+                {
+                    n[len - 1 - i] = Convert.ToInt32(nstr.Substring(i, 1));
+                }
+
+                for (int i = len - 1; i >= 0; i--)
+                {
+                    if (i % 3 == 2)// số 0 ở hàng trăm
+                    {
+                        if (n[i] == 0 && n[i - 1] == 0 && n[i - 2] == 0) continue;//nếu cả 3 số là 0 thì bỏ qua không đọc
+                    }
+                    else if (i % 3 == 1) // số ở hàng chục
+                    {
+                        if (n[i] == 0)
+                        {
+                            if (n[i - 1] == 0) { continue; }// nếu hàng chục và hàng đơn vị đều là 0 thì bỏ qua.
+                            else
+                            {
+                                rs += " " + rch[n[i]]; continue;// hàng chục là 0 thì bỏ qua, đọc số hàng đơn vị
+                            }
+                        }
+                        if (n[i] == 1)//nếu số hàng chục là 1 thì đọc là mười
+                        {
+                            rs += " mười"; continue;
+                        }
+                    }
+                    else if (i != len - 1)// số ở hàng đơn vị (không phải là số đầu tiên)
+                    {
+                        if (n[i] == 0)// số hàng đơn vị là 0 thì chỉ đọc đơn vị
+                        {
+                            if (i + 2 <= len - 1 && n[i + 2] == 0 && n[i + 1] == 0) continue;
+                            rs += " " + (i % 3 == 0 ? u[i] : u[i % 3]);
+                            continue;
+                        }
+                        if (n[i] == 1)// nếu là 1 thì tùy vào số hàng chục mà đọc: 0,1: một / còn lại: mốt
+                        {
+                            rs += " " + ((n[i + 1] == 1 || n[i + 1] == 0) ? ch[n[i]] : rch[n[i]]);
+                            rs += " " + (i % 3 == 0 ? u[i] : u[i % 3]);
+                            continue;
+                        }
+                        if (n[i] == 5) // cách đọc số 5
+                        {
+                            if (n[i + 1] != 0) //nếu số hàng chục khác 0 thì đọc số 5 là lăm
+                            {
+                                rs += " " + rch[n[i]];// đọc số 
+                                rs += " " + (i % 3 == 0 ? u[i] : u[i % 3]);// đọc đơn vị
+                                continue;
+                            }
+                        }
+                    }
+
+                    rs += (rs == "" ? " " : ", ") + ch[n[i]];// đọc số
+                    rs += " " + (i % 3 == 0 ? u[i] : u[i % 3]);// đọc đơn vị
+                }
+                if (rs[rs.Length - 1] != ' ')
+                    rs += " đồng";
+                else
+                    rs += "đồng";
+
+                if (rs.Length > 2)
+                {
+                    string rs1 = rs.Substring(0, 2);
+                    rs1 = rs1.ToUpper();
+                    rs = rs.Substring(2);
+                    rs = rs1 + rs;
+                }
+                return rs.Trim().Replace("lẻ,", "lẻ").Replace("mươi,", "mươi").Replace("trăm,", "trăm").Replace("mười,", "mười");
+            }
+            catch
+            {
+                return "";
+            }
+
+        }
+
+        private void CopyWorksheetToWorksheet(Worksheet source, Worksheet dest)
+        {
+            source.UsedRange.Copy(Type.Missing);
+            dest.UsedRange._PasteSpecial(XlPasteType.xlPasteAll, XlPasteSpecialOperation.xlPasteSpecialOperationNone, false, false);
+        }
+        #endregion
 
     }
 }

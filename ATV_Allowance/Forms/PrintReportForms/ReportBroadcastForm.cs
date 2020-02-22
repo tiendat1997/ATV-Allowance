@@ -116,7 +116,7 @@ namespace ATV_Allowance.Forms.PrintReportForms
 
             try
             {
-                //reportService.InteropPreviewReportTS(dtpStartdate.Value, dtpEnddate.Value, (int)cbRole.SelectedValue, (int)edtPrice.Value, Constants.ArticleType.THOI_SU);
+                reportService.InteropPreviewReportTS(dtpStartdate.Value, dtpEnddate.Value, (int)edtPrice.Value);
                 int month = this.dtpMonth.Value.Month;
                 int year = this.dtpYear.Value.Year;
                 actionLog.Message = string.Format(AppActions.Export_ThoiSu_TongHopThuLoa, month, year);
