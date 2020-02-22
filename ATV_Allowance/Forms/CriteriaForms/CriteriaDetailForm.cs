@@ -68,6 +68,14 @@ namespace ATV_Allowance.Forms.CriteriaForms
             {
                 articleTypeLabel = "[Tin Thời Sự] - ";
             }
+            else if (type == ArticleType.PHAT_THANH)
+            {
+                articleTypeLabel = "[Tin PT và PTTT] - ";
+            }
+            else if (type == ArticleType.PV_TTNM)
+            {
+                articleTypeLabel = "[Thông tin ngày mới] -";
+            }
 
             gbCriterias.Text = articleTypeLabel + "Chỉ tiêu tháng " + month + " / " + year;
 

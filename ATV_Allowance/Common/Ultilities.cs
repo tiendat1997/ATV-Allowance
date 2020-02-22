@@ -250,19 +250,19 @@ namespace ATV_Allowance.Common
                         form = reportBroadcastForm;
                         break;
                     case "In Phát thanh":
-                        ReportPTForm reportPTForm = new ReportPTForm();
-                        form = reportPTForm;
+                        Forms.PrintReportForms.ReportPTForm reportPTForm = new Forms.PrintReportForms.ReportPTForm();
+                        form = reportPTForm;                                                
                         break;
                     case "In Phát thanh trực tiếp":
                         ReportPTTTForm reportPTTTForm = new ReportPTTTForm();
                         form = reportPTTTForm;
                         break;
                     case "In Thông tin ngày mới":
-                        ReportTTNgayMoiForm reportTTNgayMoiForm = new ReportTTNgayMoiForm();
+                        Forms.PrintReportForms.ReportTTNMForm reportTTNgayMoiForm = new Forms.PrintReportForms.ReportTTNMForm();
                         form = reportTTNgayMoiForm;
                         break;
                     case "In Biên soạn thông tin ngày mới":
-                        ReportBienSoanTTForm reportBienSoanTTForm = new ReportBienSoanTTForm();
+                        Forms.PrintReportForms.ReportBienSoanTTNM reportBienSoanTTForm = new Forms.PrintReportForms.ReportBienSoanTTNM();
                         form = reportBienSoanTTForm;
                         break;
                     case "Quản lý đơn vị":

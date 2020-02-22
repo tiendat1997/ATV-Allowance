@@ -1,4 +1,5 @@
 ﻿using ATV_Allowance.Forms.CommonForms;
+using ATV_Allowance.Forms.CriteriaForms;
 using ATV_Allowance.Services;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static ATV_Allowance.Common.Constants;
 
 namespace ATV_Allowance.Forms.PrintReportForms
 {
@@ -25,6 +27,18 @@ namespace ATV_Allowance.Forms.PrintReportForms
         private void btnExport_Click(object sender, EventArgs e)
         {
             reportService.InteropPreviewReportPT(dtpStartdate.Value, dtpEnddate.Value, (int)edtPrice.Value);
+        }
+
+        private void btnEditCriteria_Click(object sender, EventArgs e)
+        {
+            CriteriaPTForm criteriaForm = new CriteriaPTForm();
+            criteriaForm.FormClosed += new FormClosedEventHandler(CriteriaPTForm_Closed);
+            criteriaForm.ShowDialog();
+        }
+
+        private void CriteriaPTForm_Closed(object sender, FormClosedEventArgs args)
+        {
+
         }
     }
 }
