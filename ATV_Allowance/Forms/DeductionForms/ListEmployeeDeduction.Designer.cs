@@ -34,7 +34,7 @@ namespace ATV_Allowance.Forms.DeductionForms
             this.cbEmpRole = new System.Windows.Forms.ComboBox();
             this.dtpMonth = new System.Windows.Forms.DateTimePicker();
             this.dtp = new System.Windows.Forms.DateTimePicker();
-            this.adgvDeduction = new DataGridView();
+            this.adgvDeduction = new System.Windows.Forms.DataGridView();
             this.gbControl = new System.Windows.Forms.GroupBox();
             this.lblYear = new System.Windows.Forms.Label();
             this.lblMonth = new System.Windows.Forms.Label();
@@ -203,7 +203,6 @@ namespace ATV_Allowance.Forms.DeductionForms
             this.Controls.Add(this.gbControl);
             this.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
             this.Name = "ListEmployeeDeduction";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Quản lý giảm trừ";
             ((System.ComponentModel.ISupportInitialize)(this.adgvDeduction)).EndInit();
             this.gbControl.ResumeLayout(false);

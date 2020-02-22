@@ -227,12 +227,7 @@ namespace ATV_Allowance.Common
                         codes = Constants.ImportArticle_Table_Header.PHAT_THANH;
                         ImportArticleForm importPTForm = new ImportArticleForm(ArticleType.PHAT_THANH, codes);
                         form = importPTForm;
-                        break;
-                    case "Nhập Tin phát thanh tt":
-                        codes = Constants.ImportArticle_Table_Header.PHAT_THANH_TT;
-                        ImportArticleForm importPTTTForm = new ImportArticleForm(ArticleType.PHAT_THANH_TT, codes);
-                        form = importPTTTForm;
-                        break;
+                        break;                  
                     case "Nhập Thù lao biên soạn tnnm":                        
                         ImportBSTTNMForm importTNNM = new ImportBSTTNMForm();
                         form = (Form)importTNNM;

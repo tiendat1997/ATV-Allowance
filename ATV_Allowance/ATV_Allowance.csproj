@@ -209,6 +209,18 @@
     <Compile Include="Forms\DeductionForms\ListEmployeeDeduction.Designer.cs">
       <DependentUpon>ListEmployeeDeduction.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\DeductionForms\PTVDeductionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DeductionForms\PTVDeductionForm.Designer.cs">
+      <DependentUpon>PTVDeductionForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\DeductionForms\PVEmployeeDeduction.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DeductionForms\PVEmployeeDeduction.Designer.cs">
+      <DependentUpon>PVEmployeeDeduction.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\EmployeeForms\AddEmployeeForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -406,6 +418,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\DeductionForms\ListEmployeeDeduction.resx">
       <DependentUpon>ListEmployeeDeduction.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DeductionForms\PTVDeductionForm.resx">
+      <DependentUpon>PTVDeductionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DeductionForms\PVEmployeeDeduction.resx">
+      <DependentUpon>PVEmployeeDeduction.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
