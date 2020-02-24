@@ -431,8 +431,8 @@ namespace ATV_Allowance.Services
             #endregion
 
             double totalPoint = 0;
-            FillDataIntoWorksheetTTNM(worksheetPV, startDate, endDate, EmployeeRole.PV, price, ref totalPoint);
             FillDataIntoWorksheetTTNM(worksheetCTV, startDate, endDate, EmployeeRole.CTV, price, ref totalPoint);
+            FillDataIntoWorksheetTTNM(worksheetPV, startDate, endDate, EmployeeRole.PV, price, ref totalPoint);
 
             #region setup file
             application.Visible = true;
@@ -924,7 +924,7 @@ namespace ATV_Allowance.Services
 
             //sum row
             var totalCost = list.Sum(e => e.TotalCost);
-            worksheet.Cells[currentRow, TTNM_COL.THANHTIEN].Value = totalCost;
+            worksheet.Cells[currentRow, TTNM_COL.SL_TIN].Value = totalCost;
 
             if (role == EmployeeRole.CTV)
             {
@@ -960,9 +960,9 @@ namespace ATV_Allowance.Services
                 worksheet.Cells[currentRow + 4, TTNM_COL.HO_TEN].Value = TTNM_COL.GetKTDHeader(KTD);
 
                 //fill value
-                worksheet.Cells[currentRow + 2, TTNM_COL.SL_TIN].Value = totalPoint * price; //must fix
-                worksheet.Cells[currentRow + 3, TTNM_COL.SL_TIN].Value = totalPoint * price;//must fix
-                worksheet.Cells[currentRow + 4, TTNM_COL.SL_TIN].Value = totalPoint * price;//must fix
+                worksheet.Cells[currentRow + 2, TTNM_COL.SL_TIN].Value = totalPoint * price; 
+                worksheet.Cells[currentRow + 3, TTNM_COL.SL_TIN].Value = totalPoint * price;
+                worksheet.Cells[currentRow + 4, TTNM_COL.SL_TIN].Value = totalPoint * price;
 
                 worksheet.Cells[currentRow + 2, TTNM_COL.THANHTIEN].Value = BBTCost;
                 worksheet.Cells[currentRow + 3, TTNM_COL.THANHTIEN].Value = PTVCost;
@@ -1083,14 +1083,19 @@ namespace ATV_Allowance.Services
 
 
             //report date row
-            worksheet.Cells[currentRow + 2, BSTTNM_COL.THANHTIEN + 1].Value = $"Long Xuyên, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
+            worksheet.Cells[currentRow + 3, BSTTNM_COL.THANHTIEN + 1].Value = $"Long Xuyên, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
 
             //sum row
             var totalCostKHK = listKHK.Sum(e => e.TotalCost);
             worksheet.Cells[currentRow, KHK_COL.THANHTIEN].Value = totalCostKHK;
 
+            //sum 2 report
+
+            var totalCost = totalCostBSTTNM + totalCostKHK;
+            worksheet.Cells[currentRow + 1, KHK_COL.THANHTIEN].Value = totalCost;
+
             //money string
-            worksheet.Cells[currentRow + 1, BSTTNM_COL.THANHTIEN + 1].Value = $"(Thành tiền bằng chữ: {NumberToTextVN(totalCostBSTTNM + totalCostKHK)})";
+            worksheet.Cells[currentRow + 2, BSTTNM_COL.THANHTIEN + 1].Value = $"(Thành tiền bằng chữ: {NumberToTextVN(totalCost)})";
 
             //hide deduction of CTV
             if (role == EmployeeRole.CTV)
