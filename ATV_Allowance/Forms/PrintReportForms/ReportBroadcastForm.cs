@@ -169,8 +169,7 @@ namespace ATV_Allowance.Forms.PrintReportForms
 
         private void btnDeduction_Click(object sender, EventArgs e)
         {
-            //ListEmployeeDeduction deductionForm = new ListEmployeeDeduction(dtpMonth.Value.Month, dtpYear.Value.Year, ArticleType.THOI_SU, (int)cbRole.SelectedValue);
-            ListEmployeeDeduction deductionForm = new ListEmployeeDeduction(dtpMonth.Value.Month, dtpYear.Value.Year, Constants.ArticleType.THOI_SU, EmployeeRole.PV);
+            PVEmployeeDeduction deductionForm = new PVEmployeeDeduction(dtpMonth.Value.Month, dtpYear.Value.Year, Constants.ArticleType.THOI_SU);
             deductionForm.ShowDialog();
         }
 
@@ -224,6 +223,12 @@ namespace ATV_Allowance.Forms.PrintReportForms
         private void CriteriaTSForm_Closed(object sender, FormClosedEventArgs e)
         {
             
+        }
+
+        private void btnDeductionPTV_Click(object sender, EventArgs e)
+        {
+            PTVEmployeeDeduction deductionForm = new PTVEmployeeDeduction(dtpMonth.Value.Month, dtpYear.Value.Year, Constants.ArticleType.THOI_SU);
+            deductionForm.ShowDialog();
         }
     }
 }

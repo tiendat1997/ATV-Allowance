@@ -20,6 +20,7 @@ namespace DataService.Entity
         public int? EmployeeId { get; set; }
 
         public int? ArticleTypeId { get; set; }
+        public double DeductionValue { get; set; }
 
         public virtual ArticleType ArticleType { get; set; }
 

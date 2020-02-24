@@ -1,6 +1,6 @@
 ﻿namespace ATV_Allowance.Forms.DeductionForms
 {
-    partial class PTVDeductionForm
+    partial class PTVEmployeeDeduction
     {
         /// <summary>
         /// Required designer variable.
@@ -28,45 +28,36 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.gbList = new System.Windows.Forms.GroupBox();
-            this.gbAction = new System.Windows.Forms.GroupBox();
+            this.gbFilters = new System.Windows.Forms.GroupBox();
             this.lblYear = new System.Windows.Forms.Label();
             this.lblMonth = new System.Windows.Forms.Label();
             this.dtpMonth = new System.Windows.Forms.DateTimePicker();
             this.dtp = new System.Windows.Forms.DateTimePicker();
+            this.gbList = new System.Windows.Forms.GroupBox();
             this.adgvDeduction = new System.Windows.Forms.DataGridView();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.gbFilters.SuspendLayout();
             this.gbList.SuspendLayout();
-            this.gbAction.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.adgvDeduction)).BeginInit();
             this.SuspendLayout();
             // 
-            // gbList
+            // gbFilters
             // 
-            this.gbList.Controls.Add(this.adgvDeduction);
-            this.gbList.Location = new System.Drawing.Point(13, 80);
-            this.gbList.Name = "gbList";
-            this.gbList.Size = new System.Drawing.Size(775, 390);
-            this.gbList.TabIndex = 3;
-            this.gbList.TabStop = false;
-            this.gbList.Text = "Danh sách";
-            // 
-            // gbAction
-            // 
-            this.gbAction.Controls.Add(this.lblYear);
-            this.gbAction.Controls.Add(this.lblMonth);
-            this.gbAction.Controls.Add(this.dtpMonth);
-            this.gbAction.Controls.Add(this.dtp);
-            this.gbAction.Location = new System.Drawing.Point(13, 12);
-            this.gbAction.Name = "gbAction";
-            this.gbAction.Size = new System.Drawing.Size(775, 62);
-            this.gbAction.TabIndex = 2;
-            this.gbAction.TabStop = false;
-            this.gbAction.Text = "Bộ lọc";
+            this.gbFilters.Controls.Add(this.lblYear);
+            this.gbFilters.Controls.Add(this.lblMonth);
+            this.gbFilters.Controls.Add(this.dtpMonth);
+            this.gbFilters.Controls.Add(this.dtp);
+            this.gbFilters.Location = new System.Drawing.Point(3, 12);
+            this.gbFilters.Name = "gbFilters";
+            this.gbFilters.Size = new System.Drawing.Size(796, 68);
+            this.gbFilters.TabIndex = 0;
+            this.gbFilters.TabStop = false;
+            this.gbFilters.Text = "Bộ lọc";
             // 
             // lblYear
             // 
             this.lblYear.AutoSize = true;
-            this.lblYear.Location = new System.Drawing.Point(391, 18);
+            this.lblYear.Location = new System.Drawing.Point(143, 30);
             this.lblYear.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblYear.Name = "lblYear";
             this.lblYear.Size = new System.Drawing.Size(42, 20);
@@ -76,7 +67,7 @@
             // lblMonth
             // 
             this.lblMonth.AutoSize = true;
-            this.lblMonth.Location = new System.Drawing.Point(239, 18);
+            this.lblMonth.Location = new System.Drawing.Point(12, 30);
             this.lblMonth.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblMonth.Name = "lblMonth";
             this.lblMonth.Size = new System.Drawing.Size(54, 20);
@@ -89,12 +80,13 @@
             this.dtpMonth.CustomFormat = "MM";
             this.dtpMonth.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpMonth.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpMonth.Location = new System.Drawing.Point(311, 18);
+            this.dtpMonth.Location = new System.Drawing.Point(71, 27);
             this.dtpMonth.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dtpMonth.Name = "dtpMonth";
             this.dtpMonth.ShowUpDown = true;
             this.dtpMonth.Size = new System.Drawing.Size(64, 26);
             this.dtpMonth.TabIndex = 15;
+            this.dtpMonth.ValueChanged += new System.EventHandler(this.dtpMonth_ValueChanged);
             // 
             // dtp
             // 
@@ -102,12 +94,23 @@
             this.dtp.CustomFormat = "yyyy";
             this.dtp.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtp.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtp.Location = new System.Drawing.Point(439, 18);
+            this.dtp.Location = new System.Drawing.Point(193, 27);
             this.dtp.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dtp.Name = "dtp";
             this.dtp.ShowUpDown = true;
             this.dtp.Size = new System.Drawing.Size(96, 26);
             this.dtp.TabIndex = 14;
+            this.dtp.ValueChanged += new System.EventHandler(this.dtp_ValueChanged);
+            // 
+            // gbList
+            // 
+            this.gbList.Controls.Add(this.adgvDeduction);
+            this.gbList.Location = new System.Drawing.Point(3, 86);
+            this.gbList.Name = "gbList";
+            this.gbList.Size = new System.Drawing.Size(796, 439);
+            this.gbList.TabIndex = 1;
+            this.gbList.TabStop = false;
+            this.gbList.Text = "Danh sách";
             // 
             // adgvDeduction
             // 
@@ -124,21 +127,33 @@
             this.adgvDeduction.MultiSelect = false;
             this.adgvDeduction.Name = "adgvDeduction";
             this.adgvDeduction.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.adgvDeduction.Size = new System.Drawing.Size(761, 355);
-            this.adgvDeduction.TabIndex = 10;
+            this.adgvDeduction.Size = new System.Drawing.Size(782, 397);
+            this.adgvDeduction.TabIndex = 9;
+            this.adgvDeduction.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.adgvDeduction_CellEnter);
             // 
-            // PTVDeductionForm
+            // btnSave
+            // 
+            this.btnSave.Location = new System.Drawing.Point(717, 531);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(75, 32);
+            this.btnSave.TabIndex = 0;
+            this.btnSave.Text = "Lưu";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // PTVEmployeeDeduction
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 475);
+            this.ClientSize = new System.Drawing.Size(800, 575);
+            this.Controls.Add(this.btnSave);
             this.Controls.Add(this.gbList);
-            this.Controls.Add(this.gbAction);
-            this.Name = "PTVDeductionForm";
-            this.Text = "Nhập giảm trừ phát thanh viên";
+            this.Controls.Add(this.gbFilters);
+            this.Name = "PTVEmployeeDeduction";
+            this.Text = "Nhập giảm trừ phóng viên";
+            this.gbFilters.ResumeLayout(false);
+            this.gbFilters.PerformLayout();
             this.gbList.ResumeLayout(false);
-            this.gbAction.ResumeLayout(false);
-            this.gbAction.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.adgvDeduction)).EndInit();
             this.ResumeLayout(false);
 
@@ -146,12 +161,13 @@
 
         #endregion
 
+        private System.Windows.Forms.GroupBox gbFilters;
         private System.Windows.Forms.GroupBox gbList;
-        private System.Windows.Forms.GroupBox gbAction;
         private System.Windows.Forms.Label lblYear;
         private System.Windows.Forms.Label lblMonth;
         private System.Windows.Forms.DateTimePicker dtpMonth;
         private System.Windows.Forms.DateTimePicker dtp;
         private System.Windows.Forms.DataGridView adgvDeduction;
+        private System.Windows.Forms.Button btnSave;
     }
 }

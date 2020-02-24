@@ -14,7 +14,7 @@ using System.Windows.Forms;
 
 namespace ATV_Allowance.Forms.DeductionForms
 {
-    public partial class PVEmployeeDeduction : CommonForm
+    public partial class PTVEmployeeDeduction : CommonForm
     {
         private int year;
         private int month;
@@ -25,7 +25,7 @@ namespace ATV_Allowance.Forms.DeductionForms
         private List<DeductionTypeViewModel> deductionTypes;
         private ComboBox comboBox;
 
-        public PVEmployeeDeduction(int? month, int? year, int articleType)
+        public PTVEmployeeDeduction(int? month, int? year, int articleType)
         {            
             InitializeComponent();
             deductionService = new DeductionService();
@@ -34,7 +34,6 @@ namespace ATV_Allowance.Forms.DeductionForms
             this.year = (year.HasValue) ? DateTime.Now.Year : (int)year;
             this.month = (month.HasValue) ? DateTime.Now.Month : (int)month;
             this.articleType = articleType;
-
             LoadDeductions();
         }
 
@@ -43,7 +42,7 @@ namespace ATV_Allowance.Forms.DeductionForms
             try
             {
                 deductionService = new DeductionService();
-                var dataSource = deductionService.GetDeductionPV(this.month, this.year, this.articleType);
+                var dataSource = deductionService.GetDeductionPTV(this.month, this.year, this.articleType);
 
                 SortableBindingList<EmployeeDeductionViewModel> sbl = new SortableBindingList<EmployeeDeductionViewModel>(dataSource);
                 bs = new BindingSource();
@@ -101,7 +100,7 @@ namespace ATV_Allowance.Forms.DeductionForms
                 comboBox.AutoCompleteSource = AutoCompleteSource.ListItems;
                 comboBox.SelectionChangeCommitted -= new EventHandler(cbDeductionSelectedIndexChange);
                 comboBox.SelectionChangeCommitted += cbDeductionSelectedIndexChange;
-                //comboBox.SelectedIndex = 0;
+                comboBox.SelectedIndex = 0;
             }
         }
 
@@ -134,7 +133,7 @@ namespace ATV_Allowance.Forms.DeductionForms
             catch (Exception ex)
             {
                 throw ex;
-            }
+            }            
             finally
             {
                 deductionService = null;
@@ -149,7 +148,7 @@ namespace ATV_Allowance.Forms.DeductionForms
             // Check to make sure the cell clicked is the cell containing the combobox 
             if (datagridview.Columns[e.ColumnIndex] is DataGridViewComboBoxColumn && validClick)
             {
-                datagridview.BeginEdit(true);                
+                datagridview.BeginEdit(true);
                 ((ComboBox)datagridview.EditingControl).DroppedDown = true;
             }
         }

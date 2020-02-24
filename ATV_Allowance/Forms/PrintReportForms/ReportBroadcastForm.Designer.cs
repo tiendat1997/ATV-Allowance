@@ -41,7 +41,7 @@
             this.dtpMonth = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnDeductionPTV = new System.Windows.Forms.Button();
             this.btnEditCriteria = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.edtPrice)).BeginInit();
             this.SuspendLayout();
@@ -220,16 +220,17 @@
             this.label5.TabIndex = 17;
             this.label5.Text = "Đến ngày";
             // 
-            // button1
+            // btnDeductionPTV
             // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(346, 128);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(140, 35);
-            this.button1.TabIndex = 18;
-            this.button1.Text = "Giảm từ PTV";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnDeductionPTV.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDeductionPTV.Location = new System.Drawing.Point(346, 128);
+            this.btnDeductionPTV.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnDeductionPTV.Name = "btnDeductionPTV";
+            this.btnDeductionPTV.Size = new System.Drawing.Size(140, 35);
+            this.btnDeductionPTV.TabIndex = 18;
+            this.btnDeductionPTV.Text = "Giảm từ PTV";
+            this.btnDeductionPTV.UseVisualStyleBackColor = true;
+            this.btnDeductionPTV.Click += new System.EventHandler(this.btnDeductionPTV_Click);
             // 
             // btnEditCriteria
             // 
@@ -250,7 +251,7 @@
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(514, 282);
             this.Controls.Add(this.btnEditCriteria);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnDeductionPTV);
             this.Controls.Add(this.btnExport);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label2);
@@ -287,7 +288,7 @@
         private System.Windows.Forms.Button btnExport;
         private System.Windows.Forms.Button btnDeduction;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnDeductionPTV;
         private System.Windows.Forms.Button btnEditCriteria;
     }
 }
