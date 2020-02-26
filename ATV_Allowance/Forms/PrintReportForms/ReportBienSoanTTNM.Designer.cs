@@ -104,6 +104,7 @@
             this.btnDeduction.TabIndex = 66;
             this.btnDeduction.Text = "Giảm trừ PV";
             this.btnDeduction.UseVisualStyleBackColor = true;
+            this.btnDeduction.Click += new System.EventHandler(this.btnDeduction_Click);
             // 
             // dtpMonth
             // 

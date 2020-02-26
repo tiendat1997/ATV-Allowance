@@ -1,5 +1,7 @@
-﻿using ATV_Allowance.Forms.CommonForms;
+﻿using ATV_Allowance.Common;
+using ATV_Allowance.Forms.CommonForms;
 using ATV_Allowance.Forms.CriteriaForms;
+using ATV_Allowance.Forms.DeductionForms;
 using ATV_Allowance.Services;
 using System;
 using System.Collections.Generic;
@@ -44,6 +46,12 @@ namespace ATV_Allowance.Forms.PrintReportForms
         private void button1_Click(object sender, EventArgs e)
         {
             reportService.InteropPreviewReportPTTT(dtpStartdate.Value, dtpEnddate.Value, (int)edtPrice.Value);
+        }
+
+        private void btnDeduction_Click(object sender, EventArgs e)
+        {
+            PVEmployeeDeduction deductionForm = new PVEmployeeDeduction(dtpMonth.Value.Month, dtpYear.Value.Year, Constants.ArticleType.PHAT_THANH);
+            deductionForm.ShowDialog();
         }
     }
 }
