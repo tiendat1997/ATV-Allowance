@@ -306,6 +306,9 @@ namespace ATV_Allowance.Common
             public static int TONGDIEM = 17;
             public static int TANGGIAM = 18;
             public static int THANHTIEN = 19;
+
+            public static string GetBBTHeader(double BBTPercent)
+                => $"Ban biên tập {BBTPercent}%";
         }
         public static class PTTT_COL
         {
@@ -424,6 +427,13 @@ namespace ATV_Allowance.Common
             public static int NGUOI_VI_TINH = 9;
             public static int TIEN_VI_TINH = 10;
             public static int DANH_SACH = 11;
+        }
+
+        public static class Criterias_PT
+        {
+            public static int PV_PTV = 12;
+            public static int CTV = 13;
+            public static int BBT = 14;
         }
 
         public static class Criterias_PTTT

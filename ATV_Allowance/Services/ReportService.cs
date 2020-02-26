@@ -363,8 +363,9 @@ namespace ATV_Allowance.Services
 
             #endregion
 
-            FillDataIntoWorksheetPT(worksheetPV, startDate, endDate, EmployeeRole.PV, price);
-            FillDataIntoWorksheetPT(worksheetCTV, startDate, endDate, EmployeeRole.CTV, price);
+            double totalPoint = 0;
+            FillDataIntoWorksheetPT(worksheetCTV, startDate, endDate, EmployeeRole.CTV, price, ref totalPoint);
+            FillDataIntoWorksheetPT(worksheetPV, startDate, endDate, EmployeeRole.PV, price, ref totalPoint);
 
             #region setup file
             application.Visible = true;
@@ -384,8 +385,9 @@ namespace ATV_Allowance.Services
             var worksheetCTV = (Worksheet)workbook.Worksheets[2];
             #endregion
 
-            FillDataIntoWorksheetPTTT(worksheetPV, startDate, endDate, EmployeeRole.PV, price);
-            FillDataIntoWorksheetPTTT(worksheetCTV, startDate, endDate, EmployeeRole.CTV, price);
+            double totalPoint = 0;
+            FillDataIntoWorksheetPTTT(worksheetCTV, startDate, endDate, EmployeeRole.CTV, price, ref totalPoint);
+            FillDataIntoWorksheetPTTT(worksheetPV, startDate, endDate, EmployeeRole.PV, price, ref totalPoint);
 
             #region setup file
             application.Visible = true;
@@ -428,8 +430,9 @@ namespace ATV_Allowance.Services
 
             #endregion
 
-            FillDataIntoWorksheetTTNM(worksheetPV, startDate, endDate, EmployeeRole.PV, price);
-            FillDataIntoWorksheetTTNM(worksheetCTV, startDate, endDate, EmployeeRole.CTV, price);
+            double totalPoint = 0;
+            FillDataIntoWorksheetTTNM(worksheetCTV, startDate, endDate, EmployeeRole.CTV, price, ref totalPoint);
+            FillDataIntoWorksheetTTNM(worksheetPV, startDate, endDate, EmployeeRole.PV, price, ref totalPoint);
 
             #region setup file
             application.Visible = true;
@@ -674,7 +677,7 @@ namespace ATV_Allowance.Services
             #endregion
         }
 
-        private void FillDataIntoWorksheetPT(Worksheet worksheet, DateTime startDate, DateTime endDate, int role, int price)
+        private void FillDataIntoWorksheetPT(Worksheet worksheet, DateTime startDate, DateTime endDate, int role, int price, ref double totalPoint)
         {
             var list = GetReportBroadcast(startDate, endDate, role, price, ArticleType.PHAT_THANH);
 
@@ -683,10 +686,10 @@ namespace ATV_Allowance.Services
             worksheet.Cells[currentRow - 2, PT_COL.TANGGIAM].Value = "Tăng " + percent + "%";
             percent = percent / 100;
 
-
+            int i = 0;
             if (list != null && list.Count > 0)
             {
-                for (int i = 0; i < list.Count; i++)
+                for (i = 0; i < list.Count; i++)
                 {
                     if (i > 0)
                     {
@@ -722,6 +725,30 @@ namespace ATV_Allowance.Services
                 worksheet.Rows[currentRow].Delete();
             }
 
+            var totalCost = list.Sum(e => e.TotalCost);
+
+            //hide deduction of CTV
+            if (role == EmployeeRole.CTV)
+            {
+                worksheet.Columns[PT_COL.TRUCHITIEU].Hidden = true;
+                totalPoint += list.Sum(x => x.TotalPoint);
+            }
+            else
+            {
+                Range line = (Range)worksheet.Rows[currentRow];
+                line.Insert();
+                totalPoint += list.Sum(x => x.TotalPoint);
+                var BBTPrecent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, Criterias_PT.BBT) / 100;
+                var BBTPoint = totalPoint * BBTPrecent;
+                var BBTCost = (long)(BBTPoint * price);
+                worksheet.Cells[currentRow, PT_COL.STT].Value = i + 1;
+                worksheet.Cells[currentRow, PT_COL.HO_TEN].Value = PT_COL.GetBBTHeader(BBTPrecent);
+                worksheet.Cells[currentRow, PT_COL.TONGDIEM].Value = BBTPoint;
+                worksheet.Cells[currentRow, PT_COL.THANHTIEN].Value = BBTCost;
+                totalCost += BBTCost;
+                currentRow += 1;
+            }
+
             //title row
             var textRole = (role == EmployeeRole.PV ? "PV" : "CTV");
             worksheet.Cells[2, PT_COL.STT].Value = $"{ReportName.PT} ({textRole}) THÁNG {endDate.Month}/{endDate.Year}";
@@ -731,20 +758,15 @@ namespace ATV_Allowance.Services
             worksheet.Cells[currentRow + 2, PT_COL.THANHTIEN + 1].Value = $"Long Xuyên, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
 
             //sum row
-            var totalCost = list.Sum(e => e.TotalCost);
             worksheet.Cells[currentRow, PT_COL.THANHTIEN].Value = totalCost;
 
             //money string
             worksheet.Cells[currentRow + 1, PT_COL.THANHTIEN + 1].Value = $"(Thành tiền bằng chữ: {NumberToTextVN(totalCost)})";
 
-            //hide deduction of CTV
-            if (role == EmployeeRole.CTV)
-            {
-                worksheet.Columns[PT_COL.TRUCHITIEU].Hidden = true;
-            }
+
         }
 
-        private void FillDataIntoWorksheetPTTT(Worksheet worksheet, DateTime startDate, DateTime endDate, int role, int price)
+        private void FillDataIntoWorksheetPTTT(Worksheet worksheet, DateTime startDate, DateTime endDate, int role, int price, ref double totalPoint)
         {
             #region fill data
             var list = GetReportBroadcast(startDate, endDate, role, price, ArticleType.PHAT_THANH_TT);
@@ -806,15 +828,18 @@ namespace ATV_Allowance.Services
                 worksheet.Rows[currentRow + 2].Hidden = true;
                 worksheet.Rows[currentRow + 3].Hidden = true;
                 worksheet.Rows[currentRow + 4].Hidden = true;
+
+                totalPoint += list.Sum(x => x.TotalPoint);
             }
             else
             {
+                totalPoint += list.Sum(x => x.TotalPoint);
                 var toBaAm = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, Criterias_PTTT.ToBaAm);
                 var daysOfMonth = DateTime.DaysInMonth(startDate.Year, startDate.Month);
                 var BBT = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, Criterias_PTTT.BBT);
 
                 var toBaAmCost = toBaAm * daysOfMonth * price;
-                var BBTPoint = list.Sum(e => e.TotalPoint) * (BBT / 100);
+                var BBTPoint = totalPoint * (BBT / 100);
                 var BBTCost = BBTPoint * price;
                 totalCost += (long)toBaAmCost + (long)BBTCost;
 
@@ -844,7 +869,7 @@ namespace ATV_Allowance.Services
             #endregion
         }
 
-        private void FillDataIntoWorksheetTTNM(Worksheet worksheet, DateTime startDate, DateTime endDate, int role, int price)
+        private void FillDataIntoWorksheetTTNM(Worksheet worksheet, DateTime startDate, DateTime endDate, int role, int price, ref double totalPoint)
         {
             #region fill data
 
@@ -899,7 +924,7 @@ namespace ATV_Allowance.Services
 
             //sum row
             var totalCost = list.Sum(e => e.TotalCost);
-            worksheet.Cells[currentRow, TTNM_COL.THANHTIEN].Value = totalCost;
+            worksheet.Cells[currentRow, TTNM_COL.SL_TIN].Value = totalCost;
 
             if (role == EmployeeRole.CTV)
             {
@@ -908,6 +933,8 @@ namespace ATV_Allowance.Services
                 worksheet.Rows[currentRow + 3].Hidden = true;
                 worksheet.Rows[currentRow + 4].Hidden = true;
                 worksheet.Rows[currentRow + 5].Hidden = true;
+
+                totalPoint += list.Sum(x => x.TotalPoint);
             }
             else
             {
@@ -915,7 +942,7 @@ namespace ATV_Allowance.Services
                 var PTV = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, Criterias_TTNM.PTV);
                 var KTD = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, Criterias_TTNM.KTD);
 
-                var totalPoint = list.Sum(e => e.TotalPoint);
+                totalPoint += list.Sum(e => e.TotalPoint);
                 var BBTPoint = totalPoint * (BBT / 100);
                 var BBTCost = BBTPoint * price;
 
@@ -933,9 +960,9 @@ namespace ATV_Allowance.Services
                 worksheet.Cells[currentRow + 4, TTNM_COL.HO_TEN].Value = TTNM_COL.GetKTDHeader(KTD);
 
                 //fill value
-                worksheet.Cells[currentRow + 2, TTNM_COL.SL_TIN].Value = BBTCost; //must fix
-                worksheet.Cells[currentRow + 3, TTNM_COL.SL_TIN].Value = PTVCost;//must fix
-                worksheet.Cells[currentRow + 4, TTNM_COL.SL_TIN].Value = KTDCost;//must fix
+                worksheet.Cells[currentRow + 2, TTNM_COL.SL_TIN].Value = totalPoint * price; 
+                worksheet.Cells[currentRow + 3, TTNM_COL.SL_TIN].Value = totalPoint * price;
+                worksheet.Cells[currentRow + 4, TTNM_COL.SL_TIN].Value = totalPoint * price;
 
                 worksheet.Cells[currentRow + 2, TTNM_COL.THANHTIEN].Value = BBTCost;
                 worksheet.Cells[currentRow + 3, TTNM_COL.THANHTIEN].Value = PTVCost;
@@ -1056,14 +1083,19 @@ namespace ATV_Allowance.Services
 
 
             //report date row
-            worksheet.Cells[currentRow + 2, BSTTNM_COL.THANHTIEN + 1].Value = $"Long Xuyên, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
+            worksheet.Cells[currentRow + 3, BSTTNM_COL.THANHTIEN + 1].Value = $"Long Xuyên, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
 
             //sum row
             var totalCostKHK = listKHK.Sum(e => e.TotalCost);
             worksheet.Cells[currentRow, KHK_COL.THANHTIEN].Value = totalCostKHK;
 
+            //sum 2 report
+
+            var totalCost = totalCostBSTTNM + totalCostKHK;
+            worksheet.Cells[currentRow + 1, KHK_COL.THANHTIEN].Value = totalCost;
+
             //money string
-            worksheet.Cells[currentRow + 1, BSTTNM_COL.THANHTIEN + 1].Value = $"(Thành tiền bằng chữ: {NumberToTextVN(totalCostBSTTNM + totalCostKHK)})";
+            worksheet.Cells[currentRow + 2, BSTTNM_COL.THANHTIEN + 1].Value = $"(Thành tiền bằng chữ: {NumberToTextVN(totalCost)})";
 
             //hide deduction of CTV
             if (role == EmployeeRole.CTV)
