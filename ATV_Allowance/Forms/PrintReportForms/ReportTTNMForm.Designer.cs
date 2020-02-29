@@ -246,7 +246,7 @@
             this.Controls.Add(this.label7);
             this.Controls.Add(this.dtpStartdate);
             this.Name = "ReportTTNMForm";
-            this.Text = "In báo cáo thông tin ngày mới";
+            this.Text = "In báo cáo trên từng cây số";
             ((System.ComponentModel.ISupportInitialize)(this.edtPrice)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

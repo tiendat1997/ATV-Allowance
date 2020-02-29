@@ -510,10 +510,10 @@
     <None Include="Templates\TemplatePT.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\TemplateBSTTNM.xlsx">
+    <None Include="Templates\TemplateBSTTCS.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\TemplateTTNM.xlsx">
+    <None Include="Templates\TemplateTTCS.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Templates\TemplatePTTT.xlsx">

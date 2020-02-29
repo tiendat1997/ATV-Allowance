@@ -257,11 +257,11 @@ namespace ATV_Allowance.Common
                         ReportPTTTForm reportPTTTForm = new ReportPTTTForm();
                         form = reportPTTTForm;
                         break;
-                    case "In Thông tin ngày mới":
+                    case "In trên từng cây số":
                         Forms.PrintReportForms.ReportTTNMForm reportTTNgayMoiForm = new Forms.PrintReportForms.ReportTTNMForm();
                         form = reportTTNgayMoiForm;
                         break;
-                    case "In Biên soạn thông tin ngày mới":
+                    case "In Biên soạn trên từng cây số":
                         Forms.PrintReportForms.ReportBienSoanTTNM reportBienSoanTTForm = new Forms.PrintReportForms.ReportBienSoanTTNM();
                         form = reportBienSoanTTForm;
                         break;
