@@ -261,7 +261,7 @@
             this.Controls.Add(this.dtpStartdate);
             this.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
             this.Name = "ReportBienSoanTTNM";
-            this.Text = "In biên soạn thông tin ngày mới";
+            this.Text = "In biên soạn trên từng cây số";
             ((System.ComponentModel.ISupportInitialize)(this.edtPrice)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

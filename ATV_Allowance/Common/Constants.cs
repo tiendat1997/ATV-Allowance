@@ -261,8 +261,8 @@ namespace ATV_Allowance.Common
             public static string TS = "TemplateTS";
             public static string PT = "TemplatePT";
             public static string PTTT = "TemplatePTTT";
-            public static string TTNM = "TemplateTTNM";
-            public static string BSTTNM = "TemplateBSTTNM";
+            public static string TTNM = "TemplateTTCS";
+            public static string BSTTNM = "TemplateBSTTCS";
             public static string TSKHK = "TemplateTS_KHK";
         }
 
@@ -473,9 +473,9 @@ namespace ATV_Allowance.Common
         {
             public static string TS = "BẢNG THÙ LAO NHUẬN BÚT THỜI SỰ TRUYỀN HÌNH";
             public static string PT = "BẢNG TỔNG HỢP NHUẬN BÚT PHÁT THANH";
-            public static string PTTT = "BẢNG TỔNG HỢP NHUẬN BÚT PHÁT THANH TRỰC TIẾP";
-            public static string TTNM = "BẢNG THÙ LAO TIN, PS TRONG THÔNG TIN NGÀY MỚI";
-            public static string BSTTNM = "BẢNG TỔNG HỢP THÙ LAO BIÊN SOẠN THÔNG TIN NGÀY MỚI";
+            public static string PTTT = "BẢNG TỔNG HỢP NHUẬN BÚT TRPHÁT THANH TRỰC TIẾP";
+            public static string TTNM = "BẢNG THÙ LAO TIN, PS TRÊN TỪNG CÂY SỐ";
+            public static string BSTTNM = "BẢNG TỔNG HỢP THÙ LAO BIÊN SOẠN TRÊN TỪNG CÂY SỐ";
         }
 
         public static class BusinessLogStatus {
