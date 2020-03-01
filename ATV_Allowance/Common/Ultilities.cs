@@ -273,10 +273,6 @@ namespace ATV_Allowance.Common
                         ListCriteriaForm listCriteriaForm = new ListCriteriaForm();
                         form = listCriteriaForm;
                         break;
-                    case "Quản lý giảm trừ":
-                        ListEmployeeDeduction listEmployeeDeduction = new ListEmployeeDeduction();
-                        form = listEmployeeDeduction;
-                        break;
                     case "Logout":
                         Session.Logout();
                         isFunctionLogout = true;
