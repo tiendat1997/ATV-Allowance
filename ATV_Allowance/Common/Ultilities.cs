@@ -215,7 +215,7 @@ namespace ATV_Allowance.Common
                 {
                     case "Nhập Tin thời sự hàng ngày":
                         codes = Constants.ImportArticle_Table_Header.THOI_SU_HANG_NGAY;
-                        ImportArticleForm importTSForm = new ImportArticleForm(ArticleType.THOI_SU, codes);
+                        ImportArticleFormAdvance importTSForm = new ImportArticleFormAdvance(ArticleType.THOI_SU, codes);
                         form = importTSForm;
                         break;
                     case "Nhập Tin, PS ttnm":

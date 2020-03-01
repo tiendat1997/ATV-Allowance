@@ -107,6 +107,12 @@
     <Compile Include="Forms\ArticleForms\ArticleListForm.Designer.cs">
       <DependentUpon>ArticleListForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ArticleForms\ImportArticleFormAdvance.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ArticleForms\ImportArticleFormAdvance.Designer.cs">
+      <DependentUpon>ImportArticleFormAdvance.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ArticleForms\ImportArticleForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -370,6 +376,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ArticleForms\ArticleListForm.resx">
       <DependentUpon>ArticleListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ArticleForms\ImportArticleFormAdvance.resx">
+      <DependentUpon>ImportArticleFormAdvance.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ArticleForms\ImportArticleForm.resx">
       <DependentUpon>ImportArticleForm.cs</DependentUpon>

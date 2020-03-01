@@ -82,7 +82,7 @@ namespace ATV_Allowance.Forms.ArticleForms
                 SortableBindingList<ArticleViewModel> sbl = new SortableBindingList<ArticleViewModel>(articleList);
                 bs.DataSource = sbl;
                 adgvList.DataSource = bs;
-
+                
                 if (articleList.Count == 0)
                 {
                     model = null;
