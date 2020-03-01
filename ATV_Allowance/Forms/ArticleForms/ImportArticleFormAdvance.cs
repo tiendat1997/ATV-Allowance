@@ -39,6 +39,7 @@ namespace ATV_Allowance.Forms.ArticleForms
         internal Dictionary<Control, ErrorProvider> epDic;
         private DateTime currDate;
         private readonly IAppLogger _logger;
+        private BindingList<string> employeeBindingList;
         public ImportArticleFormAdvance(int articleTypeId, List<string> pointCodes)
         {
             _logger = new AppLogger();
@@ -49,11 +50,9 @@ namespace ATV_Allowance.Forms.ArticleForms
 
             this.pointCodes = pointCodes;
             this.articleTypeId = articleTypeId;
-
             this.Text = GetArticleTypeName(articleTypeId);
-            LoadEmployeeData();
-            LoadArticleData();
-            LoadDGV();
+
+            LoadEmployeeData();            
         }
         private void LoadEmployeeData()
         {
@@ -61,6 +60,7 @@ namespace ATV_Allowance.Forms.ArticleForms
             {
                 employeeService = new EmployeeService();
                 empList = employeeService.GetAllEmployeeCode(true);
+                employeeBindingList = new BindingList<string>(empList);
             }
             catch (Exception ex)
             {
@@ -127,6 +127,8 @@ namespace ATV_Allowance.Forms.ArticleForms
                 if (articleList.Count > 0)
                 {
                     cbArticle.SelectedIndex = articleList.Count - 1;
+                    article = articleList.Last();
+                    adgvList.ReadOnly = false;
                 }
             }
             catch (Exception ex)
@@ -180,13 +182,13 @@ namespace ATV_Allowance.Forms.ArticleForms
                 adgvList.Columns["EmployeeCode"].ReadOnly = true;
 
                 adgvList.Columns["EmployeeCode"].HeaderText = ADGVEmployeeText.Code;
-                adgvList.Columns["EmployeeCode"].Width = ControlsAttribute.GV_WIDTH_SEEM;
+                adgvList.Columns["EmployeeCode"].Width = ControlsAttribute.GV_WIDTH_MEDIUM;
                 adgvList.Columns["Name"].HeaderText = ADGVEmployeeText.Name;
                 adgvList.Columns["Name"].Width = ControlsAttribute.GV_WIDTH_MEDIUM;
                 adgvList.Columns["Position"].HeaderText = ADGVEmployeeText.AbbrPosition;
                 adgvList.Columns["Position"].Width = ControlsAttribute.GV_WIDTH_SMALL;
                 adgvList.Columns["Organization"].HeaderText = ADGVEmployeeText.Organization;
-                adgvList.Columns["Organization"].Width = ControlsAttribute.GV_WIDTH_MEDIUM;
+                adgvList.Columns["Organization"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
                 int nextIndex = 3;
                 foreach (var type in listPointType)
@@ -194,8 +196,27 @@ namespace ATV_Allowance.Forms.ArticleForms
                     nextIndex++;
                     adgvList.Columns[type.Code].DisplayIndex = nextIndex;
                     adgvList.Columns[type.Code].HeaderText = type.Code;
-                    adgvList.Columns[type.Code].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                    //adgvList.Columns[type.Code].Width = ControlsAttribute.GV_WIDTH_SMALL;
+                    adgvList.Columns[type.Code].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                    if (type.Code.Length <= 3)
+                    {
+                        adgvList.Columns[type.Code].Width = 42;
+                    }
+                    else if (type.Code.Length <= 4)
+                    {
+                        adgvList.Columns[type.Code].Width = 45;
+                    }
+                    else if (type.Code.Length <= 5)
+                    {
+                        adgvList.Columns[type.Code].Width = 63;
+                    }
+                    else if (type.Code.Length <= 6)
+                    {
+                        adgvList.Columns[type.Code].Width = 68;
+                    }
+                    else
+                    {
+                        adgvList.Columns[type.Code].Width = 77;
+                    }
                 }
                 adgvList.EditingControlShowing += new DataGridViewEditingControlShowingEventHandler(adgvList_EditingControlShowing);
             }
@@ -215,8 +236,8 @@ namespace ATV_Allowance.Forms.ArticleForms
                 comboBox.AutoCompleteSource = AutoCompleteSource.ListItems;
                 comboBox.DropDownWidth = 150;
                 comboBox.SelectionChangeCommitted -= new EventHandler(EmployeeCodeSelectionChangeCommitted);
-                comboBox.SelectionChangeCommitted += EmployeeCodeSelectionChangeCommitted;
                 comboBox.KeyDown -= new KeyEventHandler(EmployeeComboboxKeyDown);
+                comboBox.SelectionChangeCommitted += EmployeeCodeSelectionChangeCommitted;
                 comboBox.KeyDown += new KeyEventHandler(EmployeeComboboxKeyDown);
                 comboBox.SelectedIndex = 0;
             }
@@ -280,7 +301,7 @@ namespace ATV_Allowance.Forms.ArticleForms
             try
             {
                 dtpDate.Value = DateTime.Now;
-                adgvList.ReadOnly = true;
+                adgvList.ReadOnly = false;
             }
             catch (Exception ex)
             {
@@ -405,9 +426,8 @@ namespace ATV_Allowance.Forms.ArticleForms
             try
             {
                 currDate = Utilities.RemoveTimePortion(dtpDate.Value);
-                LoadArticleData();
-                // set the new index
                 ResetDGV();
+                LoadArticleData();
             }
             catch (Exception ex)
             {
@@ -417,45 +437,7 @@ namespace ATV_Allowance.Forms.ArticleForms
         }
 
         private void txtTitle_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (char)Keys.Return) // ENTER
-            {
-                // Then Do your Thang
-                try
-                {
-                    articleService = new ArticleService();
-                    // validation            
-                    if (string.IsNullOrEmpty(txtTitle.Text))
-                    {
-                        //epArticleTitle.SetError(txtTitle, "Vui lòng nhập tiêu đề tin");
-                    }
-                    else
-                    {
-                        if (article == null)
-                        {
-                            // add article                            
-                            Article newEmp = new Article()
-                            {
-                                Title = txtTitle.Text,
-                                Date = currDate,
-                                TypeId = articleTypeId,
-                                IsActive = true
-                            };
-                            articleService.AddArticle(newEmp);
-                        }
-                        //// load adgv                         
-                        LoadArticleData();
-                        articleService.UpdateArticle(article);
-                        adgvList.ReadOnly = false;
-                        LoadDGV();
-                        this.ActiveControl = adgvList;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogSystem(ex, string.Empty);
-                }
-            }
+        {            
         }
 
         private void nudOrdinal_ValueChanged(object sender, EventArgs e)
@@ -491,7 +473,7 @@ namespace ATV_Allowance.Forms.ArticleForms
                 if (e.RowIndex == adgvList.NewRowIndex)
                 {
                     var cmbCell = new DataGridViewComboBoxCell();
-                    cmbCell.DataSource = empList;
+                    cmbCell.DataSource = employeeBindingList;
                     adgvList.Rows[e.RowIndex].ReadOnly = true;
                     adgvList.Rows[e.RowIndex].Cells["EmployeeCode"] = cmbCell;
                     adgvList.Rows[e.RowIndex].Cells["EmployeeCode"].ReadOnly = false;
@@ -573,6 +555,15 @@ namespace ATV_Allowance.Forms.ArticleForms
             catch (Exception ex)
             {
                 throw;
+            }
+        }
+
+        private void ImportArticleFormAdvance_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Modifiers == Keys.Control && e.KeyCode == Keys.N)           
+            {
+                // Your code when shortcut Ctrl+Shft+O is pressed
+                txtTitle.Focus();
             }
         }
     }

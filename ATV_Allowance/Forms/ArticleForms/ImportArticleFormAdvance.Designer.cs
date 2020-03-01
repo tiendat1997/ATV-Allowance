@@ -87,7 +87,7 @@
             // lblOrdinal
             // 
             this.lblOrdinal.AutoSize = true;
-            this.lblOrdinal.Location = new System.Drawing.Point(289, 3);
+            this.lblOrdinal.Location = new System.Drawing.Point(334, 3);
             this.lblOrdinal.Name = "lblOrdinal";
             this.lblOrdinal.Size = new System.Drawing.Size(42, 20);
             this.lblOrdinal.TabIndex = 4;
@@ -109,7 +109,7 @@
             // lblIndex
             // 
             this.lblIndex.AutoSize = true;
-            this.lblIndex.Location = new System.Drawing.Point(333, 3);
+            this.lblIndex.Location = new System.Drawing.Point(378, 3);
             this.lblIndex.Name = "lblIndex";
             this.lblIndex.Size = new System.Drawing.Size(0, 20);
             this.lblIndex.TabIndex = 5;
@@ -149,9 +149,11 @@
             this.ClientSize = new System.Drawing.Size(923, 412);
             this.Controls.Add(this.gbList);
             this.Controls.Add(this.gbArticleTitle);
+            this.KeyPreview = true;
             this.Name = "ImportArticleFormAdvance";
             this.Text = "Nhập tin thời sự hàng ngày";
             this.Load += new System.EventHandler(this.EditTSForm_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ImportArticleFormAdvance_KeyDown);
             this.gbArticleTitle.ResumeLayout(false);
             this.gbArticleTitle.PerformLayout();
             this.gbList.ResumeLayout(false);

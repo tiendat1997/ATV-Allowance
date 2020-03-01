@@ -220,17 +220,17 @@ namespace ATV_Allowance.Common
                         break;
                     case "Nhập Tin, PS ttnm":
                         codes = Constants.ImportArticle_Table_Header.THONG_TIN_NGAY_MOI;
-                        ImportArticleForm ttnmForm = new ImportArticleForm(ArticleType.PV_TTNM, codes);
+                        ImportArticleFormAdvance ttnmForm = new ImportArticleFormAdvance(ArticleType.PV_TTNM, codes);
                         form = ttnmForm;
                         break;
                     case "Nhập Tin phát thanh":
                         codes = Constants.ImportArticle_Table_Header.PHAT_THANH;
-                        ImportArticleForm importPTForm = new ImportArticleForm(ArticleType.PHAT_THANH, codes);
+                        ImportArticleFormAdvance importPTForm = new ImportArticleFormAdvance(ArticleType.PHAT_THANH, codes);
                         form = importPTForm;
                         break;
                     case "Nhập Tin phát thanh tt":
                         codes = Constants.ImportArticle_Table_Header.PHAT_THANH_TT;
-                        ImportArticleForm importPTTTForm = new ImportArticleForm(ArticleType.PHAT_THANH_TT, codes);
+                        ImportArticleFormAdvance importPTTTForm = new ImportArticleFormAdvance(ArticleType.PHAT_THANH_TT, codes);
                         form = importPTTTForm;
                         break;
                     case "Nhập Thù lao biên soạn tnnm":                        
