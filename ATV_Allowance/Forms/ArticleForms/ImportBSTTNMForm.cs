@@ -15,6 +15,8 @@ namespace ATV_Allowance.Forms.ArticleForms
 {
     public partial class ImportBSTTNMForm : CommonForm
     {
+        ImportArticleUserControl articleControl;
+        ImportArticleUserControl postProductionControl;
         public ImportBSTTNMForm()
         {
             InitializeComponent();
@@ -22,10 +24,27 @@ namespace ATV_Allowance.Forms.ArticleForms
         }
         private void InitTabControl()
         {
-            UserControl articleControl = new ImportArticleUserControl(ArticleType.BIENSOAN_TTNM);
+            articleControl = new ImportArticleUserControl(ArticleType.BIENSOAN_TTNM);
             tpArticle.Controls.Add(articleControl);
-            UserControl postProductionControl = new ImportArticleUserControl(ArticleType.KHOIHK_TTNM);
+            postProductionControl = new ImportArticleUserControl(ArticleType.KHOIHK_TTNM);
             tpPostProduction.Controls.Add(postProductionControl);
+        }
+
+        private void ImportBSTTNMForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Modifiers == Keys.Control && e.KeyCode == Keys.N)
+            {
+                if (tcImportArticle.SelectedTab == tcImportArticle.TabPages["tpArticle"])//your specific tabname
+                {
+                    // your stuff
+                    articleControl.FocusOnTitle();
+                }
+                else if (tcImportArticle.SelectedTab == tcImportArticle.TabPages["tpPostProduction"])
+                {
+                    postProductionControl.FocusOnTitle();
+                }
+                
+            }
         }
     }
 }

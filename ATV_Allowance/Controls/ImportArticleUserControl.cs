@@ -43,9 +43,8 @@ namespace ATV_Allowance.Controls
             InitializeTabIndex();
             this.articleTypeId = articleTypeId;
             this.Text = GetArticleTypeName(articleTypeId);
+
             LoadEmployeeData();
-            LoadArticleData();
-            LoadDGV();
         }
         private void LoadEmployeeData()
         {
@@ -58,6 +57,11 @@ namespace ATV_Allowance.Controls
             {
                 _logger.LogSystem(ex, string.Empty);
             }
+        }
+
+        public void FocusOnTitle()
+        {
+            this.txtTitle.Focus();
         }
         private string GetArticleTypeName(int typeId)
         {
@@ -90,7 +94,6 @@ namespace ATV_Allowance.Controls
         private void InitializeTabIndex()
         {
             dtpDate.TabIndex = 0;
-            nudOrdinal.TabIndex = 1;
             txtTitle.TabIndex = 2;
             adgvList.TabIndex = 3;
         }
@@ -105,9 +108,23 @@ namespace ATV_Allowance.Controls
         {
             try
             {
+                cbArticle.Text = String.Empty;
                 articleService = new ArticleService();
                 articleList = articleService.GetArticle(this.articleTypeId, currDate, currDate, 0);
-                nudOrdinal.Maximum = articleList.Count;
+                lblIndex.Text = articleList.Count.ToString();
+                cbArticle.DataSource = new BindingList<ArticleViewModel>(articleList);
+                cbArticle.DisplayMember = "Title";
+                cbArticle.ValueMember = "Id";
+                cbArticle.DropDownStyle = ComboBoxStyle.DropDown;
+                cbArticle.AutoCompleteMode = AutoCompleteMode.Suggest;
+                cbArticle.AutoCompleteSource = AutoCompleteSource.ListItems;
+                // set selected at the last item
+                if (articleList.Count > 0)
+                {
+                    cbArticle.SelectedIndex = articleList.Count - 1;
+                    article = articleList.Last();
+                    adgvList.ReadOnly = false;
+                }
             }
             catch (Exception ex)
             {
@@ -120,8 +137,8 @@ namespace ATV_Allowance.Controls
             {
                 pointTypeService = new PointTypeService();
                 articleService = new ArticleService();
-
                 bs = new BindingSource();
+
                 listPointType = pointTypeService.GetPointType(articleTypeId);
 
                 List<ArticleEmployeeViewModel> list = new List<ArticleEmployeeViewModel>();
@@ -129,7 +146,9 @@ namespace ATV_Allowance.Controls
                 {
                     list = articleService.GetArticleEmployee(article.Id, article.TypeId);
                 }
+
                 var bindList = ArticleEmployeeHelper.MapToBindingList(articleTypeId, list);
+
                 bs.DataSource = bindList;
                 adgvList.DataSource = bs;
 
@@ -154,13 +173,13 @@ namespace ATV_Allowance.Controls
                 adgvList.Columns["EmployeeCode"].ReadOnly = true;
 
                 adgvList.Columns["EmployeeCode"].HeaderText = ADGVEmployeeText.Code;
-                adgvList.Columns["EmployeeCode"].Width = ControlsAttribute.GV_WIDTH_SEEM;
+                adgvList.Columns["EmployeeCode"].Width = ControlsAttribute.GV_WIDTH_MEDIUM;
                 adgvList.Columns["Name"].HeaderText = ADGVEmployeeText.Name;
                 adgvList.Columns["Name"].Width = ControlsAttribute.GV_WIDTH_MEDIUM;
                 adgvList.Columns["Position"].HeaderText = ADGVEmployeeText.AbbrPosition;
                 adgvList.Columns["Position"].Width = ControlsAttribute.GV_WIDTH_SMALL;
                 adgvList.Columns["Organization"].HeaderText = ADGVEmployeeText.Organization;
-                adgvList.Columns["Organization"].Width = ControlsAttribute.GV_WIDTH_MEDIUM;
+                adgvList.Columns["Organization"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
                 int nextIndex = 3;
                 foreach (var type in listPointType)
@@ -168,7 +187,27 @@ namespace ATV_Allowance.Controls
                     nextIndex++;
                     adgvList.Columns[type.Code].DisplayIndex = nextIndex;
                     adgvList.Columns[type.Code].HeaderText = type.Code;
-                    adgvList.Columns[type.Code].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    adgvList.Columns[type.Code].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                    if (type.Code.Length <= 3)
+                    {
+                        adgvList.Columns[type.Code].Width = 42;
+                    }
+                    else if (type.Code.Length <= 4)
+                    {
+                        adgvList.Columns[type.Code].Width = 45;
+                    }
+                    else if (type.Code.Length <= 5)
+                    {
+                        adgvList.Columns[type.Code].Width = 63;
+                    }
+                    else if (type.Code.Length <= 6)
+                    {
+                        adgvList.Columns[type.Code].Width = 68;
+                    }
+                    else
+                    {
+                        adgvList.Columns[type.Code].Width = 77;
+                    }
                 }
                 adgvList.EditingControlShowing += new DataGridViewEditingControlShowingEventHandler(adgvList_EditingControlShowing);
             }
@@ -249,9 +288,15 @@ namespace ATV_Allowance.Controls
         }
         private void EditTSForm_Load(object sender, EventArgs e)
         {
-            dtpDate.Value = DateTime.Now;
-            nudOrdinal.Minimum = 0;
-            adgvList.ReadOnly = true;
+            try
+            {
+                dtpDate.Value = DateTime.Now;
+                adgvList.ReadOnly = false;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogSystem(ex, string.Empty);
+            }
         }
 
         private void adgvList_RowValidating(object sender, DataGridViewCellCancelEventArgs e)
@@ -312,7 +357,7 @@ namespace ATV_Allowance.Controls
                 _logger.LogSystem(ex, string.Empty);
             }
         }
-        
+
         private void adgvList_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
             try
@@ -343,90 +388,19 @@ namespace ATV_Allowance.Controls
             try
             {
                 currDate = Utilities.RemoveTimePortion(dtpDate.Value);
-                LoadArticleData();
-                // set the new index
-                nudOrdinal.Value = articleList.Count;
                 ResetDGV();
+                LoadArticleData();
             }
             catch (Exception ex)
             {
                 _logger.LogSystem(ex, string.Empty);
+                throw ex;
             }
         }
 
         private void txtTitle_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == (char)Keys.Return) // ENTER
-
-            {
-                try
-                {
-                    articleService = new ArticleService();
-                    if (string.IsNullOrEmpty(txtTitle.Text))
-                    {
-                        epArticleTitle.SetError(txtTitle, "Vui lòng nhập tiêu đề tin");
-                    }
-                    else
-                    {
-                        epArticleTitle.SetError(txtTitle, "");
-                        if (article == null)
-                        {
-                            // add article                            
-                            Article newEmp = new Article()
-                            {
-                                Title = txtTitle.Text,
-                                Date = currDate,
-                                TypeId = articleTypeId,
-                                IsActive = true
-                            };
-                            articleService.AddArticle(newEmp);
-                        }
-                        //// load adgv                         
-                        LoadArticleData();
-                        int articleIndex = (int)nudOrdinal.Value;
-
-                        article = articleList[articleIndex];
-                        article.Title = txtTitle.Text;
-                        articleService.UpdateArticle(article);
-                        adgvList.ReadOnly = false;
-                        LoadDGV();
-                        this.ActiveControl = adgvList;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogSystem(ex, string.Empty);
-                }
-            }
         }
-
-        private void nudOrdinal_ValueChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                // change text value
-                int selectedIndex = (int)nudOrdinal.Value;
-
-                if (selectedIndex < articleList.Count)
-                {
-                    // before new article
-                    article = articleList[selectedIndex];
-                    txtTitle.Text = article.Title;
-                }
-                else
-                {
-                    // check if after new article
-                    article = null;
-                    txtTitle.Text = string.Empty;
-                }
-                ResetDGV();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogSystem(ex, string.Empty);
-            }
-        }
-
         private void ResetDGV()
         {
             try
@@ -441,32 +415,20 @@ namespace ATV_Allowance.Controls
             }
         }
 
-        private void nudOrdinal_Enter(object sender, EventArgs e)
-        {
-            try
-            {
-                nudOrdinal.Select(0, nudOrdinal.Text.Length);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogSystem(ex, string.Empty);
-            }
-        }
-
         private void adgvList_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
             // Change Code Column Cell to combobox
             if (e.RowIndex == adgvList.NewRowIndex)
-            {                
+            {
                 var cmbCell = new DataGridViewComboBoxCell();
                 cmbCell.DataSource = empList;
                 adgvList.Rows[e.RowIndex].ReadOnly = true;
-                adgvList.Rows[e.RowIndex].Cells["EmployeeCode"] = cmbCell;                
+                adgvList.Rows[e.RowIndex].Cells["EmployeeCode"] = cmbCell;
                 adgvList.Rows[e.RowIndex].Cells["EmployeeCode"].ReadOnly = false;
 
                 //go to first column
                 SendKeys.Send("{Home}");
-            }          
+            }
         }
 
         private void adgvList_DataError(object sender, DataGridViewDataErrorEventArgs e)
@@ -475,42 +437,63 @@ namespace ATV_Allowance.Controls
             e.Cancel = true;
         }
 
-        private void btnArticleList_Click(object sender, EventArgs e)
-        {
-            List<IndexedArticleViewModel> indexArticleList = new List<IndexedArticleViewModel>();
-            for (int i = 0; i < articleList.Count; i++)
-            {
-                var item = articleList[i];
-                indexArticleList.Add(new IndexedArticleViewModel
-                {
-                    Id = item.Id,
-                    Index = i,
-                    Title = item.Title
-                });
-            }
-
-            ArticleListForm form = new ArticleListForm(indexArticleList);
-            form.FormClosed += new FormClosedEventHandler(ArticleListForm_Closed);
-            form.ShowDialog();
-        }
-
-        private void ArticleListForm_Closed(object sender, FormClosedEventArgs e)
-        {
-            var form = sender as ArticleListForm;
-            var indexedArticle = form.IndexedArticle;
-            if (indexedArticle != null)
-            {
-                article = articleList.Where(a => a.Id == indexedArticle.Id).FirstOrDefault();
-                txtTitle.Text = article.Title;
-                nudOrdinal.Value = indexedArticle.Index;
-                adgvList.ReadOnly = false;
-                LoadDGV();
-            }
-        }
-
         private void lblOrdinal_Click(object sender, EventArgs e)
         {
 
         }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                articleService = new ArticleService();
+                // validation            
+                if (string.IsNullOrEmpty(txtTitle.Text))
+                {
+                    epArticleTitle.SetError(txtTitle, "Vui lòng nhập tiêu đề tin");
+                }
+                else
+                {
+                    // add article                            
+                    Article newEmp = new Article()
+                    {
+                        Title = txtTitle.Text,
+                        Date = currDate,
+                        TypeId = articleTypeId,
+                        IsActive = true
+                    };
+                    articleService.AddArticle(newEmp);
+
+                    //// load adgv                         
+                    LoadArticleData();
+                    article.Title = txtTitle.Text;
+                    articleService.UpdateArticle(article);
+                    adgvList.ReadOnly = false;
+                    LoadDGV();
+                    ActiveControl = adgvList;
+                    txtTitle.Clear();
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogSystem(ex, string.Empty);
+            }
+        }
+
+        private void cbArticle_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                article = (ArticleViewModel)cbArticle.SelectedItem;
+                lblIndex.Text = (cbArticle.SelectedIndex + 1).ToString();
+                adgvList.ReadOnly = false;
+                LoadDGV();
+                ActiveControl = adgvList;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }                 
     }
 }

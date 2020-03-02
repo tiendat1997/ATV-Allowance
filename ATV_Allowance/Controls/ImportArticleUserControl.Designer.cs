@@ -30,16 +30,16 @@
         {
             this.components = new System.ComponentModel.Container();
             this.gbArticleTitle = new System.Windows.Forms.GroupBox();
-            this.btnArticleList = new System.Windows.Forms.Button();
+            this.btnAdd = new System.Windows.Forms.Button();
             this.dtpDate = new System.Windows.Forms.DateTimePicker();
-            this.nudOrdinal = new System.Windows.Forms.NumericUpDown();
-            this.lblOrdinal = new System.Windows.Forms.Label();
             this.txtTitle = new System.Windows.Forms.TextBox();
+            this.lblOrdinal = new System.Windows.Forms.Label();
             this.gbList = new System.Windows.Forms.GroupBox();
+            this.cbArticle = new System.Windows.Forms.ComboBox();
+            this.lblIndex = new System.Windows.Forms.Label();
             this.adgvList = new System.Windows.Forms.DataGridView();
             this.epTitle = new System.Windows.Forms.ErrorProvider(this.components);
             this.gbArticleTitle.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudOrdinal)).BeginInit();
             this.gbList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.adgvList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.epTitle)).BeginInit();
@@ -47,10 +47,8 @@
             // 
             // gbArticleTitle
             // 
-            this.gbArticleTitle.Controls.Add(this.btnArticleList);
+            this.gbArticleTitle.Controls.Add(this.btnAdd);
             this.gbArticleTitle.Controls.Add(this.dtpDate);
-            this.gbArticleTitle.Controls.Add(this.nudOrdinal);
-            this.gbArticleTitle.Controls.Add(this.lblOrdinal);
             this.gbArticleTitle.Controls.Add(this.txtTitle);
             this.gbArticleTitle.Location = new System.Drawing.Point(2, 2);
             this.gbArticleTitle.Margin = new System.Windows.Forms.Padding(2);
@@ -61,15 +59,15 @@
             this.gbArticleTitle.TabStop = false;
             this.gbArticleTitle.Text = "Thao tác";
             // 
-            // btnArticleList
+            // btnAdd
             // 
-            this.btnArticleList.Location = new System.Drawing.Point(178, 13);
-            this.btnArticleList.Name = "btnArticleList";
-            this.btnArticleList.Size = new System.Drawing.Size(76, 22);
-            this.btnArticleList.TabIndex = 8;
-            this.btnArticleList.Text = "Chi tiết";
-            this.btnArticleList.UseVisualStyleBackColor = true;
-            this.btnArticleList.Click += new System.EventHandler(this.btnArticleList_Click);
+            this.btnAdd.Location = new System.Drawing.Point(542, 16);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(75, 23);
+            this.btnAdd.TabIndex = 7;
+            this.btnAdd.Text = "Thêm";
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // dtpDate
             // 
@@ -81,55 +79,66 @@
             this.dtpDate.TabIndex = 6;
             this.dtpDate.ValueChanged += new System.EventHandler(this.dtpDate_ValueChanged);
             // 
-            // nudOrdinal
+            // txtTitle
             // 
-            this.nudOrdinal.Location = new System.Drawing.Point(289, 15);
-            this.nudOrdinal.Margin = new System.Windows.Forms.Padding(2);
-            this.nudOrdinal.Name = "nudOrdinal";
-            this.nudOrdinal.Size = new System.Drawing.Size(35, 20);
-            this.nudOrdinal.TabIndex = 5;
-            this.nudOrdinal.ValueChanged += new System.EventHandler(this.nudOrdinal_ValueChanged);
-            this.nudOrdinal.Enter += new System.EventHandler(this.nudOrdinal_Enter);
+            this.txtTitle.Location = new System.Drawing.Point(238, 16);
+            this.txtTitle.Margin = new System.Windows.Forms.Padding(2);
+            this.txtTitle.Name = "txtTitle";
+            this.txtTitle.Size = new System.Drawing.Size(299, 20);
+            this.txtTitle.TabIndex = 2;
+            this.txtTitle.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTitle_KeyPress);
             // 
             // lblOrdinal
             // 
             this.lblOrdinal.AutoSize = true;
-            this.lblOrdinal.Location = new System.Drawing.Point(259, 17);
+            this.lblOrdinal.Location = new System.Drawing.Point(235, 9);
             this.lblOrdinal.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblOrdinal.Name = "lblOrdinal";
-            this.lblOrdinal.Size = new System.Drawing.Size(28, 13);
+            this.lblOrdinal.Size = new System.Drawing.Size(31, 13);
             this.lblOrdinal.TabIndex = 4;
-            this.lblOrdinal.Text = "STT";
+            this.lblOrdinal.Text = "STT:";
             this.lblOrdinal.Click += new System.EventHandler(this.lblOrdinal_Click);
-            // 
-            // txtTitle
-            // 
-            this.txtTitle.Location = new System.Drawing.Point(340, 15);
-            this.txtTitle.Margin = new System.Windows.Forms.Padding(2);
-            this.txtTitle.Name = "txtTitle";
-            this.txtTitle.Size = new System.Drawing.Size(278, 20);
-            this.txtTitle.TabIndex = 2;
-            this.txtTitle.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTitle_KeyPress);
             // 
             // gbList
             // 
+            this.gbList.Controls.Add(this.cbArticle);
+            this.gbList.Controls.Add(this.lblIndex);
             this.gbList.Controls.Add(this.adgvList);
+            this.gbList.Controls.Add(this.lblOrdinal);
             this.gbList.Location = new System.Drawing.Point(2, 59);
             this.gbList.Margin = new System.Windows.Forms.Padding(2);
             this.gbList.Name = "gbList";
             this.gbList.Padding = new System.Windows.Forms.Padding(2);
-            this.gbList.Size = new System.Drawing.Size(622, 194);
+            this.gbList.Size = new System.Drawing.Size(622, 327);
             this.gbList.TabIndex = 1;
             this.gbList.TabStop = false;
             this.gbList.Text = "Danh sách";
             // 
+            // cbArticle
+            // 
+            this.cbArticle.FormattingEnabled = true;
+            this.cbArticle.Location = new System.Drawing.Point(309, 6);
+            this.cbArticle.Name = "cbArticle";
+            this.cbArticle.Size = new System.Drawing.Size(308, 21);
+            this.cbArticle.TabIndex = 6;
+            this.cbArticle.SelectedIndexChanged += new System.EventHandler(this.cbArticle_SelectedIndexChanged);
+            // 
+            // lblIndex
+            // 
+            this.lblIndex.AutoSize = true;
+            this.lblIndex.Location = new System.Drawing.Point(268, 9);
+            this.lblIndex.Name = "lblIndex";
+            this.lblIndex.Size = new System.Drawing.Size(35, 13);
+            this.lblIndex.TabIndex = 5;
+            this.lblIndex.Text = "label1";
+            // 
             // adgvList
             // 
             this.adgvList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.adgvList.Location = new System.Drawing.Point(4, 16);
+            this.adgvList.Location = new System.Drawing.Point(4, 32);
             this.adgvList.Margin = new System.Windows.Forms.Padding(2);
             this.adgvList.Name = "adgvList";
-            this.adgvList.Size = new System.Drawing.Size(614, 167);
+            this.adgvList.Size = new System.Drawing.Size(614, 291);
             this.adgvList.TabIndex = 0;
             this.adgvList.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.adgvList_DataError);
             this.adgvList.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.adgvList_EditingControlShowing);
@@ -150,12 +159,12 @@
             this.Controls.Add(this.gbArticleTitle);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ImportArticleUserControl";
-            this.Size = new System.Drawing.Size(626, 261);
+            this.Size = new System.Drawing.Size(626, 388);
             this.Load += new System.EventHandler(this.EditTSForm_Load);
             this.gbArticleTitle.ResumeLayout(false);
             this.gbArticleTitle.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudOrdinal)).EndInit();
             this.gbList.ResumeLayout(false);
+            this.gbList.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.adgvList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.epTitle)).EndInit();
             this.ResumeLayout(false);
@@ -169,8 +178,9 @@
         private System.Windows.Forms.TextBox txtTitle;
         private System.Windows.Forms.ErrorProvider epTitle;
         private System.Windows.Forms.DateTimePicker dtpDate;
-        private System.Windows.Forms.NumericUpDown nudOrdinal;
         private System.Windows.Forms.Label lblOrdinal;
-        private System.Windows.Forms.Button btnArticleList;
+        private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.Label lblIndex;
+        private System.Windows.Forms.ComboBox cbArticle;
     }
 }

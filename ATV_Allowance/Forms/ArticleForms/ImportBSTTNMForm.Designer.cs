@@ -48,7 +48,7 @@
             // 
             this.tpArticle.Location = new System.Drawing.Point(4, 29);
             this.tpArticle.Name = "tpArticle";
-            this.tpArticle.Size = new System.Drawing.Size(917, 389);
+            this.tpArticle.Size = new System.Drawing.Size(936, 389);
             this.tpArticle.TabIndex = 0;
             this.tpArticle.Text = "Tin";
             this.tpArticle.UseVisualStyleBackColor = true;
@@ -68,8 +68,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(944, 447);
             this.Controls.Add(this.tcImportArticle);
+            this.KeyPreview = true;
             this.Name = "ImportBSTTNMForm";
             this.Text = "Nhập tin biên soạn thông tin ngày mới";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ImportBSTTNMForm_KeyDown);
             this.tcImportArticle.ResumeLayout(false);
             this.ResumeLayout(false);
 
