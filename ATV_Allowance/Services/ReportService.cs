@@ -690,7 +690,7 @@ namespace ATV_Allowance.Services
             var list = GetReportBroadcast(startDate, endDate, role, price, ArticleType.PHAT_THANH);
 
             int currentRow = 5;
-            var percent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, role == EmployeeRole.PV ? Criterias_Percent.TANG_GIAM_PV_BTV : Criterias_Percent.TANG_GIAM_CTV);
+            var percent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, role == EmployeeRole.PV ? Criterias_BSTTNM.PV_PTV : Criterias_Percent.TANG_GIAM_CTV);
             worksheet.Cells[currentRow - 2, PT_COL.TANGGIAM].Value = "Tăng " + percent + "%";
             percent = percent / 100;
 
@@ -1048,8 +1048,18 @@ namespace ATV_Allowance.Services
             var totalCostBSTTNM = listBSTTNM.Sum(e => e.TotalCost);
             worksheet.Cells[currentRow, BSTTNM_COL.THANHTIEN].Value = totalCostBSTTNM;
 
-            currentRow += 4;
-            worksheet.Cells[currentRow - 2, KHK_COL.TANGGIAM].Value = "Tăng " + percent + "%";
+            currentRow += 3;
+            worksheet.Cells[currentRow, KHK_COL.TANGGIAM].Value = "Tăng " + percent + "%";
+
+            if (role == (int)EmployeeRole.PV)
+            {
+                var BBTPrecent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, Criterias_BSTTNM.BBT);
+                currentRow += 1;
+                worksheet.Cells[currentRow, KHK_COL.HO_TEN] = KHK_COL.GetBBTHeader(BBTPrecent);
+                worksheet.Cells[currentRow, KHK_COL.SL_DCT] = totalCostBSTTNM;
+                worksheet.Cells[currentRow, KHK_COL.THANHTIEN] = (BBTPrecent / 100)*totalCostBSTTNM;
+            }
+            currentRow += 1;
             if (listKHK != null && listKHK.Count > 0)
             {
                 for (int i = 0; i < listKHK.Count; i++)
@@ -1085,6 +1095,12 @@ namespace ATV_Allowance.Services
                 worksheet.Rows[currentRow].Delete();
             }
 
+            //hide deduction of CTV
+            if (role == EmployeeRole.CTV)
+            {
+                worksheet.Columns[BSTTNM_COL.TRUCHITIEU].Hidden = true;
+            }
+
             //title row
             var textRole = (role == EmployeeRole.PV ? "PV" : "CTV");
             worksheet.Cells[2, BSTTNM_COL.STT].Value = $"{ReportName.BSTTNM} ({textRole}) THÁNG {endDate.Month}/{endDate.Year}";
@@ -1105,11 +1121,7 @@ namespace ATV_Allowance.Services
             //money string
             worksheet.Cells[currentRow + 2, BSTTNM_COL.THANHTIEN + 1].Value = $"(Thành tiền bằng chữ: {NumberToTextVN(totalCost)})";
 
-            //hide deduction of CTV
-            if (role == EmployeeRole.CTV)
-            {
-                worksheet.Columns[BSTTNM_COL.TRUCHITIEU].Hidden = true;
-            }
+            
             #endregion
         }
 
