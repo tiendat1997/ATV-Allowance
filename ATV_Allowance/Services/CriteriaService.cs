@@ -13,7 +13,7 @@ namespace ATV_Allowance.Services
     {
         List<CriteriaViewModel> GetCriterias(int month, int year, int type);
         List<List<CriteriaViewModel>> GetYearlyCriterias(int year, int type);
-        void UpdateCriterias(List<CriteriaViewModel> criterias, int month, int year);
+        void UpdateCriterias(List<CriteriaViewModel> criterias, int month, int year, int articleTypeId);
         double GetCriteriaValue(int month, int year, int criteriaTypeId);
         void CopyYearlyCriterias(int year);
 
@@ -84,43 +84,34 @@ namespace ATV_Allowance.Services
             return criteria != null ? criteria.Value.GetValueOrDefault(0) : 0;
         }
 
-        public void UpdateCriterias(List<CriteriaViewModel> criterias, int month, int year)
+        public void UpdateCriterias(List<CriteriaViewModel> criterias, int month, int year, int articleTypeId)
         {
             var configuation = configurationRepository.Get(c => c.Year == year && c.Month == month).FirstOrDefault();
             if (configuation == null)
             {
-                configurationRepository.Add(new Configuration
+                configuation = new Configuration
                 {
                     Month = month,
                     Year = year,
-                    CriteriaValue = criterias.Select(c => new CriteriaValue
-                    {
-                        Value = c.Value,
-                        CriteriaId = c.CriteriaId
-                    }).ToList()
-                });
-
+                };
+                configurationRepository.Add(configuation);
             }
-            else
+
+            var newValues = criterias.Select(c => new CriteriaValue
             {
-                var oldCriterias = criteriaValueRepository.Get(cv => cv.ConfigurationId == configuation.Id);
-                foreach (var c in oldCriterias)
-                {
-                    criteriaValueRepository.Delete(c);
-                }
+                Value = c.Value,
+                CriteriaId = c.CriteriaId,
+                ConfigurationId = configuation.Id
+            }).ToList();
 
-                foreach (var c in criterias)
-                {
-                    criteriaValueRepository.Add(new CriteriaValue
-                    {
-                        ConfigurationId = configuation.Id,
-                        CriteriaId = c.CriteriaId,
-                        Value = c.Value
-                    });
-                }
-            }
-
-
+            var currentCriterias = criteriaRepository.GetIncludeCriteriaValue(articleTypeId);
+            var oldCriteriaValues = currentCriterias
+                                .SelectMany(c => c.CriteriaValue)
+                                .Where(cv => cv.ConfigurationId == configuation.Id)
+                                .ToList();
+            
+            criteriaValueRepository.DeleteRange(oldCriteriaValues);
+            criteriaValueRepository.AddRange(newValues);          
         }
 
         public void CopyYearlyCriterias(int year)
@@ -132,7 +123,7 @@ namespace ATV_Allowance.Services
 
             if (currentConfigurations != null && currentConfigurations.Count > 0)
             {
-                foreach(var c in currentConfigurations)
+                foreach (var c in currentConfigurations)
                 {
                     configurationRepository.Delete(c);
                 }

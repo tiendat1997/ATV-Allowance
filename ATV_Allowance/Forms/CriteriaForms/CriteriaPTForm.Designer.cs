@@ -47,6 +47,7 @@
             this.btnCopyCriteria.TabIndex = 13;
             this.btnCopyCriteria.Text = "Copy chỉ tiêu từ năm cũ qua";
             this.btnCopyCriteria.UseVisualStyleBackColor = true;
+            this.btnCopyCriteria.Click += new System.EventHandler(this.btnCopyCriteria_Click);
             // 
             // flowLayoutPanel1
             // 

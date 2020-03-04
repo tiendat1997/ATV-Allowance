@@ -13,10 +13,12 @@ namespace DataService.Infrastructure
     {
         //Add new entity
         void Add(T entity);
+        void AddRange(List<T> entities);
         //Modified entity
         void Update(T entity);
         //Remove entity
         void Delete(T entity);
+        void DeleteRange(List<T> entities);
         //Remove entity by Expression (id, name)
         void Delete(Expression<Func<T, bool>> where);
         //Get an entity by id
@@ -163,6 +165,25 @@ namespace DataService.Infrastructure
             {
                 return query.ToList();
             }
+        }
+
+        public void DeleteRange(List<TEntity> entities)
+        {
+            foreach (var entity in entities)
+            {
+                if (context.Entry(entity).State == EntityState.Detached)
+                {
+                    dbSet.Attach(entity);
+                }
+                dbSet.Remove(entity);
+            }
+            context.SaveChanges();
+        }
+
+        public void AddRange(List<TEntity> entities)
+        {
+            dbSet.AddRange(entities);
+            context.SaveChanges();
         }
     }
 }

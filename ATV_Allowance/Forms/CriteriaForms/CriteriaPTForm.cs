@@ -74,5 +74,10 @@ namespace ATV_Allowance.Forms.CriteriaForms
         {
             LoadCriteriasOfYear();
         }
+
+        private void btnCopyCriteria_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

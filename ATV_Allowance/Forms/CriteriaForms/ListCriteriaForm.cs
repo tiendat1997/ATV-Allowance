@@ -129,7 +129,7 @@ namespace ATV_Allowance.Forms.CriteriaForms
 
             int month = adgvCriterias.SelectedRows[0].Index + 1;
             int year = dtp.Value.Year;
-            criteriaService.UpdateCriterias(listCriterias, month, year);
+            //criteriaService.UpdateCriterias(listCriterias, month, year);
             LoadCriteriasOfYear(year);
             adgvCriterias.ClearSelection();
             adgvCriterias.Rows[month - 1].Selected = true;

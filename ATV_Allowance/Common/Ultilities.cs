@@ -270,8 +270,8 @@ namespace ATV_Allowance.Common
                         form = listOrgForm;
                         break;
                     case "Quản lý chỉ tiêu":
-                        ListCriteriaForm listCriteriaForm = new ListCriteriaForm();
-                        form = listCriteriaForm;
+                        //ListCriteriaForm listCriteriaForm = new ListCriteriaForm();
+                        //form = listCriteriaForm;
                         break;
                     case "Logout":
                         Session.Logout();

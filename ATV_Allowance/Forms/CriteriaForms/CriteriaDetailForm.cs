@@ -18,17 +18,19 @@ namespace ATV_Allowance.Forms.CriteriaForms
     {
         private ICriteriaService criteriaService;
         private int month;
-        private int year;         
+        private int year;
+        private int articleTypeId;
 
-        public CriteriaDetailForm(int month, int year , int articleType)
+        public CriteriaDetailForm(int month, int year , int articleTypeId)
         {            
             InitializeComponent();
             criteriaService = new CriteriaService();
             this.month = month;
             this.year = year;
+            this.articleTypeId = articleTypeId;
 
             CustomStyle();
-            LoadCriteriasOfMonth(month, year, articleType);
+            LoadCriteriasOfMonth(month, year, articleTypeId);
         }
 
         private void CustomStyle()
@@ -101,7 +103,7 @@ namespace ATV_Allowance.Forms.CriteriaForms
                     });
                 }
 
-                criteriaService.UpdateCriterias(listCriterias, this.month, this.year);
+                criteriaService.UpdateCriterias(listCriterias, this.month, this.year, this.articleTypeId);
                 this.Close();
             }
             catch (Exception ex)  
