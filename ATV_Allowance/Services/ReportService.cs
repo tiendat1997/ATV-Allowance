@@ -405,18 +405,18 @@ namespace ATV_Allowance.Services
 
             var workbook = application.Workbooks.Add(AppDomain.CurrentDomain.BaseDirectory + $"Templates\\{Tempate.BSTTNM}.xlsx");
             var worksheetPV = (Worksheet)workbook.Worksheets[1];
-            var worksheetCTV = (Worksheet)workbook.Worksheets[2];
+            //var worksheetCTV = (Worksheet)workbook.Worksheets[2];
 
             #endregion
 
             FillDataIntoWorksheetBSTTNM(worksheetPV, startDate, endDate, EmployeeRole.PV, price);
-            FillDataIntoWorksheetBSTTNM(worksheetCTV, startDate, endDate, EmployeeRole.CTV, price);
+            //FillDataIntoWorksheetBSTTNM(worksheetCTV, startDate, endDate, EmployeeRole.CTV, price);
 
             #region setup file
             application.Visible = true;
 
             worksheetPV.PrintPreview();
-            worksheetCTV.PrintPreview();
+            //worksheetCTV.PrintPreview();
             #endregion
         }
 
@@ -1103,7 +1103,8 @@ namespace ATV_Allowance.Services
 
             //title row
             var textRole = (role == EmployeeRole.PV ? "PV" : "CTV");
-            worksheet.Cells[2, BSTTNM_COL.STT].Value = $"{ReportName.BSTTNM} ({textRole}) THÁNG {endDate.Month}/{endDate.Year}";
+            //worksheet.Cells[2, BSTTNM_COL.STT].Value = $"{ReportName.BSTTNM} ({textRole}) THÁNG {endDate.Month}/{endDate.Year}";
+            worksheet.Cells[2, BSTTNM_COL.STT].Value = $"{ReportName.BSTTNM} THÁNG {endDate.Month}/{endDate.Year}";
 
 
             //report date row
