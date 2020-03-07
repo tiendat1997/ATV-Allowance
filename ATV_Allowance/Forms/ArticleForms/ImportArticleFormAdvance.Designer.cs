@@ -87,7 +87,7 @@
             // lblOrdinal
             // 
             this.lblOrdinal.AutoSize = true;
-            this.lblOrdinal.Location = new System.Drawing.Point(334, 3);
+            this.lblOrdinal.Location = new System.Drawing.Point(827, 13);
             this.lblOrdinal.Name = "lblOrdinal";
             this.lblOrdinal.Size = new System.Drawing.Size(42, 20);
             this.lblOrdinal.TabIndex = 4;
@@ -109,7 +109,7 @@
             // lblIndex
             // 
             this.lblIndex.AutoSize = true;
-            this.lblIndex.Location = new System.Drawing.Point(378, 3);
+            this.lblIndex.Location = new System.Drawing.Point(871, 13);
             this.lblIndex.Name = "lblIndex";
             this.lblIndex.Size = new System.Drawing.Size(0, 20);
             this.lblIndex.TabIndex = 5;
@@ -117,7 +117,7 @@
             // cbArticle
             // 
             this.cbArticle.FormattingEnabled = true;
-            this.cbArticle.Location = new System.Drawing.Point(401, 0);
+            this.cbArticle.Location = new System.Drawing.Point(319, 5);
             this.cbArticle.Name = "cbArticle";
             this.cbArticle.Size = new System.Drawing.Size(497, 28);
             this.cbArticle.TabIndex = 1;
@@ -127,6 +127,7 @@
             // 
             this.adgvList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.adgvList.Location = new System.Drawing.Point(6, 36);
+            this.adgvList.MultiSelect = false;
             this.adgvList.Name = "adgvList";
             this.adgvList.Size = new System.Drawing.Size(892, 257);
             this.adgvList.TabIndex = 0;

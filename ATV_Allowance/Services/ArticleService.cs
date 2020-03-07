@@ -37,6 +37,7 @@ namespace ATV_Allowance.Services
 
         void AddArticleEmployee(ArticleEmployeeViewModel articleEmployee, ArticleViewModel article);
         void UpdateArticleEmployee(ArticleEmployeeViewModel articleEmployee, ArticleViewModel article);
+        ArticleEmployeeViewModel GetDefaultArticleEmployeeViewModel(int articleType);
     }
     public class ArticleService : IArticleService
     {
@@ -136,6 +137,34 @@ namespace ATV_Allowance.Services
                                     TypeId = t.TypeId
                                 }).ToList();
             return articles;
+        }
+        public ArticleEmployeeViewModel GetDefaultArticleEmployeeViewModel(int articleType)
+        {
+            ArticleEmployeeViewModel model = null;
+            switch (articleType)
+            {
+                case Common.Constants.ArticleType.THOI_SU:
+                    model = new ArticleEmployeeThoiSuHangNgayViewModel();
+                    break;
+                case Common.Constants.ArticleType.PV_TTNM:
+                    model = new ArticleEmployeeThongTinNgayMoiViewModel();
+                    break;
+                case Common.Constants.ArticleType.PHAT_THANH:
+                    model = new ArticleEmployeePhatThanhViewModel();                  
+                    break;
+                case Common.Constants.ArticleType.PHAT_THANH_TT:
+                    model = new ArticleEmployeePhatThanhTTViewModel();
+                    break;
+                case Common.Constants.ArticleType.BIENSOAN_TTNM:
+                    model = new ArticleEmployeeBSTTNMViewModel();
+                    break;
+                case Common.Constants.ArticleType.KHOIHK_TTNM:
+                    model = new ArticleEmployeeHauKyViewModel();
+                    break;
+                default:
+                    break;
+            }
+            return model;
         }
 
         private ArticleEmployeeViewModel ArticleEmployeeMapper(ArticleEmployee entity, int articleType)
