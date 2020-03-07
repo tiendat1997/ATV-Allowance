@@ -136,7 +136,7 @@
             this.Controls.Add(this.adgvCriterias);
             this.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
             this.Name = "CriteriaTTNMForm";
-            this.Text = "Quản lý chỉ tiêu biên soạn thông tin ngày mới";
+            this.Text = "Quản lý chỉ tiêu biên soạn trên từng cây số";
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.adgvCriterias)).EndInit();

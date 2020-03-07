@@ -70,7 +70,7 @@
             this.Controls.Add(this.tcImportArticle);
             this.KeyPreview = true;
             this.Name = "ImportBSTTNMForm";
-            this.Text = "Nhập tin biên soạn thông tin ngày mới";
+            this.Text = "Nhập tin biên soạn trên từng cây số";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ImportBSTTNMForm_KeyDown);
             this.tcImportArticle.ResumeLayout(false);
             this.ResumeLayout(false);

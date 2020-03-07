@@ -218,7 +218,7 @@ namespace ATV_Allowance.Common
                         ImportArticleFormAdvance importTSForm = new ImportArticleFormAdvance(ArticleType.THOI_SU, codes);
                         form = importTSForm;
                         break;
-                    case "Nhập Tin, PS ttnm":
+                    case "Nhập Tin, PS trên từng cây số":
                         codes = Constants.ImportArticle_Table_Header.THONG_TIN_NGAY_MOI;
                         ImportArticleFormAdvance ttnmForm = new ImportArticleFormAdvance(ArticleType.PV_TTNM, codes);
                         form = ttnmForm;
@@ -233,7 +233,7 @@ namespace ATV_Allowance.Common
                         ImportArticleFormAdvance importPTTTForm = new ImportArticleFormAdvance(ArticleType.PHAT_THANH_TT, codes);
                         form = importPTTTForm;
                         break;
-                    case "Nhập Thù lao biên soạn tnnm":                        
+                    case "Nhập Thù lao biên soạn trên từng cây số":                        
                         ImportBSTTNMForm importTNNM = new ImportBSTTNMForm();
                         form = (Form)importTNNM;
                         break;                   

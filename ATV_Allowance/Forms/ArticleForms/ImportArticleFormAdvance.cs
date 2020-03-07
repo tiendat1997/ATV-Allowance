@@ -83,13 +83,13 @@ namespace ATV_Allowance.Forms.ArticleForms
                     typeName += "tin thời sự hàng ngày";
                     break;
                 case 4:
-                    typeName += "thông tin ngày mới";
+                    typeName += "trên từng cây số";
                     break;
                 case 5:
-                    typeName += "biên soạn thông tin ngày mới";
+                    typeName += "biên soạn trên từng cây số";
                     break;
                 case 6:
-                    typeName += "khối hậu kỳ biên soạn thông tin ngày mới";
+                    typeName += "khối hậu kỳ biên soạn trên từng cây số";
                     break;
                 default:
                     break;
@@ -99,7 +99,8 @@ namespace ATV_Allowance.Forms.ArticleForms
         private void InitializeTabIndex()
         {
             dtpDate.TabIndex = 0;
-            txtTitle.TabIndex = 2;
+            txtTitle.TabIndex = 1;
+            cbArticle.TabIndex = 2;
             adgvList.TabIndex = 3;
         }
 

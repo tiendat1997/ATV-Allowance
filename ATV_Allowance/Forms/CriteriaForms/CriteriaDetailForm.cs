@@ -76,7 +76,7 @@ namespace ATV_Allowance.Forms.CriteriaForms
             }
             else if (type == ArticleType.PV_TTNM)
             {
-                articleTypeLabel = "[Thông tin ngày mới] -";
+                articleTypeLabel = "[Trên từng cây số] -";
             }
 
             gbCriterias.Text = articleTypeLabel + "Chỉ tiêu tháng " + month + " / " + year;

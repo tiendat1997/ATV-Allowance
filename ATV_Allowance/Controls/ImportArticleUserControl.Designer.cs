@@ -81,17 +81,17 @@
             // 
             // txtTitle
             // 
-            this.txtTitle.Location = new System.Drawing.Point(238, 16);
+            this.txtTitle.Location = new System.Drawing.Point(229, 16);
             this.txtTitle.Margin = new System.Windows.Forms.Padding(2);
             this.txtTitle.Name = "txtTitle";
-            this.txtTitle.Size = new System.Drawing.Size(299, 20);
+            this.txtTitle.Size = new System.Drawing.Size(308, 20);
             this.txtTitle.TabIndex = 2;
             this.txtTitle.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTitle_KeyPress);
             // 
             // lblOrdinal
             // 
             this.lblOrdinal.AutoSize = true;
-            this.lblOrdinal.Location = new System.Drawing.Point(235, 9);
+            this.lblOrdinal.Location = new System.Drawing.Point(551, 10);
             this.lblOrdinal.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblOrdinal.Name = "lblOrdinal";
             this.lblOrdinal.Size = new System.Drawing.Size(31, 13);
@@ -117,7 +117,7 @@
             // cbArticle
             // 
             this.cbArticle.FormattingEnabled = true;
-            this.cbArticle.Location = new System.Drawing.Point(309, 6);
+            this.cbArticle.Location = new System.Drawing.Point(229, 7);
             this.cbArticle.Name = "cbArticle";
             this.cbArticle.Size = new System.Drawing.Size(308, 21);
             this.cbArticle.TabIndex = 6;
@@ -126,7 +126,7 @@
             // lblIndex
             // 
             this.lblIndex.AutoSize = true;
-            this.lblIndex.Location = new System.Drawing.Point(268, 9);
+            this.lblIndex.Location = new System.Drawing.Point(584, 10);
             this.lblIndex.Name = "lblIndex";
             this.lblIndex.Size = new System.Drawing.Size(35, 13);
             this.lblIndex.TabIndex = 5;
@@ -137,6 +137,7 @@
             this.adgvList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.adgvList.Location = new System.Drawing.Point(4, 32);
             this.adgvList.Margin = new System.Windows.Forms.Padding(2);
+            this.adgvList.MultiSelect = false;
             this.adgvList.Name = "adgvList";
             this.adgvList.Size = new System.Drawing.Size(614, 291);
             this.adgvList.TabIndex = 0;
