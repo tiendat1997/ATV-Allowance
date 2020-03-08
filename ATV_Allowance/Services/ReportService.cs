@@ -1005,7 +1005,7 @@ namespace ATV_Allowance.Services
             int currentRow = 5;
             var percent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, role == EmployeeRole.PV ? Criterias_Percent.TANG_GIAM_PV_BTV : Criterias_Percent.TANG_GIAM_CTV);
             worksheet.Cells[currentRow - 2, BSTTNM_COL.TANGGIAM].Value = "Tăng " + percent + "%";
-            percent = percent / 100;
+            //percent = percent / 100;
 
             if (listBSTTNM != null && listBSTTNM.Count > 0)
             {
@@ -1049,7 +1049,9 @@ namespace ATV_Allowance.Services
             worksheet.Cells[currentRow, BSTTNM_COL.THANHTIEN].Value = totalCostBSTTNM;
 
             currentRow += 3;
-            worksheet.Cells[currentRow, KHK_COL.TANGGIAM].Value = "Tăng " + percent + "%";
+            worksheet.Cells[currentRow-1, KHK_COL.TANGGIAM].Value = "Tăng " + percent + "%";
+
+            long totalCostKHK = 0;
 
             if (role == (int)EmployeeRole.PV)
             {
@@ -1058,6 +1060,7 @@ namespace ATV_Allowance.Services
                 worksheet.Cells[currentRow, KHK_COL.HO_TEN] = KHK_COL.GetBBTHeader(BBTPrecent);
                 worksheet.Cells[currentRow, KHK_COL.SL_DCT] = totalCostBSTTNM;
                 worksheet.Cells[currentRow, KHK_COL.THANHTIEN] = (BBTPrecent / 100)*totalCostBSTTNM;
+                totalCostKHK += (long)((BBTPrecent / 100) * totalCostBSTTNM);
             }
             currentRow += 1;
             if (listKHK != null && listKHK.Count > 0)
@@ -1082,7 +1085,9 @@ namespace ATV_Allowance.Services
                     worksheet.Cells[currentRow, KHK_COL.D_TCT].Value = listKHK[i].DiemTCT;
 
                     worksheet.Cells[currentRow, KHK_COL.TRUCHITIEU].Value = listKHK[i].Deduction;
+                    worksheet.Range[worksheet.Cells[currentRow, KHK_COL.TONGDIEM], worksheet.Cells[currentRow, KHK_COL.TONGDIEM + 1]].Merge(true);
                     worksheet.Cells[currentRow, KHK_COL.TONGDIEM].Value = listKHK[i].SumPoint;
+                    worksheet.Range[worksheet.Cells[currentRow, KHK_COL.TANGGIAM], worksheet.Cells[currentRow, KHK_COL.TANGGIAM + 1]].Merge(true);
                     worksheet.Cells[currentRow, KHK_COL.TANGGIAM].Value = listKHK[i].IncreasePercent;
                     worksheet.Cells[currentRow, KHK_COL.THANHTIEN].Value = listKHK[i].TotalCost;
 
@@ -1111,7 +1116,7 @@ namespace ATV_Allowance.Services
             worksheet.Cells[currentRow + 3, BSTTNM_COL.THANHTIEN + 1].Value = $"Long Xuyên, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
 
             //sum row
-            var totalCostKHK = listKHK.Sum(e => e.TotalCost);
+            totalCostKHK += listKHK.Sum(e => e.TotalCost);
             worksheet.Cells[currentRow, KHK_COL.THANHTIEN].Value = totalCostKHK;
 
             //sum 2 report
@@ -1257,7 +1262,12 @@ namespace ATV_Allowance.Services
         {
             var percent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, employeeRole == EmployeeRole.PV ? Criterias_Percent.TANG_GIAM_PV_BTV : Criterias_Percent.TANG_GIAM_CTV) / 100;
             var employeeIds = list.Select(x => x.EmployeeId).ToList();
-            var employeesDeduction = _deductionService.GetEmployeesDeduction(employeeIds, reportType, startDate.Month, startDate.Year);
+            int articleType = reportType;
+            if (reportType == ArticleType.KHOIHK_TTNM)
+            {
+                articleType = ArticleType.BIENSOAN_TTNM;
+            }
+            var employeesDeduction = _deductionService.GetEmployeesDeduction(employeeIds, articleType, startDate.Month, startDate.Year);
             for (int i = 0; i < list.Count; i++)
             {
                 double sumPoint = 0;
