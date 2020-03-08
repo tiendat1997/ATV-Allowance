@@ -109,8 +109,9 @@ namespace ATV_Allowance.Services
                                 .SelectMany(c => c.CriteriaValue)
                                 .Where(cv => cv.ConfigurationId == configuation.Id)
                                 .ToList();
+            var valueIds = oldCriteriaValues.Select(v => v.Id).ToList();
             
-            criteriaValueRepository.DeleteRange(oldCriteriaValues);
+            criteriaValueRepository.DeleteCriteriaValues(valueIds);
             criteriaValueRepository.AddRange(newValues);          
         }
 

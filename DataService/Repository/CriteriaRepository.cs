@@ -18,7 +18,11 @@ namespace DataService.Repository
     {
         public List<Criteria> GetIncludeCriteriaValue(int articleTypeId)
         {
-            var result = context.Criteria.Where(c => c.ArticleTypeId == articleTypeId).Include(a => a.CriteriaValue).Select(a => a).ToList();
+            var result = context.Criteria
+                    .Where(c => c.ArticleTypeId == articleTypeId)
+                    .Include(a => a.CriteriaValue)
+                    .AsNoTracking()
+                    .ToList();
             return result;
         }
     }
