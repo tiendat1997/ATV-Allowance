@@ -65,6 +65,7 @@ namespace ATV_Allowance.Forms.ArticleForms
             }
             catch (Exception ex)
             {
+                _logger.LogSystem(ex, string.Empty);
                 throw ex;
             }
         }
@@ -521,6 +522,7 @@ namespace ATV_Allowance.Forms.ArticleForms
             }
             catch (Exception ex)
             {
+                _logger.LogSystem(ex, string.Empty);
                 throw ex;
             }
         }
@@ -558,6 +560,7 @@ namespace ATV_Allowance.Forms.ArticleForms
             catch (Exception ex)
             {
                 _logger.LogSystem(ex, string.Empty);
+                throw ex;
             }
         }
 
@@ -571,6 +574,7 @@ namespace ATV_Allowance.Forms.ArticleForms
             }
             catch (Exception ex)
             {
+                _logger.LogSystem(ex, string.Empty);
                 throw ex;
             }
         }

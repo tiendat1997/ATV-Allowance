@@ -48,10 +48,10 @@
             // btnEditCriteria
             // 
             this.btnEditCriteria.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEditCriteria.Location = new System.Drawing.Point(510, 63);
+            this.btnEditCriteria.Location = new System.Drawing.Point(467, 54);
             this.btnEditCriteria.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
             this.btnEditCriteria.Name = "btnEditCriteria";
-            this.btnEditCriteria.Size = new System.Drawing.Size(208, 54);
+            this.btnEditCriteria.Size = new System.Drawing.Size(200, 35);
             this.btnEditCriteria.TabIndex = 63;
             this.btnEditCriteria.Text = "Nhập chỉ tiêu";
             this.btnEditCriteria.UseVisualStyleBackColor = true;
@@ -60,10 +60,10 @@
             // btnExport
             // 
             this.btnExport.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExport.Location = new System.Drawing.Point(512, 324);
+            this.btnExport.Location = new System.Drawing.Point(469, 315);
             this.btnExport.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
             this.btnExport.Name = "btnExport";
-            this.btnExport.Size = new System.Drawing.Size(208, 54);
+            this.btnExport.Size = new System.Drawing.Size(200, 35);
             this.btnExport.TabIndex = 50;
             this.btnExport.Text = "In báo cáo";
             this.btnExport.UseVisualStyleBackColor = true;
@@ -74,7 +74,7 @@
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(56, 204);
+            this.label5.Location = new System.Drawing.Point(56, 189);
             this.label5.Margin = new System.Windows.Forms.Padding(0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(70, 18);
@@ -86,7 +86,7 @@
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(20, 63);
+            this.label2.Location = new System.Drawing.Point(32, 63);
             this.label2.Margin = new System.Windows.Forms.Padding(0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(94, 18);
@@ -96,10 +96,10 @@
             // btnDeduction
             // 
             this.btnDeduction.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDeduction.Location = new System.Drawing.Point(510, 135);
+            this.btnDeduction.Location = new System.Drawing.Point(467, 126);
             this.btnDeduction.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
             this.btnDeduction.Name = "btnDeduction";
-            this.btnDeduction.Size = new System.Drawing.Size(210, 54);
+            this.btnDeduction.Size = new System.Drawing.Size(200, 35);
             this.btnDeduction.TabIndex = 52;
             this.btnDeduction.Text = "Giảm trừ PV";
             this.btnDeduction.UseVisualStyleBackColor = true;
@@ -122,7 +122,7 @@
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(257, 63);
+            this.label3.Location = new System.Drawing.Point(255, 63);
             this.label3.Margin = new System.Windows.Forms.Padding(0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(16, 18);
@@ -146,7 +146,7 @@
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(71, 135);
+            this.label4.Location = new System.Drawing.Point(71, 120);
             this.label4.Margin = new System.Windows.Forms.Padding(0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(60, 18);
@@ -158,7 +158,7 @@
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(114, 327);
+            this.label6.Location = new System.Drawing.Point(114, 312);
             this.label6.Margin = new System.Windows.Forms.Padding(0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(31, 18);
@@ -174,7 +174,7 @@
             0,
             0,
             0});
-            this.edtPrice.Location = new System.Drawing.Point(173, 327);
+            this.edtPrice.Location = new System.Drawing.Point(173, 312);
             this.edtPrice.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
             this.edtPrice.Maximum = new decimal(new int[] {
             1000000,
@@ -196,7 +196,7 @@
             this.dtpEnddate.CustomFormat = "dd/MM/yyyy";
             this.dtpEnddate.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpEnddate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpEnddate.Location = new System.Drawing.Point(173, 204);
+            this.dtpEnddate.Location = new System.Drawing.Point(173, 189);
             this.dtpEnddate.Margin = new System.Windows.Forms.Padding(0);
             this.dtpEnddate.Name = "dtpEnddate";
             this.dtpEnddate.Size = new System.Drawing.Size(217, 24);
@@ -207,7 +207,7 @@
             this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(278, 330);
+            this.label7.Location = new System.Drawing.Point(278, 315);
             this.label7.Margin = new System.Windows.Forms.Padding(0, 0, 22, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(75, 18);
@@ -220,7 +220,7 @@
             this.dtpStartdate.CustomFormat = "dd/MM/yyyy";
             this.dtpStartdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpStartdate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpStartdate.Location = new System.Drawing.Point(173, 135);
+            this.dtpStartdate.Location = new System.Drawing.Point(173, 120);
             this.dtpStartdate.Margin = new System.Windows.Forms.Padding(0, 0, 12, 0);
             this.dtpStartdate.Name = "dtpStartdate";
             this.dtpStartdate.Size = new System.Drawing.Size(217, 24);
@@ -230,7 +230,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(740, 440);
+            this.ClientSize = new System.Drawing.Size(684, 411);
             this.Controls.Add(this.btnEditCriteria);
             this.Controls.Add(this.btnExport);
             this.Controls.Add(this.label5);

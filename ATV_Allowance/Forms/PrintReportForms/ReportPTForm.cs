@@ -52,6 +52,6 @@ namespace ATV_Allowance.Forms.PrintReportForms
         {
             PVEmployeeDeduction deductionForm = new PVEmployeeDeduction(dtpMonth.Value.Month, dtpYear.Value.Year, Constants.ArticleType.PHAT_THANH);
             deductionForm.ShowDialog();
-        }
+        }      
     }
 }

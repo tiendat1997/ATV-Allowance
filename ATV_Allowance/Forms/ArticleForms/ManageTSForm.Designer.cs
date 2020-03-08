@@ -210,7 +210,7 @@
             // 
             this.btnRemove.Location = new System.Drawing.Point(6, 76);
             this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(197, 29);
+            this.btnRemove.Size = new System.Drawing.Size(197, 35);
             this.btnRemove.TabIndex = 2;
             this.btnRemove.Text = "Xóa tin";
             this.btnRemove.UseVisualStyleBackColor = true;
@@ -218,9 +218,9 @@
             // 
             // btnEdit
             // 
-            this.btnEdit.Location = new System.Drawing.Point(6, 25);
+            this.btnEdit.Location = new System.Drawing.Point(7, 34);
             this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(197, 29);
+            this.btnEdit.Size = new System.Drawing.Size(197, 35);
             this.btnEdit.TabIndex = 1;
             this.btnEdit.Text = "Xem tin";
             this.btnEdit.UseVisualStyleBackColor = true;
@@ -230,12 +230,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(888, 523);
+            this.ClientSize = new System.Drawing.Size(894, 561);
             this.Controls.Add(this.gbControl);
             this.Controls.Add(this.gbArticleInfo);
             this.Controls.Add(this.gbFilter);
             this.Name = "ManageTSForm";
-            this.Text = "Tin Thời sự hằng ngày";
+            this.Text = "Công cụ xem nhanh tin";
             this.Load += new System.EventHandler(this.ManageTSForm_Load);
             this.gbFilter.ResumeLayout(false);
             this.gbFilter.PerformLayout();

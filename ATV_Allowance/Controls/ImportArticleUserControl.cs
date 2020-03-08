@@ -42,6 +42,7 @@ namespace ATV_Allowance.Controls
             InitializeComponent();
             InitializeErrorProvider();
             InitializeTabIndex();
+            
             this.articleTypeId = articleTypeId;
             this.Text = GetArticleTypeName(articleTypeId);
 

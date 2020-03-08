@@ -56,9 +56,9 @@
             // 
             // btnUpdate
             // 
-            this.btnUpdate.Location = new System.Drawing.Point(720, 518);
+            this.btnUpdate.Location = new System.Drawing.Point(720, 520);
             this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(75, 33);
+            this.btnUpdate.Size = new System.Drawing.Size(75, 25);
             this.btnUpdate.TabIndex = 0;
             this.btnUpdate.Text = "Lưu";
             this.btnUpdate.UseVisualStyleBackColor = true;

@@ -51,9 +51,9 @@
             // 
             // btnCopyCriteria
             // 
-            this.btnCopyCriteria.Location = new System.Drawing.Point(624, 18);
+            this.btnCopyCriteria.Location = new System.Drawing.Point(632, 15);
             this.btnCopyCriteria.Name = "btnCopyCriteria";
-            this.btnCopyCriteria.Size = new System.Drawing.Size(226, 29);
+            this.btnCopyCriteria.Size = new System.Drawing.Size(226, 35);
             this.btnCopyCriteria.TabIndex = 10;
             this.btnCopyCriteria.Text = "Copy chỉ tiêu từ năm cũ qua";
             this.btnCopyCriteria.UseVisualStyleBackColor = true;

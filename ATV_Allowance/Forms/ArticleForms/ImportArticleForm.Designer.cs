@@ -61,9 +61,9 @@
             // 
             // btnArticleList
             // 
-            this.btnArticleList.Location = new System.Drawing.Point(189, 20);
+            this.btnArticleList.Location = new System.Drawing.Point(170, 25);
             this.btnArticleList.Name = "btnArticleList";
-            this.btnArticleList.Size = new System.Drawing.Size(76, 31);
+            this.btnArticleList.Size = new System.Drawing.Size(95, 28);
             this.btnArticleList.TabIndex = 7;
             this.btnArticleList.Text = "Chi tiết";
             this.btnArticleList.UseVisualStyleBackColor = true;

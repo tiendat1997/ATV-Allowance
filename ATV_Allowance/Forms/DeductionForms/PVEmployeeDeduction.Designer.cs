@@ -29,30 +29,40 @@
         private void InitializeComponent()
         {
             this.gbFilters = new System.Windows.Forms.GroupBox();
+            this.btnSave = new System.Windows.Forms.Button();
             this.lblYear = new System.Windows.Forms.Label();
             this.lblMonth = new System.Windows.Forms.Label();
             this.dtpMonth = new System.Windows.Forms.DateTimePicker();
             this.dtp = new System.Windows.Forms.DateTimePicker();
-            this.gbList = new System.Windows.Forms.GroupBox();
             this.adgvDeduction = new System.Windows.Forms.DataGridView();
-            this.btnSave = new System.Windows.Forms.Button();
             this.gbFilters.SuspendLayout();
-            this.gbList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.adgvDeduction)).BeginInit();
             this.SuspendLayout();
             // 
             // gbFilters
             // 
+            this.gbFilters.Controls.Add(this.btnSave);
             this.gbFilters.Controls.Add(this.lblYear);
             this.gbFilters.Controls.Add(this.lblMonth);
             this.gbFilters.Controls.Add(this.dtpMonth);
             this.gbFilters.Controls.Add(this.dtp);
-            this.gbFilters.Location = new System.Drawing.Point(3, 12);
+            this.gbFilters.Dock = System.Windows.Forms.DockStyle.Top;
+            this.gbFilters.Location = new System.Drawing.Point(0, 0);
             this.gbFilters.Name = "gbFilters";
-            this.gbFilters.Size = new System.Drawing.Size(796, 68);
+            this.gbFilters.Size = new System.Drawing.Size(800, 68);
             this.gbFilters.TabIndex = 0;
             this.gbFilters.TabStop = false;
             this.gbFilters.Text = "Bộ lọc";
+            // 
+            // btnSave
+            // 
+            this.btnSave.Location = new System.Drawing.Point(699, 18);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(95, 35);
+            this.btnSave.TabIndex = 0;
+            this.btnSave.Text = "Lưu";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // lblYear
             // 
@@ -102,16 +112,6 @@
             this.dtp.TabIndex = 14;
             this.dtp.ValueChanged += new System.EventHandler(this.dtp_ValueChanged);
             // 
-            // gbList
-            // 
-            this.gbList.Controls.Add(this.adgvDeduction);
-            this.gbList.Location = new System.Drawing.Point(3, 86);
-            this.gbList.Name = "gbList";
-            this.gbList.Size = new System.Drawing.Size(796, 439);
-            this.gbList.TabIndex = 1;
-            this.gbList.TabStop = false;
-            this.gbList.Text = "Danh sách";
-            // 
             // adgvDeduction
             // 
             this.adgvDeduction.AllowUserToAddRows = false;
@@ -121,39 +121,28 @@
             this.adgvDeduction.AllowUserToResizeRows = false;
             this.adgvDeduction.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.adgvDeduction.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.adgvDeduction.Dock = System.Windows.Forms.DockStyle.Fill;
             this.adgvDeduction.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
-            this.adgvDeduction.Location = new System.Drawing.Point(7, 27);
+            this.adgvDeduction.Location = new System.Drawing.Point(0, 68);
             this.adgvDeduction.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.adgvDeduction.MultiSelect = false;
             this.adgvDeduction.Name = "adgvDeduction";
             this.adgvDeduction.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.adgvDeduction.Size = new System.Drawing.Size(782, 397);
+            this.adgvDeduction.Size = new System.Drawing.Size(800, 393);
             this.adgvDeduction.TabIndex = 9;
             this.adgvDeduction.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.adgvDeduction_CellEnter);
-            // 
-            // btnSave
-            // 
-            this.btnSave.Location = new System.Drawing.Point(717, 531);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 32);
-            this.btnSave.TabIndex = 0;
-            this.btnSave.Text = "Lưu";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // PVEmployeeDeduction
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 575);
-            this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.gbList);
+            this.ClientSize = new System.Drawing.Size(800, 461);
+            this.Controls.Add(this.adgvDeduction);
             this.Controls.Add(this.gbFilters);
             this.Name = "PVEmployeeDeduction";
             this.Text = "Nhập giảm trừ phóng viên";
             this.gbFilters.ResumeLayout(false);
             this.gbFilters.PerformLayout();
-            this.gbList.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.adgvDeduction)).EndInit();
             this.ResumeLayout(false);
 
@@ -162,7 +151,6 @@
         #endregion
 
         private System.Windows.Forms.GroupBox gbFilters;
-        private System.Windows.Forms.GroupBox gbList;
         private System.Windows.Forms.Label lblYear;
         private System.Windows.Forms.Label lblMonth;
         private System.Windows.Forms.DateTimePicker dtpMonth;

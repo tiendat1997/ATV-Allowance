@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.gbOrgInfo = new System.Windows.Forms.GroupBox();
+            this.txtSearch = new System.Windows.Forms.TextBox();
+            this.lblSearch = new System.Windows.Forms.Label();
             this.adgvOrg = new ADGV.AdvancedDataGridView();
             this.gbControl = new System.Windows.Forms.GroupBox();
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
-            this.txtSearch = new System.Windows.Forms.TextBox();
-            this.lblSearch = new System.Windows.Forms.Label();
             this.gbOrgInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.adgvOrg)).BeginInit();
             this.gbControl.SuspendLayout();
@@ -45,14 +45,32 @@
             this.gbOrgInfo.Controls.Add(this.txtSearch);
             this.gbOrgInfo.Controls.Add(this.lblSearch);
             this.gbOrgInfo.Controls.Add(this.adgvOrg);
-            this.gbOrgInfo.Location = new System.Drawing.Point(5, 14);
+            this.gbOrgInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gbOrgInfo.Location = new System.Drawing.Point(0, 0);
             this.gbOrgInfo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.gbOrgInfo.Name = "gbOrgInfo";
             this.gbOrgInfo.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.gbOrgInfo.Size = new System.Drawing.Size(466, 463);
+            this.gbOrgInfo.Size = new System.Drawing.Size(584, 561);
             this.gbOrgInfo.TabIndex = 0;
             this.gbOrgInfo.TabStop = false;
             this.gbOrgInfo.Text = "Danh sách";
+            // 
+            // txtSearch
+            // 
+            this.txtSearch.Location = new System.Drawing.Point(298, 4);
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.Size = new System.Drawing.Size(279, 26);
+            this.txtSearch.TabIndex = 12;
+            this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
+            // 
+            // lblSearch
+            // 
+            this.lblSearch.AutoSize = true;
+            this.lblSearch.Location = new System.Drawing.Point(220, 4);
+            this.lblSearch.Name = "lblSearch";
+            this.lblSearch.Size = new System.Drawing.Size(71, 20);
+            this.lblSearch.TabIndex = 11;
+            this.lblSearch.Text = "Tìm kiếm";
             // 
             // adgvOrg
             // 
@@ -61,12 +79,12 @@
             this.adgvOrg.AutoGenerateContextFilters = true;
             this.adgvOrg.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.adgvOrg.DateWithTime = false;
-            this.adgvOrg.Location = new System.Drawing.Point(8, 29);
+            this.adgvOrg.Location = new System.Drawing.Point(8, 34);
             this.adgvOrg.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.adgvOrg.Name = "adgvOrg";
             this.adgvOrg.ReadOnly = true;
             this.adgvOrg.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.adgvOrg.Size = new System.Drawing.Size(450, 422);
+            this.adgvOrg.Size = new System.Drawing.Size(568, 442);
             this.adgvOrg.TabIndex = 0;
             this.adgvOrg.TimeFilter = false;
             this.adgvOrg.SortStringChanged += new System.EventHandler(this.adgvOrg_SortStringChanged);
@@ -77,11 +95,12 @@
             // 
             this.gbControl.Controls.Add(this.btnEdit);
             this.gbControl.Controls.Add(this.btnAdd);
-            this.gbControl.Location = new System.Drawing.Point(5, 487);
+            this.gbControl.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.gbControl.Location = new System.Drawing.Point(0, 486);
             this.gbControl.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.gbControl.Name = "gbControl";
             this.gbControl.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.gbControl.Size = new System.Drawing.Size(466, 75);
+            this.gbControl.Size = new System.Drawing.Size(584, 75);
             this.gbControl.TabIndex = 1;
             this.gbControl.TabStop = false;
             this.gbControl.Text = "Thao tác";
@@ -108,28 +127,11 @@
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
-            // txtSearch
-            // 
-            this.txtSearch.Location = new System.Drawing.Point(181, 0);
-            this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(279, 26);
-            this.txtSearch.TabIndex = 12;
-            this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
-            // 
-            // lblSearch
-            // 
-            this.lblSearch.AutoSize = true;
-            this.lblSearch.Location = new System.Drawing.Point(103, 0);
-            this.lblSearch.Name = "lblSearch";
-            this.lblSearch.Size = new System.Drawing.Size(71, 20);
-            this.lblSearch.TabIndex = 11;
-            this.lblSearch.Text = "Tìm kiếm";
-            // 
             // ListOrganizationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(484, 569);
+            this.ClientSize = new System.Drawing.Size(584, 561);
             this.Controls.Add(this.gbControl);
             this.Controls.Add(this.gbOrgInfo);
             this.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);

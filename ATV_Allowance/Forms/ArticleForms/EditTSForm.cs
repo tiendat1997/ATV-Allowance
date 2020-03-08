@@ -35,27 +35,68 @@ namespace ATV_Allowance.Forms.ArticleForms
         private List<PointTypeViewModel> listPointType;
         internal Dictionary<Control, ErrorProvider> epDic;
         private readonly IAppLogger _logger;
+        private BindingList<string> employeeBindingList;
         public EditTSForm(ArticleViewModel model)
         {
             _logger = new AppLogger();
             this.components = new System.ComponentModel.Container();
             InitializeComponent();            
             InitializeErrorProvider();
+            InitializeTabIndex();
+
             this.articleTypeId = model.TypeId;
             this.article = model;
+            this.Text = GetArticleTypeName(articleTypeId);
+
             LoadEmployeeData();
             LoadDGV();
         }
+        private void InitializeTabIndex()
+        {
+            txtTitle.TabIndex = 0;            
+            adgvList.TabIndex = 1;
+        }
+        private string GetArticleTypeName(int typeId)
+        {
+            string typeName = "Cập nhật ";
+            switch (typeId)
+            {
+                case 1:
+                    typeName += "tin phát thanh";
+                    break;
+                case 2:
+                    typeName += "tin phát thanh tt";
+                    break;
+                case 3:
+                    typeName += "tin thời sự hàng ngày";
+                    break;
+                case 4:
+                    typeName += "trên từng cây số";
+                    break;
+                case 5:
+                    typeName += "biên soạn trên từng cây số";
+                    break;
+                case 6:
+                    typeName += "khối hậu kỳ biên soạn trên từng cây số";
+                    break;
+                default:
+                    break;
+            }
+            return typeName;
+        }
+
         private void LoadEmployeeData()
         {
             try
             {
                 employeeService = new EmployeeService();
                 empList = employeeService.GetAllEmployeeCode(true);
+                employeeBindingList = new BindingList<string>(empList);
             }
             catch (Exception ex)
             {
                 _logger.LogSystem(ex, string.Empty);
+                throw ex;
             }
         }
 
@@ -102,13 +143,13 @@ namespace ATV_Allowance.Forms.ArticleForms
                 adgvList.Columns["EmployeeCode"].ReadOnly = true;
 
                 adgvList.Columns["EmployeeCode"].HeaderText = ADGVEmployeeText.Code;
-                adgvList.Columns["EmployeeCode"].Width = ControlsAttribute.GV_WIDTH_SEEM;
+                adgvList.Columns["EmployeeCode"].Width = ControlsAttribute.GV_WIDTH_MEDIUM;
                 adgvList.Columns["Name"].HeaderText = ADGVEmployeeText.Name;
                 adgvList.Columns["Name"].Width = ControlsAttribute.GV_WIDTH_MEDIUM;
                 adgvList.Columns["Position"].HeaderText = ADGVEmployeeText.AbbrPosition;
                 adgvList.Columns["Position"].Width = ControlsAttribute.GV_WIDTH_SMALL;
                 adgvList.Columns["Organization"].HeaderText = ADGVEmployeeText.Organization;
-                adgvList.Columns["Organization"].Width = ControlsAttribute.GV_WIDTH_MEDIUM;
+                adgvList.Columns["Organization"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
                 int nextIndex = 3;
                 foreach (var type in listPointType)
@@ -116,8 +157,27 @@ namespace ATV_Allowance.Forms.ArticleForms
                     nextIndex++;
                     adgvList.Columns[type.Code].DisplayIndex = nextIndex;
                     adgvList.Columns[type.Code].HeaderText = type.Code;
-                    adgvList.Columns[type.Code].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                    //adgvList.Columns[type.Code].Width = ControlsAttribute.GV_WIDTH_SMALL;
+                    adgvList.Columns[type.Code].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                    if (type.Code.Length <= 3)
+                    {
+                        adgvList.Columns[type.Code].Width = 42;
+                    }
+                    else if (type.Code.Length <= 4)
+                    {
+                        adgvList.Columns[type.Code].Width = 45;
+                    }
+                    else if (type.Code.Length <= 5)
+                    {
+                        adgvList.Columns[type.Code].Width = 63;
+                    }
+                    else if (type.Code.Length <= 6)
+                    {
+                        adgvList.Columns[type.Code].Width = 68;
+                    }
+                    else
+                    {
+                        adgvList.Columns[type.Code].Width = 77;
+                    }
                 }
                 adgvList.EditingControlShowing += new DataGridViewEditingControlShowingEventHandler(adgvList_EditingControlShowing);
             }
@@ -168,7 +228,6 @@ namespace ATV_Allowance.Forms.ArticleForms
             comboBox = e.Control as ComboBox;
             if (comboBox != null)
             {
-                comboBox.DropDownStyle = ComboBoxStyle.DropDown;
                 comboBox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
                 comboBox.AutoCompleteSource = AutoCompleteSource.ListItems;
                 comboBox.DropDownWidth = 150;
@@ -176,7 +235,8 @@ namespace ATV_Allowance.Forms.ArticleForms
                 comboBox.SelectionChangeCommitted += EmployeeCodeSelectionChangeCommitted;
                 comboBox.KeyDown -= new KeyEventHandler(EmployeeComboboxKeyDown);
                 comboBox.KeyDown += new KeyEventHandler(EmployeeComboboxKeyDown);
-                comboBox.SelectedIndex = 0;
+                comboBox.IntegralHeight = false;
+                comboBox.MaxDropDownItems = 10;
             }
         }
         private void EmployeeComboboxKeyDown(object sender, KeyEventArgs e)
@@ -374,7 +434,8 @@ namespace ATV_Allowance.Forms.ArticleForms
                 if (e.RowIndex == adgvList.NewRowIndex)
                 {
                     var cmbCell = new DataGridViewComboBoxCell();
-                    cmbCell.DataSource = empList;
+                    cmbCell.FlatStyle = FlatStyle.Flat;
+                    cmbCell.DataSource = employeeBindingList;
                     adgvList.Rows[e.RowIndex].Cells["EmployeeCode"] = cmbCell;
                     adgvList.Rows[e.RowIndex].Cells["EmployeeCode"].ReadOnly = false;
                     //go to first column
@@ -384,6 +445,7 @@ namespace ATV_Allowance.Forms.ArticleForms
             catch (Exception ex)
             {
                 _logger.LogSystem(ex, string.Empty);
+                throw ex;
             }
         }
 

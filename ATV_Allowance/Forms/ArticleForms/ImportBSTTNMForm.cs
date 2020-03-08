@@ -25,9 +25,12 @@ namespace ATV_Allowance.Forms.ArticleForms
         private void InitTabControl()
         {
             articleControl = new ImportArticleUserControl(ArticleType.BIENSOAN_TTNM);
+            articleControl.Dock = DockStyle.Fill;
             tpArticle.Controls.Add(articleControl);
+
             postProductionControl = new ImportArticleUserControl(ArticleType.KHOIHK_TTNM);
-            tpPostProduction.Controls.Add(postProductionControl);
+            postProductionControl.Dock = DockStyle.Fill;
+            tpPostProduction.Controls.Add(postProductionControl);            
         }
 
         private void ImportBSTTNMForm_KeyDown(object sender, KeyEventArgs e)

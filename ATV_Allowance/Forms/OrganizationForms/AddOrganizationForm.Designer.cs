@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.gbOrgInfo = new System.Windows.Forms.GroupBox();
             this.txtName = new System.Windows.Forms.TextBox();
             this.lblName = new System.Windows.Forms.Label();
@@ -53,7 +52,7 @@
             // 
             this.txtName.Location = new System.Drawing.Point(10, 54);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(357, 26);
+            this.txtName.Size = new System.Drawing.Size(374, 26);
             this.txtName.TabIndex = 1;
             // 
             // lblName
@@ -93,7 +92,7 @@
             this.Controls.Add(this.gbControl);
             this.Controls.Add(this.gbOrgInfo);
             this.Name = "AddOrganizationForm";
-            this.Text = "AddOrganizationForm";
+            this.Text = "Thêm mới đơn vị";
             this.gbOrgInfo.ResumeLayout(false);
             this.gbOrgInfo.PerformLayout();
             this.gbControl.ResumeLayout(false);

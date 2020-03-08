@@ -49,10 +49,10 @@
             // btnEditCriteria
             // 
             this.btnEditCriteria.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEditCriteria.Location = new System.Drawing.Point(499, 19);
+            this.btnEditCriteria.Location = new System.Drawing.Point(467, 15);
             this.btnEditCriteria.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
             this.btnEditCriteria.Name = "btnEditCriteria";
-            this.btnEditCriteria.Size = new System.Drawing.Size(208, 54);
+            this.btnEditCriteria.Size = new System.Drawing.Size(200, 35);
             this.btnEditCriteria.TabIndex = 34;
             this.btnEditCriteria.Text = "Nhập chỉ tiêu";
             this.btnEditCriteria.UseVisualStyleBackColor = true;
@@ -61,10 +61,10 @@
             // btnExport
             // 
             this.btnExport.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExport.Location = new System.Drawing.Point(501, 280);
+            this.btnExport.Location = new System.Drawing.Point(467, 253);
             this.btnExport.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
             this.btnExport.Name = "btnExport";
-            this.btnExport.Size = new System.Drawing.Size(208, 54);
+            this.btnExport.Size = new System.Drawing.Size(200, 35);
             this.btnExport.TabIndex = 20;
             this.btnExport.Text = "In tổng hợp PT";
             this.btnExport.UseVisualStyleBackColor = true;
@@ -97,10 +97,10 @@
             // btnDeduction
             // 
             this.btnDeduction.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDeduction.Location = new System.Drawing.Point(499, 91);
+            this.btnDeduction.Location = new System.Drawing.Point(467, 87);
             this.btnDeduction.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
             this.btnDeduction.Name = "btnDeduction";
-            this.btnDeduction.Size = new System.Drawing.Size(210, 54);
+            this.btnDeduction.Size = new System.Drawing.Size(200, 35);
             this.btnDeduction.TabIndex = 22;
             this.btnDeduction.Text = "Giảm trừ PV";
             this.btnDeduction.UseVisualStyleBackColor = true;
@@ -123,7 +123,7 @@
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(244, 19);
+            this.label3.Location = new System.Drawing.Point(253, 19);
             this.label3.Margin = new System.Windows.Forms.Padding(0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(16, 18);
@@ -147,7 +147,7 @@
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(75, 70);
+            this.label4.Location = new System.Drawing.Point(75, 87);
             this.label4.Margin = new System.Windows.Forms.Padding(0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(60, 18);
@@ -159,7 +159,7 @@
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(103, 262);
+            this.label6.Location = new System.Drawing.Point(103, 250);
             this.label6.Margin = new System.Windows.Forms.Padding(0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(31, 18);
@@ -175,7 +175,7 @@
             0,
             0,
             0});
-            this.edtPrice.Location = new System.Drawing.Point(162, 262);
+            this.edtPrice.Location = new System.Drawing.Point(162, 250);
             this.edtPrice.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
             this.edtPrice.Maximum = new decimal(new int[] {
             1000000,
@@ -208,7 +208,7 @@
             this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(267, 265);
+            this.label7.Location = new System.Drawing.Point(267, 253);
             this.label7.Margin = new System.Windows.Forms.Padding(0, 0, 22, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(75, 18);
@@ -221,7 +221,7 @@
             this.dtpStartdate.CustomFormat = "dd/MM/yyyy";
             this.dtpStartdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpStartdate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpStartdate.Location = new System.Drawing.Point(162, 70);
+            this.dtpStartdate.Location = new System.Drawing.Point(162, 87);
             this.dtpStartdate.Margin = new System.Windows.Forms.Padding(0, 0, 12, 0);
             this.dtpStartdate.Name = "dtpStartdate";
             this.dtpStartdate.Size = new System.Drawing.Size(217, 24);
@@ -230,10 +230,10 @@
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(501, 350);
+            this.button1.Location = new System.Drawing.Point(467, 316);
             this.button1.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(208, 54);
+            this.button1.Size = new System.Drawing.Size(200, 35);
             this.button1.TabIndex = 35;
             this.button1.Text = "In tổng hợp PTTT";
             this.button1.UseVisualStyleBackColor = true;
@@ -243,7 +243,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(724, 434);
+            this.ClientSize = new System.Drawing.Size(684, 411);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.btnEditCriteria);
             this.Controls.Add(this.btnExport);
