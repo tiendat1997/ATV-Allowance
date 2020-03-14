@@ -480,6 +480,7 @@ namespace ATV_Allowance.Common
         public static class ReportName
         {
             public static string TS = "BẢNG THÙ LAO NHUẬN BÚT THỜI SỰ TRUYỀN HÌNH";
+            public static string TSKHK = "BẢNG THÙ LAO KHỐI HẬU KỲ THỜI SỰ TRUYỀN HÌNH ";
             public static string PT = "BẢNG TỔNG HỢP NHUẬN BÚT PHÁT THANH";
             public static string PTTT = "BẢNG TỔNG HỢP NHUẬN BÚT TRPHÁT THANH TRỰC TIẾP";
             public static string TTNM = "BẢNG THÙ LAO TIN, PS TRÊN TỪNG CÂY SỐ";

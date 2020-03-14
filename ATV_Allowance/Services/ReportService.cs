@@ -353,7 +353,7 @@ namespace ATV_Allowance.Services
             worksheetCTV.PrintPreview();
             worksheetPV.PrintPreview();
             worksheetKHK.PrintPreview();
-
+            application.ScreenUpdating = true;
             #endregion
         }
 
@@ -377,6 +377,7 @@ namespace ATV_Allowance.Services
 
             worksheetPV.PrintPreview();
             worksheetCTV.PrintPreview();
+            application.ScreenUpdating = true;
             #endregion
         }
 
@@ -399,6 +400,7 @@ namespace ATV_Allowance.Services
 
             worksheetPV.PrintPreview();
             worksheetCTV.PrintPreview();
+            application.ScreenUpdating = true;
             #endregion
         }
 
@@ -421,6 +423,7 @@ namespace ATV_Allowance.Services
 
             worksheetPV.PrintPreview();
             //worksheetCTV.PrintPreview();
+            application.ScreenUpdating = true;
             #endregion
         }
 
@@ -444,6 +447,7 @@ namespace ATV_Allowance.Services
 
             worksheetPV.PrintPreview();
             worksheetCTV.PrintPreview();
+            application.ScreenUpdating = true;
             #endregion
         }
 
@@ -1168,8 +1172,8 @@ namespace ATV_Allowance.Services
             count += 1;
             var ptvListDeduction = _deductionService.GetDeductionPTV(startDate.Month, startDate.Year, ArticleType.THOI_SU);
             var totalPtv = ptvListDeduction.Count();
-            var totalDeduction = ptvListDeduction.Sum(x => x.Deduction);
-            var ptvDeductionCost = totalDeduction * price;
+            var totalPtvDeduction = ptvListDeduction.Sum(x => x.Deduction);
+            var ptvDeductionCost = totalPtvDeduction * price;
             var ptv_precent = (listCriterias.FirstOrDefault(x => x.Id == Criterias_THOI_SU.PTV)
                 .CriteriaValue.FirstOrDefault(x => x.Configuration.Month == startDate.Month && x.Configuration.Year == startDate.Year)?
                 .Value).GetValueOrDefault(0);
@@ -1184,14 +1188,18 @@ namespace ATV_Allowance.Services
             line = (Range)worksheet.Rows[currentRow];
             line.Insert();
             count += 1;
+            var ktdListDeduction = _deductionService.GetDeductionKTD(startDate.Month, startDate.Year, ArticleType.THOI_SU);
+            var totalKtd = ktdListDeduction.Count();
+            var totalKtdDeduction = ktdListDeduction.Sum(x => x.Deduction);
+            var ktdDeductionCost = totalKtdDeduction * price;
             var ktd_precent = (listCriterias.FirstOrDefault(x => x.Id == Criterias_THOI_SU.KTD)
                 .CriteriaValue.FirstOrDefault(x => x.Configuration.Month == startDate.Month && x.Configuration.Year == startDate.Year)?
                 .Value).GetValueOrDefault(0);
             worksheet.Cells[currentRow, TS_KHK_COL.STT].Value = count;
             worksheet.Cells[currentRow, TS_KHK_COL.BO_PHAN].Value = "Kỹ thuật dựng";
-            worksheet.Cells[currentRow, TS_KHK_COL.CONG_THUC].Value = $"{ktd_precent}% x ({sumListPV.ToString("N0", CultureInfo.GetCultureInfo("it-IT"))} + {sumListCTV.ToString("N0", CultureInfo.GetCultureInfo("it-IT"))})";
-            worksheet.Cells[currentRow, TS_KHK_COL.THANHTIEN].Value = (ktd_precent / 100) * (sumListPV + sumListCTV);
-            total += (ktd_precent / 100) * (sumListPV + sumListCTV);
+            worksheet.Cells[currentRow, TS_KHK_COL.CONG_THUC].Value = $"{ktd_precent}% x ({sumListPV.ToString("N0", CultureInfo.GetCultureInfo("it-IT"))} + {sumListCTV.ToString("N0", CultureInfo.GetCultureInfo("it-IT"))} - ({ktdDeductionCost.ToString("N0", CultureInfo.GetCultureInfo("it-IT"))}/{totalKtd} KTD)";
+            worksheet.Cells[currentRow, TS_KHK_COL.THANHTIEN].Value = (ktd_precent / 100) * (sumListPV + sumListCTV) - ktdDeductionCost;
+            total += (ktd_precent / 100) * (sumListPV + sumListCTV) - ktdDeductionCost;
             currentRow += 1;
 
             //TP truc CTTS
@@ -1260,8 +1268,7 @@ namespace ATV_Allowance.Services
             worksheet.Cells[currentRow, TS_KHK_COL.THANHTIEN].Value = total;
 
             //title row
-            worksheet.Cells[2, TS_KHK_COL.THANHTIEN].Value = $"THÁNG {endDate.Month}/{endDate.Year}";
-
+            worksheet.Cells[2, TS_COL.STT].Value = $"{ReportName.TSKHK} THÁNG {endDate.Month}/{endDate.Year}";
 
             //report date row
             worksheet.Cells[currentRow + 2, TS_KHK_COL.THANHTIEN + 1].Value = $"Long Xuyên, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
