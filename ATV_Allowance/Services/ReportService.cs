@@ -335,11 +335,14 @@ namespace ATV_Allowance.Services
             var workbook = application.Workbooks.Add(AppDomain.CurrentDomain.BaseDirectory + $"Templates\\{Tempate.TS}.xlsx");
             var worksheetPV = (Worksheet)workbook.Worksheets[1];
             var worksheetCTV = (Worksheet)workbook.Worksheets[2];
+            var worksheetKHK = (Worksheet)workbook.Worksheets[3];
             #endregion
 
-            long totalPrice = 0;
-            FillDataIntoWorksheetTS(worksheetCTV, startDate, endDate, EmployeeRole.CTV, price, ref totalPrice);
-            FillDataIntoWorksheetTS(worksheetPV, startDate, endDate, EmployeeRole.PV, price, ref totalPrice);
+            long totalPricePV = 0;
+            long totalPriceCTV = 0;
+            FillDataIntoWorksheetTS(worksheetCTV, startDate, endDate, EmployeeRole.CTV, price, ref totalPriceCTV);
+            FillDataIntoWorksheetTS(worksheetPV, startDate, endDate, EmployeeRole.PV, price, ref totalPricePV);
+            FillDataIntoWorksheetTSKHK(worksheetKHK, startDate, endDate, price, totalPricePV, totalPriceCTV);
 
             #region setup file
             worksheetPV.PageSetup.Orientation = XlPageOrientation.xlLandscape;
@@ -349,6 +352,7 @@ namespace ATV_Allowance.Services
 
             worksheetCTV.PrintPreview();
             worksheetPV.PrintPreview();
+            worksheetKHK.PrintPreview();
 
             #endregion
         }
@@ -594,7 +598,7 @@ namespace ATV_Allowance.Services
         }
 
         #region private function
-        private void FillDataIntoWorksheetTS(Worksheet worksheet, DateTime startDate, DateTime endDate, int role, int price, ref long totalPriceCTV)
+        private void FillDataIntoWorksheetTS(Worksheet worksheet, DateTime startDate, DateTime endDate, int role, int price, ref long totalPrice)
         {
             #region fill data here
 
@@ -657,19 +661,19 @@ namespace ATV_Allowance.Services
             var totalCost = list.Sum(e => e.TotalCost);
             worksheet.Cells[currentRow, TS_COL.THANHTIEN].Value = totalCost;
 
+            totalPrice = totalCost;
             //hide deduction of CTV
             if (role == EmployeeRole.CTV)
             {
                 worksheet.Columns[TS_COL.TRUCHITIEU].Hidden = true;
-                totalPriceCTV = totalCost;
             }
             else
             {
-                currentRow += 3;
-                FillDataIntoWorksheetTSKHK(worksheet, startDate, endDate, role, price, ref totalCost, totalPriceCTV, ref currentRow);
-                currentRow += 1;
-                //total row
-                worksheet.Cells[currentRow, TS_COL.THANHTIEN].Value = totalCost;
+                //currentRow += 3;
+                //FillDataIntoWorksheetTSKHK(worksheet, startDate, endDate, role, price, ref totalCost, totalPriceCTV, ref currentRow);
+                //currentRow += 1;
+                ////total row
+                //worksheet.Cells[currentRow, TS_COL.THANHTIEN].Value = totalCost;
             }
 
             //title row
@@ -1131,7 +1135,7 @@ namespace ATV_Allowance.Services
             #endregion
         }
 
-        private void FillDataIntoWorksheetTSKHK(Worksheet worksheet, DateTime startDate, DateTime endDate, int role, int price, ref long sumListPV, long sumListCTV, ref int currentRow)
+        private void FillDataIntoWorksheetTSKHK(Worksheet worksheet, DateTime startDate, DateTime endDate, int price, long sumListPV, long sumListCTV)
         {
             //var listPV = GetReportBroadcast(startDate, endDate, EmployeeRole.PV, price, ArticleType.THOI_SU);
             //var sumListPV = listPV.Sum(x => x.TotalCost);
@@ -1141,12 +1145,12 @@ namespace ATV_Allowance.Services
 
             var listCriterias = _criteriaRepository.GetAll();
 
-            //int currentRow = 4;
+            int currentRow = 4;
             int count = 0;
             double total = 0;
             //BT CTTS
-            //Range line = (Range)worksheet.Rows[currentRow];
-            //line.Insert();
+            Range line = (Range)worksheet.Rows[currentRow];
+            line.Insert();
             count += 1;
             var bt_ctts_percent = (listCriterias.FirstOrDefault(x => x.Id == Criterias_THOI_SU.BT_CTTS)
                 .CriteriaValue.FirstOrDefault(x => x.Configuration.Month == startDate.Month && x.Configuration.Year == startDate.Year)?
@@ -1159,8 +1163,8 @@ namespace ATV_Allowance.Services
             currentRow += 1;
 
             //PTV
-            //line = (Range)worksheet.Rows[currentRow];
-            //line.Insert();
+            line = (Range)worksheet.Rows[currentRow];
+            line.Insert();
             count += 1;
             var ptvListDeduction = _deductionService.GetDeductionPTV(startDate.Month, startDate.Year, ArticleType.THOI_SU);
             var totalPtv = ptvListDeduction.Count();
@@ -1177,8 +1181,8 @@ namespace ATV_Allowance.Services
             currentRow += 1;
 
             //KTD
-            //line = (Range)worksheet.Rows[currentRow];
-            //line.Insert();
+            line = (Range)worksheet.Rows[currentRow];
+            line.Insert();
             count += 1;
             var ktd_precent = (listCriterias.FirstOrDefault(x => x.Id == Criterias_THOI_SU.KTD)
                 .CriteriaValue.FirstOrDefault(x => x.Configuration.Month == startDate.Month && x.Configuration.Year == startDate.Year)?
@@ -1191,8 +1195,8 @@ namespace ATV_Allowance.Services
             currentRow += 1;
 
             //TP truc CTTS
-            //line = (Range)worksheet.Rows[currentRow];
-            //line.Insert();
+            line = (Range)worksheet.Rows[currentRow];
+            line.Insert();
             count += 1;
             var tp_ctts_point = (listCriterias.FirstOrDefault(x => x.Id == Criterias_THOI_SU.TP_TRUC_CTTS)
                 .CriteriaValue.FirstOrDefault(x => x.Configuration.Month == startDate.Month && x.Configuration.Year == startDate.Year)?
@@ -1208,8 +1212,8 @@ namespace ATV_Allowance.Services
             currentRow += 1;
 
             //PV TD
-            //line = (Range)worksheet.Rows[currentRow];
-            //line.Insert();
+            line = (Range)worksheet.Rows[currentRow];
+            line.Insert();
             count += 1;
             var pv_td_point = (listCriterias.FirstOrDefault(x => x.Id == Criterias_THOI_SU.PV_TD)
                 .CriteriaValue.FirstOrDefault(x => x.Configuration.Month == startDate.Month && x.Configuration.Year == startDate.Year)?
@@ -1222,8 +1226,8 @@ namespace ATV_Allowance.Services
             currentRow += 1;
 
             //VI TINH
-            //line = (Range)worksheet.Rows[currentRow];
-            //line.Insert();
+            line = (Range)worksheet.Rows[currentRow];
+            line.Insert();
             count += 1;
             var tien_vi_tinh = (listCriterias.FirstOrDefault(x => x.Id == Criterias_THOI_SU.TIEN_VI_TINH)
                 .CriteriaValue.FirstOrDefault(x => x.Configuration.Month == startDate.Month && x.Configuration.Year == startDate.Year)?
@@ -1255,7 +1259,17 @@ namespace ATV_Allowance.Services
             //TỔNG CỘNG
             worksheet.Cells[currentRow, TS_KHK_COL.THANHTIEN].Value = total;
 
-            sumListPV += (long)total;
+            //title row
+            worksheet.Cells[2, TS_KHK_COL.THANHTIEN].Value = $"THÁNG {endDate.Month}/{endDate.Year}";
+
+
+            //report date row
+            worksheet.Cells[currentRow + 2, TS_KHK_COL.THANHTIEN + 1].Value = $"Long Xuyên, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
+
+            //money string
+            worksheet.Cells[currentRow + 1, TS_KHK_COL.THANHTIEN + 1].Value = $"(Thành tiền bằng chữ: {NumberToTextVN((decimal)total)})";
+
+            //sumListPV += (long)total;
         }
 
         private void CalculateCost(List<EmployeePointViewModel> list, int price, int reportType, int employeeRole, DateTime startDate)

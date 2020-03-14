@@ -415,7 +415,7 @@ namespace ATV_Allowance.Common
             public static int STT = 1;
             public static int BO_PHAN = 2;
             public static int CONG_THUC = 3;
-            public static int THANHTIEN = 15;
+            public static int THANHTIEN = 4;
 
         }
 
