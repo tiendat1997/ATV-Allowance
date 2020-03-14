@@ -116,6 +116,7 @@ namespace ATV_Allowance.Forms.EmployeeForms
             int currIndex = adgvEmployee.CurrentRow.Index;
             int selectedIndex = currIndex;
             LoadDGV();
+            txtSearch_TextChanged(sender, new EventArgs());
             adgvEmployee.ClearSelection();
             int rowIndex = adgvEmployee.Rows.Count - 1;
             if (rowIndex > oldCount)
@@ -124,49 +125,42 @@ namespace ATV_Allowance.Forms.EmployeeForms
             }
             adgvEmployee.Rows[selectedIndex].Selected = true;
             adgvEmployee.CurrentCell = adgvEmployee.Rows[selectedIndex].Cells[1];
-            adgvEmployee_SelectionChanged(sender, e);
         }
         private void EditEmployeeForm_Closed(object sender, FormClosedEventArgs e)
         {
             int rowIndex = adgvEmployee.CurrentRow.Index;
             LoadDGV();
+            txtSearch_TextChanged(sender, new EventArgs());
             adgvEmployee.ClearSelection();
             adgvEmployee.Rows[rowIndex].Selected = true;
             adgvEmployee.CurrentCell = adgvEmployee.Rows[rowIndex].Cells[1];
-            adgvEmployee_SelectionChanged(sender, e);
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            if (employee != null)
+            var employeeSrc = (EmployeeViewModel)adgvEmployee.CurrentRow.DataBoundItem;
+            if (employeeSrc != null)
             {
-                UpdateEmployeeForm detailForm = new UpdateEmployeeForm(employee);
+                UpdateEmployeeForm detailForm = new UpdateEmployeeForm(employeeSrc);
                 detailForm.FormClosed += new FormClosedEventHandler(EditEmployeeForm_Closed);
                 detailForm.ShowDialog();
             }
         }
-
-        private void adgvEmployee_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            employee = (EmployeeViewModel)adgvEmployee.CurrentRow.DataBoundItem;
-        }
-
-        private void adgvEmployee_SelectionChanged(object sender, EventArgs e)
-        {
-            employee = (EmployeeViewModel)adgvEmployee.CurrentRow.DataBoundItem;
-        }
-
+       
         private void btnRemove_Click(object sender, EventArgs e)
         {
             try
             {
-                if (MessageBox.Show("Xác nhận xóa nhân viên", "Message", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                var employeeSrc = (EmployeeViewModel)adgvEmployee.CurrentRow.DataBoundItem;
+                if (employeeSrc != null)
                 {
-                    employee = (EmployeeViewModel)adgvEmployee.CurrentRow.DataBoundItem;
-                    employeeService = new EmployeeService();
-                    var empEntity = new Employee { Id = employee.Id, IsActive = employee.IsActive };
-                    employeeService.DeactiveEmployee(empEntity);
-                    LoadDGV();
+                    if (MessageBox.Show("Xác nhận xóa nhân viên", "Message", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        employeeService = new EmployeeService();
+                        var empEntity = new Employee { Id = employeeSrc.Id, IsActive = employeeSrc.IsActive };
+                        employeeService.DeactiveEmployee(empEntity);
+                        LoadDGV();
+                    }
                 }
             }
             catch (Exception ex)
@@ -187,6 +181,17 @@ namespace ATV_Allowance.Forms.EmployeeForms
             bs = new BindingSource();
             bs.DataSource = sbl;
             adgvEmployee.DataSource = bs;
+        }
+
+        private void adgvEmployee_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var employeeSrc = (EmployeeViewModel)adgvEmployee.Rows[e.RowIndex].DataBoundItem;
+            if (employeeSrc != null)
+            {
+                UpdateEmployeeForm detailForm = new UpdateEmployeeForm(employeeSrc);
+                detailForm.FormClosed += new FormClosedEventHandler(EditEmployeeForm_Closed);
+                detailForm.ShowDialog();
+            }
         }
     }
 }

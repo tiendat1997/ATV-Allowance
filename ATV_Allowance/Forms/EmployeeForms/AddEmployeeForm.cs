@@ -108,7 +108,7 @@ namespace ATV_Allowance.Forms.EmployeeForms
                 
                 var checkedButton = gbPosition.Controls.OfType<RadioButton>()
                                     .FirstOrDefault(r => r.Checked);
-                var org = (OrganizationViewModel)cbOrganizationId.SelectedValue;
+                var org = (OrganizationViewModel)cbOrganizationId.SelectedValue;                
                 string empName = txtName.Text;
                 string empCode = txtCode.Text;
                 int posId = -1;

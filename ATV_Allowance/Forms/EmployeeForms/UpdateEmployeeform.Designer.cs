@@ -29,10 +29,13 @@
         private void InitializeComponent()
         {
             this.gbStudentInfo = new System.Windows.Forms.GroupBox();
+            this.txtCode = new System.Windows.Forms.TextBox();
+            this.lblCode = new System.Windows.Forms.Label();
             this.txtTitle = new System.Windows.Forms.TextBox();
             this.lblTitle = new System.Windows.Forms.Label();
             this.cbOrganizationId = new System.Windows.Forms.ComboBox();
             this.gbPosition = new System.Windows.Forms.GroupBox();
+            this.rbKTD = new System.Windows.Forms.RadioButton();
             this.rbPV = new System.Windows.Forms.RadioButton();
             this.rbBTV = new System.Windows.Forms.RadioButton();
             this.rbPTV = new System.Windows.Forms.RadioButton();
@@ -43,8 +46,6 @@
             this.lblName = new System.Windows.Forms.Label();
             this.gbControl = new System.Windows.Forms.GroupBox();
             this.btnUpdate = new System.Windows.Forms.Button();
-            this.txtCode = new System.Windows.Forms.TextBox();
-            this.lblCode = new System.Windows.Forms.Label();
             this.gbStudentInfo.SuspendLayout();
             this.gbPosition.SuspendLayout();
             this.gbControl.SuspendLayout();
@@ -70,6 +71,25 @@
             this.gbStudentInfo.TabIndex = 0;
             this.gbStudentInfo.TabStop = false;
             this.gbStudentInfo.Text = "Thông tin nhân viên";
+            // 
+            // txtCode
+            // 
+            this.txtCode.Location = new System.Drawing.Point(168, 54);
+            this.txtCode.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtCode.Name = "txtCode";
+            this.txtCode.Size = new System.Drawing.Size(126, 26);
+            this.txtCode.TabIndex = 18;
+            this.txtCode.Leave += new System.EventHandler(this.txtCode_Leave);
+            // 
+            // lblCode
+            // 
+            this.lblCode.AutoSize = true;
+            this.lblCode.Location = new System.Drawing.Point(43, 60);
+            this.lblCode.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblCode.Name = "lblCode";
+            this.lblCode.Size = new System.Drawing.Size(57, 20);
+            this.lblCode.TabIndex = 17;
+            this.lblCode.Text = "Mã NV";
             // 
             // txtTitle
             // 
@@ -101,6 +121,7 @@
             // 
             // gbPosition
             // 
+            this.gbPosition.Controls.Add(this.rbKTD);
             this.gbPosition.Controls.Add(this.rbPV);
             this.gbPosition.Controls.Add(this.rbBTV);
             this.gbPosition.Controls.Add(this.rbPTV);
@@ -109,27 +130,36 @@
             this.gbPosition.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.gbPosition.Name = "gbPosition";
             this.gbPosition.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.gbPosition.Size = new System.Drawing.Size(375, 75);
+            this.gbPosition.Size = new System.Drawing.Size(391, 75);
             this.gbPosition.TabIndex = 11;
             this.gbPosition.TabStop = false;
+            // 
+            // rbKTD
+            // 
+            this.rbKTD.AutoSize = true;
+            this.rbKTD.Location = new System.Drawing.Point(326, 29);
+            this.rbKTD.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.rbKTD.Name = "rbKTD";
+            this.rbKTD.Size = new System.Drawing.Size(58, 24);
+            this.rbKTD.TabIndex = 9;
+            this.rbKTD.Text = "KTD";
+            this.rbKTD.UseVisualStyleBackColor = true;
             // 
             // rbPV
             // 
             this.rbPV.AutoSize = true;
-            this.rbPV.Checked = true;
             this.rbPV.Location = new System.Drawing.Point(9, 29);
             this.rbPV.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.rbPV.Name = "rbPV";
             this.rbPV.Size = new System.Drawing.Size(48, 24);
             this.rbPV.TabIndex = 5;
-            this.rbPV.TabStop = true;
             this.rbPV.Text = "PV";
             this.rbPV.UseVisualStyleBackColor = true;
             // 
             // rbBTV
             // 
             this.rbBTV.AutoSize = true;
-            this.rbBTV.Location = new System.Drawing.Point(92, 29);
+            this.rbBTV.Location = new System.Drawing.Point(81, 29);
             this.rbBTV.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.rbBTV.Name = "rbBTV";
             this.rbBTV.Size = new System.Drawing.Size(58, 24);
@@ -140,7 +170,7 @@
             // rbPTV
             // 
             this.rbPTV.AutoSize = true;
-            this.rbPTV.Location = new System.Drawing.Point(196, 29);
+            this.rbPTV.Location = new System.Drawing.Point(163, 29);
             this.rbPTV.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.rbPTV.Name = "rbPTV";
             this.rbPTV.Size = new System.Drawing.Size(57, 24);
@@ -151,7 +181,7 @@
             // rbCTV
             // 
             this.rbCTV.AutoSize = true;
-            this.rbCTV.Location = new System.Drawing.Point(297, 29);
+            this.rbCTV.Location = new System.Drawing.Point(244, 29);
             this.rbCTV.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.rbCTV.Name = "rbCTV";
             this.rbCTV.Size = new System.Drawing.Size(58, 24);
@@ -221,25 +251,6 @@
             this.btnUpdate.UseVisualStyleBackColor = true;
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
-            // txtCode
-            // 
-            this.txtCode.Location = new System.Drawing.Point(168, 54);
-            this.txtCode.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.txtCode.Name = "txtCode";
-            this.txtCode.Size = new System.Drawing.Size(126, 26);
-            this.txtCode.TabIndex = 18;
-            this.txtCode.Leave += new System.EventHandler(this.txtCode_Leave);
-            // 
-            // lblCode
-            // 
-            this.lblCode.AutoSize = true;
-            this.lblCode.Location = new System.Drawing.Point(43, 60);
-            this.lblCode.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblCode.Name = "lblCode";
-            this.lblCode.Size = new System.Drawing.Size(57, 20);
-            this.lblCode.TabIndex = 17;
-            this.lblCode.Text = "Mã NV";
-            // 
             // UpdateEmployeeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -278,5 +289,6 @@
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.TextBox txtCode;
         private System.Windows.Forms.Label lblCode;
+        private System.Windows.Forms.RadioButton rbKTD;
     }
 }

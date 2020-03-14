@@ -1,5 +1,6 @@
 ﻿using ATV_Allowance.Common;
 using ATV_Allowance.Common.Actions;
+using ATV_Allowance.Enums;
 using ATV_Allowance.Forms.CommonForms;
 using ATV_Allowance.Helpers;
 using ATV_Allowance.Services;
@@ -52,7 +53,7 @@ namespace ATV_Allowance.Forms.EmployeeForms
                 cbOrganizationId.SelectedIndex = index;
                 var selectedRb = gbPosition.Controls.OfType<RadioButton>()
                                     .FirstOrDefault(r => r.Name.Equals("rb" + model.Position.ToUpper()));
-                selectedRb.Select();
+                selectedRb.Checked = true;
             }
         }
         private void InitializeErrorProvider()
@@ -235,7 +236,7 @@ namespace ATV_Allowance.Forms.EmployeeForms
             }
             catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
             finally
             {

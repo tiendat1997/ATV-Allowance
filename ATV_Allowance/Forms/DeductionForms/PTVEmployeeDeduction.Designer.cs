@@ -140,7 +140,7 @@
             this.Controls.Add(this.adgvDeduction);
             this.Controls.Add(this.gbFilters);
             this.Name = "PTVEmployeeDeduction";
-            this.Text = "Nhập giảm trừ phóng viên";
+            this.Text = "Nhập giảm trừ phát thanh viên";
             this.gbFilters.ResumeLayout(false);
             this.gbFilters.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.adgvDeduction)).EndInit();

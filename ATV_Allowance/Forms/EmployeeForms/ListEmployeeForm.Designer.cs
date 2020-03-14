@@ -81,8 +81,7 @@
             this.adgvEmployee.TimeFilter = false;
             this.adgvEmployee.SortStringChanged += new System.EventHandler(this.adgvEmployee_SortStringChanged);
             this.adgvEmployee.FilterStringChanged += new System.EventHandler(this.adgvEmployee_FilterStringChanged);
-            this.adgvEmployee.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.adgvEmployee_CellClick);
-            this.adgvEmployee.SelectionChanged += new System.EventHandler(this.adgvEmployee_SelectionChanged);
+            this.adgvEmployee.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.adgvEmployee_CellDoubleClick);
             // 
             // lblSearch
             // 

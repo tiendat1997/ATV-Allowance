@@ -34,7 +34,7 @@ namespace ATV_Allowance.Services
         {
             // Get all "Phát Thanh Viên" ( roleId = 1 ) belongs to "Phòng thời sự" (organizationId = 24)
             var employees = employeeRepository
-                    .Get(e => e.IsActive == true && e.RoleId == 3 && (e.OrganizationId == 22 || e.OrganizationId == 32))
+                    .Get(e => e.IsActive == true && e.RoleId == 3) // && (e.OrganizationId == 22 || e.OrganizationId == 32)
                     .Select(e => new EmployeeDeductionViewModel
                     {
                         Id = 0,

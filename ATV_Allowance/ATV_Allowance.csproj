@@ -95,6 +95,7 @@
     <Compile Include="Controls\ImportArticleUserControl.Designer.cs">
       <DependentUpon>ImportArticleUserControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Enums\PositionEnum.cs" />
     <Compile Include="Forms\ArticleForms\AddArticleForm.cs">
       <SubType>Form</SubType>
     </Compile>

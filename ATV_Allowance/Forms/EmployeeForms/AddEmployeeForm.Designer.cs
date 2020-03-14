@@ -45,6 +45,7 @@
             this.lblName = new System.Windows.Forms.Label();
             this.gbControl = new System.Windows.Forms.GroupBox();
             this.btnAdd = new System.Windows.Forms.Button();
+            this.rbKTD = new System.Windows.Forms.RadioButton();
             this.gbStudentInfo.SuspendLayout();
             this.gbPosition.SuspendLayout();
             this.gbControl.SuspendLayout();
@@ -66,7 +67,7 @@
             this.gbStudentInfo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.gbStudentInfo.Name = "gbStudentInfo";
             this.gbStudentInfo.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.gbStudentInfo.Size = new System.Drawing.Size(567, 349);
+            this.gbStudentInfo.Size = new System.Drawing.Size(567, 357);
             this.gbStudentInfo.TabIndex = 0;
             this.gbStudentInfo.TabStop = false;
             this.gbStudentInfo.Text = "Thông tin nhân viên";
@@ -101,6 +102,7 @@
             // 
             // gbPosition
             // 
+            this.gbPosition.Controls.Add(this.rbKTD);
             this.gbPosition.Controls.Add(this.rbPV);
             this.gbPosition.Controls.Add(this.rbBTV);
             this.gbPosition.Controls.Add(this.rbPTV);
@@ -109,7 +111,7 @@
             this.gbPosition.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.gbPosition.Name = "gbPosition";
             this.gbPosition.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.gbPosition.Size = new System.Drawing.Size(375, 75);
+            this.gbPosition.Size = new System.Drawing.Size(393, 75);
             this.gbPosition.TabIndex = 11;
             this.gbPosition.TabStop = false;
             // 
@@ -129,7 +131,7 @@
             // rbBTV
             // 
             this.rbBTV.AutoSize = true;
-            this.rbBTV.Location = new System.Drawing.Point(92, 29);
+            this.rbBTV.Location = new System.Drawing.Point(82, 29);
             this.rbBTV.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.rbBTV.Name = "rbBTV";
             this.rbBTV.Size = new System.Drawing.Size(58, 24);
@@ -140,7 +142,7 @@
             // rbPTV
             // 
             this.rbPTV.AutoSize = true;
-            this.rbPTV.Location = new System.Drawing.Point(196, 29);
+            this.rbPTV.Location = new System.Drawing.Point(165, 29);
             this.rbPTV.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.rbPTV.Name = "rbPTV";
             this.rbPTV.Size = new System.Drawing.Size(57, 24);
@@ -151,7 +153,7 @@
             // rbCTV
             // 
             this.rbCTV.AutoSize = true;
-            this.rbCTV.Location = new System.Drawing.Point(297, 29);
+            this.rbCTV.Location = new System.Drawing.Point(247, 29);
             this.rbCTV.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.rbCTV.Name = "rbCTV";
             this.rbCTV.Size = new System.Drawing.Size(58, 24);
@@ -241,6 +243,17 @@
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
+            // rbKTD
+            // 
+            this.rbKTD.AutoSize = true;
+            this.rbKTD.Location = new System.Drawing.Point(327, 29);
+            this.rbKTD.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.rbKTD.Name = "rbKTD";
+            this.rbKTD.Size = new System.Drawing.Size(58, 24);
+            this.rbKTD.TabIndex = 9;
+            this.rbKTD.Text = "KTD";
+            this.rbKTD.UseVisualStyleBackColor = true;
+            // 
             // AddEmployeeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -280,5 +293,6 @@
         private System.Windows.Forms.ComboBox cbOrganizationId;
         private System.Windows.Forms.TextBox txtTitle;
         private System.Windows.Forms.Label lblTitle;
+        private System.Windows.Forms.RadioButton rbKTD;
     }
 }
