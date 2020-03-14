@@ -58,7 +58,7 @@
             this.gbArticleTitle.Dock = System.Windows.Forms.DockStyle.Top;
             this.gbArticleTitle.Location = new System.Drawing.Point(0, 0);
             this.gbArticleTitle.Name = "gbArticleTitle";
-            this.gbArticleTitle.Size = new System.Drawing.Size(894, 98);
+            this.gbArticleTitle.Size = new System.Drawing.Size(934, 98);
             this.gbArticleTitle.TabIndex = 0;
             this.gbArticleTitle.TabStop = false;
             this.gbArticleTitle.Text = "Thao tác";
@@ -146,7 +146,7 @@
             this.adgvList.Location = new System.Drawing.Point(0, 98);
             this.adgvList.MultiSelect = false;
             this.adgvList.Name = "adgvList";
-            this.adgvList.Size = new System.Drawing.Size(894, 463);
+            this.adgvList.Size = new System.Drawing.Size(934, 463);
             this.adgvList.TabIndex = 0;
             this.adgvList.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.adgvList_DataError);
             this.adgvList.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.adgvList_EditingControlShowing);
@@ -160,7 +160,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(894, 561);
+            this.ClientSize = new System.Drawing.Size(934, 561);
             this.Controls.Add(this.adgvList);
             this.Controls.Add(this.gbArticleTitle);
             this.KeyPreview = true;

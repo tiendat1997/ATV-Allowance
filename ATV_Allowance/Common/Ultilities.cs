@@ -327,5 +327,35 @@ namespace ATV_Allowance.Common
         {
             return new DateTime(datetime.Year, datetime.Month, datetime.Day);
         }
+
+        public static int GetPointColumnSize(string code)
+        {
+            int columnSize = 0;
+            if (code.Length <= 2)
+            {
+                columnSize = 42;
+            }
+            else if (code.Length <= 3)
+            {
+                columnSize = 45;
+            }
+            else if (code.Length <= 4)
+            {
+                columnSize = 50;
+            }
+            else if (code.Length <= 5)
+            {
+                columnSize = 65;
+            }
+            else if (code.Length <= 6)
+            {
+                columnSize = 72;
+            }
+            else
+            {
+                columnSize = 80;
+            }
+            return columnSize;
+        }
     }
 }

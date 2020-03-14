@@ -50,7 +50,7 @@
             this.gbEmployeeList.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.gbEmployeeList.Name = "gbEmployeeList";
             this.gbEmployeeList.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.gbEmployeeList.Size = new System.Drawing.Size(853, 481);
+            this.gbEmployeeList.Size = new System.Drawing.Size(908, 481);
             this.gbEmployeeList.TabIndex = 0;
             this.gbEmployeeList.TabStop = false;
             this.gbEmployeeList.Text = "Danh sách";
@@ -59,7 +59,7 @@
             // 
             this.txtSearch.Location = new System.Drawing.Point(390, 1);
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(456, 26);
+            this.txtSearch.Size = new System.Drawing.Size(510, 26);
             this.txtSearch.TabIndex = 10;
             this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
             // 
@@ -76,7 +76,7 @@
             this.adgvEmployee.Name = "adgvEmployee";
             this.adgvEmployee.ReadOnly = true;
             this.adgvEmployee.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.adgvEmployee.Size = new System.Drawing.Size(837, 440);
+            this.adgvEmployee.Size = new System.Drawing.Size(892, 440);
             this.adgvEmployee.TabIndex = 0;
             this.adgvEmployee.TimeFilter = false;
             this.adgvEmployee.SortStringChanged += new System.EventHandler(this.adgvEmployee_SortStringChanged);
@@ -143,7 +143,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(879, 571);
+            this.ClientSize = new System.Drawing.Size(934, 571);
             this.Controls.Add(this.gbControl);
             this.Controls.Add(this.gbEmployeeList);
             this.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);

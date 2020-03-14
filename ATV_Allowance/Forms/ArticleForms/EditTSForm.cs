@@ -158,26 +158,8 @@ namespace ATV_Allowance.Forms.ArticleForms
                     adgvList.Columns[type.Code].DisplayIndex = nextIndex;
                     adgvList.Columns[type.Code].HeaderText = type.Code;
                     adgvList.Columns[type.Code].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-                    if (type.Code.Length <= 3)
-                    {
-                        adgvList.Columns[type.Code].Width = 42;
-                    }
-                    else if (type.Code.Length <= 4)
-                    {
-                        adgvList.Columns[type.Code].Width = 45;
-                    }
-                    else if (type.Code.Length <= 5)
-                    {
-                        adgvList.Columns[type.Code].Width = 63;
-                    }
-                    else if (type.Code.Length <= 6)
-                    {
-                        adgvList.Columns[type.Code].Width = 68;
-                    }
-                    else
-                    {
-                        adgvList.Columns[type.Code].Width = 77;
-                    }
+                    int colSize = Utilities.GetPointColumnSize(type.Code);
+                    adgvList.Columns[type.Code].Width = colSize;
                 }
                 adgvList.EditingControlShowing += new DataGridViewEditingControlShowingEventHandler(adgvList_EditingControlShowing);
             }

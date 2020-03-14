@@ -63,7 +63,7 @@
             this.gbFilter.Controls.Add(this.dtpStartDate);
             this.gbFilter.Location = new System.Drawing.Point(12, 12);
             this.gbFilter.Name = "gbFilter";
-            this.gbFilter.Size = new System.Drawing.Size(217, 293);
+            this.gbFilter.Size = new System.Drawing.Size(226, 293);
             this.gbFilter.TabIndex = 0;
             this.gbFilter.TabStop = false;
             this.gbFilter.Text = "Bộ lọc";
@@ -73,7 +73,7 @@
             this.cbArticleType.FormattingEnabled = true;
             this.cbArticleType.Location = new System.Drawing.Point(10, 50);
             this.cbArticleType.Name = "cbArticleType";
-            this.cbArticleType.Size = new System.Drawing.Size(193, 28);
+            this.cbArticleType.Size = new System.Drawing.Size(210, 28);
             this.cbArticleType.TabIndex = 7;
             this.cbArticleType.SelectedIndexChanged += new System.EventHandler(this.cbArticleType_SelectedIndexChanged);
             // 
@@ -100,7 +100,7 @@
             this.cbEmployee.FormattingEnabled = true;
             this.cbEmployee.Location = new System.Drawing.Point(8, 246);
             this.cbEmployee.Name = "cbEmployee";
-            this.cbEmployee.Size = new System.Drawing.Size(201, 28);
+            this.cbEmployee.Size = new System.Drawing.Size(212, 28);
             this.cbEmployee.TabIndex = 4;
             this.cbEmployee.SelectedIndexChanged += new System.EventHandler(this.cbEmployee_SelectedIndexChanged);
             // 
@@ -149,7 +149,7 @@
             this.gbArticleInfo.Controls.Add(this.adgvList);
             this.gbArticleInfo.Location = new System.Drawing.Point(244, 21);
             this.gbArticleInfo.Name = "gbArticleInfo";
-            this.gbArticleInfo.Size = new System.Drawing.Size(632, 499);
+            this.gbArticleInfo.Size = new System.Drawing.Size(685, 528);
             this.gbArticleInfo.TabIndex = 1;
             this.gbArticleInfo.TabStop = false;
             this.gbArticleInfo.Text = "Danh sách tin";
@@ -158,7 +158,7 @@
             // 
             this.txtSearch.Location = new System.Drawing.Point(259, 0);
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(367, 26);
+            this.txtSearch.Size = new System.Drawing.Size(419, 26);
             this.txtSearch.TabIndex = 8;
             this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
             // 
@@ -182,7 +182,7 @@
             this.adgvList.Name = "adgvList";
             this.adgvList.ReadOnly = true;
             this.adgvList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.adgvList.Size = new System.Drawing.Size(620, 455);
+            this.adgvList.Size = new System.Drawing.Size(672, 493);
             this.adgvList.TabIndex = 0;
             this.adgvList.TimeFilter = false;
             this.adgvList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.adgvList_CellDoubleClick);
@@ -201,7 +201,7 @@
             this.gbControl.Controls.Add(this.btnEdit);
             this.gbControl.Location = new System.Drawing.Point(12, 322);
             this.gbControl.Name = "gbControl";
-            this.gbControl.Size = new System.Drawing.Size(217, 121);
+            this.gbControl.Size = new System.Drawing.Size(226, 121);
             this.gbControl.TabIndex = 2;
             this.gbControl.TabStop = false;
             this.gbControl.Text = "Thao tác";
@@ -210,7 +210,7 @@
             // 
             this.btnRemove.Location = new System.Drawing.Point(6, 76);
             this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(197, 35);
+            this.btnRemove.Size = new System.Drawing.Size(214, 35);
             this.btnRemove.TabIndex = 2;
             this.btnRemove.Text = "Xóa tin";
             this.btnRemove.UseVisualStyleBackColor = true;
@@ -220,7 +220,7 @@
             // 
             this.btnEdit.Location = new System.Drawing.Point(7, 34);
             this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(197, 35);
+            this.btnEdit.Size = new System.Drawing.Size(213, 35);
             this.btnEdit.TabIndex = 1;
             this.btnEdit.Text = "Xem tin";
             this.btnEdit.UseVisualStyleBackColor = true;
@@ -230,7 +230,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(894, 561);
+            this.ClientSize = new System.Drawing.Size(934, 561);
             this.Controls.Add(this.gbControl);
             this.Controls.Add(this.gbArticleInfo);
             this.Controls.Add(this.gbFilter);

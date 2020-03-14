@@ -42,14 +42,14 @@
             this.tcImportArticle.Location = new System.Drawing.Point(0, 0);
             this.tcImportArticle.Name = "tcImportArticle";
             this.tcImportArticle.SelectedIndex = 0;
-            this.tcImportArticle.Size = new System.Drawing.Size(894, 561);
+            this.tcImportArticle.Size = new System.Drawing.Size(934, 561);
             this.tcImportArticle.TabIndex = 0;
             // 
             // tpArticle
             // 
             this.tpArticle.Location = new System.Drawing.Point(4, 29);
             this.tpArticle.Name = "tpArticle";
-            this.tpArticle.Size = new System.Drawing.Size(886, 528);
+            this.tpArticle.Size = new System.Drawing.Size(926, 528);
             this.tpArticle.TabIndex = 0;
             this.tpArticle.Text = "Tin";
             this.tpArticle.UseVisualStyleBackColor = true;
@@ -58,7 +58,7 @@
             // 
             this.tpPostProduction.Location = new System.Drawing.Point(4, 29);
             this.tpPostProduction.Name = "tpPostProduction";
-            this.tpPostProduction.Size = new System.Drawing.Size(911, 528);
+            this.tpPostProduction.Size = new System.Drawing.Size(886, 528);
             this.tpPostProduction.TabIndex = 1;
             this.tpPostProduction.Text = "Khối hậu kỳ";
             this.tpPostProduction.UseVisualStyleBackColor = true;
@@ -67,7 +67,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(894, 561);
+            this.ClientSize = new System.Drawing.Size(934, 561);
             this.Controls.Add(this.tcImportArticle);
             this.KeyPreview = true;
             this.Name = "ImportBSTTNMForm";
