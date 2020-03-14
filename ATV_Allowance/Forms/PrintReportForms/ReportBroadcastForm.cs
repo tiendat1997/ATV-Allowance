@@ -230,5 +230,11 @@ namespace ATV_Allowance.Forms.PrintReportForms
             PTVEmployeeDeduction deductionForm = new PTVEmployeeDeduction(dtpMonth.Value.Month, dtpYear.Value.Year, Constants.ArticleType.THOI_SU);
             deductionForm.ShowDialog();
         }
+
+        private void btnDeductionKTD_Click(object sender, EventArgs e)
+        {
+            KTDEmployeeDeduction deductionForm = new KTDEmployeeDeduction(dtpMonth.Value.Month, dtpYear.Value.Year, Constants.ArticleType.THOI_SU);
+            deductionForm.ShowDialog();
+        }
     }
 }

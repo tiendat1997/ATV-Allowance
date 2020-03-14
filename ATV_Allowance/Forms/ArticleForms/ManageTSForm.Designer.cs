@@ -185,7 +185,7 @@
             this.adgvList.Size = new System.Drawing.Size(620, 455);
             this.adgvList.TabIndex = 0;
             this.adgvList.TimeFilter = false;
-            this.adgvList.SelectionChanged += new System.EventHandler(this.adgvList_SelectionChanged);
+            this.adgvList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.adgvList_CellDoubleClick);
             // 
             // entityCommand1
             // 

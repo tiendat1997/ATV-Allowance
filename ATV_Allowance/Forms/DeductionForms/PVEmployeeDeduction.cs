@@ -1,7 +1,10 @@
 ﻿using ATV_Allowance.Common;
+using ATV_Allowance.Common.Actions;
 using ATV_Allowance.Forms.CommonForms;
+using ATV_Allowance.Helpers;
 using ATV_Allowance.Services;
 using ATV_Allowance.ViewModel;
+using DataService.Entity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,9 +27,11 @@ namespace ATV_Allowance.Forms.DeductionForms
         private BindingSource bs;
         private List<DeductionTypeViewModel> deductionTypes;
         private ComboBox comboBox;
+        private readonly IAppLogger _logger;
 
         public PVEmployeeDeduction(int? month, int? year, int articleType)
-        {            
+        {
+            _logger = new AppLogger();
             InitializeComponent();
             deductionService = new DeductionService();
             deductionTypeService = new DeductionTypeService();
@@ -34,7 +39,7 @@ namespace ATV_Allowance.Forms.DeductionForms
             this.year = (year.HasValue) ? DateTime.Now.Year : (int)year;
             this.month = (month.HasValue) ? DateTime.Now.Month : (int)month;
             this.articleType = articleType;
-
+            
             LoadDeductions();
         }
 
@@ -101,7 +106,6 @@ namespace ATV_Allowance.Forms.DeductionForms
                 comboBox.AutoCompleteSource = AutoCompleteSource.ListItems;
                 comboBox.SelectionChangeCommitted -= new EventHandler(cbDeductionSelectedIndexChange);
                 comboBox.SelectionChangeCommitted += cbDeductionSelectedIndexChange;
-                //comboBox.SelectedIndex = 0;
             }
         }
 
@@ -123,20 +127,32 @@ namespace ATV_Allowance.Forms.DeductionForms
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            BusinessLog actionLog = new BusinessLog
+            {
+                ActorId = Common.Session.GetId(),
+                Status = Constants.BusinessLogStatus.SUCCESS,
+                Type = Constants.BusinessLogType.CREATE,
+                Message = string.Format(AppActions.SaveDeduction_PV, this.month, this.year)
+            };
+
             try
             {
                 deductionService = new DeductionService();
                 BindingSource bs = (BindingSource)adgvDeduction.DataSource;
                 var list = bs.DataSource as IList<EmployeeDeductionViewModel>;
                 deductionService.UpdateDeductions(list, this.month, this.year, this.articleType);
+                DialogHelper.OpenActionResultDialog("Lưu Thành Công", "Cập nhật giảm trừ PV");
                 LoadDeductions();
             }
             catch (Exception ex)
             {
-                throw ex;
+                _logger.LogSystem(ex, AppActions.SaveDeduction_PV);
+                actionLog.Status = Constants.BusinessLogStatus.FAIL;
+                MessageBox.Show("Có lỗi xảy ra! Vui lòng liên hệ kỹ thuật!", "Cập nhật giảm trừ PV", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
+                _logger.LogBusiness(actionLog);
                 deductionService = null;
             }
         }

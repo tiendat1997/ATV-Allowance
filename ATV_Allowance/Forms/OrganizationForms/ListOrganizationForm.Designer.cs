@@ -89,7 +89,7 @@
             this.adgvOrg.TimeFilter = false;
             this.adgvOrg.SortStringChanged += new System.EventHandler(this.adgvOrg_SortStringChanged);
             this.adgvOrg.FilterStringChanged += new System.EventHandler(this.adgvOrg_FilterStringChanged);
-            this.adgvOrg.SelectionChanged += new System.EventHandler(this.adgvOrg_SelectionChanged);
+            this.adgvOrg.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.adgvOrg_CellDoubleClick);
             // 
             // gbControl
             // 

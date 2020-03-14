@@ -33,6 +33,7 @@
             this.lblTitle = new System.Windows.Forms.Label();
             this.cbOrganizationId = new System.Windows.Forms.ComboBox();
             this.gbPosition = new System.Windows.Forms.GroupBox();
+            this.rbKTD = new System.Windows.Forms.RadioButton();
             this.rbPV = new System.Windows.Forms.RadioButton();
             this.rbBTV = new System.Windows.Forms.RadioButton();
             this.rbPTV = new System.Windows.Forms.RadioButton();
@@ -45,7 +46,6 @@
             this.lblName = new System.Windows.Forms.Label();
             this.gbControl = new System.Windows.Forms.GroupBox();
             this.btnAdd = new System.Windows.Forms.Button();
-            this.rbKTD = new System.Windows.Forms.RadioButton();
             this.gbStudentInfo.SuspendLayout();
             this.gbPosition.SuspendLayout();
             this.gbControl.SuspendLayout();
@@ -93,7 +93,7 @@
             // cbOrganizationId
             // 
             this.cbOrganizationId.FormattingEnabled = true;
-            this.cbOrganizationId.Location = new System.Drawing.Point(168, 180);
+            this.cbOrganizationId.Location = new System.Drawing.Point(168, 175);
             this.cbOrganizationId.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cbOrganizationId.Name = "cbOrganizationId";
             this.cbOrganizationId.Size = new System.Drawing.Size(373, 28);
@@ -114,6 +114,17 @@
             this.gbPosition.Size = new System.Drawing.Size(393, 75);
             this.gbPosition.TabIndex = 11;
             this.gbPosition.TabStop = false;
+            // 
+            // rbKTD
+            // 
+            this.rbKTD.AutoSize = true;
+            this.rbKTD.Location = new System.Drawing.Point(327, 29);
+            this.rbKTD.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.rbKTD.Name = "rbKTD";
+            this.rbKTD.Size = new System.Drawing.Size(58, 24);
+            this.rbKTD.TabIndex = 9;
+            this.rbKTD.Text = "KTD";
+            this.rbKTD.UseVisualStyleBackColor = true;
             // 
             // rbPV
             // 
@@ -178,7 +189,6 @@
             this.txtName.Size = new System.Drawing.Size(264, 26);
             this.txtName.TabIndex = 9;
             this.txtName.Leave += new System.EventHandler(this.txtName_Leave);
-            this.txtName.Validating += new System.ComponentModel.CancelEventHandler(this.txtName_Validating);
             // 
             // lblPosition
             // 
@@ -193,7 +203,7 @@
             // lblOrganization
             // 
             this.lblOrganization.AutoSize = true;
-            this.lblOrganization.Location = new System.Drawing.Point(10, 180);
+            this.lblOrganization.Location = new System.Drawing.Point(10, 175);
             this.lblOrganization.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblOrganization.Name = "lblOrganization";
             this.lblOrganization.Size = new System.Drawing.Size(53, 20);
@@ -242,17 +252,6 @@
             this.btnAdd.Text = "Thêm mới";
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
-            // 
-            // rbKTD
-            // 
-            this.rbKTD.AutoSize = true;
-            this.rbKTD.Location = new System.Drawing.Point(327, 29);
-            this.rbKTD.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.rbKTD.Name = "rbKTD";
-            this.rbKTD.Size = new System.Drawing.Size(58, 24);
-            this.rbKTD.TabIndex = 9;
-            this.rbKTD.Text = "KTD";
-            this.rbKTD.UseVisualStyleBackColor = true;
             // 
             // AddEmployeeForm
             // 

@@ -30,6 +30,7 @@ namespace ATV_Allowance.Forms.OrganizationForms
         public UpdateOrganizationForm(OrganizationViewModel model)
         {
             _logger = new AppLogger();
+            components = new System.ComponentModel.Container();
             this.model = model;
             InitializeComponent();
             InitializeErrorProvider();
@@ -79,18 +80,19 @@ namespace ATV_Allowance.Forms.OrganizationForms
                     Name = txtName.Text,
                     IsActive = true
                 };
-                actionLog.Message = string.Format(AppActions.Organization_Add, org.Name);
+                actionLog.Message = string.Format(AppActions.Organization_Update, org.Name);
                 bool result = btnUpdate_Validate(org);
                 if (result == true)
                 {
                     organizationService.UpdateOrganization(org);
-                    Close();
+                    DialogHelper.OpenActionResultDialog("Lưu thành công", "Cập nhật đơn vị");
                 }
             }
             catch (Exception ex)
             {
                 _logger.LogSystem(ex, AppActions.Organization_Update);
                 actionLog.Status = Constants.BusinessLogStatus.FAIL;
+                MessageBox.Show("Có lỗi xảy ra! Vui lòng liên hệ kỹ thuật!", "Cập nhật đơn vị", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {

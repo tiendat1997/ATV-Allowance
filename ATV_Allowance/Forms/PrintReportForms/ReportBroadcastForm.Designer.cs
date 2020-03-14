@@ -43,13 +43,14 @@
             this.label5 = new System.Windows.Forms.Label();
             this.btnDeductionPTV = new System.Windows.Forms.Button();
             this.btnEditCriteria = new System.Windows.Forms.Button();
+            this.btnDeductionKTD = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.edtPrice)).BeginInit();
             this.SuspendLayout();
             // 
             // btnDeduction
             // 
             this.btnDeduction.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDeduction.Location = new System.Drawing.Point(471, 96);
+            this.btnDeduction.Location = new System.Drawing.Point(471, 88);
             this.btnDeduction.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnDeduction.Name = "btnDeduction";
             this.btnDeduction.Size = new System.Drawing.Size(200, 35);
@@ -223,7 +224,7 @@
             // btnDeductionPTV
             // 
             this.btnDeductionPTV.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDeductionPTV.Location = new System.Drawing.Point(471, 141);
+            this.btnDeductionPTV.Location = new System.Drawing.Point(471, 133);
             this.btnDeductionPTV.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnDeductionPTV.Name = "btnDeductionPTV";
             this.btnDeductionPTV.Size = new System.Drawing.Size(200, 35);
@@ -235,7 +236,7 @@
             // btnEditCriteria
             // 
             this.btnEditCriteria.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEditCriteria.Location = new System.Drawing.Point(471, 36);
+            this.btnEditCriteria.Location = new System.Drawing.Point(471, 24);
             this.btnEditCriteria.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnEditCriteria.Name = "btnEditCriteria";
             this.btnEditCriteria.Size = new System.Drawing.Size(200, 35);
@@ -244,12 +245,25 @@
             this.btnEditCriteria.UseVisualStyleBackColor = true;
             this.btnEditCriteria.Click += new System.EventHandler(this.btnEditCriteria_Click);
             // 
+            // btnDeductionKTD
+            // 
+            this.btnDeductionKTD.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDeductionKTD.Location = new System.Drawing.Point(471, 178);
+            this.btnDeductionKTD.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnDeductionKTD.Name = "btnDeductionKTD";
+            this.btnDeductionKTD.Size = new System.Drawing.Size(200, 35);
+            this.btnDeductionKTD.TabIndex = 20;
+            this.btnDeductionKTD.Text = "Giảm từ KTD";
+            this.btnDeductionKTD.UseVisualStyleBackColor = true;
+            this.btnDeductionKTD.Click += new System.EventHandler(this.btnDeductionKTD_Click);
+            // 
             // ReportBroadcastForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(684, 411);
+            this.Controls.Add(this.btnDeductionKTD);
             this.Controls.Add(this.btnEditCriteria);
             this.Controls.Add(this.btnDeductionPTV);
             this.Controls.Add(this.btnExport);
@@ -290,5 +304,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnDeductionPTV;
         private System.Windows.Forms.Button btnEditCriteria;
+        private System.Windows.Forms.Button btnDeductionKTD;
     }
 }

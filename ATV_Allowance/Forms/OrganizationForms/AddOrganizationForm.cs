@@ -28,6 +28,7 @@ namespace ATV_Allowance.Forms.OrganizationForms
         public AddOrganizationForm()
         {
             _logger = new AppLogger();
+            components = new System.ComponentModel.Container();
             InitializeComponent();
             InitializeErrorProvider();
         }
@@ -72,13 +73,14 @@ namespace ATV_Allowance.Forms.OrganizationForms
                 if (result == true)
                 {
                     organizationService.AddOrganization(newEmp);
-                    this.Close();
+                    DialogHelper.OpenActionResultDialog("Lưu thành công", "Thêm đơn vị");
                 }
             }
             catch (Exception ex)
             {                
                 _logger.LogSystem(ex, AppActions.Organization_Add);
                 actionLog.Status = Constants.BusinessLogStatus.FAIL;
+                MessageBox.Show("Có lỗi xảy ra! Vui lòng liên hệ kỹ thuật!", "Thêm đơn vị", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {

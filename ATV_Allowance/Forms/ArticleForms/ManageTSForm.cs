@@ -188,25 +188,21 @@ namespace ATV_Allowance.Forms.ArticleForms
             }
             adgvList.Rows[selectedIndex].Selected = true;
             adgvList.CurrentCell = adgvList.Rows[selectedIndex].Cells[1];
-            adgvList_SelectionChanged(sender, e);
         }
 
         private void AddTSForm_Closed(object sender, FormClosedEventArgs e)
         {
             int rowIndex = adgvList.CurrentRow.Index;
             LoadDGV();
+            txtSearch_TextChanged(sender, new EventArgs());
         }
-
-        private void adgvList_SelectionChanged(object sender, EventArgs e)
-        {
-            model = (ArticleViewModel)adgvList.CurrentRow.DataBoundItem;
-        }
-
+  
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            if (model != null)
+            var articleModel = (ArticleViewModel)adgvList.CurrentRow.DataBoundItem;
+            if (articleModel != null)
             {
-                EditTSForm form = new EditTSForm(model);
+                EditTSForm form = new EditTSForm(articleModel);
                 form.FormClosed += new FormClosedEventHandler(AddTSForm_Closed);
                 form.ShowDialog();
             }
@@ -252,6 +248,17 @@ namespace ATV_Allowance.Forms.ArticleForms
             var curItem = (ArticleGroup)cbArticleType.SelectedItem;
             currArticleTypes = curItem.GroupIds;
             LoadDGV();
+        }
+
+        private void adgvList_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var articleModel = (ArticleViewModel)adgvList.CurrentRow.DataBoundItem;
+            if (articleModel != null)
+            {
+                EditTSForm form = new EditTSForm(articleModel);
+                form.FormClosed += new FormClosedEventHandler(AddTSForm_Closed);
+                form.ShowDialog();
+            }
         }
     }
 }

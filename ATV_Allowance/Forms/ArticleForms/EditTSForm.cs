@@ -479,7 +479,7 @@ namespace ATV_Allowance.Forms.ArticleForms
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Có lỗi xảy ra", "Lưu tiêu đề tin");
+                MessageBox.Show("Có lỗi xảy ra! Vui lòng liên hệ kỹ thuật!", "Lưu tiêu đề tin", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 _logger.LogSystem(ex, string.Empty);
             }
             finally

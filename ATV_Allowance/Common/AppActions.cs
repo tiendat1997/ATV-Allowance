@@ -13,7 +13,7 @@ namespace ATV_Allowance.Common.Actions
         public const string Employee_Remove = "Remove Employee {0}";
 
         public const string Organization_Add = "Add Organization {0}";
-        public const string Organization_Update = "Updata Organization {0}";
+        public const string Organization_Update = "Update Organization {0}";
 
         public const string Article_Add = "Add Article {0}";
         public const string Article_Update = "Update Article {0}";
@@ -29,6 +29,10 @@ namespace ATV_Allowance.Common.Actions
         public const string Export_PhatThanhTT = "Export Phat Thanh Truc Tiep {0} - {1}";
         public const string Export_BienSoanTTNM = "Export Bien Soan Thong Tin Ngay Moi {0} - {1}";
         public const string Export_TTNM = "Export Thong tin ngay moi {0} - {1}";
+
+        public const string SaveDeduction_PV = "Lưu giảm trừ PV tháng {0} - năm {1}";
+        public const string SaveDeduction_PTV = "Lưu giảm trừ PTV tháng {0} - năm {1}";
+        public const string SaveDeduction_KTD = "Lưu giảm trừ KTD tháng {0} - năm {1}";
 
         public const string Login = "Login";
     }

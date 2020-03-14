@@ -75,6 +75,7 @@ namespace ATV_Allowance.Forms.OrganizationForms
                 int currIndex = adgvOrg.CurrentRow.Index;
                 int selectedIndex = currIndex;
                 LoadDGV();
+                txtSearch_TextChanged(sender, new EventArgs());
                 adgvOrg.ClearSelection();
                 int rowIndex = adgvOrg.Rows.Count - 1;
                 if (rowIndex > oldCount)
@@ -82,8 +83,7 @@ namespace ATV_Allowance.Forms.OrganizationForms
                     selectedIndex = rowIndex;
                 }
                 adgvOrg.Rows[selectedIndex].Selected = true;
-                adgvOrg.CurrentCell = adgvOrg.Rows[selectedIndex].Cells[1];
-                adgvOrg_SelectionChanged(sender, e);
+                adgvOrg.CurrentCell = adgvOrg.Rows[selectedIndex].Cells[1];                
             }   
             else {
                 LoadDGV();
@@ -92,9 +92,10 @@ namespace ATV_Allowance.Forms.OrganizationForms
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            if (model != null)
+            var orgSrc = (OrganizationViewModel)adgvOrg.CurrentRow.DataBoundItem;
+            if (orgSrc != null)
             {
-                UpdateOrganizationForm detailForm = new UpdateOrganizationForm(model);
+                UpdateOrganizationForm detailForm = new UpdateOrganizationForm(orgSrc);
                 detailForm.FormClosed += new FormClosedEventHandler(EditOrgForm_Closed);
                 detailForm.ShowDialog();
             }
@@ -104,6 +105,7 @@ namespace ATV_Allowance.Forms.OrganizationForms
         {
             int rowIndex = adgvOrg.CurrentRow.Index;
             LoadDGV();
+            txtSearch_TextChanged(sender, new EventArgs());
             adgvOrg.ClearSelection();
             adgvOrg.Rows[rowIndex].Selected = true;
             adgvOrg.CurrentCell = adgvOrg.Rows[rowIndex].Cells[1];
@@ -128,12 +130,7 @@ namespace ATV_Allowance.Forms.OrganizationForms
             {
                 Utilities.ShowError(ex.Message);
             }
-        }
-
-        private void adgvOrg_SelectionChanged(object sender, EventArgs e)
-        {
-            model = (OrganizationViewModel)adgvOrg.CurrentRow.DataBoundItem;
-        }
+        }        
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
@@ -143,6 +140,17 @@ namespace ATV_Allowance.Forms.OrganizationForms
             bs = new BindingSource();
             bs.DataSource = sbl;
             adgvOrg.DataSource = bs;
+        }
+
+        private void adgvOrg_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var orgSrc = (OrganizationViewModel)adgvOrg.Rows[e.RowIndex].DataBoundItem;
+            if (orgSrc != null)
+            {
+                UpdateOrganizationForm detailForm = new UpdateOrganizationForm(orgSrc);
+                detailForm.FormClosed += new FormClosedEventHandler(EditOrgForm_Closed);
+                detailForm.ShowDialog();
+            }
         }
     }
 }

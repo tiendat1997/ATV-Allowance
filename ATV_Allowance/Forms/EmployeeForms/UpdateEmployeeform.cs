@@ -115,7 +115,6 @@ namespace ATV_Allowance.Forms.EmployeeForms
             BusinessLog actionLog = new BusinessLog
             {
                 ActorId = Common.Session.GetId(),
-                
                 Status = Constants.BusinessLogStatus.SUCCESS,
                 Type = Constants.BusinessLogType.UPDATE
             };
@@ -162,13 +161,15 @@ namespace ATV_Allowance.Forms.EmployeeForms
                 {
                     employeeService.UpdateEmployee(newEmp);
                     ValidatorHelper.ClearEPValidation(epDic);
-                    Close();
+
+                    DialogHelper.OpenActionResultDialog("Lưu Thành Công", "Cập nhật nhân viên");
                 }
             }
             catch (Exception ex)
             {
                 _logger.LogSystem(ex, AppActions.Employee_Update);
                 actionLog.Status = Constants.BusinessLogStatus.FAIL;
+                MessageBox.Show("Có lỗi xảy ra! Vui lòng liên hệ kỹ thuật!", "Cập nhật nhân viên", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {

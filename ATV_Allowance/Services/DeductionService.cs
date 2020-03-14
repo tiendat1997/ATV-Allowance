@@ -1,4 +1,5 @@
-﻿using ATV_Allowance.ViewModel;
+﻿using ATV_Allowance.Enums;
+using ATV_Allowance.ViewModel;
 using DataService.Entity;
 using DataService.Repository;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ namespace ATV_Allowance.Services
     public interface IDeductionService
     {
         List<EmployeeDeductionViewModel> GetDeductionPV(int month, int year, int articleType);
+        List<EmployeeDeductionViewModel> GetDeductionKTD(int month, int year, int articleType);
         List<EmployeeDeductionViewModel> GetDeductionPTV(int month, int year, int articleType);
         List<EmployeeDeductionViewModel> GetDeductions(int month, int year, int employeeRole, int articleType);
         double GetEmployeeDeduction(int employeeId, int articleId, int month, int year);
@@ -28,6 +30,44 @@ namespace ATV_Allowance.Services
             deductionRepository = new DeductionRepository();
             articleEmployeeRepository = new ArticleEmployeeRepository();
             employeeRepository = new EmployeeRepository();
+        }
+
+        public List<EmployeeDeductionViewModel> GetDeductionKTD(int month, int year, int articleType)
+        {
+            // Get all "Kĩ thuật dựng" ( roleId = 4 ) 
+            var employees = employeeRepository
+                    .Get(e => e.IsActive == true && e.RoleId == (int)PositionEnum.KTD)
+                    .Select(e => new EmployeeDeductionViewModel
+                    {
+                        Id = 0,
+                        EmployeeId = e.Id,
+                        EmployeeName = e.Name,
+                        Deduction = 60,
+                        DeductionType = 2  // TYPE = 60 - (DEFAULT)
+                    }).ToList();
+
+            var deductions = deductionRepository.Get(d => d.Month == month && d.Year == year && d.ArticleTypeId == articleType)
+                               .Select(d => new EmployeeDeductionViewModel
+                               {
+                                   Id = d.Id,
+                                   EmployeeId = d.EmployeeId.Value,
+                                   EmployeeName = d.Employee.Name,
+                                   DeductionType = d.DeductionTypeId.Value,
+                                   Deduction = d.DeductionValue
+                               }).ToList();
+
+            foreach (var empDeduction in employees)
+            {
+                var existedDeduction = deductions.Where(e => e.EmployeeId == empDeduction.EmployeeId).FirstOrDefault();
+                if (existedDeduction != null)
+                {
+                    empDeduction.Id = existedDeduction.Id;
+                    empDeduction.Deduction = existedDeduction.Deduction;
+                    empDeduction.DeductionType = existedDeduction.DeductionType;
+                }
+            }
+
+            return employees;
         }
 
         public List<EmployeeDeductionViewModel> GetDeductionPTV(int month, int year, int articleType)

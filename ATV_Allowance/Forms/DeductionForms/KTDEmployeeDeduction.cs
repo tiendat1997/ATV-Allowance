@@ -17,7 +17,7 @@ using System.Windows.Forms;
 
 namespace ATV_Allowance.Forms.DeductionForms
 {
-    public partial class PTVEmployeeDeduction : CommonForm
+    public partial class KTDEmployeeDeduction : CommonForm
     {
         private int year;
         private int month;
@@ -26,10 +26,10 @@ namespace ATV_Allowance.Forms.DeductionForms
         private IDeductionTypeService deductionTypeService;
         private BindingSource bs;
         private List<DeductionTypeViewModel> deductionTypes;
-        private readonly IAppLogger _logger;
         private ComboBox comboBox;
+        private readonly IAppLogger _logger;
 
-        public PTVEmployeeDeduction(int? month, int? year, int articleType)
+        public KTDEmployeeDeduction(int? month, int? year, int articleType)
         {
             _logger = new AppLogger();
             InitializeComponent();
@@ -39,6 +39,7 @@ namespace ATV_Allowance.Forms.DeductionForms
             this.year = (year.HasValue) ? DateTime.Now.Year : (int)year;
             this.month = (month.HasValue) ? DateTime.Now.Month : (int)month;
             this.articleType = articleType;
+
             LoadDeductions();
         }
 
@@ -47,7 +48,7 @@ namespace ATV_Allowance.Forms.DeductionForms
             try
             {
                 deductionService = new DeductionService();
-                var dataSource = deductionService.GetDeductionPTV(this.month, this.year, this.articleType);
+                var dataSource = deductionService.GetDeductionKTD(this.month, this.year, this.articleType);
 
                 SortableBindingList<EmployeeDeductionViewModel> sbl = new SortableBindingList<EmployeeDeductionViewModel>(dataSource);
                 bs = new BindingSource();
@@ -105,7 +106,7 @@ namespace ATV_Allowance.Forms.DeductionForms
                 comboBox.AutoCompleteSource = AutoCompleteSource.ListItems;
                 comboBox.SelectionChangeCommitted -= new EventHandler(cbDeductionSelectedIndexChange);
                 comboBox.SelectionChangeCommitted += cbDeductionSelectedIndexChange;
-                comboBox.SelectedIndex = 0;
+                //comboBox.SelectedIndex = 0;
             }
         }
 
@@ -132,7 +133,7 @@ namespace ATV_Allowance.Forms.DeductionForms
                 ActorId = Common.Session.GetId(),
                 Status = Constants.BusinessLogStatus.SUCCESS,
                 Type = Constants.BusinessLogType.CREATE,
-                Message = string.Format(AppActions.SaveDeduction_PTV, this.month, this.year)
+                Message = string.Format(AppActions.SaveDeduction_KTD, this.month, this.year)
             };
 
             try
@@ -141,15 +142,15 @@ namespace ATV_Allowance.Forms.DeductionForms
                 BindingSource bs = (BindingSource)adgvDeduction.DataSource;
                 var list = bs.DataSource as IList<EmployeeDeductionViewModel>;
                 deductionService.UpdateDeductions(list, this.month, this.year, this.articleType);
-                DialogHelper.OpenActionResultDialog("Lưu Thành Công", "Cập nhật giảm trừ PTV");
+                DialogHelper.OpenActionResultDialog("Lưu Thành Công", "Cập nhật giảm trừ KTD");
                 LoadDeductions();
             }
             catch (Exception ex)
             {
-                _logger.LogSystem(ex, AppActions.SaveDeduction_PTV);
+                _logger.LogSystem(ex, AppActions.SaveDeduction_KTD);
                 actionLog.Status = Constants.BusinessLogStatus.FAIL;
-                MessageBox.Show("Có lỗi xảy ra! Vui lòng liên hệ kỹ thuật!", "Cập nhật giảm trừ PTV", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }            
+                MessageBox.Show("Có lỗi xảy ra! Vui lòng liên hệ kỹ thuật!", "Cập nhật giảm trừ KTD", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             finally
             {
                 _logger.LogBusiness(actionLog);
@@ -165,7 +166,7 @@ namespace ATV_Allowance.Forms.DeductionForms
             // Check to make sure the cell clicked is the cell containing the combobox 
             if (datagridview.Columns[e.ColumnIndex] is DataGridViewComboBoxColumn && validClick)
             {
-                datagridview.BeginEdit(true);
+                datagridview.BeginEdit(true);                
                 ((ComboBox)datagridview.EditingControl).DroppedDown = true;
             }
         }

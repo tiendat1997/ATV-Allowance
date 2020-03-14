@@ -112,7 +112,7 @@
             // cbOrganizationId
             // 
             this.cbOrganizationId.FormattingEnabled = true;
-            this.cbOrganizationId.Location = new System.Drawing.Point(168, 180);
+            this.cbOrganizationId.Location = new System.Drawing.Point(168, 175);
             this.cbOrganizationId.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cbOrganizationId.Name = "cbOrganizationId";
             this.cbOrganizationId.Size = new System.Drawing.Size(373, 28);
@@ -211,7 +211,7 @@
             // lblOrganization
             // 
             this.lblOrganization.AutoSize = true;
-            this.lblOrganization.Location = new System.Drawing.Point(43, 180);
+            this.lblOrganization.Location = new System.Drawing.Point(43, 175);
             this.lblOrganization.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblOrganization.Name = "lblOrganization";
             this.lblOrganization.Size = new System.Drawing.Size(53, 20);

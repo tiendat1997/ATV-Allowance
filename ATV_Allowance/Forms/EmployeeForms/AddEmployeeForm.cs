@@ -139,19 +139,20 @@ namespace ATV_Allowance.Forms.EmployeeForms
                     Title = txtTitle.Text
                 };
                 actionLog.Message = string.Format(AppActions.Employee_Add, newEmp.Code);
-
                 bool result = btnAdd_Validate(newEmp);
                 if (result)
                 {
                     employeeService.AddEmployee(newEmp);
                     ValidatorHelper.ClearEPValidation(epDic);
-                    Close();
+                    
+                    DialogHelper.OpenActionResultDialog("Lưu thành công", "Thêm nhân viên");
                 }
             }
             catch (Exception ex)
             {
                 _logger.LogSystem(ex, AppActions.Employee_Add);
                 actionLog.Status = Constants.BusinessLogStatus.FAIL;
+                MessageBox.Show("Có lỗi xảy ra! Vui lòng liên hệ kỹ thuật!", "Thêm nhân viên", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -166,26 +167,7 @@ namespace ATV_Allowance.Forms.EmployeeForms
             {
                 return;
             }
-            try
-            {
-                employeeService = new EmployeeService();
-                //string tmpName = txtName.Text.ToUpper();
-                //string generatedCode = employeeService.GenerateEmployeeCode(tmpName, null);
-                //txtCode.Text = generatedCode;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                employeeService = null;
-            }
-        }
-
-        private void txtName_Validating(object sender, CancelEventArgs e)
-        {
-        }
+        }     
 
         private void cbOrganizationId_TextUpdate(object sender, EventArgs e)
         {
@@ -217,7 +199,7 @@ namespace ATV_Allowance.Forms.EmployeeForms
         {            
             try
             {
-                string code = txtCode.Text.Trim();
+                string code = txtCode.Text.Trim().ToUpper();
                 employeeService = new EmployeeService();
                 var existedEmployee = employeeService.GetEmployeeByCode(code);
                 if (existedEmployee != null)
@@ -227,11 +209,13 @@ namespace ATV_Allowance.Forms.EmployeeForms
                 else
                 {
                     epCode.SetError(txtCode, string.Empty);
+                    txtCode.Text = code;
                 }
             }
             catch (Exception ex)
             {
-                throw;
+                _logger.LogSystem(ex, AppActions.Employee_Add);
+                MessageBox.Show("Có lỗi xảy ra! Vui lòng liên hệ kỹ thuật!", "Thêm nhân viên", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
