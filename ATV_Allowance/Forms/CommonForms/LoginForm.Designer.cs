@@ -41,9 +41,10 @@
             // pnlLogo
             // 
             this.pnlLogo.BackgroundImage = global::ATV_Allowance.Properties.Resources.LogoATVSM;
-            this.pnlLogo.Location = new System.Drawing.Point(170, 24);
+            this.pnlLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.pnlLogo.Location = new System.Drawing.Point(109, 24);
             this.pnlLogo.Name = "pnlLogo";
-            this.pnlLogo.Size = new System.Drawing.Size(101, 62);
+            this.pnlLogo.Size = new System.Drawing.Size(247, 62);
             this.pnlLogo.TabIndex = 8;
             // 
             // lblProduction
