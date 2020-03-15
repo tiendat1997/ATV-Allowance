@@ -318,8 +318,8 @@ namespace ATV_Allowance.Forms.ArticleForms
 
         private void adgvList_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
-            adgvList.Rows[e.RowIndex].Cells["EmployeeCode"].Value = "";
-            e.Cancel = true;
+            //adgvList.Rows[e.RowIndex].Cells["EmployeeCode"].Value = "";
+            //e.Cancel = true;
         }
 
         private void adgvList_RowValidated(object sender, DataGridViewCellEventArgs e)

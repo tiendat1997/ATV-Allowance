@@ -107,7 +107,6 @@
             0,
             0,
             0});
-            this.edtPrice.ValueChanged += new System.EventHandler(this.edtPrice_ValueChanged);
             // 
             // label6
             // 
@@ -132,7 +131,6 @@
             this.dtpEnddate.Name = "dtpEnddate";
             this.dtpEnddate.Size = new System.Drawing.Size(146, 24);
             this.dtpEnddate.TabIndex = 5;
-            this.dtpEnddate.ValueChanged += new System.EventHandler(this.dtpEnddate_ValueChanged);
             // 
             // dtpStartdate
             // 
@@ -145,7 +143,6 @@
             this.dtpStartdate.Name = "dtpStartdate";
             this.dtpStartdate.Size = new System.Drawing.Size(146, 24);
             this.dtpStartdate.TabIndex = 6;
-            this.dtpStartdate.ValueChanged += new System.EventHandler(this.dtpStartdate_ValueChanged);
             // 
             // label4
             // 

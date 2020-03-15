@@ -132,6 +132,7 @@ namespace ATV_Allowance.Forms.ArticleForms
                     cbArticle.SelectedIndex = articleList.Count - 1;
                     article = articleList.Last();
                     adgvList.ReadOnly = false;
+                    LoadDGV();
                 }
             }
             catch (Exception ex)
@@ -203,6 +204,9 @@ namespace ATV_Allowance.Forms.ArticleForms
         {
             try
             {
+                adgvList.RowValidating -= new DataGridViewCellCancelEventHandler(adgvList_RowValidating);
+                adgvList.RowValidated -= new DataGridViewCellEventHandler(adgvList_RowValidated);
+
                 bs = new BindingSource();
                 List<ArticleEmployeeViewModel> list = new List<ArticleEmployeeViewModel>();
                 if (article != null)
@@ -214,6 +218,9 @@ namespace ATV_Allowance.Forms.ArticleForms
 
                 bs.DataSource = bindList;
                 adgvList.DataSource = bs;
+
+                adgvList.RowValidating += new DataGridViewCellCancelEventHandler(adgvList_RowValidating);
+                adgvList.RowValidated += new DataGridViewCellEventHandler(adgvList_RowValidated);
             }
             catch (Exception ex)
             {
@@ -520,8 +527,8 @@ namespace ATV_Allowance.Forms.ArticleForms
 
         private void adgvList_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
-            adgvList.Rows[e.RowIndex].Cells["EmployeeCode"].Value = "";
-            e.Cancel = true;
+            //adgvList.Rows[e.RowIndex].Cells["EmployeeCode"].Value = "";
+            //e.Cancel = true;
         }
 
         private void btnArticleList_Click(object sender, EventArgs e)
@@ -548,17 +555,17 @@ namespace ATV_Allowance.Forms.ArticleForms
 
         private void cbArticle_SelectedIndexChanged(object sender, EventArgs e)
         {
-            try
-            {
-                article = (ArticleViewModel)cbArticle.SelectedItem;
-                lblIndex.Text = (cbArticle.SelectedIndex + 1).ToString();                
-                LoadDGV();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogSystem(ex, string.Empty);
-                throw ex;
-            }
+            //try
+            //{
+            //    article = (ArticleViewModel)cbArticle.SelectedItem;
+            //    lblIndex.Text = (cbArticle.SelectedIndex + 1).ToString();                
+            //    LoadDGV();
+            //}
+            //catch (Exception ex)
+            //{
+            //    _logger.LogSystem(ex, string.Empty);
+            //    throw ex;
+            //}
         }
 
         private void ImportArticleFormAdvance_KeyDown(object sender, KeyEventArgs e)
@@ -567,6 +574,21 @@ namespace ATV_Allowance.Forms.ArticleForms
             {
                 // Your code when shortcut Ctrl+Shft+O is pressed
                 txtTitle.Focus();
+            }
+        }
+
+        private void cbArticle_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            try
+            {
+                article = (ArticleViewModel)cbArticle.SelectedItem;
+                lblIndex.Text = (cbArticle.SelectedIndex + 1).ToString();
+                LoadDGV();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogSystem(ex, string.Empty);
+                throw ex;
             }
         }
     }

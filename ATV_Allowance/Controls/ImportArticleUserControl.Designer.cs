@@ -101,6 +101,7 @@
             this.cbArticle.Size = new System.Drawing.Size(332, 21);
             this.cbArticle.TabIndex = 6;
             this.cbArticle.SelectedIndexChanged += new System.EventHandler(this.cbArticle_SelectedIndexChanged);
+            this.cbArticle.SelectionChangeCommitted += new System.EventHandler(this.cbArticle_SelectionChangeCommitted);
             // 
             // lblIndex
             // 

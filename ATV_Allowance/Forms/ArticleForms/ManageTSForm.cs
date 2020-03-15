@@ -199,6 +199,11 @@ namespace ATV_Allowance.Forms.ArticleForms
   
         private void btnEdit_Click(object sender, EventArgs e)
         {
+            if (adgvList.CurrentRow == null)
+            {
+                return;
+            }
+
             var articleModel = (ArticleViewModel)adgvList.CurrentRow.DataBoundItem;
             if (articleModel != null)
             {
