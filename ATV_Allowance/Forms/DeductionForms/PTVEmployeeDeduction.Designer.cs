@@ -49,14 +49,14 @@
             this.gbFilters.Dock = System.Windows.Forms.DockStyle.Top;
             this.gbFilters.Location = new System.Drawing.Point(0, 0);
             this.gbFilters.Name = "gbFilters";
-            this.gbFilters.Size = new System.Drawing.Size(800, 68);
+            this.gbFilters.Size = new System.Drawing.Size(684, 68);
             this.gbFilters.TabIndex = 0;
             this.gbFilters.TabStop = false;
             this.gbFilters.Text = "Bộ lọc";
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(699, 23);
+            this.btnSave.Location = new System.Drawing.Point(683, 23);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(95, 35);
             this.btnSave.TabIndex = 0;
@@ -128,7 +128,7 @@
             this.adgvDeduction.MultiSelect = false;
             this.adgvDeduction.Name = "adgvDeduction";
             this.adgvDeduction.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.adgvDeduction.Size = new System.Drawing.Size(800, 493);
+            this.adgvDeduction.Size = new System.Drawing.Size(684, 493);
             this.adgvDeduction.TabIndex = 9;
             this.adgvDeduction.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.adgvDeduction_CellEnter);
             this.adgvDeduction.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.adgvDeduction_DataError);
@@ -137,7 +137,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 561);
+            this.ClientSize = new System.Drawing.Size(684, 561);
             this.Controls.Add(this.adgvDeduction);
             this.Controls.Add(this.gbFilters);
             this.Name = "PTVEmployeeDeduction";

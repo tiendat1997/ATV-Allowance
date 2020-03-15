@@ -41,7 +41,8 @@
             // 
             // btnCopyCriteria
             // 
-            this.btnCopyCriteria.Location = new System.Drawing.Point(562, 10);
+            this.btnCopyCriteria.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.btnCopyCriteria.Location = new System.Drawing.Point(407, 3);
             this.btnCopyCriteria.Name = "btnCopyCriteria";
             this.btnCopyCriteria.Size = new System.Drawing.Size(226, 35);
             this.btnCopyCriteria.TabIndex = 13;
@@ -50,13 +51,15 @@
             // 
             // flowLayoutPanel1
             // 
+            this.flowLayoutPanel1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.flowLayoutPanel1.Controls.Add(this.label1);
             this.flowLayoutPanel1.Controls.Add(this.cbArticleType);
             this.flowLayoutPanel1.Controls.Add(this.label2);
             this.flowLayoutPanel1.Controls.Add(this.dtpYear);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(12, 12);
+            this.flowLayoutPanel1.Controls.Add(this.btnCopyCriteria);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(454, 33);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(894, 43);
             this.flowLayoutPanel1.TabIndex = 12;
             // 
             // label1
@@ -64,7 +67,7 @@
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(3, 7);
+            this.label1.Location = new System.Drawing.Point(3, 10);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(152, 20);
             this.label1.TabIndex = 0;
@@ -80,7 +83,7 @@
             "Phát thanh trực tiếp",
             "Phát thanh",
             "Thời sự"});
-            this.cbArticleType.Location = new System.Drawing.Point(161, 3);
+            this.cbArticleType.Location = new System.Drawing.Point(161, 6);
             this.cbArticleType.Name = "cbArticleType";
             this.cbArticleType.Size = new System.Drawing.Size(121, 28);
             this.cbArticleType.TabIndex = 6;
@@ -91,7 +94,7 @@
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(288, 7);
+            this.label2.Location = new System.Drawing.Point(288, 10);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(42, 20);
             this.label2.TabIndex = 1;
@@ -103,7 +106,7 @@
             this.dtpYear.CustomFormat = "yyyy";
             this.dtpYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpYear.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpYear.Location = new System.Drawing.Point(336, 4);
+            this.dtpYear.Location = new System.Drawing.Point(336, 7);
             this.dtpYear.Name = "dtpYear";
             this.dtpYear.ShowUpDown = true;
             this.dtpYear.Size = new System.Drawing.Size(65, 26);
@@ -117,12 +120,12 @@
             this.adgvCriterias.AllowUserToResizeRows = false;
             this.adgvCriterias.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.adgvCriterias.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.adgvCriterias.Location = new System.Drawing.Point(12, 60);
+            this.adgvCriterias.Location = new System.Drawing.Point(0, 44);
             this.adgvCriterias.MultiSelect = false;
             this.adgvCriterias.Name = "adgvCriterias";
             this.adgvCriterias.ReadOnly = true;
             this.adgvCriterias.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.adgvCriterias.Size = new System.Drawing.Size(776, 359);
+            this.adgvCriterias.Size = new System.Drawing.Size(894, 382);
             this.adgvCriterias.TabIndex = 11;
             this.adgvCriterias.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.adgvCriterias_CellDoubleClick);
             // 
@@ -130,8 +133,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(802, 426);
-            this.Controls.Add(this.btnCopyCriteria);
+            this.ClientSize = new System.Drawing.Size(894, 426);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.adgvCriterias);
             this.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
