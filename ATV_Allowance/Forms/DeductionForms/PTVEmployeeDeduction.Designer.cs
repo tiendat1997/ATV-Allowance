@@ -131,6 +131,7 @@
             this.adgvDeduction.Size = new System.Drawing.Size(800, 493);
             this.adgvDeduction.TabIndex = 9;
             this.adgvDeduction.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.adgvDeduction_CellEnter);
+            this.adgvDeduction.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.adgvDeduction_DataError);
             // 
             // PTVEmployeeDeduction
             // 

@@ -484,8 +484,7 @@ namespace ATV_Allowance.Controls
 
         private void adgvList_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
-            //adgvList.Rows[e.RowIndex].Cells["EmployeeCode"].Value = "";
-            //e.Cancel = true;
+            e.Cancel = true;
         }
 
         private void lblOrdinal_Click(object sender, EventArgs e)

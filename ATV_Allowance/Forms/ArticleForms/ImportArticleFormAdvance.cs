@@ -527,8 +527,7 @@ namespace ATV_Allowance.Forms.ArticleForms
 
         private void adgvList_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
-            //adgvList.Rows[e.RowIndex].Cells["EmployeeCode"].Value = "";
-            //e.Cancel = true;
+            e.Cancel = true;
         }
 
         private void btnArticleList_Click(object sender, EventArgs e)

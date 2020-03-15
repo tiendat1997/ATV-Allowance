@@ -177,5 +177,10 @@ namespace ATV_Allowance.Forms.DeductionForms
             this.year = dtp.Value.Year;
             LoadDeductions();
         }
+
+        private void adgvDeduction_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            e.Cancel = true;
+        }
     }
 }
