@@ -56,7 +56,7 @@ namespace ATV_Allowance.Forms.EmployeeForms
                 adgvEmployee.Columns["Name"].HeaderText = ADGVEmployeeText.Name;
                 adgvEmployee.Columns["Name"].Width = ControlsAttribute.GV_WIDTH_LARGE;                
                 adgvEmployee.Columns["Position"].HeaderText = ADGVEmployeeText.Position;
-                adgvEmployee.Columns["Position"].Width = ControlsAttribute.GV_WIDTH_SMALL;
+                adgvEmployee.Columns["Position"].Width = ControlsAttribute.GV_WIDTH_SEEM;
                 adgvEmployee.Columns["Organization"].HeaderText = ADGVEmployeeText.Organization;
                 adgvEmployee.Columns["Organization"].Width = ControlsAttribute.GV_WIDTH_LARGE;
                 adgvEmployee.Columns["Title"].HeaderText = ADGVEmployeeText.Title;

@@ -138,6 +138,12 @@
     <Compile Include="Forms\ArticleForms\InsertEmployeeForm.Designer.cs">
       <DependentUpon>InsertEmployeeForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ArticleForms\ManageTSFormAdvance.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ArticleForms\ManageTSFormAdvance.Designer.cs">
+      <DependentUpon>ManageTSFormAdvance.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ArticleForms\ManageTSForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -398,6 +404,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ArticleForms\InsertEmployeeForm.resx">
       <DependentUpon>InsertEmployeeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ArticleForms\ManageTSFormAdvance.resx">
+      <DependentUpon>ManageTSFormAdvance.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ArticleForms\ManageTSForm.resx">
       <DependentUpon>ManageTSForm.cs</DependentUpon>

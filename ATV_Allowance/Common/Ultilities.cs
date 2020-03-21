@@ -238,7 +238,7 @@ namespace ATV_Allowance.Common
                         form = (Form)importTNNM;
                         break;                   
                     case "Xem nhanh tin":
-                        ManageTSForm tsForm = new ManageTSForm();
+                        ManageTSFormAdvance tsForm = new ManageTSFormAdvance();
                         form = tsForm;
                         break;
                     case "Quản lý nhân viên":
@@ -333,27 +333,27 @@ namespace ATV_Allowance.Common
             int columnSize = 0;
             if (code.Length <= 2)
             {
-                columnSize = 42;
+                columnSize = 45;
             }
             else if (code.Length <= 3)
             {
-                columnSize = 45;
+                columnSize = 50;
             }
             else if (code.Length <= 4)
             {
-                columnSize = 50;
+                columnSize = 60;
             }
             else if (code.Length <= 5)
             {
-                columnSize = 65;
+                columnSize = 70;
             }
             else if (code.Length <= 6)
             {
-                columnSize = 72;
+                columnSize = 85;
             }
             else
             {
-                columnSize = 80;
+                columnSize = 95;
             }
             return columnSize;
         }

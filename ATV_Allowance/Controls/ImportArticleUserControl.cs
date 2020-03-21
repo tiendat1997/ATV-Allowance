@@ -87,7 +87,7 @@ namespace ATV_Allowance.Controls
                 adgvList.Columns["Name"].HeaderText = ADGVEmployeeText.Name;
                 adgvList.Columns["Name"].Width = ControlsAttribute.GV_WIDTH_MEDIUM;
                 adgvList.Columns["Position"].HeaderText = ADGVEmployeeText.AbbrPosition;
-                adgvList.Columns["Position"].Width = ControlsAttribute.GV_WIDTH_SMALL;
+                adgvList.Columns["Position"].Width = 100;
                 adgvList.Columns["Organization"].HeaderText = ADGVEmployeeText.Organization;
                 adgvList.Columns["Organization"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
