@@ -31,10 +31,26 @@ namespace ATV_Allowance.Forms.PrintReportForms
         {
             _logger = new AppLogger();
             InitializeComponent();
+            InitTabIndex();
             reportService = new ReportService();
             criteriaService = new CriteriaService();
 
             InitValue();
+        }
+
+        private void InitTabIndex()
+        {
+            dtpMonth.TabIndex = 0;
+            dtpYear.TabIndex = 1;
+            dtpStartdate.TabIndex = 2;
+            dtpEnddate.TabIndex = 3;
+            edtPrice.TabIndex = 4;
+
+            btnEditCriteria.TabIndex = 5;
+            btnDeduction.TabIndex = 6;
+            btnDeductionPTV.TabIndex = 7;
+            btnDeductionKTD.TabIndex = 8;
+            btnExport.TabIndex = 9;
         }
 
         public void InitValue()

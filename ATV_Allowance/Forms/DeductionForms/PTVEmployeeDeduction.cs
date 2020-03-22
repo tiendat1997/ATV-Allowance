@@ -33,6 +33,8 @@ namespace ATV_Allowance.Forms.DeductionForms
         {
             _logger = new AppLogger();
             InitializeComponent();
+            InitTabIndex();
+
             deductionService = new DeductionService();
             deductionTypeService = new DeductionTypeService();
 
@@ -40,6 +42,13 @@ namespace ATV_Allowance.Forms.DeductionForms
             this.month = (month.HasValue) ? DateTime.Now.Month : (int)month;
             this.articleType = articleType;
             LoadDeductions();
+        }
+
+        private void InitTabIndex()
+        {
+            dtpMonth.TabIndex = 0;
+            dtp.TabIndex = 1;
+            adgvDeduction.TabIndex = 2;
         }
 
         public void LoadDeductions()

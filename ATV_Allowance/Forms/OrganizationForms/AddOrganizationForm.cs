@@ -30,7 +30,14 @@ namespace ATV_Allowance.Forms.OrganizationForms
             _logger = new AppLogger();
             components = new System.ComponentModel.Container();
             InitializeComponent();
+            InitTabIndex();
             InitializeErrorProvider();
+        }
+
+        private void InitTabIndex()
+        {
+            txtName.TabIndex = 0;
+            btnAdd.TabIndex = 1;
         }
 
         private void InitializeErrorProvider()

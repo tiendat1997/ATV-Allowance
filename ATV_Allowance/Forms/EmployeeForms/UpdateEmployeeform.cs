@@ -39,8 +39,18 @@ namespace ATV_Allowance.Forms.EmployeeForms
             this.model = inputModel;
             components = new System.ComponentModel.Container();
             InitializeComponent();
+            InitTabIndex();
             InitializeErrorProvider();
         }        
+        private void InitTabIndex()
+        {
+            txtCode.TabIndex = 0;
+            txtName.TabIndex = 1;
+            cbOrganizationId.TabIndex = 2;
+            txtTitle.TabIndex = 3;
+            gbPosition.TabIndex = 4;
+            btnUpdate.TabIndex = 5;
+        }
         private void LoadData()
         {
             if (model != null)

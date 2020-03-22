@@ -101,8 +101,9 @@ namespace ATV_Allowance.Forms.ArticleForms
         {
             dtpDate.TabIndex = 0;
             txtTitle.TabIndex = 1;
-            cbArticle.TabIndex = 2;
-            adgvList.TabIndex = 3;
+            btnAdd.TabIndex = 2; 
+            cbArticle.TabIndex = 3;
+            adgvList.TabIndex = 4;
         }
 
         private void InitializeErrorProvider()

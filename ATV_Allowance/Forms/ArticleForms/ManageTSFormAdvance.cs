@@ -38,14 +38,26 @@ namespace ATV_Allowance.Forms.ArticleForms
             _logger = new AppLogger();
             components = new System.ComponentModel.Container();
             InitializeComponent();
+            InitTabIndex();
 
             fromDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
             toDate = fromDate.AddMonths(1).AddDays(-1);
             dgvEmployee.ReadOnly = true;
-
+            
             InitDataGridView();
             InitArticleTypeFilter();            
         }
+        private void InitTabIndex()
+        {
+            cbArticleType.TabIndex = 0;
+            dtpStartDate.TabIndex = 1;
+            dtpEndDate.TabIndex = 2;
+            cbEmployee.TabIndex = 3;
+            txtSearch.TabIndex = 4;
+            adgvList.TabIndex = 5;
+            dgvEmployee.TabIndex = 6;
+        }
+
         private void InitDataGridView()
         {
             articleList = new List<ArticleViewModel>();

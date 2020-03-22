@@ -33,8 +33,14 @@ namespace ATV_Allowance.Forms.OrganizationForms
             components = new System.ComponentModel.Container();
             this.model = model;
             InitializeComponent();
+            InitTabIndex();
             InitializeErrorProvider();
             LoadData();
+        }
+        private void InitTabIndex()
+        {
+            txtName.TabIndex = 0;
+            btnUpdate.TabIndex = 1;
         }
         private void LoadData()
         {

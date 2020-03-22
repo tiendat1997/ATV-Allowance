@@ -23,8 +23,15 @@ namespace ATV_Allowance.Forms.CriteriaForms
         public CriteriaTSForm()
         {
             InitializeComponent();
+            InitTabIndex();
             criteriaService = new CriteriaService();
             LoadCriteriasOfYear();            
+        }
+
+        private void InitTabIndex()
+        {
+            dtpYear.TabIndex = 0;
+            adgvCriterias.TabIndex = 1;
         }
 
         private void LoadCriteriasOfYear(int? year = null, int? type = TYPE_TS)

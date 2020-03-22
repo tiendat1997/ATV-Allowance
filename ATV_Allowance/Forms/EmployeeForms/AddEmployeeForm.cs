@@ -44,6 +44,8 @@ namespace ATV_Allowance.Forms.EmployeeForms
             txtName.TabIndex = 1;
             cbOrganizationId.TabIndex = 2;
             txtTitle.TabIndex = 3;
+            gbPosition.TabIndex = 4;
+            btnAdd.TabIndex = 5;
         }
         private void InitializeErrorProvider()
         {

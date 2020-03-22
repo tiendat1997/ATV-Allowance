@@ -26,7 +26,16 @@ namespace ATV_Allowance.Forms.EmployeeForms
         public ListEmployeeForm()
         {
             InitializeComponent();
+            InitTabIndex();
             LoadDGV();
+        }
+        private void InitTabIndex()
+        {
+            txtSearch.TabIndex = 0;
+            adgvEmployee.TabIndex = 1;
+            btnAdd.TabIndex = 2;
+            btnEdit.TabIndex = 3;
+            btnRemove.TabIndex = 4;
         }
         private void LoadDGV()
         {

@@ -26,7 +26,15 @@ namespace ATV_Allowance.Forms.OrganizationForms
         public ListOrganizationForm()
         {
             InitializeComponent();
+            InitTabIndex();
             LoadDGV();
+        }
+        private void InitTabIndex()
+        {
+            txtSearch.TabIndex = 0;
+            adgvOrg.TabIndex = 1;
+            btnAdd.TabIndex = 2;
+            btnEdit.TabIndex = 3;
         }
         private void LoadDGV()
         {

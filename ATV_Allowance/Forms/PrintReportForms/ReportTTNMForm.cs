@@ -25,7 +25,21 @@ namespace ATV_Allowance.Forms.PrintReportForms
         {
             _logger = new AppLogger();
             InitializeComponent();
+            InitTabIndex();
             reportService = new ReportService();
+        }
+
+        private void InitTabIndex()
+        {
+            dtpMonth.TabIndex = 0;
+            dtpYear.TabIndex = 1;
+            dtpStartdate.TabIndex = 2;
+            dtpEnddate.TabIndex = 3;
+            edtPrice.TabIndex = 4;
+
+            btnEditCriteria.TabIndex = 5;
+            btnDeduction.TabIndex = 6;
+            btnExport.TabIndex = 7;
         }
 
         private void btnEditCriteria_Click(object sender, EventArgs e)
