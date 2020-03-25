@@ -235,14 +235,13 @@ namespace ATV_Allowance.Forms.ArticleForms
             if (comboBox != null)
             {
                 comboBox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-                comboBox.AutoCompleteSource = AutoCompleteSource.ListItems;
                 comboBox.DropDownWidth = 150;
                 comboBox.SelectionChangeCommitted -= new EventHandler(EmployeeCodeSelectionChangeCommitted);
                 comboBox.KeyDown -= new KeyEventHandler(EmployeeComboboxKeyDown);
                 comboBox.SelectionChangeCommitted += EmployeeCodeSelectionChangeCommitted;
                 comboBox.KeyDown += new KeyEventHandler(EmployeeComboboxKeyDown);
                 comboBox.IntegralHeight = false;
-                comboBox.MaxDropDownItems = 10;
+                comboBox.MaxDropDownItems = 5;
             }
         }
         private void EmployeeComboboxKeyDown(object sender, KeyEventArgs e)
@@ -499,9 +498,10 @@ namespace ATV_Allowance.Forms.ArticleForms
                 // Change Code Column Cell to combobox
                 if (e.RowIndex == adgvList.NewRowIndex)
                 {
-                    var cmbCell = new DataGridViewComboBoxCell();
-                    cmbCell.FlatStyle = FlatStyle.Flat;
-                    cmbCell.DataSource = employeeBindingList;
+                    LoadEmployeeData(); // reload data
+                    var cmbCell = new DataGridViewComboBoxCell();                    
+                    cmbCell.FlatStyle = FlatStyle.Flat;                    
+                    cmbCell.DataSource = employeeBindingList;          
                     adgvList.Rows[e.RowIndex].ReadOnly = true;
                     adgvList.Rows[e.RowIndex].Cells["EmployeeCode"] = cmbCell;
                     adgvList.Rows[e.RowIndex].Cells["EmployeeCode"].ReadOnly = false;
