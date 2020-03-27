@@ -116,6 +116,7 @@ namespace ATV_Allowance.Forms.EmployeeForms
                 string empName = txtName.Text;
                 string empCode = txtCode.Text;
                 string organization = txtOrganization.Text.Trim();
+                string title = txtTitle.Text.Trim();
                 int posId = -1;
                 //int orgId = -1;
 
@@ -142,7 +143,7 @@ namespace ATV_Allowance.Forms.EmployeeForms
                     Organization = organization,
                     RoleId = posId,
                     IsActive = true,
-                    Title = txtTitle.Text
+                    Title = title
                 };
                 actionLog.Message = string.Format(AppActions.Employee_Add, newEmp.Code);
                 bool result = btnAdd_Validate(newEmp);

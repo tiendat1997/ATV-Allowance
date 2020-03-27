@@ -46,7 +46,8 @@ namespace ATV_Allowance.Forms.EmployeeForms
         {
             txtCode.TabIndex = 0;
             txtName.TabIndex = 1;
-            cbOrganizationId.TabIndex = 2;
+            //cbOrganizationId.TabIndex = 2;
+            txtOrganization.TabIndex = 2;
             txtTitle.TabIndex = 3;
             gbPosition.TabIndex = 4;
             btnUpdate.TabIndex = 5;
@@ -57,10 +58,11 @@ namespace ATV_Allowance.Forms.EmployeeForms
             {
                 txtName.Text = model.Name;
                 txtCode.Text = model.Code;
+                txtOrganization.Text = model.Organization;
                 txtTitle.Text = model.Title ?? "";
                 currCode = model.Code;
-                int index = orgList.FindIndex(t => t.Id == model.OrganizationId);
-                cbOrganizationId.SelectedIndex = index;
+                //int index = orgList.FindIndex(t => t.Id == model.OrganizationId);
+                //cbOrganizationId.SelectedIndex = index;
                 var selectedRb = gbPosition.Controls.OfType<RadioButton>()
                                     .FirstOrDefault(r => r.Name.Equals("rb" + model.Position.ToUpper()));
                 selectedRb.Checked = true;
@@ -74,19 +76,20 @@ namespace ATV_Allowance.Forms.EmployeeForms
             epCode = new System.Windows.Forms.ErrorProvider(this.components);
             epDic = new Dictionary<Control, ErrorProvider>();
             epDic.Add(txtName, epName);
-            epDic.Add(cbOrganizationId, epOrganization);
+            //epDic.Add(cbOrganizationId, epOrganization);
+            epDic.Add(txtOrganization, epOrganization);
             epDic.Add(txtCode, epCode);
         }
         private void UpdateEmployeeForm_Load(object sender, EventArgs e)
         {
             try
             {
-                organizationService = new OrganizationService();
-                orgList = organizationService.GetAllIsActive(true);                
-                cbOrganizationId.DisplayMember = "Name";
-                cbOrganizationId.DataSource = orgList;
-                cbOrganizationId.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-                cbOrganizationId.AutoCompleteSource = AutoCompleteSource.ListItems;
+                //organizationService = new OrganizationService();
+                //orgList = organizationService.GetAllIsActive(true);                
+                //cbOrganizationId.DisplayMember = "Name";
+                //cbOrganizationId.DataSource = orgList;
+                //cbOrganizationId.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                //cbOrganizationId.AutoCompleteSource = AutoCompleteSource.ListItems;
                 LoadData();
             }
             catch (Exception ex)
@@ -135,16 +138,18 @@ namespace ATV_Allowance.Forms.EmployeeForms
                 
                 var checkedButton = gbPosition.Controls.OfType<RadioButton>()
                                     .FirstOrDefault(r => r.Checked);
-                var org = (OrganizationViewModel)cbOrganizationId.SelectedValue;
+                //var org = (OrganizationViewModel)cbOrganizationId.SelectedValue;
                 string empName = txtName.Text;
                 string empCode = txtCode.Text;
+                string organization = txtOrganization.Text.Trim();
+                string title = txtTitle.Text.Trim();
                 int posId = -1;
-                int orgId = -1;
+                //int orgId = -1;
 
-                if (org != null)
-                {
-                    orgId = org.Id;
-                }
+                //if (org != null)
+                //{
+                //    orgId = org.Id;
+                //}
 
                 if (checkedButton != null)
                 {
@@ -160,10 +165,11 @@ namespace ATV_Allowance.Forms.EmployeeForms
                     Id = model.Id,
                     Code = empCode,
                     Name = empName,
-                    OrganizationId = orgId,
+                    //OrganizationId = orgId,
+                    Organization = organization,
                     RoleId = posId,
                     IsActive = true,
-                    Title = model.Title
+                    Title = title
                 };
                 actionLog.Message = string.Format(AppActions.Employee_Update, newEmp.Code);
                 bool result = btnUpdate_Validate(newEmp);
@@ -198,35 +204,35 @@ namespace ATV_Allowance.Forms.EmployeeForms
             return result.IsValid;
         }
 
-        private void cbOrganizationId_TextUpdate(object sender, EventArgs e)
-        {
-            string filter_param = cbOrganizationId.Text.ToLower();
+        //private void cbOrganizationId_TextUpdate(object sender, EventArgs e)
+        //{
+        //    string filter_param = cbOrganizationId.Text.ToLower();
 
-            List<OrganizationViewModel> filteredItems = orgList.FindAll(x => x.Name.ToLower().Contains(filter_param));
-            // another variant for filtering using StartsWith:
-            // List<string> filteredItems = arrProjectList.FindAll(x => x.StartsWith(filter_param));
+        //    List<OrganizationViewModel> filteredItems = orgList.FindAll(x => x.Name.ToLower().Contains(filter_param));
+        //    // another variant for filtering using StartsWith:
+        //    // List<string> filteredItems = arrProjectList.FindAll(x => x.StartsWith(filter_param));
 
-            cbOrganizationId.DataSource = filteredItems;
+        //    cbOrganizationId.DataSource = filteredItems;
 
-            if (String.IsNullOrWhiteSpace(filter_param))
-            {
-                cbOrganizationId.DataSource = orgList;
-            }
-            cbOrganizationId.DroppedDown = true;
+        //    if (String.IsNullOrWhiteSpace(filter_param))
+        //    {
+        //        cbOrganizationId.DataSource = orgList;
+        //    }
+        //    cbOrganizationId.DroppedDown = true;
 
-            // this will ensure that the drop down is as long as the list
-            cbOrganizationId.IntegralHeight = true;
+        //    // this will ensure that the drop down is as long as the list
+        //    cbOrganizationId.IntegralHeight = true;
 
-            // remove automatically selected first item
-            cbOrganizationId.SelectedIndex = -1;
+        //    // remove automatically selected first item
+        //    cbOrganizationId.SelectedIndex = -1;
 
-            cbOrganizationId.Text = filter_param;
+        //    cbOrganizationId.Text = filter_param;
 
-            // set the position of the cursor
-            cbOrganizationId.SelectionStart = filter_param.Length;
-            cbOrganizationId.SelectionLength = 0;
-            Cursor.Current = Cursors.Default;
-        }
+        //    // set the position of the cursor
+        //    cbOrganizationId.SelectionStart = filter_param.Length;
+        //    cbOrganizationId.SelectionLength = 0;
+        //    Cursor.Current = Cursors.Default;
+        //}
 
         private void txtCode_Leave(object sender, EventArgs e)
         {

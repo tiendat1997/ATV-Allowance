@@ -86,7 +86,8 @@ namespace ATV_Allowance.Services
                         Position = t.Position.Code,
                         PositionId = t.Position.Id,
                         IsActive = t.IsActive,
-                        CodeAndName = t.Code + " - " + t.Name
+                        CodeAndName = t.Code + " - " + t.Name,
+                        Title = t.Title
                     }).ToList();
             return list;
         }
