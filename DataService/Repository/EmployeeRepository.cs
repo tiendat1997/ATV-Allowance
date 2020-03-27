@@ -23,7 +23,7 @@ namespace DataService.Repository
         public IEnumerable<Employee> GetAllEmployees(bool isActive)
         {
             var list = dbSet.Where(e => e.IsActive == isActive)
-                            .Include(e => e.Organization)
+                            .Include(e => e.Organization1)
                             .Include(e => e.Position)
                             .ToList();
             return list;

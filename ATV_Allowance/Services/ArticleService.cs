@@ -180,7 +180,8 @@ namespace ATV_Allowance.Services
                         EmployeeCode = entity.Employee.Code,
                         Name = entity.Employee.Name,
                         Position = entity.Employee.Position.Code,
-                        Organization = entity.Employee.Organization.Name
+                        //Organization = entity.Employee.Organization.Name
+                        Organization = entity.Employee.Organization
                     };
                     break;
                 case Common.Constants.ArticleType.PV_TTNM:
@@ -191,7 +192,8 @@ namespace ATV_Allowance.Services
                         EmployeeCode = entity.Employee.Code,
                         Name = entity.Employee.Name,
                         Position = entity.Employee.Position.Code,
-                        Organization = entity.Employee.Organization.Name
+                        //Organization = entity.Employee.Organization.Name
+                        Organization = entity.Employee.Organization
                     };
                     break;
                 case Common.Constants.ArticleType.PHAT_THANH:
@@ -202,7 +204,8 @@ namespace ATV_Allowance.Services
                         EmployeeCode = entity.Employee.Code,
                         Name = entity.Employee.Name,
                         Position = entity.Employee.Position.Code,
-                        Organization = entity.Employee.Organization.Name
+                        //Organization = entity.Employee.Organization.Name
+                        Organization = entity.Employee.Organization
                     };
                     break;
                 case Common.Constants.ArticleType.PHAT_THANH_TT:
@@ -213,7 +216,8 @@ namespace ATV_Allowance.Services
                         EmployeeCode = entity.Employee.Code,
                         Name = entity.Employee.Name,
                         Position = entity.Employee.Position.Code,
-                        Organization = entity.Employee.Organization.Name
+                        //Organization = entity.Employee.Organization.Name
+                        Organization = entity.Employee.Organization
                     };
                     break;
                 case Common.Constants.ArticleType.BIENSOAN_TTNM:
@@ -224,7 +228,8 @@ namespace ATV_Allowance.Services
                         EmployeeCode = entity.Employee.Code,
                         Name = entity.Employee.Name,
                         Position = entity.Employee.Position.Code,
-                        Organization = entity.Employee.Organization.Name
+                        //Organization = entity.Employee.Organization.Name
+                        Organization = entity.Employee.Organization
                     };
                     break;
                 case Common.Constants.ArticleType.KHOIHK_TTNM:
@@ -235,7 +240,8 @@ namespace ATV_Allowance.Services
                         EmployeeCode = entity.Employee.Code,
                         Name = entity.Employee.Name,
                         Position = entity.Employee.Position.Code,
-                        Organization = entity.Employee.Organization.Name
+                        //Organization = entity.Employee.Organization.Name
+                        Organization = entity.Employee.Organization
                     };
                     break;
                 default:

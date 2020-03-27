@@ -26,6 +26,7 @@ namespace DataService.Entity
         public int? RoleId { get; set; }
 
         public int? OrganizationId { get; set; }
+        public string Organization { get; set; }
 
         public bool IsActive { get; set; }
 
@@ -37,7 +38,7 @@ namespace DataService.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Deduction> Deduction { get; set; }
 
-        public virtual Organization Organization { get; set; }
+        public virtual Organization Organization1 { get; set; }
 
         public virtual Position Position { get; set; }
     }
