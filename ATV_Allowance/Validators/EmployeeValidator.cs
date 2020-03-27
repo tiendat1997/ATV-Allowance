@@ -16,9 +16,9 @@ namespace ATV_Allowance.Validators
                 .Cascade(CascadeMode.StopOnFirstFailure)
                 .NotEmpty().WithMessage("Vui lòng nhập họ và tên");
 
-            RuleFor(p => p.OrganizationId)
-                .Cascade(CascadeMode.StopOnFirstFailure)
-                .Must(p => p > 0).WithMessage("Không xác định được đơn vị");
+            //RuleFor(p => p.OrganizationId)
+            //    .Cascade(CascadeMode.StopOnFirstFailure)
+            //    .Must(p => p > 0).WithMessage("Không xác định được đơn vị");
 
             RuleFor(p => p.Code)
                 .Cascade(CascadeMode.StopOnFirstFailure)

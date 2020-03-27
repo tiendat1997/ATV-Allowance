@@ -42,7 +42,8 @@ namespace ATV_Allowance.Forms.EmployeeForms
         {
             txtCode.TabIndex = 0;
             txtName.TabIndex = 1;
-            cbOrganizationId.TabIndex = 2;
+            //cbOrganizationId.TabIndex = 2;
+            txtOrganization.TabIndex = 2;
             txtTitle.TabIndex = 3;
             gbPosition.TabIndex = 4;
             btnAdd.TabIndex = 5;
@@ -55,7 +56,8 @@ namespace ATV_Allowance.Forms.EmployeeForms
             epCode = new System.Windows.Forms.ErrorProvider(this.components);
             epDic = new Dictionary<Control, ErrorProvider>();
             epDic.Add(txtName, epName);
-            epDic.Add(cbOrganizationId, epOrganization);
+            //epDic.Add(cbOrganizationId, epOrganization);
+            epDic.Add(txtOrganization, epOrganization);
             epDic.Add(txtCode, epCode);
         }
 
@@ -65,8 +67,8 @@ namespace ATV_Allowance.Forms.EmployeeForms
             {
                 organizationService = new OrganizationService();
                 orgList = organizationService.GetAllIsActive(true);
-                cbOrganizationId.DisplayMember = "Name";
-                cbOrganizationId.DataSource = orgList;
+                //cbOrganizationId.DisplayMember = "Name";
+                //cbOrganizationId.DataSource = orgList;
             }
             catch (Exception ex)
             {
@@ -110,16 +112,17 @@ namespace ATV_Allowance.Forms.EmployeeForms
                 
                 var checkedButton = gbPosition.Controls.OfType<RadioButton>()
                                     .FirstOrDefault(r => r.Checked);
-                var org = (OrganizationViewModel)cbOrganizationId.SelectedValue;                
+                //var org = (OrganizationViewModel)cbOrganizationId.SelectedValue;                
                 string empName = txtName.Text;
                 string empCode = txtCode.Text;
+                string organization = txtOrganization.Text.Trim();
                 int posId = -1;
-                int orgId = -1;
+                //int orgId = -1;
 
-                if (org != null)
-                {
-                    orgId = org.Id;
-                }
+                //if (org != null)
+                //{
+                //    orgId = org.Id;
+                //}
 
                 if (checkedButton != null)
                 {
@@ -135,7 +138,8 @@ namespace ATV_Allowance.Forms.EmployeeForms
                 {
                     Code = empCode,
                     Name = empName,
-                    OrganizationId = orgId,
+                    //OrganizationId = orgId,
+                    Organization = organization,
                     RoleId = posId,
                     IsActive = true,
                     Title = txtTitle.Text
@@ -171,31 +175,31 @@ namespace ATV_Allowance.Forms.EmployeeForms
             }
         }     
 
-        private void cbOrganizationId_TextUpdate(object sender, EventArgs e)
-        {
-            string filter_param = cbOrganizationId.Text.ToLower();
-            List<OrganizationViewModel> filteredItems = orgList.FindAll(x => x.Name.ToLower().Contains(filter_param));
+        //private void cbOrganizationId_TextUpdate(object sender, EventArgs e)
+        //{
+        //    string filter_param = cbOrganizationId.Text.ToLower();
+        //    List<OrganizationViewModel> filteredItems = orgList.FindAll(x => x.Name.ToLower().Contains(filter_param));
 
-            cbOrganizationId.DataSource = filteredItems;
+        //    cbOrganizationId.DataSource = filteredItems;
 
-            if (String.IsNullOrWhiteSpace(filter_param))
-            {
-                cbOrganizationId.DataSource = orgList;
-            }
-            cbOrganizationId.DroppedDown = true;
+        //    if (String.IsNullOrWhiteSpace(filter_param))
+        //    {
+        //        cbOrganizationId.DataSource = orgList;
+        //    }
+        //    cbOrganizationId.DroppedDown = true;
 
-            // this will ensure that the drop down is as long as the list
-            cbOrganizationId.IntegralHeight = true;
+        //    // this will ensure that the drop down is as long as the list
+        //    cbOrganizationId.IntegralHeight = true;
 
-            // remove automatically selected first item
-            cbOrganizationId.SelectedIndex = -1;
-            cbOrganizationId.Text = filter_param;
+        //    // remove automatically selected first item
+        //    cbOrganizationId.SelectedIndex = -1;
+        //    cbOrganizationId.Text = filter_param;
 
-            // set the position of the cursor
-            cbOrganizationId.SelectionStart = filter_param.Length;
-            cbOrganizationId.SelectionLength = 0;
-            Cursor.Current = Cursors.Default;
-        }
+        //    // set the position of the cursor
+        //    cbOrganizationId.SelectionStart = filter_param.Length;
+        //    cbOrganizationId.SelectionLength = 0;
+        //    Cursor.Current = Cursors.Default;
+        //}
 
         private void txtCode_Leave(object sender, EventArgs e)
         {            

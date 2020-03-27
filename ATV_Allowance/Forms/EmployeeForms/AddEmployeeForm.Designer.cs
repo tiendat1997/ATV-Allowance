@@ -31,7 +31,6 @@
             this.gbStudentInfo = new System.Windows.Forms.GroupBox();
             this.txtTitle = new System.Windows.Forms.TextBox();
             this.lblTitle = new System.Windows.Forms.Label();
-            this.cbOrganizationId = new System.Windows.Forms.ComboBox();
             this.gbPosition = new System.Windows.Forms.GroupBox();
             this.rbKTD = new System.Windows.Forms.RadioButton();
             this.rbPV = new System.Windows.Forms.RadioButton();
@@ -46,6 +45,7 @@
             this.lblName = new System.Windows.Forms.Label();
             this.gbControl = new System.Windows.Forms.GroupBox();
             this.btnAdd = new System.Windows.Forms.Button();
+            this.txtOrganization = new System.Windows.Forms.TextBox();
             this.gbStudentInfo.SuspendLayout();
             this.gbPosition.SuspendLayout();
             this.gbControl.SuspendLayout();
@@ -53,9 +53,9 @@
             // 
             // gbStudentInfo
             // 
+            this.gbStudentInfo.Controls.Add(this.txtOrganization);
             this.gbStudentInfo.Controls.Add(this.txtTitle);
             this.gbStudentInfo.Controls.Add(this.lblTitle);
-            this.gbStudentInfo.Controls.Add(this.cbOrganizationId);
             this.gbStudentInfo.Controls.Add(this.gbPosition);
             this.gbStudentInfo.Controls.Add(this.txtCode);
             this.gbStudentInfo.Controls.Add(this.txtName);
@@ -89,16 +89,6 @@
             this.lblTitle.Size = new System.Drawing.Size(64, 20);
             this.lblTitle.TabIndex = 13;
             this.lblTitle.Text = "Ghi chú";
-            // 
-            // cbOrganizationId
-            // 
-            this.cbOrganizationId.FormattingEnabled = true;
-            this.cbOrganizationId.Location = new System.Drawing.Point(168, 175);
-            this.cbOrganizationId.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.cbOrganizationId.Name = "cbOrganizationId";
-            this.cbOrganizationId.Size = new System.Drawing.Size(373, 28);
-            this.cbOrganizationId.TabIndex = 12;
-            this.cbOrganizationId.TextUpdate += new System.EventHandler(this.cbOrganizationId_TextUpdate);
             // 
             // gbPosition
             // 
@@ -253,6 +243,14 @@
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
+            // txtOrganization
+            // 
+            this.txtOrganization.Location = new System.Drawing.Point(168, 169);
+            this.txtOrganization.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtOrganization.Name = "txtOrganization";
+            this.txtOrganization.Size = new System.Drawing.Size(264, 26);
+            this.txtOrganization.TabIndex = 15;
+            // 
             // AddEmployeeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -289,9 +287,9 @@
         private System.Windows.Forms.GroupBox gbPosition;
         private System.Windows.Forms.GroupBox gbControl;
         private System.Windows.Forms.Button btnAdd;
-        private System.Windows.Forms.ComboBox cbOrganizationId;
         private System.Windows.Forms.TextBox txtTitle;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.RadioButton rbKTD;
+        private System.Windows.Forms.TextBox txtOrganization;
     }
 }
