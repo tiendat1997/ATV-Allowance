@@ -334,8 +334,9 @@ namespace ATV_Allowance.Services
         {
             var model = (ArticleEmployeeThoiSuHangNgayViewModel)data;
             var articleEmp = articleEmployeeRepository.GetById(model.Id);
-            if (articleEmp != null) // DELETED 
+            if (articleEmp != null) 
             {
+                articleEmp.EmployeeId = data.EmployeeId;
                 articleEmp.Point.First(t => t.Type == PointType_ThoiSu.Tin).Point1 = model.Tin;
                 articleEmp.Point.First(t => t.Type == PointType_ThoiSu.PS).Point1 = model.PS;
                 articleEmp.Point.First(t => t.Type == PointType_ThoiSu.QTin).Point1 = model.QTin;
@@ -356,6 +357,7 @@ namespace ATV_Allowance.Services
             var articleEmp = articleEmployeeRepository.GetById(model.Id);
             if (articleEmp != null) // DELETED 
             {
+                articleEmp.EmployeeId = data.EmployeeId;
                 articleEmp.Point.First(t => t.Type == PointType_PhatThanh.Tin).Point1 = model.Tin;
                 articleEmp.Point.First(t => t.Type == PointType_PhatThanh.Pv_Pb).Point1 = model.Pv_Pb;
                 articleEmp.Point.First(t => t.Type == PointType_PhatThanh.Tlt).Point1 = model.Tlt;
@@ -474,6 +476,7 @@ namespace ATV_Allowance.Services
             var articleEmp = articleEmployeeRepository.GetById(model.Id);
             if (articleEmp != null) // DELETED 
             {
+                articleEmp.EmployeeId = data.EmployeeId;
                 articleEmp.Point.First(t => t.Type == PointType_PhatThanhTT.Tin).Point1 = model.Tin;
                 articleEmp.Point.First(t => t.Type == PointType_PhatThanhTT.Pv_Pb).Point1 = model.Pv_Pb;
                 articleEmp.Point.First(t => t.Type == PointType_PhatThanhTT.Bs_DCT).Point1 = model.Bs_DCT;
@@ -564,6 +567,7 @@ namespace ATV_Allowance.Services
             var articleEmp = articleEmployeeRepository.GetById(model.Id);
             if (articleEmp != null) // DELETED 
             {
+                articleEmp.EmployeeId = data.EmployeeId;
                 articleEmp.Point.First(t => t.Type == PointType_TTNM.Tin).Point1 = model.Tin;
                 articleEmp.Point.First(t => t.Type == PointType_TTNM.PS).Point1 = model.PS;
                 articleEmp.Point.First(t => t.Type == PointType_TTNM.QTin).Point1 = model.QTin;
@@ -671,6 +675,7 @@ namespace ATV_Allowance.Services
             var articleEmp = articleEmployeeRepository.GetById(model.Id);
             if (articleEmp != null) // DELETED 
             {
+                articleEmp.EmployeeId = data.EmployeeId;
                 articleEmp.Point.First(t => t.Type == PointType_BIENSOAN_TTNM.Bs_TTN).Point1 = model.Bs_TTN;
                 articleEmp.Point.First(t => t.Type == PointType_BIENSOAN_TTNM.Bs_Sapo).Point1 = model.Bs_Sapo;
                 articleEmp.Point.First(t => t.Type == PointType_BIENSOAN_TTNM.Bt_Duyet).Point1 = model.Bt_Duyet;
@@ -686,6 +691,7 @@ namespace ATV_Allowance.Services
             var articleEmp = articleEmployeeRepository.GetById(model.Id);
             if (articleEmp != null) // DELETED 
             {
+                articleEmp.EmployeeId = data.EmployeeId;
                 articleEmp.Point.First(t => t.Type == PointType_HAUKY_TTNM.DCT).Point1 = model.DCT;
                 articleEmp.Point.First(t => t.Type == PointType_HAUKY_TTNM.KTD).Point1 = model.KTD;
                 articleEmp.Point.First(t => t.Type == PointType_HAUKY_TTNM.KT_TH).Point1 = model.KT_TH;
