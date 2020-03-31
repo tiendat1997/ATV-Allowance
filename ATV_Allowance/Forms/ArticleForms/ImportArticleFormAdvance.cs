@@ -331,8 +331,8 @@ namespace ATV_Allowance.Forms.ArticleForms
                 foreach (var type in listPointType)
                 {
                     string typeValue = adgvList.Rows[e.RowIndex].Cells[type.Code].FormattedValue.ToString();
-                    int i;
-                    if (!int.TryParse(typeValue, out i) || i < 0)
+                    double i;
+                    if (!double.TryParse(typeValue, out i) || i < 0)
                     {
                         e.Cancel = true;
                         adgvList.Rows[e.RowIndex].Cells[type.Code].ErrorText = "Vui lòng nhập định dạng số (điểm >= 0)";

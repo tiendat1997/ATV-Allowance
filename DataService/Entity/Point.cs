@@ -14,7 +14,7 @@ namespace DataService.Entity
         public int? ArticleEmployeeId { get; set; }
 
         [Column("Point")]
-        public int? Point1 { get; set; }
+        public double? Point1 { get; set; }
 
         public int? Type { get; set; }
 

@@ -19,57 +19,57 @@ namespace ATV_Allowance.ViewModel
 
     public class ArticleEmployeeThoiSuHangNgayViewModel : ArticleEmployeeViewModel
     {
-        public int Tin { get; set; }
-        public int PS { get; set; }
-        public int QTin { get; set; }
-        public int QPs { get; set; }
+        public double Tin { get; set; }
+        public double PS { get; set; }
+        public double QTin { get; set; }
+        public double QPs { get; set; }
     }
 
     public class ArticleEmployeeThongTinNgayMoiViewModel : ArticleEmployeeViewModel
     {
-        public int Tin { get; set; }
-        public int PS { get; set; }
-        public int QTin { get; set; }
-        public int QPs { get; set; }
-        public int Tl_Tin { get; set; }
-        public int Thop { get; set; }
+        public double Tin { get; set; }
+        public double PS { get; set; }
+        public double QTin { get; set; }
+        public double QPs { get; set; }
+        public double Tl_Tin { get; set; }
+        public double Thop { get; set; }
     }
 
     public class ArticleEmployeePhatThanhViewModel : ArticleEmployeeViewModel
     {
-        public int Tin { get; set; }
-        public int Pv_Pb { get; set; }
-        public int Tlt { get; set; }
-        public int Sd { get; set; }
-        public int Cd_Cm { get; set; }
-        public int Bai { get; set; }
+        public double Tin { get; set; }
+        public double Pv_Pb { get; set; }
+        public double Tlt { get; set; }
+        public double Sd { get; set; }
+        public double Cd_Cm { get; set; }
+        public double Bai { get; set; }
     }
 
     public class ArticleEmployeePhatThanhTTViewModel : ArticleEmployeeViewModel
     {
-        public int Tin { get; set; }
-        public int Pv_Pb { get; set; }
-        public int TTh_Gnh { get; set; }
-        public int CDe { get; set; }
-        public int Bs_DCT { get; set; }
-        public int Bt_Dd { get; set; }
+        public double Tin { get; set; }
+        public double Pv_Pb { get; set; }
+        public double TTh_Gnh { get; set; }
+        public double CDe { get; set; }
+        public double Bs_DCT { get; set; }
+        public double Bt_Dd { get; set; }
     }
     public class ArticleEmployeeBSTTNMViewModel : ArticleEmployeeViewModel
     {
         // BIEN SOAN TTNM
-        public int Bs_TTN { get; set; }
-        public int Bs_Sapo { get; set; }
-        public int KThinh { get; set; }
-        public int TFile { get; set; }
-        public int Bt_Duyet { get; set; }
+        public double Bs_TTN { get; set; }
+        public double Bs_Sapo { get; set; }
+        public double KThinh { get; set; }
+        public double TFile { get; set; }
+        public double Bt_Duyet { get; set; }
     }
 
     public class ArticleEmployeeHauKyViewModel : ArticleEmployeeViewModel
     {
         // KHOI HAU KY BIEN SOAN TTNM
-        public int DCT { get; set; }
-        public int KTD { get; set; }
-        public int TCT { get; set; }
-        public int KT_TH { get; set; }
+        public double DCT { get; set; }
+        public double KTD { get; set; }
+        public double TCT { get; set; }
+        public double KT_TH { get; set; }
     }
 }
