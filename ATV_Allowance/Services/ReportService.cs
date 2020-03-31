@@ -626,20 +626,20 @@ namespace ATV_Allowance.Services
 
                     worksheet.Cells[currentRow, TS_COL.STT].Value = i + 1;
                     worksheet.Cells[currentRow, TS_COL.HO_TEN].Value = list[i].EmployeeName;
-                    worksheet.Cells[currentRow, TS_COL.TIN].Value = list[i].SoTin;
-                    worksheet.Cells[currentRow, TS_COL.TIN_DIEM].Value = list[i].DiemTin;
-                    worksheet.Cells[currentRow, TS_COL.PHSU].Value = list[i].SoPsu;
-                    worksheet.Cells[currentRow, TS_COL.PHSU_DIEM].Value = list[i].DiemPsu;
-                    worksheet.Cells[currentRow, TS_COL.QTIN].Value = list[i].SoQtin;
-                    worksheet.Cells[currentRow, TS_COL.QTIN_DIEM].Value = list[i].DiemQtin;
-                    worksheet.Cells[currentRow, TS_COL.QPSU].Value = list[i].SoQPsu;
-                    worksheet.Cells[currentRow, TS_COL.QPSU_DIEM].Value = list[i].DiemQPsu;
+                    if (list[i].SoTin != 0) worksheet.Cells[currentRow, TS_COL.TIN].Value = list[i].SoTin;
+                    if (list[i].DiemTin != 0) worksheet.Cells[currentRow, TS_COL.TIN_DIEM].Value = list[i].DiemTin;
+                    if (list[i].SoPsu != 0) worksheet.Cells[currentRow, TS_COL.PHSU].Value = list[i].SoPsu;
+                    if (list[i].DiemPsu != 0) worksheet.Cells[currentRow, TS_COL.PHSU_DIEM].Value = list[i].DiemPsu;
+                    if (list[i].SoQtin != 0) worksheet.Cells[currentRow, TS_COL.QTIN].Value = list[i].SoQtin;
+                    if (list[i].DiemQtin != 0) worksheet.Cells[currentRow, TS_COL.QTIN_DIEM].Value = list[i].DiemQtin;
+                    if (list[i].SoQPsu != 0) worksheet.Cells[currentRow, TS_COL.QPSU].Value = list[i].SoQPsu;
+                    if (list[i].DiemQPsu != 0) worksheet.Cells[currentRow, TS_COL.QPSU_DIEM].Value = list[i].DiemQPsu;
 
-                    worksheet.Cells[currentRow, TS_COL.CONG].Value = list[i].SumPoint;
-                    worksheet.Cells[currentRow, TS_COL.TRUCHITIEU].Value = list[i].Deduction;
-                    worksheet.Cells[currentRow, TS_COL.TANGGIAM].Value = list[i].IncreasePercent;
-                    worksheet.Cells[currentRow, TS_COL.TONGCONG].Value = list[i].TotalPoint;
-                    worksheet.Cells[currentRow, TS_COL.THANHTIEN].Value = list[i].TotalCost;
+                    if (list[i].SumPoint != 0) worksheet.Cells[currentRow, TS_COL.CONG].Value = list[i].SumPoint;
+                    if (list[i].Deduction != 0) worksheet.Cells[currentRow, TS_COL.TRUCHITIEU].Value = list[i].Deduction;
+                    if (list[i].IncreasePercent != 0) worksheet.Cells[currentRow, TS_COL.TANGGIAM].Value = list[i].IncreasePercent;
+                    if (list[i].TotalPoint != 0) worksheet.Cells[currentRow, TS_COL.TONGCONG].Value = list[i].TotalPoint;
+                    if (list[i].TotalCost != 0) worksheet.Cells[currentRow, TS_COL.THANHTIEN].Value = list[i].TotalCost;
 
                     currentRow += 1;
                 }
@@ -715,23 +715,23 @@ namespace ATV_Allowance.Services
                     worksheet.Cells[currentRow, PT_COL.STT].Value = i + 1;
                     worksheet.Cells[currentRow, PT_COL.HO_TEN].Value = list[i].EmployeeName;
                     worksheet.Cells[currentRow, PT_COL.DON_VI].Value = list[i].Organization;
-                    worksheet.Cells[currentRow, PT_COL.SL_TIN].Value = list[i].SoTin;
-                    worksheet.Cells[currentRow, PT_COL.D_TIN].Value = list[i].DiemTin;
-                    worksheet.Cells[currentRow, PT_COL.SL_BAI].Value = list[i].SoBai;
-                    worksheet.Cells[currentRow, PT_COL.D_BAI].Value = list[i].DiemBai;
-                    worksheet.Cells[currentRow, PT_COL.SL_CD].Value = list[i].SoCd;
-                    worksheet.Cells[currentRow, PT_COL.D_CD].Value = list[i].DiemCd;
-                    worksheet.Cells[currentRow, PT_COL.SL_PV].Value = list[i].SoPv;
-                    worksheet.Cells[currentRow, PT_COL.D_PV].Value = list[i].DiemPv;
-                    worksheet.Cells[currentRow, PT_COL.SL_TLT].Value = list[i].SoTLT;
-                    worksheet.Cells[currentRow, PT_COL.D_TLT].Value = list[i].DiemTLT;
-                    worksheet.Cells[currentRow, PT_COL.SL_SD].Value = list[i].SoSD;
-                    worksheet.Cells[currentRow, PT_COL.D_SD].Value = list[i].DiemSD;
+                    if (list[i].SoTin != 0) worksheet.Cells[currentRow, PT_COL.SL_TIN].Value = list[i].SoTin;
+                    if (list[i].DiemTin != 0) worksheet.Cells[currentRow, PT_COL.D_TIN].Value = list[i].DiemTin;
+                    if (list[i].SoBai != 0) worksheet.Cells[currentRow, PT_COL.SL_BAI].Value = list[i].SoBai;
+                    if (list[i].DiemBai != 0) worksheet.Cells[currentRow, PT_COL.D_BAI].Value = list[i].DiemBai;
+                    if (list[i].SoCd != 0) worksheet.Cells[currentRow, PT_COL.SL_CD].Value = list[i].SoCd;
+                    if (list[i].DiemCd != 0) worksheet.Cells[currentRow, PT_COL.D_CD].Value = list[i].DiemCd;
+                    if (list[i].SoPv != 0) worksheet.Cells[currentRow, PT_COL.SL_PV].Value = list[i].SoPv;
+                    if (list[i].DiemPv != 0) worksheet.Cells[currentRow, PT_COL.D_PV].Value = list[i].DiemPv;
+                    if (list[i].SoTLT != 0) worksheet.Cells[currentRow, PT_COL.SL_TLT].Value = list[i].SoTLT;
+                    if (list[i].DiemTLT != 0) worksheet.Cells[currentRow, PT_COL.D_TLT].Value = list[i].DiemTLT;
+                    if (list[i].SoSD != 0) worksheet.Cells[currentRow, PT_COL.SL_SD].Value = list[i].SoSD;
+                    if (list[i].DiemSD != 0) worksheet.Cells[currentRow, PT_COL.D_SD].Value = list[i].DiemSD;
 
-                    worksheet.Cells[currentRow, PT_COL.TRUCHITIEU].Value = list[i].Deduction;
-                    worksheet.Cells[currentRow, PT_COL.TONGDIEM].Value = list[i].SumPoint;
-                    worksheet.Cells[currentRow, PT_COL.TANGGIAM].Value = list[i].IncreasePercent;
-                    worksheet.Cells[currentRow, PT_COL.THANHTIEN].Value = list[i].TotalCost;
+                    if (list[i].Deduction != 0) worksheet.Cells[currentRow, PT_COL.TRUCHITIEU].Value = list[i].Deduction;
+                    if (list[i].SumPoint != 0) worksheet.Cells[currentRow, PT_COL.TONGDIEM].Value = list[i].SumPoint;
+                    if (list[i].IncreasePercent != 0) worksheet.Cells[currentRow, PT_COL.TANGGIAM].Value = list[i].IncreasePercent;
+                    if (list[i].TotalCost != 0) worksheet.Cells[currentRow, PT_COL.THANHTIEN].Value = list[i].TotalCost;
 
                     currentRow += 1;
                 }
@@ -804,23 +804,23 @@ namespace ATV_Allowance.Services
                     worksheet.Cells[currentRow, PTTT_COL.STT].Value = i + 1;
                     worksheet.Cells[currentRow, PTTT_COL.HO_TEN].Value = list[i].EmployeeName;
                     worksheet.Cells[currentRow, PTTT_COL.DON_VI].Value = list[i].Organization;
-                    worksheet.Cells[currentRow, PTTT_COL.SL_TIN].Value = list[i].SoTin;
-                    worksheet.Cells[currentRow, PTTT_COL.D_TIN].Value = list[i].DiemTin;
-                    worksheet.Cells[currentRow, PTTT_COL.SL_TT].Value = list[i].SoTTh_Gnh;
-                    worksheet.Cells[currentRow, PTTT_COL.D_TT].Value = list[i].DiemTTh_Gnh;
-                    worksheet.Cells[currentRow, PTTT_COL.SL_CD].Value = list[i].SoCde;
-                    worksheet.Cells[currentRow, PTTT_COL.D_CD].Value = list[i].DiemCde;
-                    worksheet.Cells[currentRow, PTTT_COL.SL_PV].Value = list[i].SoPv;
-                    worksheet.Cells[currentRow, PTTT_COL.D_PV].Value = list[i].DiemPv;
-                    worksheet.Cells[currentRow, PTTT_COL.SL_BS].Value = list[i].SoBs_DCT;
-                    worksheet.Cells[currentRow, PTTT_COL.D_BS].Value = list[i].DiemBs_DCT;
-                    worksheet.Cells[currentRow, PTTT_COL.SL_BT].Value = list[i].SoBt_Dd;
-                    worksheet.Cells[currentRow, PTTT_COL.D_BT].Value = list[i].DiemBt_Dd;
+                    if (list[i].SoTin != 0) worksheet.Cells[currentRow, PTTT_COL.SL_TIN].Value = list[i].SoTin;
+                    if (list[i].DiemTin != 0) worksheet.Cells[currentRow, PTTT_COL.D_TIN].Value = list[i].DiemTin;
+                    if (list[i].SoTTh_Gnh != 0) worksheet.Cells[currentRow, PTTT_COL.SL_TT].Value = list[i].SoTTh_Gnh;
+                    if (list[i].DiemTTh_Gnh != 0) worksheet.Cells[currentRow, PTTT_COL.D_TT].Value = list[i].DiemTTh_Gnh;
+                    if (list[i].SoCde != 0) worksheet.Cells[currentRow, PTTT_COL.SL_CD].Value = list[i].SoCde;
+                    if (list[i].DiemCde != 0) worksheet.Cells[currentRow, PTTT_COL.D_CD].Value = list[i].DiemCde;
+                    if (list[i].SoPv != 0) worksheet.Cells[currentRow, PTTT_COL.SL_PV].Value = list[i].SoPv;
+                    if (list[i].DiemPv != 0) worksheet.Cells[currentRow, PTTT_COL.D_PV].Value = list[i].DiemPv;
+                    if (list[i].SoBs_DCT != 0) worksheet.Cells[currentRow, PTTT_COL.SL_BS].Value = list[i].SoBs_DCT;
+                    if (list[i].DiemBs_DCT != 0) worksheet.Cells[currentRow, PTTT_COL.D_BS].Value = list[i].DiemBs_DCT;
+                    if (list[i].SoBt_Dd != 0) worksheet.Cells[currentRow, PTTT_COL.SL_BT].Value = list[i].SoBt_Dd;
+                    if (list[i].DiemBt_Dd != 0) worksheet.Cells[currentRow, PTTT_COL.D_BT].Value = list[i].DiemBt_Dd;
 
-                    worksheet.Cells[currentRow, PTTT_COL.TRUCHITIEU].Value = list[i].Deduction;
-                    worksheet.Cells[currentRow, PTTT_COL.TONGDIEM].Value = list[i].SumPoint;
-                    worksheet.Cells[currentRow, PTTT_COL.TANGGIAM].Value = list[i].IncreasePercent;
-                    worksheet.Cells[currentRow, PTTT_COL.THANHTIEN].Value = list[i].TotalCost;
+                    if (list[i].Deduction != 0) worksheet.Cells[currentRow, PTTT_COL.TRUCHITIEU].Value = list[i].Deduction;
+                    if (list[i].SumPoint != 0) worksheet.Cells[currentRow, PTTT_COL.TONGDIEM].Value = list[i].SumPoint;
+                    if (list[i].IncreasePercent != 0) worksheet.Cells[currentRow, PTTT_COL.TANGGIAM].Value = list[i].IncreasePercent;
+                    if (list[i].TotalCost != 0) worksheet.Cells[currentRow, PTTT_COL.THANHTIEN].Value = list[i].TotalCost;
 
                     currentRow += 1;
                 }
@@ -908,23 +908,23 @@ namespace ATV_Allowance.Services
                     worksheet.Cells[currentRow, TTNM_COL.STT].Value = i + 1;
                     worksheet.Cells[currentRow, TTNM_COL.HO_TEN].Value = list[i].EmployeeName;
                     worksheet.Cells[currentRow, TTNM_COL.DON_VI].Value = list[i].Organization;
-                    worksheet.Cells[currentRow, TTNM_COL.SL_TIN].Value = list[i].SoTin;
-                    worksheet.Cells[currentRow, TTNM_COL.D_TIN].Value = list[i].DiemTin;
-                    worksheet.Cells[currentRow, TTNM_COL.SL_PS].Value = list[i].SoPsu;
-                    worksheet.Cells[currentRow, TTNM_COL.D_PS].Value = list[i].DiemPsu;
-                    worksheet.Cells[currentRow, TTNM_COL.SL_QTin].Value = list[i].SoQtin;
-                    worksheet.Cells[currentRow, TTNM_COL.D_QTin].Value = list[i].DiemQtin;
-                    worksheet.Cells[currentRow, TTNM_COL.SL_QPsu].Value = list[i].SoQPsu;
-                    worksheet.Cells[currentRow, TTNM_COL.D_QPsu].Value = list[i].DiemQPsu;
-                    worksheet.Cells[currentRow, TTNM_COL.SL_Tlt].Value = list[i].SoTLT;
-                    worksheet.Cells[currentRow, TTNM_COL.D_Tlt].Value = list[i].DiemTLT;
-                    worksheet.Cells[currentRow, TTNM_COL.SL_Thop].Value = list[i].SoThop;
-                    worksheet.Cells[currentRow, TTNM_COL.D_Thop].Value = list[i].DiemThop;
+                    if (list[i].SoTin != 0) worksheet.Cells[currentRow, TTNM_COL.SL_TIN].Value = list[i].SoTin;
+                    if (list[i].DiemTin != 0) worksheet.Cells[currentRow, TTNM_COL.D_TIN].Value = list[i].DiemTin;
+                    if (list[i].SoPsu != 0) worksheet.Cells[currentRow, TTNM_COL.SL_PS].Value = list[i].SoPsu;
+                    if (list[i].DiemPsu != 0) worksheet.Cells[currentRow, TTNM_COL.D_PS].Value = list[i].DiemPsu;
+                    if (list[i].SoQtin != 0) worksheet.Cells[currentRow, TTNM_COL.SL_QTin].Value = list[i].SoQtin;
+                    if (list[i].DiemQtin != 0) worksheet.Cells[currentRow, TTNM_COL.D_QTin].Value = list[i].DiemQtin;
+                    if (list[i].SoQPsu != 0) worksheet.Cells[currentRow, TTNM_COL.SL_QPsu].Value = list[i].SoQPsu;
+                    if (list[i].DiemQPsu != 0) worksheet.Cells[currentRow, TTNM_COL.D_QPsu].Value = list[i].DiemQPsu;
+                    if (list[i].SoTLT != 0) worksheet.Cells[currentRow, TTNM_COL.SL_Tlt].Value = list[i].SoTLT;
+                    if (list[i].DiemTLT != 0) worksheet.Cells[currentRow, TTNM_COL.D_Tlt].Value = list[i].DiemTLT;
+                    if (list[i].SoThop != 0) worksheet.Cells[currentRow, TTNM_COL.SL_Thop].Value = list[i].SoThop;
+                    if (list[i].DiemThop != 0) worksheet.Cells[currentRow, TTNM_COL.D_Thop].Value = list[i].DiemThop;
 
-                    worksheet.Cells[currentRow, TTNM_COL.TRUCHITIEU].Value = list[i].Deduction;
-                    worksheet.Cells[currentRow, TTNM_COL.TONGDIEM].Value = list[i].SumPoint;
-                    worksheet.Cells[currentRow, TTNM_COL.TANGGIAM].Value = list[i].IncreasePercent;
-                    worksheet.Cells[currentRow, TTNM_COL.THANHTIEN].Value = list[i].TotalCost;
+                    if (list[i].Deduction != 0) worksheet.Cells[currentRow, TTNM_COL.TRUCHITIEU].Value = list[i].Deduction;
+                    if (list[i].SumPoint != 0) worksheet.Cells[currentRow, TTNM_COL.TONGDIEM].Value = list[i].SumPoint;
+                    if (list[i].IncreasePercent != 0) worksheet.Cells[currentRow, TTNM_COL.TANGGIAM].Value = list[i].IncreasePercent;
+                    if (list[i].TotalCost != 0) worksheet.Cells[currentRow, TTNM_COL.THANHTIEN].Value = list[i].TotalCost;
 
                     currentRow += 1;
                 }
@@ -1027,21 +1027,21 @@ namespace ATV_Allowance.Services
                     worksheet.Cells[currentRow, BSTTNM_COL.STT].Value = i + 1;
                     worksheet.Cells[currentRow, BSTTNM_COL.HO_TEN].Value = listBSTTNM[i].EmployeeName;
                     worksheet.Cells[currentRow, BSTTNM_COL.DON_VI].Value = listBSTTNM[i].Organization;
-                    worksheet.Cells[currentRow, BSTTNM_COL.SL_BS_TTN].Value = listBSTTNM[i].SoBs_TTN;
-                    worksheet.Cells[currentRow, BSTTNM_COL.D_BS_TTN].Value = listBSTTNM[i].DiemBs_TTN;
-                    worksheet.Cells[currentRow, BSTTNM_COL.SL_BtDuyet].Value = listBSTTNM[i].SoBt_Duyet;
-                    worksheet.Cells[currentRow, BSTTNM_COL.D_BtDuyet].Value = listBSTTNM[i].DiemBt_Duyet;
-                    worksheet.Cells[currentRow, BSTTNM_COL.SL_Kthinh].Value = listBSTTNM[i].SoKThinh;
-                    worksheet.Cells[currentRow, BSTTNM_COL.D_Kthinh].Value = listBSTTNM[i].DiemKThinh;
-                    worksheet.Cells[currentRow, BSTTNM_COL.SL_Sapo].Value = listBSTTNM[i].SoBs_Sapo;
-                    worksheet.Cells[currentRow, BSTTNM_COL.D_Sapo].Value = listBSTTNM[i].DiemBs_Sapo;
-                    worksheet.Cells[currentRow, BSTTNM_COL.SL_Tfile].Value = listBSTTNM[i].SoTFile;
-                    worksheet.Cells[currentRow, BSTTNM_COL.D_Tfile].Value = listBSTTNM[i].DiemTFile;
+                    if (listBSTTNM[i].SoBs_TTN != 0) worksheet.Cells[currentRow, BSTTNM_COL.SL_BS_TTN].Value = listBSTTNM[i].SoBs_TTN;
+                    if (listBSTTNM[i].DiemBs_TTN != 0) worksheet.Cells[currentRow, BSTTNM_COL.D_BS_TTN].Value = listBSTTNM[i].DiemBs_TTN;
+                    if (listBSTTNM[i].SoBt_Duyet != 0) worksheet.Cells[currentRow, BSTTNM_COL.SL_BtDuyet].Value = listBSTTNM[i].SoBt_Duyet;
+                    if (listBSTTNM[i].DiemBt_Duyet != 0) worksheet.Cells[currentRow, BSTTNM_COL.D_BtDuyet].Value = listBSTTNM[i].DiemBt_Duyet;
+                    if (listBSTTNM[i].SoKThinh != 0) worksheet.Cells[currentRow, BSTTNM_COL.SL_Kthinh].Value = listBSTTNM[i].SoKThinh;
+                    if (listBSTTNM[i].DiemKThinh != 0) worksheet.Cells[currentRow, BSTTNM_COL.D_Kthinh].Value = listBSTTNM[i].DiemKThinh;
+                    if (listBSTTNM[i].SoBs_Sapo != 0) worksheet.Cells[currentRow, BSTTNM_COL.SL_Sapo].Value = listBSTTNM[i].SoBs_Sapo;
+                    if (listBSTTNM[i].DiemBs_Sapo != 0) worksheet.Cells[currentRow, BSTTNM_COL.D_Sapo].Value = listBSTTNM[i].DiemBs_Sapo;
+                    if (listBSTTNM[i].SoTFile != 0) worksheet.Cells[currentRow, BSTTNM_COL.SL_Tfile].Value = listBSTTNM[i].SoTFile;
+                    if (listBSTTNM[i].DiemTFile != 0) worksheet.Cells[currentRow, BSTTNM_COL.D_Tfile].Value = listBSTTNM[i].DiemTFile;
 
-                    worksheet.Cells[currentRow, BSTTNM_COL.TRUCHITIEU].Value = listBSTTNM[i].Deduction;
-                    worksheet.Cells[currentRow, BSTTNM_COL.TONGDIEM].Value = listBSTTNM[i].SumPoint;
-                    worksheet.Cells[currentRow, BSTTNM_COL.TANGGIAM].Value = listBSTTNM[i].IncreasePercent;
-                    worksheet.Cells[currentRow, BSTTNM_COL.THANHTIEN].Value = listBSTTNM[i].TotalCost;
+                    if (listBSTTNM[i].Deduction != 0) worksheet.Cells[currentRow, BSTTNM_COL.TRUCHITIEU].Value = listBSTTNM[i].Deduction;
+                    if (listBSTTNM[i].SumPoint != 0) worksheet.Cells[currentRow, BSTTNM_COL.TONGDIEM].Value = listBSTTNM[i].SumPoint;
+                    if (listBSTTNM[i].IncreasePercent != 0) worksheet.Cells[currentRow, BSTTNM_COL.TANGGIAM].Value = listBSTTNM[i].IncreasePercent;
+                    if (listBSTTNM[i].TotalCost != 0) worksheet.Cells[currentRow, BSTTNM_COL.THANHTIEN].Value = listBSTTNM[i].TotalCost;
 
                     currentRow += 1;
                 }
@@ -1083,21 +1083,21 @@ namespace ATV_Allowance.Services
                     worksheet.Cells[currentRow, KHK_COL.STT].Value = i + 1;
                     worksheet.Cells[currentRow, KHK_COL.HO_TEN].Value = listKHK[i].EmployeeName;
                     worksheet.Cells[currentRow, KHK_COL.DON_VI].Value = listKHK[i].Organization;
-                    worksheet.Cells[currentRow, KHK_COL.SL_DCT].Value = listKHK[i].SoDCT;
-                    worksheet.Cells[currentRow, KHK_COL.D_DCT].Value = listKHK[i].DiemDCT;
-                    worksheet.Cells[currentRow, KHK_COL.SL_KTD].Value = listKHK[i].SoKTD;
-                    worksheet.Cells[currentRow, KHK_COL.D_KTD].Value = listKHK[i].DiemKTD;
-                    worksheet.Cells[currentRow, KHK_COL.SL_KTTH].Value = listKHK[i].SoKT_TH;
-                    worksheet.Cells[currentRow, KHK_COL.D_KTTH].Value = listKHK[i].DiemKT_TH;
-                    worksheet.Cells[currentRow, KHK_COL.SL_TCT].Value = listKHK[i].SoTCT;
-                    worksheet.Cells[currentRow, KHK_COL.D_TCT].Value = listKHK[i].DiemTCT;
+                    if (listKHK[i].SoDCT != 0) worksheet.Cells[currentRow, KHK_COL.SL_DCT].Value = listKHK[i].SoDCT;
+                    if (listKHK[i].DiemDCT != 0) worksheet.Cells[currentRow, KHK_COL.D_DCT].Value = listKHK[i].DiemDCT;
+                    if (listKHK[i].SoKTD != 0) worksheet.Cells[currentRow, KHK_COL.SL_KTD].Value = listKHK[i].SoKTD;
+                    if (listKHK[i].DiemKTD != 0) worksheet.Cells[currentRow, KHK_COL.D_KTD].Value = listKHK[i].DiemKTD;
+                    if (listKHK[i].SoKT_TH != 0) worksheet.Cells[currentRow, KHK_COL.SL_KTTH].Value = listKHK[i].SoKT_TH;
+                    if (listKHK[i].DiemKT_TH != 0) worksheet.Cells[currentRow, KHK_COL.D_KTTH].Value = listKHK[i].DiemKT_TH;
+                    if (listKHK[i].SoTCT != 0) worksheet.Cells[currentRow, KHK_COL.SL_TCT].Value = listKHK[i].SoTCT;
+                    if (listKHK[i].DiemTCT != 0) worksheet.Cells[currentRow, KHK_COL.D_TCT].Value = listKHK[i].DiemTCT;
 
-                    worksheet.Cells[currentRow, KHK_COL.TRUCHITIEU].Value = listKHK[i].Deduction;
+                    if (listKHK[i].Deduction != 0) worksheet.Cells[currentRow, KHK_COL.TRUCHITIEU].Value = listKHK[i].Deduction;
                     worksheet.Range[worksheet.Cells[currentRow, KHK_COL.TONGDIEM], worksheet.Cells[currentRow, KHK_COL.TONGDIEM + 1]].Merge(true);
-                    worksheet.Cells[currentRow, KHK_COL.TONGDIEM].Value = listKHK[i].SumPoint;
+                    if (listKHK[i].SumPoint != 0) worksheet.Cells[currentRow, KHK_COL.TONGDIEM].Value = listKHK[i].SumPoint;
                     worksheet.Range[worksheet.Cells[currentRow, KHK_COL.TANGGIAM], worksheet.Cells[currentRow, KHK_COL.TANGGIAM + 1]].Merge(true);
-                    worksheet.Cells[currentRow, KHK_COL.TANGGIAM].Value = listKHK[i].IncreasePercent;
-                    worksheet.Cells[currentRow, KHK_COL.THANHTIEN].Value = listKHK[i].TotalCost;
+                    if (listKHK[i].IncreasePercent != 0) worksheet.Cells[currentRow, KHK_COL.TANGGIAM].Value = listKHK[i].IncreasePercent;
+                    if (listKHK[i].TotalCost != 0) worksheet.Cells[currentRow, KHK_COL.THANHTIEN].Value = listKHK[i].TotalCost;
 
                     currentRow += 1;
                 }

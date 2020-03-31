@@ -33,7 +33,7 @@ namespace DataService.Repository
 
                                                     ") t1 inner join " +
                                                     "( " +
-                                                            "select t.Id, t.EmployeeId, e.Name, o.Name as 'OrganizationName' " +
+                                                            "select t.Id, t.EmployeeId, e.Name, e.Organization as 'OrganizationName' " +
                                                             "from Employee e inner " +
                                                             "join " +
                                                             "( " +
