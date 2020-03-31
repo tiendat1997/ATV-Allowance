@@ -126,7 +126,7 @@ namespace ATV_Allowance.Forms.PrintReportForms
 
         private void btnDeduction_Click(object sender, EventArgs e)
         {
-            PVEmployeeDeduction deductionForm = new PVEmployeeDeduction(dtpMonth.Value.Month, dtpYear.Value.Year, Constants.ArticleType.PHAT_THANH);
+            PTDepartmentDeduction deductionForm = new PTDepartmentDeduction(dtpMonth.Value.Month, dtpYear.Value.Year, Constants.ArticleType.PHAT_THANH);
             deductionForm.ShowDialog();
         }
 

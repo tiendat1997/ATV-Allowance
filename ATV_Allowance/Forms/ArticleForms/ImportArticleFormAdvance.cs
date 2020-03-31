@@ -158,8 +158,16 @@ namespace ATV_Allowance.Forms.ArticleForms
                 adgvList.DataSource = bs;
                 // If you want to change column index, you need to disable auto genrate column                 
                 adgvList.AutoGenerateColumns = false;
-                // set indexing for the table                
-                adgvList.Columns["EmployeeCode"].DisplayIndex = 0;
+                
+                var employeeCodeColumn = new DataGridViewComboBoxColumn();
+                employeeCodeColumn.Name = "ComboboxEmployee";
+                employeeCodeColumn.HeaderText = "Mã NV";
+                employeeCodeColumn.DataSource = employeeBindingList;
+                employeeCodeColumn.DisplayIndex = 0;
+
+                adgvList.Columns.Add(employeeCodeColumn);
+
+                // set indexing for the table
                 adgvList.Columns["Name"].DisplayIndex = 1;
                 adgvList.Columns["Organization"].DisplayIndex = 2;
                 adgvList.Columns["Position"].DisplayIndex = 3;
@@ -167,6 +175,7 @@ namespace ATV_Allowance.Forms.ArticleForms
                 // hidden column 
                 adgvList.Columns["Id"].Visible = false;
                 adgvList.Columns["EmployeeId"].Visible = false;
+                adgvList.Columns["EmployeeCode"].Visible = false;
                 adgvList.Columns["ArticleId"].Visible = false;
 
                 // readonly field before employee selection
@@ -219,6 +228,7 @@ namespace ATV_Allowance.Forms.ArticleForms
 
                 bs.DataSource = bindList;
                 adgvList.DataSource = bs;
+                adgvList.Columns["ComboboxEmployee"].DataPropertyName = "EmployeeCode";
 
                 adgvList.RowValidating += new DataGridViewCellCancelEventHandler(adgvList_RowValidating);
                 adgvList.RowValidated += new DataGridViewCellEventHandler(adgvList_RowValidated);
@@ -279,17 +289,8 @@ namespace ATV_Allowance.Forms.ArticleForms
                     adgvList.Rows[currRowIndex].Cells["EmployeeCode"].Value = selectedEmp.Code;
                     adgvList.Rows[currRowIndex].Cells["Position"].Value = selectedEmp.Position;
                     adgvList.Rows[currRowIndex].Cells["Organization"].Value = selectedEmp.Organization;
-
-                    var textCell = new DataGridViewTextBoxCell();
-                    textCell.Value = selectedEmp.Code;
-
-                    adgvList.Rows[currRowIndex].ReadOnly = false;
-
-                    // change employee code column to text and mark it read only
-                    adgvList.Rows[currRowIndex].Cells["EmployeeCode"] = textCell;
-                    adgvList.Rows[currRowIndex].Cells["EmployeeCode"].ReadOnly = true;
-
-                    // focus on the first point of the column 
+                    adgvList.Rows[currRowIndex].Cells["ComboboxEmployee"].Value = empCode;
+                   
                     adgvList.CurrentCell = adgvList.Rows[currRowIndex].Cells[listPointType[0].Code];
                 }
             }
@@ -316,23 +317,23 @@ namespace ATV_Allowance.Forms.ArticleForms
             try
             {
                 // Note the check to see if the current row is dirty
-                string selectedValue = adgvList.Rows[e.RowIndex].Cells["EmployeeCode"].FormattedValue.ToString();
+                string selectedValue = adgvList.Rows[e.RowIndex].Cells["ComboboxEmployee"].FormattedValue.ToString();
                 string currCodeValue = adgvList.Rows[e.RowIndex].Cells["EmployeeCode"].FormattedValue.ToString();
                 if ((string.IsNullOrEmpty(currCodeValue) || !selectedValue.Equals(currCodeValue)) && adgvList.IsCurrentRowDirty)
                 {
                     e.Cancel = true;
-                    adgvList.Rows[e.RowIndex].Cells["EmployeeCode"].ErrorText = "Vui lòng chọn nhân viên";
+                    adgvList.Rows[e.RowIndex].Cells["ComboboxEmployee"].ErrorText = "Vui lòng chọn nhân viên";
                 }
                 else
                 {
-                    adgvList.Rows[e.RowIndex].Cells["EmployeeCode"].ErrorText = string.Empty;
+                    adgvList.Rows[e.RowIndex].Cells["ComboboxEmployee"].ErrorText = string.Empty;
                 }
 
                 foreach (var type in listPointType)
                 {
                     string typeValue = adgvList.Rows[e.RowIndex].Cells[type.Code].FormattedValue.ToString();
-                    int i;
-                    if (!int.TryParse(typeValue, out i) || i < 0)
+                    double i;
+                    if (!double.TryParse(typeValue, out i) || i < 0)
                     {
                         e.Cancel = true;
                         adgvList.Rows[e.RowIndex].Cells[type.Code].ErrorText = "Vui lòng nhập định dạng số (điểm >= 0)";
@@ -361,11 +362,13 @@ namespace ATV_Allowance.Forms.ArticleForms
                     if (articleEmployee.Id == 0) // Add new records 
                     {
                         articleService.AddArticleEmployee(articleEmployee, article);
+                        LoadDGV();
                     }
                     else
                     {
                         articleService.UpdateArticleEmployee(articleEmployee, article);
                     }
+                    
                 }
             }
             catch (Exception ex)
@@ -499,12 +502,14 @@ namespace ATV_Allowance.Forms.ArticleForms
                 if (e.RowIndex == adgvList.NewRowIndex)
                 {
                     LoadEmployeeData(); // reload data
-                    var cmbCell = new DataGridViewComboBoxCell();                    
-                    cmbCell.FlatStyle = FlatStyle.Flat;                    
-                    cmbCell.DataSource = employeeBindingList;          
-                    adgvList.Rows[e.RowIndex].ReadOnly = true;
-                    adgvList.Rows[e.RowIndex].Cells["EmployeeCode"] = cmbCell;
-                    adgvList.Rows[e.RowIndex].Cells["EmployeeCode"].ReadOnly = false;
+                    var empCol = adgvList.Columns["ComboboxEmployee"] as DataGridViewComboBoxColumn;
+                    empCol.DataSource = employeeBindingList;
+                    //var cmbCell = new DataGridViewComboBoxCell();                    
+                    //cmbCell.FlatStyle = FlatStyle.Flat;                    
+                    //cmbCell.DataSource = employeeBindingList;          
+                    //adgvList.Rows[e.RowIndex].ReadOnly = true;
+                    //adgvList.Rows[e.RowIndex].Cells["EmployeeCode"] = cmbCell;
+                    //adgvList.Rows[e.RowIndex].Cells["EmployeeCode"].ReadOnly = false;
 
                     //go to first column
                     SendKeys.Send("{Home}");
