@@ -25,8 +25,21 @@ namespace ATV_Allowance.Forms.PrintReportForms
         {
             _logger = new AppLogger();
             InitializeComponent();
+            InitValue();
             InitTabIndex();
             reportService = new ReportService();
+        }
+
+        public void InitValue()
+        {
+
+            var firstDateInMonth = new DateTime(dtpYear.Value.Year, dtpMonth.Value.Month, 1);
+
+            dtpMonth.Value = firstDateInMonth;
+            dtpYear.Value = firstDateInMonth;
+
+            dtpStartdate.Value = firstDateInMonth;
+            dtpEnddate.Value = firstDateInMonth.AddMonths(1).AddDays(-1);
         }
 
         private void InitTabIndex()
@@ -83,6 +96,19 @@ namespace ATV_Allowance.Forms.PrintReportForms
         {
             PVEmployeeDeduction deductionForm = new PVEmployeeDeduction(dtpMonth.Value.Month, dtpYear.Value.Year, Constants.ArticleType.BIENSOAN_TTNM);
             deductionForm.ShowDialog();
+        }
+
+
+        private void dtpMonth_ValueChanged(object sender, EventArgs e)
+        {
+            dtpStartdate.Value = new DateTime(dtpYear.Value.Year, dtpMonth.Value.Month, 1);
+            dtpEnddate.Value = new DateTime(dtpYear.Value.Year, dtpMonth.Value.Month, DateTime.DaysInMonth(dtpYear.Value.Year, dtpMonth.Value.Month));
+        }
+
+        private void dtpYear_ValueChanged(object sender, EventArgs e)
+        {
+            dtpStartdate.Value = new DateTime(dtpYear.Value.Year, dtpMonth.Value.Month, 1);
+            dtpEnddate.Value = new DateTime(dtpYear.Value.Year, dtpMonth.Value.Month, DateTime.DaysInMonth(dtpYear.Value.Year, dtpMonth.Value.Month));
         }
     }
 }

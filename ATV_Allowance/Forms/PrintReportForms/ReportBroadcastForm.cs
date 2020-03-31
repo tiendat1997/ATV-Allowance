@@ -67,11 +67,13 @@ namespace ATV_Allowance.Forms.PrintReportForms
                 Code = "CTV"
             });           
 
-            dtpMonth.Value = DateTime.Now;
-            dtpYear.Value = DateTime.Now;
+            var firstDateInMonth = new DateTime(dtpYear.Value.Year, dtpMonth.Value.Month, 1);
 
-            dtpStartdate.Value = new DateTime(dtpYear.Value.Year, dtpMonth.Value.Month, 1);
-            dtpEnddate.Value = new DateTime(dtpYear.Value.Year, dtpMonth.Value.Month, DateTime.DaysInMonth(dtpYear.Value.Year, dtpMonth.Value.Month));
+            dtpMonth.Value = firstDateInMonth;
+            dtpYear.Value = firstDateInMonth;
+
+            dtpStartdate.Value = firstDateInMonth;
+            dtpEnddate.Value = firstDateInMonth.AddMonths(1).AddDays(-1);
 
             InitSaveFile();
         }

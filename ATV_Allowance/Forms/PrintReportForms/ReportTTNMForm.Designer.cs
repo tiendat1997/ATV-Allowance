@@ -116,6 +116,7 @@
             this.dtpMonth.ShowUpDown = true;
             this.dtpMonth.Size = new System.Drawing.Size(76, 24);
             this.dtpMonth.TabIndex = 59;
+            this.dtpMonth.ValueChanged += new System.EventHandler(this.dtpMonth_ValueChanged);
             // 
             // label3
             // 
@@ -140,6 +141,7 @@
             this.dtpYear.ShowUpDown = true;
             this.dtpYear.Size = new System.Drawing.Size(103, 24);
             this.dtpYear.TabIndex = 60;
+            this.dtpYear.ValueChanged += new System.EventHandler(this.dtpYear_ValueChanged);
             // 
             // label4
             // 
