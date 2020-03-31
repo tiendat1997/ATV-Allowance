@@ -167,6 +167,7 @@ namespace ATV_Allowance.Forms.ArticleForms
 
                 adgvList.Columns.Add(employeeCodeColumn);
 
+                // set indexing for the table
                 adgvList.Columns["Name"].DisplayIndex = 1;
                 adgvList.Columns["Organization"].DisplayIndex = 2;
                 adgvList.Columns["Position"].DisplayIndex = 3;
@@ -361,11 +362,13 @@ namespace ATV_Allowance.Forms.ArticleForms
                     if (articleEmployee.Id == 0) // Add new records 
                     {
                         articleService.AddArticleEmployee(articleEmployee, article);
+                        LoadDGV();
                     }
                     else
                     {
                         articleService.UpdateArticleEmployee(articleEmployee, article);
                     }
+                    
                 }
             }
             catch (Exception ex)

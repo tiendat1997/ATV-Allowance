@@ -251,8 +251,8 @@ namespace ATV_Allowance.Services
         }
         public List<ArticleEmployeeViewModel> GetArticleEmployee(int articleId, int articleType)
         {
-            var artEmps = articleEmployeeRepository
-                        .GetMany(e => e.ArticleId == articleId)
+            var artEmps = articleEmployeeRepository                        
+                        .GetManyIncludeEmployee(e => e.ArticleId == articleId)                        
                         .Select(t => ArticleEmployeeMapper(t, articleType)).ToList();
 
             foreach (var artEmp in artEmps)
