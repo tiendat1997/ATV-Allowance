@@ -59,7 +59,7 @@ namespace DataService.Repository
                     model.EmployeeName = (string)reader["EmployeeName"];
                     model.OrganizationName = (string)reader["OrganizationName"];
                     model.PointType = (int)reader["PointType"];
-                    model.TotalPoint = (int)reader["TotalPoint"];
+                    model.TotalPoint = (double)reader["TotalPoint"];
                     model.Amount = (int)reader["Amount"];
                     result.Add(model);
                 }
