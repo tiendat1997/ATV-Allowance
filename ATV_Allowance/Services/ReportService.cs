@@ -758,12 +758,14 @@ namespace ATV_Allowance.Services
                 var BBTPoint = totalPoint * BBTPrecent;
                 var BBTCost = (long)(BBTPoint * price);
                 worksheet.Cells[currentRow, PT_COL.STT].Value = i + 1;
-                worksheet.Cells[currentRow, PT_COL.HO_TEN].Value = PT_COL.GetBBTHeader(BBTPrecent);
+                worksheet.Cells[currentRow, PT_COL.HO_TEN].Value = PT_COL.GetBBTHeader(BBTPrecent*100);
                 worksheet.Cells[currentRow, PT_COL.TONGDIEM].Value = BBTPoint;
                 worksheet.Cells[currentRow, PT_COL.THANHTIEN].Value = BBTCost;
                 totalCost += BBTCost;
                 currentRow += 1;
             }
+
+            worksheet.Range[worksheet.Cells[4, PT_COL.STT], worksheet.Cells[currentRow, PT_COL.THANHTIEN + 1]].Borders.LineStyle = XlLineStyle.xlContinuous;
 
             //title row
             var textRole = (role == EmployeeRole.PV ? "PV" : "CTV");
