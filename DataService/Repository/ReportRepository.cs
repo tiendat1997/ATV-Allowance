@@ -21,7 +21,7 @@ namespace DataService.Repository
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ATVEntities"].ConnectionString))
             {
                 connection.Open();
-                var query = "Select EmployeeId, MAX(Name) AS 'EmployeeName', MAX(OrganizationName) AS 'OrganizationName', Type AS 'PointType', Sum(Point) As 'TotalPoint', COUNT(Point) As 'Amount' " +
+                var query = "Select EmployeeId, MAX(Name) AS 'EmployeeName', MAX(OrganizationName) AS 'OrganizationName', Type AS 'PointType', Sum(Point) As 'TotalPoint', COUNT(CASE WHEN Point != 0 THEN Point ELSE NULL END) As 'Amount' " +
                                                     "from( " +
 
                                                             "Select * " +
