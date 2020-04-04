@@ -747,15 +747,16 @@ namespace ATV_Allowance.Services
             if (role == EmployeeRole.CTV)
             {
                 worksheet.Columns[PT_COL.TRUCHITIEU].Hidden = true;
-                totalPoint += list.Sum(x => x.TotalPoint);
+                totalPoint += list.Sum(x => x.SumPoint);
             }
             else
             {
                 Range line = (Range)worksheet.Rows[currentRow];
                 line.Insert();
-                totalPoint += list.Sum(x => x.TotalPoint);
+                totalPoint += list.Sum(x => x.SumPoint);
                 var BBTPrecent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, Criterias_PT.BBT) / 100;
-                var BBTPoint = totalPoint * BBTPrecent;
+                //var BBTPoint = totalPoint * BBTPrecent * (1 + percent);
+                var BBTPoint = totalPoint * BBTPrecent * percent;
                 var BBTCost = (long)(BBTPoint * price);
                 worksheet.Cells[currentRow, PT_COL.STT].Value = i + 1;
                 worksheet.Cells[currentRow, PT_COL.HO_TEN].Value = PT_COL.GetBBTHeader(BBTPrecent*100);
