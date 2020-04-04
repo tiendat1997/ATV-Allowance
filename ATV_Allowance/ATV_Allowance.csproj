@@ -192,6 +192,12 @@
     <Compile Include="Forms\CriteriaForms\CriteriaDetailForm.Designer.cs">
       <DependentUpon>CriteriaDetailForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\CriteriaForms\CriteriaPTTTForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CriteriaForms\CriteriaPTTTForm.Designer.cs">
+      <DependentUpon>CriteriaPTTTForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\CriteriaForms\CriteriaPTForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -434,6 +440,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\CriteriaForms\CriteriaDetailForm.resx">
       <DependentUpon>CriteriaDetailForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CriteriaForms\CriteriaPTTTForm.resx">
+      <DependentUpon>CriteriaPTTTForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\CriteriaForms\CriteriaPTForm.resx">
       <DependentUpon>CriteriaPTForm.cs</DependentUpon>

@@ -43,6 +43,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.dtpStartdate = new System.Windows.Forms.DateTimePicker();
             this.button1 = new System.Windows.Forms.Button();
+            this.btnCriteriaPTTT = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.edtPrice)).BeginInit();
             this.SuspendLayout();
             // 
@@ -54,7 +55,7 @@
             this.btnEditCriteria.Name = "btnEditCriteria";
             this.btnEditCriteria.Size = new System.Drawing.Size(200, 35);
             this.btnEditCriteria.TabIndex = 34;
-            this.btnEditCriteria.Text = "Nhập chỉ tiêu";
+            this.btnEditCriteria.Text = "Nhập chỉ tiêu PT";
             this.btnEditCriteria.UseVisualStyleBackColor = true;
             this.btnEditCriteria.Click += new System.EventHandler(this.btnEditCriteria_Click);
             // 
@@ -97,7 +98,7 @@
             // btnDeduction
             // 
             this.btnDeduction.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDeduction.Location = new System.Drawing.Point(467, 87);
+            this.btnDeduction.Location = new System.Drawing.Point(469, 131);
             this.btnDeduction.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
             this.btnDeduction.Name = "btnDeduction";
             this.btnDeduction.Size = new System.Drawing.Size(200, 35);
@@ -241,11 +242,24 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // btnCriteriaPTTT
+            // 
+            this.btnCriteriaPTTT.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCriteriaPTTT.Location = new System.Drawing.Point(469, 66);
+            this.btnCriteriaPTTT.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
+            this.btnCriteriaPTTT.Name = "btnCriteriaPTTT";
+            this.btnCriteriaPTTT.Size = new System.Drawing.Size(200, 35);
+            this.btnCriteriaPTTT.TabIndex = 36;
+            this.btnCriteriaPTTT.Text = "Nhập chỉ tiêu PTTT";
+            this.btnCriteriaPTTT.UseVisualStyleBackColor = true;
+            this.btnCriteriaPTTT.Click += new System.EventHandler(this.btnCriteriaPTTT_Click);
+            // 
             // ReportPTForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(684, 411);
+            this.Controls.Add(this.btnCriteriaPTTT);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.btnEditCriteria);
             this.Controls.Add(this.btnExport);
@@ -287,5 +301,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.DateTimePicker dtpStartdate;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnCriteriaPTTT;
     }
 }
