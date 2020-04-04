@@ -56,7 +56,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(683, 18);
+            this.btnSave.Location = new System.Drawing.Point(577, 18);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(95, 35);
             this.btnSave.TabIndex = 0;
@@ -133,14 +133,14 @@
             this.adgvDeduction.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.adgvDeduction_CellEnter);
             this.adgvDeduction.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.adgvDeduction_DataError);
             // 
-            // PVEmployeeDeduction
+            // PTDepartmentDeduction
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(684, 461);
             this.Controls.Add(this.adgvDeduction);
             this.Controls.Add(this.gbFilters);
-            this.Name = "PVEmployeeDeduction";
+            this.Name = "PTDepartmentDeduction";
             this.Text = "Nhập giảm trừ phóng viên";
             this.gbFilters.ResumeLayout(false);
             this.gbFilters.PerformLayout();
