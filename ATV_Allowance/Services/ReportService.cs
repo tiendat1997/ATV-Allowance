@@ -858,8 +858,11 @@ namespace ATV_Allowance.Services
                 var daysOfMonth = DateTime.DaysInMonth(startDate.Year, startDate.Month);
                 var BBTPercent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, Criterias_PTTT.BBT);
 
-                var toBaAmCost = toBaAm * daysOfMonth * price * (1 + percent);
-                var BBTPoint = totalPoint * (BBTPercent / 100) * (1 + percent);
+                var toBaAmCost = toBaAm * daysOfMonth * price * percent;
+                var BBTPoint = totalPoint * (BBTPercent / 100) * percent;
+                //var toBaAmCost = toBaAm * daysOfMonth * price * (1 + percent);
+                //var BBTPoint = totalPoint * (BBTPercent / 100) * (1 + percent);
+
                 var BBTCost = BBTPoint * price;
                 totalCost += (long)toBaAmCost + (long)BBTCost;
 
