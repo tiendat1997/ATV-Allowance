@@ -334,8 +334,8 @@ namespace ATV_Allowance.Common
 
             public static string GetToBaAmHeader(double toBaAmCriteria, double daysOfMonth) 
                 => $"Tổ bá âm: Thu tin qua điện thoại + Vận hành máy ({toBaAmCriteria}đ/1CT). Tổng cộng: {daysOfMonth} chương trình";
-            public static string GetBBTHeader(double BBTPoint) 
-                => $"Trích Ban Biên tập nội dung chương trình hàng ngày. Tổng cộng: {BBTPoint} điểm";
+            public static string GetBBTHeader(double BBTPercent, double BBTPoint) 
+                => $"Trích Ban Biên tập {BBTPercent}%. Tổng cộng: {BBTPoint} điểm";
         }
 
         public static class TTNM_COL
@@ -441,10 +441,10 @@ namespace ATV_Allowance.Common
 
         public static class Criterias_PTTT
         {
-            public static int PV_PTV = 15;
-            public static int CTV = 16;
+            public static int PV_PTV = 12;
+            public static int CTV = 13;
+            public static int BBT = 14;
             public static int ToBaAm = 17;
-            public static int BBT = 18;
         }
 
         public static class Criterias_TTNM
