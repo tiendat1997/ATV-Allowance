@@ -832,6 +832,7 @@ namespace ATV_Allowance.Services
             {
                 worksheet.Rows[currentRow].Delete();
             }
+            worksheet.Range[worksheet.Cells[4, PTTT_COL.STT], worksheet.Cells[currentRow, PTTT_COL.THANHTIEN + 1]].Borders.LineStyle = XlLineStyle.xlContinuous;
 
             //title row
             var textRole = (role == EmployeeRole.PV ? "PV" : "CTV");
@@ -855,16 +856,16 @@ namespace ATV_Allowance.Services
                 totalPoint += list.Sum(x => x.TotalPoint);
                 var toBaAm = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, Criterias_PTTT.ToBaAm);
                 var daysOfMonth = DateTime.DaysInMonth(startDate.Year, startDate.Month);
-                var BBT = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, Criterias_PTTT.BBT);
+                var BBTPercent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, Criterias_PTTT.BBT);
 
-                var toBaAmCost = toBaAm * daysOfMonth * price;
-                var BBTPoint = totalPoint * (BBT / 100);
+                var toBaAmCost = toBaAm * daysOfMonth * price * (1 + percent);
+                var BBTPoint = totalPoint * (BBTPercent / 100) * (1 + percent);
                 var BBTCost = BBTPoint * price;
                 totalCost += (long)toBaAmCost + (long)BBTCost;
 
                 //fill header
                 worksheet.Cells[currentRow + 2, PTTT_COL.STT].Value = PTTT_COL.GetToBaAmHeader(toBaAm, daysOfMonth);
-                worksheet.Cells[currentRow + 3, PTTT_COL.STT].Value = PTTT_COL.GetBBTHeader(BBTPoint);
+                worksheet.Cells[currentRow + 3, PTTT_COL.STT].Value = PTTT_COL.GetBBTHeader(BBTPercent, BBTPoint);
 
                 //fill value
                 worksheet.Cells[currentRow + 2, PTTT_COL.TANGGIAM].Value = toBaAmCost;
