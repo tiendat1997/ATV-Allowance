@@ -40,6 +40,7 @@
             this.txtTitle = new System.Windows.Forms.TextBox();
             this.adgvList = new System.Windows.Forms.DataGridView();
             this.epTitle = new System.Windows.Forms.ErrorProvider(this.components);
+            this.btnDeleteArticle = new System.Windows.Forms.Button();
             this.gbArticleTitle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.adgvList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.epTitle)).BeginInit();
@@ -47,6 +48,7 @@
             // 
             // gbArticleTitle
             // 
+            this.gbArticleTitle.Controls.Add(this.btnDeleteArticle);
             this.gbArticleTitle.Controls.Add(this.lblSearch);
             this.gbArticleTitle.Controls.Add(this.lblTitle);
             this.gbArticleTitle.Controls.Add(this.btnAdd);
@@ -68,7 +70,7 @@
             // lblSearch
             // 
             this.lblSearch.AutoSize = true;
-            this.lblSearch.Location = new System.Drawing.Point(124, 46);
+            this.lblSearch.Location = new System.Drawing.Point(124, 50);
             this.lblSearch.Name = "lblSearch";
             this.lblSearch.Size = new System.Drawing.Size(49, 13);
             this.lblSearch.TabIndex = 11;
@@ -87,7 +89,7 @@
             // 
             this.btnAdd.Location = new System.Drawing.Point(515, 14);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(75, 28);
+            this.btnAdd.Size = new System.Drawing.Size(75, 22);
             this.btnAdd.TabIndex = 7;
             this.btnAdd.Text = "Thêm";
             this.btnAdd.UseVisualStyleBackColor = true;
@@ -96,7 +98,7 @@
             // cbArticle
             // 
             this.cbArticle.FormattingEnabled = true;
-            this.cbArticle.Location = new System.Drawing.Point(178, 43);
+            this.cbArticle.Location = new System.Drawing.Point(178, 47);
             this.cbArticle.Name = "cbArticle";
             this.cbArticle.Size = new System.Drawing.Size(332, 21);
             this.cbArticle.TabIndex = 6;
@@ -106,11 +108,11 @@
             // lblIndex
             // 
             this.lblIndex.AutoSize = true;
-            this.lblIndex.Location = new System.Drawing.Point(546, 51);
+            this.lblIndex.Location = new System.Drawing.Point(99, 50);
             this.lblIndex.Name = "lblIndex";
-            this.lblIndex.Size = new System.Drawing.Size(35, 13);
+            this.lblIndex.Size = new System.Drawing.Size(16, 13);
             this.lblIndex.TabIndex = 5;
-            this.lblIndex.Text = "label1";
+            this.lblIndex.Text = "or";
             // 
             // dtpDate
             // 
@@ -125,7 +127,7 @@
             // lblOrdinal
             // 
             this.lblOrdinal.AutoSize = true;
-            this.lblOrdinal.Location = new System.Drawing.Point(515, 51);
+            this.lblOrdinal.Location = new System.Drawing.Point(68, 50);
             this.lblOrdinal.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblOrdinal.Name = "lblOrdinal";
             this.lblOrdinal.Size = new System.Drawing.Size(31, 13);
@@ -163,6 +165,16 @@
             // 
             this.epTitle.ContainerControl = this;
             // 
+            // btnDeleteArticle
+            // 
+            this.btnDeleteArticle.Location = new System.Drawing.Point(515, 46);
+            this.btnDeleteArticle.Name = "btnDeleteArticle";
+            this.btnDeleteArticle.Size = new System.Drawing.Size(75, 22);
+            this.btnDeleteArticle.TabIndex = 12;
+            this.btnDeleteArticle.Text = "Xóa tin";
+            this.btnDeleteArticle.UseVisualStyleBackColor = true;
+            this.btnDeleteArticle.Click += new System.EventHandler(this.btnDeleteArticle_Click);
+            // 
             // ImportArticleUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -194,5 +206,6 @@
         private System.Windows.Forms.ComboBox cbArticle;
         private System.Windows.Forms.Label lblSearch;
         private System.Windows.Forms.Label lblTitle;
+        private System.Windows.Forms.Button btnDeleteArticle;
     }
 }

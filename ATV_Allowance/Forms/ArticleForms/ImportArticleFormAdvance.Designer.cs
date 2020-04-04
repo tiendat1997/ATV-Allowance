@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.gbArticleTitle = new System.Windows.Forms.GroupBox();
+            this.btnDeleteArticle = new System.Windows.Forms.Button();
             this.lblSearch = new System.Windows.Forms.Label();
             this.lblTitle = new System.Windows.Forms.Label();
             this.lblIndex = new System.Windows.Forms.Label();
@@ -47,6 +48,7 @@
             // 
             // gbArticleTitle
             // 
+            this.gbArticleTitle.Controls.Add(this.btnDeleteArticle);
             this.gbArticleTitle.Controls.Add(this.lblSearch);
             this.gbArticleTitle.Controls.Add(this.lblTitle);
             this.gbArticleTitle.Controls.Add(this.lblIndex);
@@ -62,6 +64,16 @@
             this.gbArticleTitle.TabIndex = 0;
             this.gbArticleTitle.TabStop = false;
             this.gbArticleTitle.Text = "Thao tác";
+            // 
+            // btnDeleteArticle
+            // 
+            this.btnDeleteArticle.Location = new System.Drawing.Point(792, 64);
+            this.btnDeleteArticle.Name = "btnDeleteArticle";
+            this.btnDeleteArticle.Size = new System.Drawing.Size(95, 28);
+            this.btnDeleteArticle.TabIndex = 10;
+            this.btnDeleteArticle.Text = "Xóa tin";
+            this.btnDeleteArticle.UseVisualStyleBackColor = true;
+            this.btnDeleteArticle.Click += new System.EventHandler(this.btnDeleteArticle_Click);
             // 
             // lblSearch
             // 
@@ -84,17 +96,17 @@
             // lblIndex
             // 
             this.lblIndex.AutoSize = true;
-            this.lblIndex.Location = new System.Drawing.Point(829, 64);
+            this.lblIndex.Location = new System.Drawing.Point(146, 67);
             this.lblIndex.Name = "lblIndex";
-            this.lblIndex.Size = new System.Drawing.Size(42, 20);
+            this.lblIndex.Size = new System.Drawing.Size(23, 20);
             this.lblIndex.TabIndex = 5;
-            this.lblIndex.Text = "label";
+            this.lblIndex.Text = "or";
             // 
             // btnAdd
             // 
             this.btnAdd.Location = new System.Drawing.Point(792, 21);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(95, 28);
+            this.btnAdd.Size = new System.Drawing.Size(95, 30);
             this.btnAdd.TabIndex = 7;
             this.btnAdd.Text = "Thêm";
             this.btnAdd.UseVisualStyleBackColor = true;
@@ -113,7 +125,7 @@
             // lblOrdinal
             // 
             this.lblOrdinal.AutoSize = true;
-            this.lblOrdinal.Location = new System.Drawing.Point(788, 64);
+            this.lblOrdinal.Location = new System.Drawing.Point(105, 67);
             this.lblOrdinal.Name = "lblOrdinal";
             this.lblOrdinal.Size = new System.Drawing.Size(42, 20);
             this.lblOrdinal.TabIndex = 4;
@@ -190,5 +202,6 @@
         private System.Windows.Forms.DataGridView adgvList;
         private System.Windows.Forms.Label lblSearch;
         private System.Windows.Forms.Label lblTitle;
+        private System.Windows.Forms.Button btnDeleteArticle;
     }
 }
