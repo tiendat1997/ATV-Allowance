@@ -42,7 +42,7 @@ namespace DataService.Repository
                                                                     "from ArticleEmployee ae inner " +
                                                                     "join Article a on ae.ArticleId = a.Id " +
                                                                     "where Date >= '" + startDate.ToString("yyyy/MM/dd") + "' and Date <= '" + endate.ToString("yyyy/MM/dd") + "' and TypeId = " + articleType + " " +
-                                                            ") t on e.Id = t.EmployeeId inner join Organization o on e.OrganizationId = o.Id " +
+                                                            ") t on e.Id = t.EmployeeId " +
                                                             "where e.RoleId = " + role + " " +
                                                     ") t2 " +
                                                     "on t1.ArticleEmployeeId = t2.Id " +
