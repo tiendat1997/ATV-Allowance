@@ -15,4 +15,15 @@ namespace ATV_Allowance.ViewModel
         public double CTV { get; set; }
         public double TrichBBT { get; set; } // Trich Ban Bien Tap        
     }
+
+    public class CriteriaPTTTTableViewModel
+    {
+        public int Id { get; set; }
+        public int Month { get; set; }
+        public int Year { get; set; }
+        public double PV { get; set; }
+        public double CTV { get; set; }
+        public double TrichBBT { get; set; }
+        public double ToBaAm { get; set; }
+    }
 }

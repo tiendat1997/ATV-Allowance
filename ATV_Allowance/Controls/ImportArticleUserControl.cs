@@ -198,6 +198,10 @@ namespace ATV_Allowance.Controls
                     article = articleList.Last();
                     adgvList.ReadOnly = false;
                     LoadDGV();
+                } 
+                else
+                {
+                    adgvList.Rows.Clear();
                 }
             }
             catch (Exception ex)
@@ -543,6 +547,29 @@ namespace ATV_Allowance.Controls
             }
             catch (Exception ex)
             {
+                throw ex;
+            }
+        }
+
+        private void btnDeleteArticle_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (article == null)
+                {
+                    return;
+                }
+                if (MessageBox.Show("Xác nhận xóa tin", "Message", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    articleService = new ArticleService();
+                    articleService.RemoveArticle(article);
+                    LoadArticleData();
+                    adgvList.Refresh();
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogSystem(ex, string.Empty);
                 throw ex;
             }
         }

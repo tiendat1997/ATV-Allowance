@@ -103,6 +103,7 @@
             this.cbEmployee.Size = new System.Drawing.Size(212, 28);
             this.cbEmployee.TabIndex = 4;
             this.cbEmployee.SelectedIndexChanged += new System.EventHandler(this.cbEmployee_SelectedIndexChanged);
+            this.cbEmployee.Leave += new System.EventHandler(this.cbEmployee_Leave);
             // 
             // lblEndDate
             // 
@@ -186,6 +187,8 @@
             this.adgvList.Size = new System.Drawing.Size(598, 449);
             this.adgvList.TabIndex = 0;
             this.adgvList.TimeFilter = false;
+            this.adgvList.SortStringChanged += new System.EventHandler(this.adgvList_SortStringChanged);
+            this.adgvList.FilterStringChanged += new System.EventHandler(this.adgvList_FilterStringChanged);
             this.adgvList.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.adgvList_CellClick);
             this.adgvList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.adgvList_CellDoubleClick);
             // 

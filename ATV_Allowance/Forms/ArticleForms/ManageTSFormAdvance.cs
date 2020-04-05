@@ -10,6 +10,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static ATV_Allowance.Common.Constants;
@@ -62,10 +63,11 @@ namespace ATV_Allowance.Forms.ArticleForms
         {
             articleList = new List<ArticleViewModel>();
             bs = new BindingSource();
-            SortableBindingList<ArticleViewModel> sbl = new SortableBindingList<ArticleViewModel>(articleList);
+            SortableBindingList<ArticleViewModel> sbl = new SortableBindingList<ArticleViewModel>(articleList);            
             bs.DataSource = sbl;
             adgvList.DataSource = bs;
 
+            adgvList.AutoGenerateColumns = false;
             adgvList.Columns["Id"].Visible = false;
             adgvList.Columns["TypeId"].Visible = false;
             adgvList.Columns["Title"].Visible = true;
@@ -75,10 +77,9 @@ namespace ATV_Allowance.Forms.ArticleForms
             adgvList.Columns["Title"].HeaderText = ADGVArticleText.Title;
             adgvList.Columns["Title"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             adgvList.Columns["Code"].HeaderText = ADGVArticleText.Type;
-            adgvList.Columns["Code"].Width = 60;
+            adgvList.Columns["Code"].Width = 100;
             adgvList.Columns["Date"].HeaderText = ADGVArticleText.Date;
             adgvList.Columns["Date"].Width = ControlsAttribute.GV_WIDTH_MEDIUM;
-           
         }
         private void InitArticleTypeFilter()
         {
@@ -114,11 +115,12 @@ namespace ATV_Allowance.Forms.ArticleForms
             {
                 RemoveTimePortion();
                 articleService = new ArticleService();
-                bs = new BindingSource();
                 articleList = articleService.GetComboArticle(currArticleTypes, fromDate, toDate, empId);
                 SortableBindingList<ArticleViewModel> sbl = new SortableBindingList<ArticleViewModel>(articleList);
+                bs = new BindingSource();
                 bs.DataSource = sbl;
                 adgvList.DataSource = bs;
+                adgvList.AutoGenerateColumns = false;
 
                 if (articleList.Count == 0)
                 {
@@ -203,7 +205,7 @@ namespace ATV_Allowance.Forms.ArticleForms
             }
             catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
         }
 
@@ -323,13 +325,13 @@ namespace ATV_Allowance.Forms.ArticleForms
                 pointTypeService = new PointTypeService();
                 articleService = new ArticleService();
                 employeeService = new EmployeeService();
-                bs = new BindingSource();
+                
                 listPointType = pointTypeService.GetPointType(article.TypeId);
                 List<ArticleEmployeeViewModel> list = articleService.GetArticleEmployee(article.Id, article.TypeId);
-
                 var bindList = ArticleEmployeeHelper.MapToBindingList(article.TypeId, list);
-                bs.DataSource = bindList;
-                dgvEmployee.DataSource = bs;
+                BindingSource employeeBs = new BindingSource();
+                employeeBs.DataSource = bindList;
+                dgvEmployee.DataSource = employeeBs;
 
                 // If you want to change column index, you need to disable auto genrate column                 
                 //dgvEmployee.AutoGenerateColumns = false;
@@ -368,6 +370,35 @@ namespace ATV_Allowance.Forms.ArticleForms
             {
                 _logger.LogSystem(ex, string.Empty);
             }
+        }
+
+        private void adgvList_FilterStringChanged(object sender, EventArgs e)
+        {
+            string tmp = adgvList.FilterString;
+            string pattern = @"([a-zA-Z]+)";
+            MatchCollection matches = Regex.Matches(tmp, pattern);
+            try
+            {
+                bs.Filter = adgvList.FilterString;
+
+            }
+            catch (Exception ex)
+            {
+                Utilities.ShowError(ex.Message);
+            }
+        }
+
+        private void cbEmployee_Leave(object sender, EventArgs e)
+        {
+            if (cbEmployee.Text == String.Empty)
+            {
+                cbEmployee.SelectedIndex = 0;
+            }
+        }
+
+        private void adgvList_SortStringChanged(object sender, EventArgs e)
+        {
+            bs.Sort = adgvList.SortString;
         }
     }
 }

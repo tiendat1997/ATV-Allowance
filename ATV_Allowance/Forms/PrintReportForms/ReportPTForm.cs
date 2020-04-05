@@ -97,6 +97,11 @@ namespace ATV_Allowance.Forms.PrintReportForms
 
         }
 
+        private void CriteriaPTTTForm_Closed(object sender, FormClosedEventArgs args)
+        {
+
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             BusinessLog actionLog = new BusinessLog
@@ -140,6 +145,13 @@ namespace ATV_Allowance.Forms.PrintReportForms
         {
             dtpStartdate.Value = new DateTime(dtpYear.Value.Year, dtpMonth.Value.Month, 1);
             dtpEnddate.Value = new DateTime(dtpYear.Value.Year, dtpMonth.Value.Month, DateTime.DaysInMonth(dtpYear.Value.Year, dtpMonth.Value.Month));
+        }
+
+        private void btnCriteriaPTTT_Click(object sender, EventArgs e)
+        {
+            CriteriaPTTTForm criteriaForm = new CriteriaPTTTForm();
+            criteriaForm.FormClosed += new FormClosedEventHandler(CriteriaPTTTForm_Closed);
+            criteriaForm.ShowDialog();
         }
     }
 }
