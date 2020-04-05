@@ -314,8 +314,12 @@ namespace ATV_Allowance.Forms.ArticleForms
 
         private void adgvList_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            var articleModel = (ArticleViewModel)adgvList.CurrentRow.DataBoundItem;
-            this.LoadArticleEmployee(articleModel);
+            var currentRow = adgvList.CurrentRow;
+            if (currentRow != null)
+            {
+                var articleModel = (ArticleViewModel)currentRow.DataBoundItem;
+                this.LoadArticleEmployee(articleModel);
+            }
         }
 
         private void LoadArticleEmployee(ArticleViewModel article)

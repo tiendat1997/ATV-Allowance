@@ -19,7 +19,7 @@ namespace ATV_Allowance.Forms.EmployeeForms
 {
     public partial class ListEmployeeForm : CommonForm
     {
-        private BindingSource bs = null;
+        private BindingSource articleBs = null;
         private EmployeeViewModel employee = null;
         private IEmployeeService employeeService = null;
         private List<EmployeeViewModel> list = null;
@@ -44,9 +44,10 @@ namespace ATV_Allowance.Forms.EmployeeForms
                 employeeService = new EmployeeService();
                 list = employeeService.GetAllActive(true);
                 SortableBindingList<EmployeeViewModel> sbl = new SortableBindingList<EmployeeViewModel>(list);
-                bs = new BindingSource();
-                bs.DataSource = sbl;
-                adgvEmployee.DataSource = bs;
+                articleBs = new BindingSource();
+                articleBs.ListChanged += new ListChangedEventHandler(this.articleBindingSource_ListChanged);
+                articleBs.DataSource = sbl;
+                adgvEmployee.DataSource = articleBs;
                 adgvEmployee.AutoGenerateColumns = false;
 
                 adgvEmployee.Columns["Id"].Visible = false;
@@ -89,7 +90,7 @@ namespace ATV_Allowance.Forms.EmployeeForms
 
         private void adgvEmployee_SortStringChanged(object sender, EventArgs e)
         {
-            bs.Sort = adgvEmployee.SortString;
+            articleBs.Sort = adgvEmployee.SortString;
         }
 
         private void adgvEmployee_FilterStringChanged(object sender, EventArgs e)
@@ -99,12 +100,17 @@ namespace ATV_Allowance.Forms.EmployeeForms
             MatchCollection matches = Regex.Matches(tmp, pattern);
             try
             {
-                bs.Filter = adgvEmployee.FilterString;
+                articleBs.Filter = adgvEmployee.FilterString;
             }
             catch (Exception ex)
             {
                 Utilities.ShowError(ex.Message);
             }
+        }
+
+        private void articleBindingSource_ListChanged(object sender, ListChangedEventArgs e)
+        {
+            lblTotal.Text = string.Format("Số lượng: {0}", this.articleBs.List.Count);
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -187,9 +193,10 @@ namespace ATV_Allowance.Forms.EmployeeForms
             string unsignSearchValue = Utilities.RemoveSign4VietnameseString(txtSearch.Text.ToUpper());
             var filteredList = list.Where(t => Utilities.RemoveSign4VietnameseString(t.CodeAndName.ToUpper()).Contains(unsignSearchValue)).ToList();
             SortableBindingList<EmployeeViewModel> sbl = new SortableBindingList<EmployeeViewModel>(filteredList);
-            bs = new BindingSource();
-            bs.DataSource = sbl;
-            adgvEmployee.DataSource = bs;
+            articleBs = new BindingSource();
+            articleBs.ListChanged += new ListChangedEventHandler(this.articleBindingSource_ListChanged);
+            articleBs.DataSource = sbl;
+            adgvEmployee.DataSource = articleBs;
         }
 
         private void adgvEmployee_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
