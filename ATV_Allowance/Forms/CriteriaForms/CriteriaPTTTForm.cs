@@ -43,8 +43,8 @@ namespace ATV_Allowance.Forms.CriteriaForms
                     Month = i + 1,
                     PV = result[i].Where(c => c.CriteriaId == 15).First().Value,
                     CTV = result[i].Where(c => c.CriteriaId == 16).First().Value,
-                    TrichBBT = result[i].Where(c => c.CriteriaId == 17).First().Value,
-                    ToBaAm = result[i].Where(c => c.CriteriaId == 18).First().Value
+                    TrichBBT = result[i].Where(c => c.CriteriaId == 18).First().Value,
+                    ToBaAm = result[i].Where(c => c.CriteriaId == 17).First().Value
                 };
                 dataSource.Add(model);
             }
