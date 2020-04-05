@@ -1328,9 +1328,9 @@ namespace ATV_Allowance.Services
                 var deduction = (employeesDeduction.FirstOrDefault(x => x.EmployeeId == list[i].EmployeeId)?.Deduction).GetValueOrDefault(0);
                 list[i].SumPoint = sumPoint;
                 list[i].Deduction = deduction;
-                list[i].IncreasePercent = percent * (sumPoint - deduction);
+                list[i].IncreasePercent = Math.Round((percent * (sumPoint - deduction)), 2);
                 list[i].TotalPoint = list[i].SumPoint - list[i].Deduction + list[i].IncreasePercent;
-                list[i].TotalCost = (int)(list[i].TotalPoint * price);
+                list[i].TotalCost = (long)Math.Round(((float)list[i].TotalPoint * price));
             }
         }
 

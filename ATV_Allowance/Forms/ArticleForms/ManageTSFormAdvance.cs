@@ -26,7 +26,7 @@ namespace ATV_Allowance.Forms.ArticleForms
         private IArticleService articleService;
         private IEmployeeService employeeService;
         private IPointTypeService pointTypeService;
-        private BindingSource bs = null;
+        private BindingSource articleBindingSource = null;
         private ArticleViewModel model = null;
         private List<ArticleViewModel> articleList = null;
         private List<int> currArticleTypes;
@@ -62,10 +62,11 @@ namespace ATV_Allowance.Forms.ArticleForms
         private void InitDataGridView()
         {
             articleList = new List<ArticleViewModel>();
-            bs = new BindingSource();
-            SortableBindingList<ArticleViewModel> sbl = new SortableBindingList<ArticleViewModel>(articleList);            
-            bs.DataSource = sbl;
-            adgvList.DataSource = bs;
+            articleBindingSource = new BindingSource();
+            SortableBindingList<ArticleViewModel> sbl = new SortableBindingList<ArticleViewModel>(articleList);
+            articleBindingSource.DataSource = sbl;
+            articleBindingSource.ListChanged += new ListChangedEventHandler(this.articleBindingSource_ListChanged);
+            adgvList.DataSource = articleBindingSource;
 
             adgvList.AutoGenerateColumns = false;
             adgvList.Columns["Id"].Visible = false;
@@ -117,9 +118,9 @@ namespace ATV_Allowance.Forms.ArticleForms
                 articleService = new ArticleService();
                 articleList = articleService.GetComboArticle(currArticleTypes, fromDate, toDate, empId);
                 SortableBindingList<ArticleViewModel> sbl = new SortableBindingList<ArticleViewModel>(articleList);
-                bs = new BindingSource();
-                bs.DataSource = sbl;
-                adgvList.DataSource = bs;
+                //articleBindingSource = new BindingSource();
+                articleBindingSource.DataSource = sbl;
+                adgvList.DataSource = articleBindingSource;
                 adgvList.AutoGenerateColumns = false;
 
                 if (articleList.Count == 0)
@@ -264,9 +265,9 @@ namespace ATV_Allowance.Forms.ArticleForms
             string unsignSearchValue = Utilities.RemoveSign4VietnameseString(txtSearch.Text.ToUpper());
             var filteredList = articleList.Where(t => Utilities.RemoveSign4VietnameseString(t.Title.ToUpper()).Contains(unsignSearchValue)).ToList();
             SortableBindingList<ArticleViewModel> sbl = new SortableBindingList<ArticleViewModel>(filteredList);
-            bs = new BindingSource();
-            bs.DataSource = sbl;
-            adgvList.DataSource = bs;
+            //articleBindingSource = new BindingSource();
+            articleBindingSource.DataSource = sbl;
+            adgvList.DataSource = articleBindingSource;
         }
 
         private void btnRemove_Click(object sender, EventArgs e)
@@ -383,7 +384,7 @@ namespace ATV_Allowance.Forms.ArticleForms
             MatchCollection matches = Regex.Matches(tmp, pattern);
             try
             {
-                bs.Filter = adgvList.FilterString;
+                articleBindingSource.Filter = adgvList.FilterString;
 
             }
             catch (Exception ex)
@@ -402,7 +403,12 @@ namespace ATV_Allowance.Forms.ArticleForms
 
         private void adgvList_SortStringChanged(object sender, EventArgs e)
         {
-            bs.Sort = adgvList.SortString;
+            articleBindingSource.Sort = adgvList.SortString;
+        }
+
+        private void articleBindingSource_ListChanged(object sender, ListChangedEventArgs e)
+        {
+            lblTotal.Text = string.Format("Số lượng tin: {0}", this.articleBindingSource.List.Count);
         }
     }
 }

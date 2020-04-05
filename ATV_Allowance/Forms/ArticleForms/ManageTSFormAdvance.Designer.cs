@@ -44,6 +44,7 @@
             this.entityCommand1 = new System.Data.Entity.Core.EntityClient.EntityCommand();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dgvEmployee = new System.Windows.Forms.DataGridView();
+            this.lblTotal = new System.Windows.Forms.Label();
             this.gbFilter.SuspendLayout();
             this.gbArticleInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.adgvList)).BeginInit();
@@ -206,7 +207,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel1.Location = new System.Drawing.Point(617, 77);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(367, 484);
+            this.panel1.Size = new System.Drawing.Size(367, 522);
             this.panel1.TabIndex = 2;
             // 
             // dgvEmployee
@@ -215,14 +216,24 @@
             this.dgvEmployee.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvEmployee.Location = new System.Drawing.Point(0, 0);
             this.dgvEmployee.Name = "dgvEmployee";
-            this.dgvEmployee.Size = new System.Drawing.Size(367, 484);
+            this.dgvEmployee.Size = new System.Drawing.Size(367, 522);
             this.dgvEmployee.TabIndex = 0;
+            // 
+            // lblTotal
+            // 
+            this.lblTotal.AutoSize = true;
+            this.lblTotal.Location = new System.Drawing.Point(467, 570);
+            this.lblTotal.Name = "lblTotal";
+            this.lblTotal.Size = new System.Drawing.Size(110, 20);
+            this.lblTotal.TabIndex = 3;
+            this.lblTotal.Text = "Số lượng tin: 0";
             // 
             // ManageTSFormAdvance
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(984, 561);
+            this.ClientSize = new System.Drawing.Size(984, 599);
+            this.Controls.Add(this.lblTotal);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.gbArticleInfo);
             this.Controls.Add(this.gbFilter);
@@ -237,6 +248,7 @@
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmployee)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -258,5 +270,6 @@
         private System.Windows.Forms.Label lblArticleType;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.DataGridView dgvEmployee;
+        private System.Windows.Forms.Label lblTotal;
     }
 }

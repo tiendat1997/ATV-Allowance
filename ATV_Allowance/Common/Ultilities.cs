@@ -266,8 +266,8 @@ namespace ATV_Allowance.Common
                         form = reportBienSoanTTForm;
                         break;
                     case "Quản lý đơn vị":
-                        ListOrganizationForm listOrgForm = new ListOrganizationForm();
-                        form = listOrgForm;
+                        //ListOrganizationForm listOrgForm = new ListOrganizationForm();
+                        //form = listOrgForm;
                         break;
                     case "Quản lý chỉ tiêu":
                         //ListCriteriaForm listCriteriaForm = new ListCriteriaForm();
