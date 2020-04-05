@@ -966,7 +966,7 @@ namespace ATV_Allowance.Services
                 var PTV = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, Criterias_TTNM.PTV);
                 var KTD = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, Criterias_TTNM.KTD);
 
-                totalPoint += list.Sum(e => e.SumPoint - x.Deduction);
+                totalPoint += list.Sum(e => e.SumPoint - e.Deduction);
                 var BBTPoint = totalPoint * (BBT / 100);
                 var BBTCost = BBTPoint * price;
 
