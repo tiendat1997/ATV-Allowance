@@ -729,7 +729,7 @@ namespace ATV_Allowance.Services
                     if (list[i].DiemSD != 0) worksheet.Cells[currentRow, PT_COL.D_SD].Value = list[i].DiemSD;
 
                     if (list[i].Deduction != 0) worksheet.Cells[currentRow, PT_COL.TRUCHITIEU].Value = list[i].Deduction;
-                    if (list[i].SumPoint != 0) worksheet.Cells[currentRow, PT_COL.TONGDIEM].Value = list[i].SumPoint;
+                    if (list[i].SumPoint - list[i].Deduction != 0) worksheet.Cells[currentRow, PT_COL.TONGDIEM].Value = list[i].SumPoint - list[i].Deduction;
                     if (list[i].IncreasePercent != 0) worksheet.Cells[currentRow, PT_COL.TANGGIAM].Value = list[i].IncreasePercent;
                     if (list[i].TotalCost != 0) worksheet.Cells[currentRow, PT_COL.THANHTIEN].Value = list[i].TotalCost;
 
@@ -747,20 +747,20 @@ namespace ATV_Allowance.Services
             if (role == EmployeeRole.CTV)
             {
                 worksheet.Columns[PT_COL.TRUCHITIEU].Hidden = true;
-                totalPoint += list.Sum(x => x.SumPoint);
+                totalPoint += list.Sum(x => x.SumPoint - x.Deduction);
             }
             else
             {
                 Range line = (Range)worksheet.Rows[currentRow];
                 line.Insert();
-                totalPoint += list.Sum(x => x.SumPoint);
+                totalPoint += list.Sum(x => x.SumPoint - x.Deduction);
                 var BBTPrecent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, Criterias_PT.BBT) / 100;
                 var BBTPoint = totalPoint * BBTPrecent * (1 + percent);
                 BBTPoint = Math.Round(BBTPoint, 2);
                 //var BBTPoint = totalPoint * BBTPrecent * percent;
                 var BBTCost = (long)(BBTPoint * price);
                 worksheet.Cells[currentRow, PT_COL.STT].Value = i + 1;
-                worksheet.Cells[currentRow, PT_COL.HO_TEN].Value = PT_COL.GetBBTHeader(BBTPrecent*100);
+                worksheet.Cells[currentRow, PT_COL.HO_TEN].Value = PT_COL.GetBBTHeader(BBTPrecent * 100);
                 worksheet.Cells[currentRow, PT_COL.TONGDIEM].Value = BBTPoint;
                 worksheet.Cells[currentRow, PT_COL.THANHTIEN].Value = BBTCost;
                 totalCost += BBTCost;
@@ -822,7 +822,7 @@ namespace ATV_Allowance.Services
                     if (list[i].DiemBt_Dd != 0) worksheet.Cells[currentRow, PTTT_COL.D_BT].Value = list[i].DiemBt_Dd;
 
                     if (list[i].Deduction != 0) worksheet.Cells[currentRow, PTTT_COL.TRUCHITIEU].Value = list[i].Deduction;
-                    if (list[i].SumPoint != 0) worksheet.Cells[currentRow, PTTT_COL.TONGDIEM].Value = list[i].SumPoint;
+                    if (list[i].SumPoint - list[i].Deduction != 0) worksheet.Cells[currentRow, PTTT_COL.TONGDIEM].Value = list[i].SumPoint - list[i].Deduction;
                     if (list[i].IncreasePercent != 0) worksheet.Cells[currentRow, PTTT_COL.TANGGIAM].Value = list[i].IncreasePercent;
                     if (list[i].TotalCost != 0) worksheet.Cells[currentRow, PTTT_COL.THANHTIEN].Value = list[i].TotalCost;
 
@@ -850,11 +850,11 @@ namespace ATV_Allowance.Services
                 worksheet.Rows[currentRow + 3].Hidden = true;
                 worksheet.Rows[currentRow + 4].Hidden = true;
 
-                totalPoint += list.Sum(x => x.SumPoint);
+                totalPoint += list.Sum(x => x.SumPoint - x.Deduction);
             }
             else
             {
-                totalPoint += list.Sum(x => x.SumPoint);
+                totalPoint += list.Sum(x => x.SumPoint - x.Deduction);
                 var toBaAm = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, Criterias_PTTT.ToBaAm);
                 var daysOfMonth = DateTime.DaysInMonth(startDate.Year, startDate.Month);
                 var BBTPercent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, Criterias_PTTT.BBT);
@@ -930,7 +930,7 @@ namespace ATV_Allowance.Services
                     if (list[i].DiemThop != 0) worksheet.Cells[currentRow, TTNM_COL.D_Thop].Value = list[i].DiemThop;
 
                     if (list[i].Deduction != 0) worksheet.Cells[currentRow, TTNM_COL.TRUCHITIEU].Value = list[i].Deduction;
-                    if (list[i].SumPoint != 0) worksheet.Cells[currentRow, TTNM_COL.TONGDIEM].Value = list[i].SumPoint;
+                    if (list[i].SumPoint - list[i].Deduction != 0) worksheet.Cells[currentRow, TTNM_COL.TONGDIEM].Value = list[i].SumPoint - list[i].Deduction;
                     if (list[i].IncreasePercent != 0) worksheet.Cells[currentRow, TTNM_COL.TANGGIAM].Value = list[i].IncreasePercent;
                     if (list[i].TotalCost != 0) worksheet.Cells[currentRow, TTNM_COL.THANHTIEN].Value = list[i].TotalCost;
 
@@ -958,7 +958,7 @@ namespace ATV_Allowance.Services
                 worksheet.Rows[currentRow + 4].Hidden = true;
                 worksheet.Rows[currentRow + 5].Hidden = true;
 
-                totalPoint += list.Sum(x => x.TotalPoint);
+                totalPoint += list.Sum(x => x.SumPoint - x.Deduction);
             }
             else
             {
@@ -966,7 +966,7 @@ namespace ATV_Allowance.Services
                 var PTV = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, Criterias_TTNM.PTV);
                 var KTD = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, Criterias_TTNM.KTD);
 
-                totalPoint += list.Sum(e => e.TotalPoint);
+                totalPoint += list.Sum(e => e.SumPoint - x.Deduction);
                 var BBTPoint = totalPoint * (BBT / 100);
                 var BBTCost = BBTPoint * price;
 
@@ -1047,7 +1047,7 @@ namespace ATV_Allowance.Services
                     if (listBSTTNM[i].DiemTFile != 0) worksheet.Cells[currentRow, BSTTNM_COL.D_Tfile].Value = listBSTTNM[i].DiemTFile;
 
                     if (listBSTTNM[i].Deduction != 0) worksheet.Cells[currentRow, BSTTNM_COL.TRUCHITIEU].Value = listBSTTNM[i].Deduction;
-                    if (listBSTTNM[i].SumPoint != 0) worksheet.Cells[currentRow, BSTTNM_COL.TONGDIEM].Value = listBSTTNM[i].SumPoint;
+                    if (listBSTTNM[i].SumPoint - listBSTTNM[i].Deduction != 0) worksheet.Cells[currentRow, BSTTNM_COL.TONGDIEM].Value = listBSTTNM[i].SumPoint - listBSTTNM[i].Deduction;
                     if (listBSTTNM[i].IncreasePercent != 0) worksheet.Cells[currentRow, BSTTNM_COL.TANGGIAM].Value = listBSTTNM[i].IncreasePercent;
                     if (listBSTTNM[i].TotalCost != 0) worksheet.Cells[currentRow, BSTTNM_COL.THANHTIEN].Value = listBSTTNM[i].TotalCost;
 
@@ -1065,17 +1065,17 @@ namespace ATV_Allowance.Services
             worksheet.Cells[currentRow, BSTTNM_COL.THANHTIEN].Value = totalCostBSTTNM;
 
             currentRow += 3;
-            worksheet.Cells[currentRow-1, KHK_COL.TANGGIAM].Value = "Tăng " + percent + "%";
+            worksheet.Cells[currentRow - 1, KHK_COL.TANGGIAM].Value = "Tăng " + percent + "%";
 
             long totalCostKHK = 0;
 
-            if (role == (int)EmployeeRole.PV)
+            if (role == EmployeeRole.PV)
             {
                 var BBTPrecent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, Criterias_BSTTNM.BBT);
                 currentRow += 1;
                 worksheet.Cells[currentRow, KHK_COL.HO_TEN] = KHK_COL.GetBBTHeader(BBTPrecent);
                 worksheet.Cells[currentRow, KHK_COL.SL_DCT] = totalCostBSTTNM;
-                worksheet.Cells[currentRow, KHK_COL.THANHTIEN] = (BBTPrecent / 100)*totalCostBSTTNM;
+                worksheet.Cells[currentRow, KHK_COL.THANHTIEN] = (BBTPrecent / 100) * totalCostBSTTNM;
                 totalCostKHK += (long)((BBTPrecent / 100) * totalCostBSTTNM);
             }
             currentRow += 1;
@@ -1102,7 +1102,7 @@ namespace ATV_Allowance.Services
 
                     if (listKHK[i].Deduction != 0) worksheet.Cells[currentRow, KHK_COL.TRUCHITIEU].Value = listKHK[i].Deduction;
                     worksheet.Range[worksheet.Cells[currentRow, KHK_COL.TONGDIEM], worksheet.Cells[currentRow, KHK_COL.TONGDIEM + 1]].Merge(true);
-                    if (listKHK[i].SumPoint != 0) worksheet.Cells[currentRow, KHK_COL.TONGDIEM].Value = listKHK[i].SumPoint;
+                    if (listKHK[i].SumPoint - listKHK[i].Deduction != 0) worksheet.Cells[currentRow, KHK_COL.TONGDIEM].Value = listKHK[i].SumPoint - listKHK[i].Deduction;
                     worksheet.Range[worksheet.Cells[currentRow, KHK_COL.TANGGIAM], worksheet.Cells[currentRow, KHK_COL.TANGGIAM + 1]].Merge(true);
                     if (listKHK[i].IncreasePercent != 0) worksheet.Cells[currentRow, KHK_COL.TANGGIAM].Value = listKHK[i].IncreasePercent;
                     if (listKHK[i].TotalCost != 0) worksheet.Cells[currentRow, KHK_COL.THANHTIEN].Value = listKHK[i].TotalCost;
@@ -1143,7 +1143,7 @@ namespace ATV_Allowance.Services
             //money string
             worksheet.Cells[currentRow + 2, BSTTNM_COL.THANHTIEN + 1].Value = $"(Thành tiền bằng chữ: {NumberToTextVN(totalCost)})";
 
-            
+
             #endregion
         }
 
