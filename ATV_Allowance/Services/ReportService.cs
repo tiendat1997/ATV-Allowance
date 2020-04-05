@@ -755,8 +755,9 @@ namespace ATV_Allowance.Services
                 line.Insert();
                 totalPoint += list.Sum(x => x.SumPoint);
                 var BBTPrecent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, Criterias_PT.BBT) / 100;
-                //var BBTPoint = totalPoint * BBTPrecent * (1 + percent);
-                var BBTPoint = totalPoint * BBTPrecent * percent;
+                var BBTPoint = totalPoint * BBTPrecent * (1 + percent);
+                BBTPoint = Math.Round(BBTPoint, 1);
+                //var BBTPoint = totalPoint * BBTPrecent * percent;
                 var BBTCost = (long)(BBTPoint * price);
                 worksheet.Cells[currentRow, PT_COL.STT].Value = i + 1;
                 worksheet.Cells[currentRow, PT_COL.HO_TEN].Value = PT_COL.GetBBTHeader(BBTPrecent*100);
@@ -849,20 +850,20 @@ namespace ATV_Allowance.Services
                 worksheet.Rows[currentRow + 3].Hidden = true;
                 worksheet.Rows[currentRow + 4].Hidden = true;
 
-                totalPoint += list.Sum(x => x.TotalPoint);
+                totalPoint += list.Sum(x => x.SumPoint);
             }
             else
             {
-                totalPoint += list.Sum(x => x.TotalPoint);
+                totalPoint += list.Sum(x => x.SumPoint);
                 var toBaAm = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, Criterias_PTTT.ToBaAm);
                 var daysOfMonth = DateTime.DaysInMonth(startDate.Year, startDate.Month);
                 var BBTPercent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, Criterias_PTTT.BBT);
 
-                var toBaAmCost = toBaAm * daysOfMonth * price * percent;
-                var BBTPoint = totalPoint * (BBTPercent / 100) * percent;
-                //var toBaAmCost = toBaAm * daysOfMonth * price * (1 + percent);
-                //var BBTPoint = totalPoint * (BBTPercent / 100) * (1 + percent);
-
+                //var toBaAmCost = toBaAm * daysOfMonth * price * percent;
+                //var BBTPoint = totalPoint * (BBTPercent / 100) * percent;
+                var toBaAmCost = toBaAm * daysOfMonth * price * (1 + percent);
+                var BBTPoint = totalPoint * (BBTPercent / 100) * (1 + percent);
+                BBTPoint = Math.Round(BBTPoint, 1);
                 var BBTCost = BBTPoint * price;
                 totalCost += (long)toBaAmCost + (long)BBTCost;
 
