@@ -441,9 +441,9 @@ namespace ATV_Allowance.Common
 
         public static class Criterias_PTTT
         {
-            public static int PV_PTV = 12;
-            public static int CTV = 13;
-            public static int BBT = 14;
+            public static int PV_PTV = 15;
+            public static int CTV = 16;
+            public static int BBT = 18;
             public static int ToBaAm = 17;
         }
 
@@ -482,7 +482,7 @@ namespace ATV_Allowance.Common
             public static string TS = "BẢNG THÙ LAO NHUẬN BÚT THỜI SỰ TRUYỀN HÌNH";
             public static string TSKHK = "BẢNG THÙ LAO KHỐI HẬU KỲ THỜI SỰ TRUYỀN HÌNH ";
             public static string PT = "BẢNG TỔNG HỢP NHUẬN BÚT PHÁT THANH";
-            public static string PTTT = "BẢNG TỔNG HỢP NHUẬN BÚT TRPHÁT THANH TRỰC TIẾP";
+            public static string PTTT = "BẢNG TỔNG HỢP NHUẬN BÚT PHÁT THANH TRỰC TIẾP";
             public static string TTNM = "BẢNG THÙ LAO TIN, PS TRÊN TỪNG CÂY SỐ";
             public static string BSTTNM = "BẢNG TỔNG HỢP THÙ LAO BIÊN SOẠN TRÊN TỪNG CÂY SỐ";
         }

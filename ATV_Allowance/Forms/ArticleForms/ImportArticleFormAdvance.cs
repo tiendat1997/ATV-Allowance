@@ -165,6 +165,7 @@ namespace ATV_Allowance.Forms.ArticleForms
                 
                 var employeeCodeColumn = new DataGridViewComboBoxColumn();
                 employeeCodeColumn.Name = "ComboboxEmployee";
+                employeeCodeColumn.Width = 180;
                 employeeCodeColumn.HeaderText = "Mã NV";
                 employeeCodeColumn.DataSource = employeeBindingList;
                 employeeCodeColumn.DisplayIndex = 0;

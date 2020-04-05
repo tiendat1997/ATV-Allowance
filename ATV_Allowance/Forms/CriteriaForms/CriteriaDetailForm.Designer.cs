@@ -56,9 +56,9 @@
             // 
             // btnUpdate
             // 
-            this.btnUpdate.Location = new System.Drawing.Point(720, 520);
+            this.btnUpdate.Location = new System.Drawing.Point(720, 521);
             this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(75, 25);
+            this.btnUpdate.Size = new System.Drawing.Size(75, 32);
             this.btnUpdate.TabIndex = 0;
             this.btnUpdate.Text = "Lưu";
             this.btnUpdate.UseVisualStyleBackColor = true;
@@ -68,7 +68,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 557);
+            this.ClientSize = new System.Drawing.Size(800, 561);
             this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.gbCriterias);
             this.Name = "CriteriaDetailForm";

@@ -45,6 +45,7 @@ namespace ATV_Allowance.Forms.EmployeeForms
                 list = employeeService.GetAllActive(true);
                 SortableBindingList<EmployeeViewModel> sbl = new SortableBindingList<EmployeeViewModel>(list);
                 bs = new BindingSource();
+                bs.ListChanged += new ListChangedEventHandler(this.employeeBindingSource_ListChanged);
                 bs.DataSource = sbl;
                 adgvEmployee.DataSource = bs;
                 adgvEmployee.AutoGenerateColumns = false;
@@ -105,6 +106,11 @@ namespace ATV_Allowance.Forms.EmployeeForms
             {
                 Utilities.ShowError(ex.Message);
             }
+        }
+
+        private void employeeBindingSource_ListChanged(object sender, ListChangedEventArgs e)
+        {
+            lblTotal.Text = string.Format("Số lượng: {0}", this.bs.List.Count);
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -188,6 +194,7 @@ namespace ATV_Allowance.Forms.EmployeeForms
             var filteredList = list.Where(t => Utilities.RemoveSign4VietnameseString(t.CodeAndName.ToUpper()).Contains(unsignSearchValue)).ToList();
             SortableBindingList<EmployeeViewModel> sbl = new SortableBindingList<EmployeeViewModel>(filteredList);
             bs = new BindingSource();
+            bs.ListChanged += new ListChangedEventHandler(this.employeeBindingSource_ListChanged);
             bs.DataSource = sbl;
             adgvEmployee.DataSource = bs;
         }

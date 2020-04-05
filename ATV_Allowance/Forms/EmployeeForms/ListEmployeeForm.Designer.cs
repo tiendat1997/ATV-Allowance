@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.gbEmployeeList = new System.Windows.Forms.GroupBox();
+            this.lblTotal = new System.Windows.Forms.Label();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.adgvEmployee = new ADGV.AdvancedDataGridView();
             this.lblSearch = new System.Windows.Forms.Label();
@@ -43,6 +44,7 @@
             // 
             // gbEmployeeList
             // 
+            this.gbEmployeeList.Controls.Add(this.lblTotal);
             this.gbEmployeeList.Controls.Add(this.txtSearch);
             this.gbEmployeeList.Controls.Add(this.adgvEmployee);
             this.gbEmployeeList.Controls.Add(this.lblSearch);
@@ -50,10 +52,19 @@
             this.gbEmployeeList.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.gbEmployeeList.Name = "gbEmployeeList";
             this.gbEmployeeList.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.gbEmployeeList.Size = new System.Drawing.Size(908, 481);
+            this.gbEmployeeList.Size = new System.Drawing.Size(908, 512);
             this.gbEmployeeList.TabIndex = 0;
             this.gbEmployeeList.TabStop = false;
             this.gbEmployeeList.Text = "Danh sách";
+            // 
+            // lblTotal
+            // 
+            this.lblTotal.AutoSize = true;
+            this.lblTotal.Location = new System.Drawing.Point(795, 486);
+            this.lblTotal.Name = "lblTotal";
+            this.lblTotal.Size = new System.Drawing.Size(89, 20);
+            this.lblTotal.TabIndex = 11;
+            this.lblTotal.Text = "Số lượng: 0";
             // 
             // txtSearch
             // 
@@ -76,7 +87,7 @@
             this.adgvEmployee.Name = "adgvEmployee";
             this.adgvEmployee.ReadOnly = true;
             this.adgvEmployee.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.adgvEmployee.Size = new System.Drawing.Size(892, 440);
+            this.adgvEmployee.Size = new System.Drawing.Size(892, 431);
             this.adgvEmployee.TabIndex = 0;
             this.adgvEmployee.TimeFilter = false;
             this.adgvEmployee.SortStringChanged += new System.EventHandler(this.adgvEmployee_SortStringChanged);
@@ -97,11 +108,11 @@
             this.gbControl.Controls.Add(this.btnRemove);
             this.gbControl.Controls.Add(this.btnEdit);
             this.gbControl.Controls.Add(this.btnAdd);
-            this.gbControl.Location = new System.Drawing.Point(13, 505);
+            this.gbControl.Location = new System.Drawing.Point(13, 525);
             this.gbControl.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.gbControl.Name = "gbControl";
             this.gbControl.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.gbControl.Size = new System.Drawing.Size(853, 67);
+            this.gbControl.Size = new System.Drawing.Size(908, 67);
             this.gbControl.TabIndex = 1;
             this.gbControl.TabStop = false;
             this.gbControl.Text = "Thao tác";
@@ -143,7 +154,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(934, 571);
+            this.ClientSize = new System.Drawing.Size(934, 597);
             this.Controls.Add(this.gbControl);
             this.Controls.Add(this.gbEmployeeList);
             this.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
@@ -167,5 +178,6 @@
         private ADGV.AdvancedDataGridView adgvEmployee;
         private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.Label lblSearch;
+        private System.Windows.Forms.Label lblTotal;
     }
 }
