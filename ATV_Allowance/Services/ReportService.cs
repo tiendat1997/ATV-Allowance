@@ -756,7 +756,7 @@ namespace ATV_Allowance.Services
                 totalPoint += list.Sum(x => x.SumPoint);
                 var BBTPrecent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, Criterias_PT.BBT) / 100;
                 var BBTPoint = totalPoint * BBTPrecent * (1 + percent);
-                BBTPoint = Math.Round(BBTPoint, 1);
+                BBTPoint = Math.Round(BBTPoint, 2);
                 //var BBTPoint = totalPoint * BBTPrecent * percent;
                 var BBTCost = (long)(BBTPoint * price);
                 worksheet.Cells[currentRow, PT_COL.STT].Value = i + 1;
@@ -863,7 +863,7 @@ namespace ATV_Allowance.Services
                 //var BBTPoint = totalPoint * (BBTPercent / 100) * percent;
                 var toBaAmCost = toBaAm * daysOfMonth * price * (1 + percent);
                 var BBTPoint = totalPoint * (BBTPercent / 100) * (1 + percent);
-                BBTPoint = Math.Round(BBTPoint, 1);
+                BBTPoint = Math.Round(BBTPoint, 2);
                 var BBTCost = BBTPoint * price;
                 totalCost += (long)toBaAmCost + (long)BBTCost;
 
