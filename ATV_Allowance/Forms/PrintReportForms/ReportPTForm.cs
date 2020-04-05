@@ -3,6 +3,7 @@ using ATV_Allowance.Common.Actions;
 using ATV_Allowance.Forms.CommonForms;
 using ATV_Allowance.Forms.CriteriaForms;
 using ATV_Allowance.Forms.DeductionForms;
+using ATV_Allowance.Helpers;
 using ATV_Allowance.Services;
 using DataService.Entity;
 using System;
@@ -12,6 +13,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static ATV_Allowance.Common.Constants;
@@ -60,6 +62,9 @@ namespace ATV_Allowance.Forms.PrintReportForms
         }
         private void btnExport_Click(object sender, EventArgs e)
         {
+            Thread loadingThread = new Thread(new ThreadStart(ProgressBarHelper.StartLoadingReportForm));
+            loadingThread.Start();
+
             BusinessLog actionLog = new BusinessLog
             {
                 ActorId = Common.Session.GetId(),
@@ -69,10 +74,10 @@ namespace ATV_Allowance.Forms.PrintReportForms
 
             try
             {
-                reportService.InteropPreviewReportPT(dtpStartdate.Value, dtpEnddate.Value, (int)edtPrice.Value);
+                reportService.InteropPreviewReportPT(dtpStartdate.Value, dtpEnddate.Value, (int)edtPrice.Value, loadingThread);
                 int month = this.dtpMonth.Value.Month;
                 int year = this.dtpYear.Value.Year;
-                actionLog.Message = string.Format(AppActions.Export_PhatThanh, month, year);
+                actionLog.Message = string.Format(AppActions.Export_PhatThanh, month, year);                
             }
             catch (Exception ex)
             {
@@ -104,6 +109,9 @@ namespace ATV_Allowance.Forms.PrintReportForms
 
         private void button1_Click(object sender, EventArgs e)
         {
+            Thread loadingThread = new Thread(new ThreadStart(ProgressBarHelper.StartLoadingReportForm));
+            loadingThread.Start();
+
             BusinessLog actionLog = new BusinessLog
             {
                 ActorId = Common.Session.GetId(),
@@ -113,7 +121,7 @@ namespace ATV_Allowance.Forms.PrintReportForms
 
             try
             {
-                reportService.InteropPreviewReportPTTT(dtpStartdate.Value, dtpEnddate.Value, (int)edtPrice.Value);
+                reportService.InteropPreviewReportPTTT(dtpStartdate.Value, dtpEnddate.Value, (int)edtPrice.Value, loadingThread);
                 int month = this.dtpMonth.Value.Month;
                 int year = this.dtpYear.Value.Year;
                 actionLog.Message = string.Format(AppActions.Export_PhatThanhTT, month, year);
@@ -152,6 +160,6 @@ namespace ATV_Allowance.Forms.PrintReportForms
             CriteriaPTTTForm criteriaForm = new CriteriaPTTTForm();
             criteriaForm.FormClosed += new FormClosedEventHandler(CriteriaPTTTForm_Closed);
             criteriaForm.ShowDialog();
-        }
+        }        
     }
 }

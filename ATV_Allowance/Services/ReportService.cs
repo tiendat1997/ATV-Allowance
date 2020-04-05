@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Threading;
 using static ATV_Allowance.Common.Constants;
 
 namespace ATV_Allowance.Services
@@ -15,13 +16,13 @@ namespace ATV_Allowance.Services
     public interface IReportService
     {
         List<EmployeePointViewModel> GetReportBroadcast(DateTime startDate, DateTime endDate, int role, int price, int reportType);
-        void InteropPreviewReportTS(DateTime startDate, DateTime endDate, int price);
-        void InteropPreviewReportPT(DateTime startDate, DateTime endDate, int price);
-        void InteropPreviewReportPTTT(DateTime startDate, DateTime endDate, int price);
-        void InteropPreviewReportBSTTNM(DateTime startDate, DateTime endDate, int price);
-        void InteropPreviewReportTTNM(DateTime startDate, DateTime endDate, int price);
+        void InteropPreviewReportTS(DateTime startDate, DateTime endDate, int price, Thread flashScreenThread);
+        void InteropPreviewReportPT(DateTime startDate, DateTime endDate, int price, Thread flashScreenThread);
+        void InteropPreviewReportPTTT(DateTime startDate, DateTime endDate, int price, Thread flashScreenThread);
+        void InteropPreviewReportBSTTNM(DateTime startDate, DateTime endDate, int price, Thread flashScreenThread);
+        void InteropPreviewReportTTNM(DateTime startDate, DateTime endDate, int price, Thread flashScreenThread);
         //void InteropPreviewReportKHK(DateTime startDate, DateTime endDate, int role, int price, int reportType);
-        void InteropPreviewReportTS_KHK(DateTime startDate, DateTime endDate, int role, int price, int reportType);
+        void InteropPreviewReportTS_KHK(DateTime startDate, DateTime endDate, int role, int price, int reportType, Thread flashScreenThread);
 
     }
     public class ReportService : IReportService
@@ -327,7 +328,7 @@ namespace ATV_Allowance.Services
             return package.GetAsByteArray();
         }
 
-        public void InteropPreviewReportTS(DateTime startDate, DateTime endDate, int price)
+        public void InteropPreviewReportTS(DateTime startDate, DateTime endDate, int price, Thread flashScreenThread)
         {
             #region create excel file with template
             Application application = new Application();
@@ -343,7 +344,7 @@ namespace ATV_Allowance.Services
             FillDataIntoWorksheetTS(worksheetCTV, startDate, endDate, EmployeeRole.CTV, price, ref totalPriceCTV);
             FillDataIntoWorksheetTS(worksheetPV, startDate, endDate, EmployeeRole.PV, price, ref totalPricePV);
             FillDataIntoWorksheetTSKHK(worksheetKHK, startDate, endDate, price, totalPricePV, totalPriceCTV);
-
+            flashScreenThread.Abort();
             #region setup file
             worksheetPV.PageSetup.Orientation = XlPageOrientation.xlLandscape;
             worksheetCTV.PageSetup.Orientation = XlPageOrientation.xlLandscape;
@@ -357,7 +358,7 @@ namespace ATV_Allowance.Services
             #endregion
         }
 
-        public void InteropPreviewReportPT(DateTime startDate, DateTime endDate, int price)
+        public void InteropPreviewReportPT(DateTime startDate, DateTime endDate, int price, Thread flashScreenThread)
         {
             #region create excel file with template
             Application application = new Application();
@@ -371,6 +372,7 @@ namespace ATV_Allowance.Services
             double totalPoint = 0;
             FillDataIntoWorksheetPT(worksheetCTV, startDate, endDate, EmployeeRole.CTV, price, ref totalPoint);
             FillDataIntoWorksheetPT(worksheetPV, startDate, endDate, EmployeeRole.PV, price, ref totalPoint);
+            flashScreenThread.Abort();
 
             #region setup file
             application.Visible = true;
@@ -381,7 +383,7 @@ namespace ATV_Allowance.Services
             #endregion
         }
 
-        public void InteropPreviewReportPTTT(DateTime startDate, DateTime endDate, int price)
+        public void InteropPreviewReportPTTT(DateTime startDate, DateTime endDate, int price, Thread flashScreenThread)
         {
             #region create excel file with template
             Application application = new Application();
@@ -394,6 +396,7 @@ namespace ATV_Allowance.Services
             double totalPoint = 0;
             FillDataIntoWorksheetPTTT(worksheetCTV, startDate, endDate, EmployeeRole.CTV, price, ref totalPoint);
             FillDataIntoWorksheetPTTT(worksheetPV, startDate, endDate, EmployeeRole.PV, price, ref totalPoint);
+            flashScreenThread.Abort();
 
             #region setup file
             application.Visible = true;
@@ -404,7 +407,7 @@ namespace ATV_Allowance.Services
             #endregion
         }
 
-        public void InteropPreviewReportBSTTNM(DateTime startDate, DateTime endDate, int price)
+        public void InteropPreviewReportBSTTNM(DateTime startDate, DateTime endDate, int price, Thread flashScreenThread)
         {
             #region create excel file with template
             Application application = new Application();
@@ -417,7 +420,7 @@ namespace ATV_Allowance.Services
 
             FillDataIntoWorksheetBSTTNM(worksheetPV, startDate, endDate, EmployeeRole.PV, price);
             //FillDataIntoWorksheetBSTTNM(worksheetCTV, startDate, endDate, EmployeeRole.CTV, price);
-
+            flashScreenThread.Abort();
             #region setup file
             application.Visible = true;
 
@@ -427,7 +430,7 @@ namespace ATV_Allowance.Services
             #endregion
         }
 
-        public void InteropPreviewReportTTNM(DateTime startDate, DateTime endDate, int price)
+        public void InteropPreviewReportTTNM(DateTime startDate, DateTime endDate, int price, Thread flashScreenThread)
         {
             #region create excel file with template
             Application application = new Application();
@@ -442,6 +445,8 @@ namespace ATV_Allowance.Services
             FillDataIntoWorksheetTTNM(worksheetCTV, startDate, endDate, EmployeeRole.CTV, price, ref totalPoint);
             FillDataIntoWorksheetTTNM(worksheetPV, startDate, endDate, EmployeeRole.PV, price, ref totalPoint);
 
+            flashScreenThread.Abort();
+
             #region setup file
             application.Visible = true;
 
@@ -451,7 +456,7 @@ namespace ATV_Allowance.Services
             #endregion
         }
 
-        public void InteropPreviewReportTS_KHK(DateTime startDate, DateTime endDate, int role, int price, int reportType)
+        public void InteropPreviewReportTS_KHK(DateTime startDate, DateTime endDate, int role, int price, int reportType, Thread flashScreenThread)
         {
             #region create excel file with template
             Application application = new Application();
@@ -591,7 +596,7 @@ namespace ATV_Allowance.Services
             worksheet.Cells[currentRow + 1, TS_KHK_COL.THANHTIEN + 1].Value = $"(Thành tiền bằng chữ: {NumberToTextVN((decimal)total)})";
 
             #endregion
-
+            flashScreenThread.Abort();
             #region setup file
             worksheet.PageSetup.Orientation = XlPageOrientation.xlLandscape;
 

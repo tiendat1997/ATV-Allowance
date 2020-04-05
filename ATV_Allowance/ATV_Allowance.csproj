@@ -156,6 +156,12 @@
     <Compile Include="Forms\CommonForms\CommonForm.Designer.cs">
       <DependentUpon>CommonForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\CommonForms\FlashPrintForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CommonForms\FlashPrintForm.Designer.cs">
+      <DependentUpon>FlashPrintForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\CommonForms\GlobalForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -294,18 +300,6 @@
     <Compile Include="Forms\PrintReportForms\ReportTTNMForm.Designer.cs">
       <DependentUpon>ReportTTNMForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Report\ReportBienSoanTTForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Report\ReportBienSoanTTForm.Designer.cs">
-      <DependentUpon>ReportBienSoanTTForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\Report\ReportBroadcastForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Report\ReportBroadcastForm.Designer.cs">
-      <DependentUpon>ReportBroadcastForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\EmployeeForms\UpdateEmployeeForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -330,34 +324,11 @@
     <Compile Include="Forms\OrganizationForms\UpdateOrganizationForm.Designer.cs">
       <DependentUpon>UpdateOrganizationForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Report\ReportKhoiHauKyForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Report\ReportKhoiHauKyForm.Designer.cs">
-      <DependentUpon>ReportKhoiHauKyForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\Report\ReportPTForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Report\ReportPTForm.Designer.cs">
-      <DependentUpon>ReportPTForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\Report\ReportPTTTForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Report\ReportPTTTForm.Designer.cs">
-      <DependentUpon>ReportPTTTForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\Report\ReportTTNgayMoiForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Report\ReportTTNgayMoiForm.Designer.cs">
-      <DependentUpon>ReportTTNgayMoiForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Helpers\DialogHelper.cs" />
     <Compile Include="Helpers\ArticleEmployeeHelper.cs" />
     <Compile Include="Helpers\ExcelHelper.cs" />
     <Compile Include="Helpers\LinqHelper.cs" />
+    <Compile Include="Helpers\ProgressBarHelper.cs" />
     <Compile Include="Helpers\ValidatorHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -423,6 +394,9 @@
     <EmbeddedResource Include="Forms\ArticleForms\ManageTSForm.resx">
       <DependentUpon>ManageTSForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CommonForms\FlashPrintForm.resx">
+      <DependentUpon>FlashPrintForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\CommonForms\GlobalForm.resx">
       <DependentUpon>GlobalForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -486,12 +460,6 @@
     <EmbeddedResource Include="Forms\PrintReportForms\ReportTTNMForm.resx">
       <DependentUpon>ReportTTNMForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Report\ReportBienSoanTTForm.resx">
-      <DependentUpon>ReportBienSoanTTForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Report\ReportBroadcastForm.resx">
-      <DependentUpon>ReportBroadcastForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\EmployeeForms\AddEmployeeForm.resx">
       <DependentUpon>AddEmployeeForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -509,18 +477,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\OrganizationForms\UpdateOrganizationForm.resx">
       <DependentUpon>UpdateOrganizationForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Report\ReportKhoiHauKyForm.resx">
-      <DependentUpon>ReportKhoiHauKyForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Report\ReportPTForm.resx">
-      <DependentUpon>ReportPTForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Report\ReportPTTTForm.resx">
-      <DependentUpon>ReportPTTTForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Report\ReportTTNgayMoiForm.resx">
-      <DependentUpon>ReportTTNgayMoiForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

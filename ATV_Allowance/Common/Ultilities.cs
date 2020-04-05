@@ -4,7 +4,6 @@ using ATV_Allowance.Forms.CriteriaForms;
 using ATV_Allowance.Forms.DeductionForms;
 using ATV_Allowance.Forms.EmployeeForms;
 using ATV_Allowance.Forms.OrganizationForms;
-using ATV_Allowance.Forms.Report;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -254,8 +253,8 @@ namespace ATV_Allowance.Common
                         form = reportPTForm;                                                
                         break;
                     case "In Phát thanh trực tiếp":
-                        ReportPTTTForm reportPTTTForm = new ReportPTTTForm();
-                        form = reportPTTTForm;
+                        //ReportPTTTForm reportPTTTForm = new ReportPTTTForm();
+                        //form = reportPTTTForm;
                         break;
                     case "In trên từng cây số":
                         Forms.PrintReportForms.ReportTTNMForm reportTTNgayMoiForm = new Forms.PrintReportForms.ReportTTNMForm();

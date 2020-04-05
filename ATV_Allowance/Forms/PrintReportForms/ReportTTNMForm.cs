@@ -3,6 +3,7 @@ using ATV_Allowance.Common.Actions;
 using ATV_Allowance.Forms.CommonForms;
 using ATV_Allowance.Forms.CriteriaForms;
 using ATV_Allowance.Forms.DeductionForms;
+using ATV_Allowance.Helpers;
 using ATV_Allowance.Services;
 using DataService.Entity;
 using System;
@@ -12,6 +13,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -70,6 +72,9 @@ namespace ATV_Allowance.Forms.PrintReportForms
 
         private void btnExport_Click(object sender, EventArgs e)
         {
+            Thread loadingThread = new Thread(new ThreadStart(ProgressBarHelper.StartLoadingReportForm));
+            loadingThread.Start();
+
             BusinessLog actionLog = new BusinessLog
             {
                 ActorId = Common.Session.GetId(),
@@ -78,7 +83,7 @@ namespace ATV_Allowance.Forms.PrintReportForms
             };
             try
             {
-                reportService.InteropPreviewReportTTNM(dtpStartdate.Value, dtpEnddate.Value, (int)edtPrice.Value);
+                reportService.InteropPreviewReportTTNM(dtpStartdate.Value, dtpEnddate.Value, (int)edtPrice.Value, loadingThread);
                 int month = this.dtpMonth.Value.Month;
                 int year = this.dtpYear.Value.Year;
                 actionLog.Message = string.Format(AppActions.Export_TTNM, month, year);

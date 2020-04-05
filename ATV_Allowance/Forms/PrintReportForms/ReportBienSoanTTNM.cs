@@ -14,6 +14,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Threading;
+using ATV_Allowance.Helpers;
 
 namespace ATV_Allowance.Forms.PrintReportForms
 {
@@ -68,6 +70,9 @@ namespace ATV_Allowance.Forms.PrintReportForms
 
         private void btnExport_Click(object sender, EventArgs e)
         {
+            Thread loadingThread = new Thread(new ThreadStart(ProgressBarHelper.StartLoadingReportForm));
+            loadingThread.Start();
+
             BusinessLog actionLog = new BusinessLog
             {
                 ActorId = Common.Session.GetId(),
@@ -76,7 +81,7 @@ namespace ATV_Allowance.Forms.PrintReportForms
             };
             try
             {
-                reportService.InteropPreviewReportBSTTNM(dtpStartdate.Value, dtpEnddate.Value, (int)edtPrice.Value);
+                reportService.InteropPreviewReportBSTTNM(dtpStartdate.Value, dtpEnddate.Value, (int)edtPrice.Value, loadingThread);
                 int month = this.dtpMonth.Value.Month;
                 int year = this.dtpYear.Value.Year;
                 actionLog.Message = string.Format(AppActions.Export_BienSoanTTNM, month, year);
