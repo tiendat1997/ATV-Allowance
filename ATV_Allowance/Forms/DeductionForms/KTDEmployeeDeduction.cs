@@ -38,10 +38,12 @@ namespace ATV_Allowance.Forms.DeductionForms
             deductionService = new DeductionService();
             deductionTypeService = new DeductionTypeService();
 
-            this.year = (year.HasValue) ? DateTime.Now.Year : (int)year;
-            this.month = (month.HasValue) ? DateTime.Now.Month : (int)month;
-            this.articleType = articleType;
+            this.year = year.HasValue ? (int)year : DateTime.Now.Year;
+            this.month = month.HasValue ? (int)month : DateTime.Now.Month;
+            dtpMonth.Value = new DateTime(this.year, this.month, 1);
+            dtp.Value = new DateTime(this.year, this.month, 1);
 
+            this.articleType = articleType;
             LoadDeductions();
         }
         private void InitTabIndex()

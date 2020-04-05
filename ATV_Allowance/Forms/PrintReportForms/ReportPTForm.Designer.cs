@@ -98,7 +98,7 @@
             // btnDeduction
             // 
             this.btnDeduction.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDeduction.Location = new System.Drawing.Point(469, 131);
+            this.btnDeduction.Location = new System.Drawing.Point(467, 139);
             this.btnDeduction.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
             this.btnDeduction.Name = "btnDeduction";
             this.btnDeduction.Size = new System.Drawing.Size(200, 35);
@@ -233,7 +233,7 @@
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(467, 316);
+            this.button1.Location = new System.Drawing.Point(467, 313);
             this.button1.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(200, 35);
@@ -245,7 +245,7 @@
             // btnCriteriaPTTT
             // 
             this.btnCriteriaPTTT.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCriteriaPTTT.Location = new System.Drawing.Point(469, 66);
+            this.btnCriteriaPTTT.Location = new System.Drawing.Point(467, 66);
             this.btnCriteriaPTTT.Margin = new System.Windows.Forms.Padding(6, 8, 6, 8);
             this.btnCriteriaPTTT.Name = "btnCriteriaPTTT";
             this.btnCriteriaPTTT.Size = new System.Drawing.Size(200, 35);
