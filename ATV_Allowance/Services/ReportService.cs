@@ -311,7 +311,7 @@ namespace ATV_Allowance.Services
 
 
             //report date row
-            worksheet.Cells[currentRow + 2, TS_KHK_COL.THANHTIEN + 1].Value = $"Long Xuyên, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
+            worksheet.Cells[currentRow + 2, TS_KHK_COL.THANHTIEN + 1].Value = $"An Giang, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
 
             //money string
             worksheet.Cells[currentRow + 1, TS_KHK_COL.THANHTIEN + 1].Value = $"(Thành tiền bằng chữ: {NumberToTextVN((decimal)total)})";
@@ -590,7 +590,7 @@ namespace ATV_Allowance.Services
 
 
             //report date row
-            worksheet.Cells[currentRow + 2, TS_KHK_COL.THANHTIEN + 1].Value = $"Long Xuyên, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
+            worksheet.Cells[currentRow + 2, TS_KHK_COL.THANHTIEN + 1].Value = $"An Giang, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
 
             //money string
             worksheet.Cells[currentRow + 1, TS_KHK_COL.THANHTIEN + 1].Value = $"(Thành tiền bằng chữ: {NumberToTextVN((decimal)total)})";
@@ -693,7 +693,7 @@ namespace ATV_Allowance.Services
             worksheet.Cells[currentRow + 1, TS_COL.THANHTIEN + 1].Value = $"(Thành tiền bằng chữ: {NumberToTextVN(totalCost)})";
 
             //report date row
-            worksheet.Cells[currentRow + 2, TS_COL.THANHTIEN + 1].Value = $"Long Xuyên, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
+            worksheet.Cells[currentRow + 2, TS_COL.THANHTIEN + 1].Value = $"An Giang, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
 
             #endregion
         }
@@ -780,7 +780,7 @@ namespace ATV_Allowance.Services
 
 
             //report date row
-            worksheet.Cells[currentRow + 2, PT_COL.THANHTIEN + 1].Value = $"Long Xuyên, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
+            worksheet.Cells[currentRow + 2, PT_COL.THANHTIEN + 1].Value = $"An Giang, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
 
             //sum row
             worksheet.Cells[currentRow, PT_COL.THANHTIEN].Value = totalCost;
@@ -888,7 +888,7 @@ namespace ATV_Allowance.Services
             worksheet.Cells[currentRow + 1, PTTT_COL.THANHTIEN + 1].Value = $"(Thành tiền bằng chữ: {NumberToTextVN(totalCost)})";
 
             //report date row
-            worksheet.Cells[currentRow + 2, PTTT_COL.THANHTIEN + 1].Value = $"Long Xuyên, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
+            worksheet.Cells[currentRow + 2, PTTT_COL.THANHTIEN + 1].Value = $"An Giang, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
 
             //hide deduction of CTV
             if (role == EmployeeRole.CTV)
@@ -1004,7 +1004,7 @@ namespace ATV_Allowance.Services
             worksheet.Cells[currentRow + 1, TTNM_COL.THANHTIEN + 1].Value = $"(Thành tiền bằng chữ: {NumberToTextVN(totalCost)})";
 
             //report date row
-            worksheet.Cells[currentRow + 2, TTNM_COL.THANHTIEN + 1].Value = $"Long Xuyên, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
+            worksheet.Cells[currentRow + 2, TTNM_COL.THANHTIEN + 1].Value = $"An Giang, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
 
             //hide deduction of CTV
             if (role == EmployeeRole.CTV)
@@ -1134,7 +1134,7 @@ namespace ATV_Allowance.Services
 
 
             //report date row
-            worksheet.Cells[currentRow + 3, BSTTNM_COL.THANHTIEN + 1].Value = $"Long Xuyên, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
+            worksheet.Cells[currentRow + 3, BSTTNM_COL.THANHTIEN + 1].Value = $"An Giang, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
 
             //sum row
             totalCostKHK += listKHK.Sum(e => e.TotalCost);
@@ -1284,7 +1284,7 @@ namespace ATV_Allowance.Services
             worksheet.Cells[2, TS_COL.STT].Value = $"{ReportName.TSKHK} THÁNG {endDate.Month}/{endDate.Year}";
 
             //report date row
-            worksheet.Cells[currentRow + 2, TS_KHK_COL.THANHTIEN + 1].Value = $"Long Xuyên, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
+            worksheet.Cells[currentRow + 2, TS_KHK_COL.THANHTIEN + 1].Value = $"An Giang, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
 
             //money string
             worksheet.Cells[currentRow + 1, TS_KHK_COL.THANHTIEN + 1].Value = $"(Thành tiền bằng chữ: {NumberToTextVN((decimal)total)})";
