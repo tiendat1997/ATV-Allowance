@@ -369,9 +369,9 @@ namespace ATV_Allowance.Services
 
             #endregion
 
-            double totalPoint = 0;
-            FillDataIntoWorksheetPT(worksheetCTV, startDate, endDate, EmployeeRole.CTV, price, ref totalPoint);
-            FillDataIntoWorksheetPT(worksheetPV, startDate, endDate, EmployeeRole.PV, price, ref totalPoint);
+            long costOfRole = 0;
+            FillDataIntoWorksheetPT(worksheetCTV, startDate, endDate, EmployeeRole.CTV, price, ref costOfRole);
+            FillDataIntoWorksheetPT(worksheetPV, startDate, endDate, EmployeeRole.PV, price, ref costOfRole);
             flashScreenThread.Abort();
 
             #region setup file
@@ -698,7 +698,7 @@ namespace ATV_Allowance.Services
             #endregion
         }
 
-        private void FillDataIntoWorksheetPT(Worksheet worksheet, DateTime startDate, DateTime endDate, int role, int price, ref double totalPoint)
+        private void FillDataIntoWorksheetPT(Worksheet worksheet, DateTime startDate, DateTime endDate, int role, int price, ref long costOfRole)
         {
             var list = GetReportBroadcast(startDate, endDate, role, price, ArticleType.PHAT_THANH);
 
@@ -748,43 +748,42 @@ namespace ATV_Allowance.Services
 
             var totalCost = list.Sum(e => e.TotalCost);
 
+            worksheet.Range[worksheet.Cells[4, PT_COL.STT], worksheet.Cells[currentRow - 1, PT_COL.THANHTIEN + 1]].Borders.LineStyle = XlLineStyle.xlContinuous;
+            //sum row
+            worksheet.Cells[currentRow, PT_COL.THANHTIEN].Value = list.Sum(x => x.TotalCost);
+
             //hide deduction of CTV
             if (role == EmployeeRole.CTV)
             {
                 worksheet.Columns[PT_COL.TRUCHITIEU].Hidden = true;
-                totalPoint += list.Sum(x => x.SumPoint - x.Deduction);
+                costOfRole += list.Sum(x => x.TotalCost);
             }
             else
             {
-                Range line = (Range)worksheet.Rows[currentRow];
-                line.Insert();
-                totalPoint += list.Sum(x => x.SumPoint - x.Deduction);
-                var BBTPrecent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, Criterias_PT.BBT) / 100;
-                var BBTPoint = totalPoint * BBTPrecent * (1 + percent);
-                BBTPoint = Math.Round(BBTPoint, 2);
-                //var BBTPoint = totalPoint * BBTPrecent * percent;
-                var BBTCost = (long)(BBTPoint * price);
-                worksheet.Cells[currentRow, PT_COL.STT].Value = i + 1;
-                worksheet.Cells[currentRow, PT_COL.HO_TEN].Value = PT_COL.GetBBTHeader(BBTPrecent * 100);
-                worksheet.Cells[currentRow, PT_COL.TONGDIEM].Value = BBTPoint;
-                worksheet.Cells[currentRow, PT_COL.THANHTIEN].Value = BBTCost;
-                totalCost += BBTCost;
-                currentRow += 1;
-            }
+                var CTVCost = costOfRole;
+                var PVCost = list.Sum(x => x.TotalCost);
+                var BBTPercent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, Criterias_PTTT.BBT);
 
-            worksheet.Range[worksheet.Cells[4, PT_COL.STT], worksheet.Cells[currentRow, PT_COL.THANHTIEN + 1]].Borders.LineStyle = XlLineStyle.xlContinuous;
+                var BBTCost = (CTVCost + PVCost) * (BBTPercent / 100) * (1 + percent);
+                totalCost += (long)Math.Round(BBTCost);
+
+                //fill header
+                worksheet.Cells[currentRow + 2, PTTT_COL.STT].Value = PTTT_COL.GetBBTHeader(BBTPercent, CTVCost, PVCost);
+
+                //fill value
+                worksheet.Cells[currentRow + 2, PTTT_COL.TANGGIAM].Value = BBTCost;
+                worksheet.Cells[currentRow + 3, PTTT_COL.TANGGIAM].Value = totalCost;
+                currentRow += 3;
+
+            }
 
             //title row
             var textRole = (role == EmployeeRole.PV ? "PV" : "CTV");
             worksheet.Cells[2, PT_COL.STT].Value = $"{ReportName.PT} ({textRole}) THÁNG {endDate.Month}/{endDate.Year}";
 
-
             //report date row
             worksheet.Cells[currentRow + 2, PT_COL.THANHTIEN + 1].Value = $"An Giang, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
-
-            //sum row
-            worksheet.Cells[currentRow, PT_COL.THANHTIEN].Value = totalCost;
-
+           
             //money string
             worksheet.Cells[currentRow + 1, PT_COL.THANHTIEN + 1].Value = $"(Thành tiền bằng chữ: {NumberToTextVN(totalCost)})";
 
