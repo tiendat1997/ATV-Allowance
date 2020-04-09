@@ -79,7 +79,7 @@ namespace ATV_Allowance.Services
 
         public double GetCriteriaValue(int month, int year, int criteriaTypeId)
         {
-            var criteria = criteriaValueRepository.GetMany(x => x.Configuration.Month == month && x.Configuration.Year == year && x.CriteriaId == criteriaTypeId)
+            var criteria = criteriaValueRepository.GetAsNoTracking(x => x.Configuration.Month == month && x.Configuration.Year == year && x.CriteriaId == criteriaTypeId)
                                             .FirstOrDefault();
             return criteria != null ? criteria.Value.GetValueOrDefault(0) : 0;
         }

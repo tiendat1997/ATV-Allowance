@@ -421,6 +421,8 @@ namespace ATV_Allowance.Common
 
         public static class Criterias_THOI_SU
         {
+            public static int PV_PTV = 1;
+            public static int CTV = 2;
             public static int BT_CTTS = 3;
             public static int PTV = 4;
             public static int KTD = 5;

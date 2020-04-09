@@ -615,7 +615,7 @@ namespace ATV_Allowance.Services
 
             int currentRow = 5;
 
-            var percent = _criteriaService.GetCriteriaValue(endDate.Month, endDate.Year, role == EmployeeRole.PV ? Criterias_Percent.TANG_GIAM_PV_BTV : Criterias_Percent.TANG_GIAM_CTV);
+            var percent = _criteriaService.GetCriteriaValue(endDate.Month, endDate.Year, role == EmployeeRole.PV ? Criterias_THOI_SU.PV_PTV : Criterias_THOI_SU.CTV);
             worksheet.Cells[currentRow - 2, TS_COL.TANGGIAM].Value = "Tăng " + percent + "%";
             percent = percent / 100;
 
@@ -703,7 +703,7 @@ namespace ATV_Allowance.Services
             var list = GetReportBroadcast(startDate, endDate, role, price, ArticleType.PHAT_THANH);
 
             int currentRow = 5;
-            var percent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, role == EmployeeRole.PV ? Criterias_BSTTNM.PV_PTV : Criterias_Percent.TANG_GIAM_CTV);
+            var percent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, role == EmployeeRole.PV ? Criterias_PT.PV_PTV : Criterias_PT.CTV);
             worksheet.Cells[currentRow - 2, PT_COL.TANGGIAM].Value = "Tăng " + percent + "%";
             percent = percent / 100;
 
@@ -904,7 +904,7 @@ namespace ATV_Allowance.Services
             var list = GetReportBroadcast(startDate, endDate, role, price, ArticleType.PV_TTNM);
 
             int currentRow = 5;
-            var percent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, role == EmployeeRole.PV ? Criterias_Percent.TANG_GIAM_PV_BTV : Criterias_Percent.TANG_GIAM_CTV);
+            var percent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, role == EmployeeRole.PV ? Criterias_TTNM.PV_PTV : Criterias_TTNM.CTV);
             worksheet.Cells[currentRow - 2, TTNM_COL.TANGGIAM].Value = "Tăng " + percent + "%";
             percent = percent / 100;
 
@@ -1023,7 +1023,7 @@ namespace ATV_Allowance.Services
             var listKHK = GetReportBroadcast(startDate, endDate, role, price, ArticleType.KHOIHK_TTNM);
 
             int currentRow = 5;
-            var percent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, role == EmployeeRole.PV ? Criterias_Percent.TANG_GIAM_PV_BTV : Criterias_Percent.TANG_GIAM_CTV);
+            var percent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, role == EmployeeRole.PV ? Criterias_BSTTNM.PV_PTV : 0);
             worksheet.Cells[currentRow - 2, BSTTNM_COL.TANGGIAM].Value = "Tăng " + percent + "%";
             //percent = percent / 100;
 
@@ -1300,7 +1300,7 @@ namespace ATV_Allowance.Services
             {
                 startDate = startDate.AddMonths(1).AddDays(-1);
             }
-            var percent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, employeeRole == EmployeeRole.PV ? Criterias_Percent.TANG_GIAM_PV_BTV : Criterias_Percent.TANG_GIAM_CTV) / 100;
+            double percent = 0;
             var employeeIds = list.Select(x => x.EmployeeId).ToList();
             int articleType = reportType;
             if (reportType == ArticleType.KHOIHK_TTNM)
@@ -1314,26 +1314,32 @@ namespace ATV_Allowance.Services
                 if (reportType == ArticleType.THOI_SU)
                 {
                     sumPoint = list[i].DiemTin + list[i].DiemPsu + list[i].DiemQtin + list[i].DiemQPsu;
+                    percent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, employeeRole == EmployeeRole.PV ? Criterias_THOI_SU.PV_PTV : Criterias_THOI_SU.CTV) / 100;
                 }
                 else if (reportType == ArticleType.PHAT_THANH)
                 {
                     sumPoint = list[i].DiemTin + list[i].DiemBai + list[i].DiemCd + list[i].DiemPv + list[i].DiemTLT + list[i].DiemSD;
+                    percent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, employeeRole == EmployeeRole.PV ? Criterias_PT.PV_PTV : Criterias_PT.CTV) / 100;
                 }
                 else if (reportType == ArticleType.PHAT_THANH_TT)
                 {
                     sumPoint = list[i].DiemTin + list[i].DiemTTh_Gnh + list[i].DiemCde + list[i].DiemPv + list[i].DiemBs_DCT + list[i].DiemBt_Dd;
+                    percent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, employeeRole == EmployeeRole.PV ? Criterias_PTTT.PV_PTV : Criterias_PTTT.CTV) / 100;
                 }
                 else if (reportType == ArticleType.PV_TTNM)
                 {
                     sumPoint = list[i].DiemTin + list[i].DiemPsu + list[i].DiemQtin + list[i].DiemQPsu + list[i].DiemTLT + list[i].DiemThop;
+                    percent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, employeeRole == EmployeeRole.PV ? Criterias_TTNM.PV_PTV : Criterias_TTNM.CTV) / 100;
                 }
                 else if (reportType == ArticleType.BIENSOAN_TTNM)
                 {
                     sumPoint = list[i].DiemBs_TTN + list[i].DiemBs_Sapo + list[i].DiemKThinh + list[i].DiemTFile + list[i].DiemBt_Duyet;
+                    percent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, employeeRole == EmployeeRole.PV ? Criterias_BSTTNM.PV_PTV : 0) / 100;
                 }
                 else if (reportType == ArticleType.KHOIHK_TTNM)
                 {
                     sumPoint = list[i].DiemDCT + list[i].DiemKTD + list[i].DiemTCT + list[i].DiemKT_TH;
+                    percent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, employeeRole == EmployeeRole.PV ? Criterias_BSTTNM.PV_PTV : 0) / 100;
                 }
 
                 var deduction = (employeesDeduction.FirstOrDefault(x => x.EmployeeId == list[i].EmployeeId)?.Deduction).GetValueOrDefault(0);
