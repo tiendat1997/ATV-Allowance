@@ -393,9 +393,9 @@ namespace ATV_Allowance.Services
             var worksheetCTV = (Worksheet)workbook.Worksheets[2];
             #endregion
 
-            double totalPoint = 0;
-            FillDataIntoWorksheetPTTT(worksheetCTV, startDate, endDate, EmployeeRole.CTV, price, ref totalPoint);
-            FillDataIntoWorksheetPTTT(worksheetPV, startDate, endDate, EmployeeRole.PV, price, ref totalPoint);
+            long costOfRole = 0;
+            FillDataIntoWorksheetPTTT(worksheetCTV, startDate, endDate, EmployeeRole.CTV, price, ref costOfRole);
+            FillDataIntoWorksheetPTTT(worksheetPV, startDate, endDate, EmployeeRole.PV, price, ref costOfRole);
             flashScreenThread.Abort();
 
             #region setup file
@@ -791,7 +791,7 @@ namespace ATV_Allowance.Services
 
         }
 
-        private void FillDataIntoWorksheetPTTT(Worksheet worksheet, DateTime startDate, DateTime endDate, int role, int price, ref double totalPoint)
+        private void FillDataIntoWorksheetPTTT(Worksheet worksheet, DateTime startDate, DateTime endDate, int role, int price, ref long costOfRole)
         {
             #region fill data
             var list = GetReportBroadcast(startDate, endDate, role, price, ArticleType.PHAT_THANH_TT);
@@ -855,26 +855,26 @@ namespace ATV_Allowance.Services
                 worksheet.Rows[currentRow + 3].Hidden = true;
                 worksheet.Rows[currentRow + 4].Hidden = true;
 
-                totalPoint += list.Sum(x => x.SumPoint - x.Deduction);
+                costOfRole += list.Sum(x => x.TotalCost);
             }
             else
             {
-                totalPoint += list.Sum(x => x.SumPoint - x.Deduction);
+                var CTVCost = costOfRole;
+                var PVCost = list.Sum(x => x.TotalCost);
                 var toBaAm = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, Criterias_PTTT.ToBaAm);
                 var daysOfMonth = DateTime.DaysInMonth(startDate.Year, startDate.Month);
                 var BBTPercent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, Criterias_PTTT.BBT);
 
-                //var toBaAmCost = toBaAm * daysOfMonth * price * percent;
-                //var BBTPoint = totalPoint * (BBTPercent / 100) * percent;
                 var toBaAmCost = toBaAm * daysOfMonth * price * (1 + percent);
-                var BBTPoint = totalPoint * (BBTPercent / 100) * (1 + percent);
-                BBTPoint = Math.Round(BBTPoint, 2);
-                var BBTCost = BBTPoint * price;
-                totalCost += (long)toBaAmCost + (long)BBTCost;
-
+                //var BBTPoint = totalPoint * (BBTPercent / 100) * (1 + percent);
+                //BBTPoint = Math.Round(BBTPoint, 2);
+                //var BBTCost = BBTPoint * price;
+                var BBTCost = (CTVCost + PVCost) * (BBTPercent / 100) * (1 + percent);
+                totalCost += (long)Math.Round(toBaAmCost) + (long)Math.Round(BBTCost);
+                
                 //fill header
                 worksheet.Cells[currentRow + 2, PTTT_COL.STT].Value = PTTT_COL.GetToBaAmHeader(toBaAm, daysOfMonth);
-                worksheet.Cells[currentRow + 3, PTTT_COL.STT].Value = PTTT_COL.GetBBTHeader(BBTPercent, BBTPoint);
+                worksheet.Cells[currentRow + 3, PTTT_COL.STT].Value = PTTT_COL.GetBBTHeader(BBTPercent, CTVCost, PVCost);
 
                 //fill value
                 worksheet.Cells[currentRow + 2, PTTT_COL.TANGGIAM].Value = toBaAmCost;

@@ -334,8 +334,8 @@ namespace ATV_Allowance.Common
 
             public static string GetToBaAmHeader(double toBaAmCriteria, double daysOfMonth) 
                 => $"Tổ bá âm: Thu tin qua điện thoại + Vận hành máy ({toBaAmCriteria}đ/1CT). Tổng cộng: {daysOfMonth} chương trình";
-            public static string GetBBTHeader(double BBTPercent, double BBTPoint) 
-                => $"Trích Ban Biên tập {BBTPercent}%. Tổng cộng: {BBTPoint} điểm";
+            public static string GetBBTHeader(double BBTPercent, long CTVCost, long PVCost) 
+                => $"Trích Ban Biên tập {BBTPercent}%. ( ({PVCost.ToString("n0")} + {CTVCost.ToString("n0")}) x {BBTPercent}% )";
         }
 
         public static class TTNM_COL
