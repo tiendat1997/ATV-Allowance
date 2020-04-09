@@ -13,9 +13,11 @@ namespace DataService.Repository
     {
         List<ReportModel> GetReport(DateTime startDate, DateTime endate, int articleType, int role);
     }
-
+    
     public class ReportRepository : Repository<ArticleEmployee>, IReportRepository
     {
+        private readonly int CTV_ROLE = 4;
+
         public List<ReportModel> GetReport(DateTime startDate, DateTime endate, int articleType, int role)
         {
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ATVEntities"].ConnectionString))
@@ -43,7 +45,7 @@ namespace DataService.Repository
                                                                     "join Article a on ae.ArticleId = a.Id " +
                                                                     "where Date >= '" + startDate.ToString("yyyy/MM/dd") + "' and Date <= '" + endate.ToString("yyyy/MM/dd") + "' and TypeId = " + articleType + " " +
                                                             ") t on e.Id = t.EmployeeId " +
-                                                            "where e.RoleId = " + role + " " +
+                                                            (role == CTV_ROLE ? $"where e.RoleId = {CTV_ROLE} " : $"where e.RoleId != {CTV_ROLE} ") + 
                                                     ") t2 " +
                                                     "on t1.ArticleEmployeeId = t2.Id " +
                                                     "group by t1.Type, t2.EmployeeId " +
