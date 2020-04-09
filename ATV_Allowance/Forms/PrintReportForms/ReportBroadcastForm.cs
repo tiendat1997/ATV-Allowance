@@ -69,13 +69,13 @@ namespace ATV_Allowance.Forms.PrintReportForms
                 Code = "CTV"
             });           
 
-            var firstDateInMonth = new DateTime(dtpYear.Value.Year, dtpMonth.Value.Month, 1);
+            var middleDateInMonth = new DateTime(dtpYear.Value.Year, dtpMonth.Value.Month, 14);
 
-            dtpMonth.Value = firstDateInMonth;
-            dtpYear.Value = firstDateInMonth;
+            dtpMonth.Value = middleDateInMonth;
+            dtpYear.Value = middleDateInMonth;
 
-            dtpStartdate.Value = firstDateInMonth;
-            dtpEnddate.Value = firstDateInMonth.AddMonths(1).AddDays(-1);
+            dtpEnddate.Value = middleDateInMonth;
+            dtpStartdate.Value = middleDateInMonth.AddMonths(-1).AddDays(1);
 
             InitSaveFile();
         }
@@ -118,14 +118,14 @@ namespace ATV_Allowance.Forms.PrintReportForms
 
         private void dtpMonth_ValueChanged(object sender, EventArgs e)
         {
-            dtpStartdate.Value = new DateTime(dtpYear.Value.Year, dtpMonth.Value.Month, 1);
-            dtpEnddate.Value = new DateTime(dtpYear.Value.Year, dtpMonth.Value.Month, DateTime.DaysInMonth(dtpYear.Value.Year, dtpMonth.Value.Month));
+            dtpEnddate.Value = new DateTime(dtpYear.Value.Year, dtpMonth.Value.Month, 14);
+            dtpStartdate.Value = dtpEnddate.Value.AddMonths(-1).AddDays(1);
         }
 
         private void dtpYear_ValueChanged(object sender, EventArgs e)
         {
-            dtpStartdate.Value = new DateTime(dtpYear.Value.Year, dtpMonth.Value.Month, 1);
-            dtpEnddate.Value = new DateTime(dtpYear.Value.Year, dtpMonth.Value.Month, DateTime.DaysInMonth(dtpYear.Value.Year, dtpMonth.Value.Month));
+            dtpEnddate.Value = new DateTime(dtpYear.Value.Year, dtpMonth.Value.Month, 14);
+            dtpStartdate.Value = dtpEnddate.Value.AddMonths(-1).AddDays(1);
         }        
 
         private void btnDeduction_Click(object sender, EventArgs e)
