@@ -1296,6 +1296,10 @@ namespace ATV_Allowance.Services
 
         private void CalculateCost(List<EmployeePointViewModel> list, int price, int reportType, int employeeRole, DateTime startDate)
         {
+            if (reportType == ArticleType.THOI_SU)
+            {
+                startDate = startDate.AddMonths(1).AddDays(-1);
+            }
             var percent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, employeeRole == EmployeeRole.PV ? Criterias_Percent.TANG_GIAM_PV_BTV : Criterias_Percent.TANG_GIAM_CTV) / 100;
             var employeeIds = list.Select(x => x.EmployeeId).ToList();
             int articleType = reportType;
