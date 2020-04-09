@@ -144,11 +144,11 @@ namespace DataService.Infrastructure
 
         public IEnumerable<TEntity> GetAsNoTracking(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, string includeProperties = "")
         {
-            IQueryable<TEntity> query = dbSet;
+            IQueryable<TEntity> query = dbSet.AsNoTracking();
 
             if (filter != null)
             {
-                query = query.AsNoTracking().Where(filter);
+                query = query.Where(filter);
             }
 
             foreach (var includeProperty in includeProperties.Split

@@ -1159,7 +1159,7 @@ namespace ATV_Allowance.Services
             //var listCTV = GetReportBroadcast(startDate, endDate, EmployeeRole.CTV, price, ArticleType.THOI_SU);
             //var sumListCTV = listCTV.Sum(x => x.TotalCost);
 
-            var listCriterias = _criteriaRepository.GetAll();
+            var listCriterias = _criteriaRepository.GetAsNoTracking().ToList();
 
             int currentRow = 4;
             int count = 0;
@@ -1221,12 +1221,12 @@ namespace ATV_Allowance.Services
             var tp_ctts_point = (listCriterias.FirstOrDefault(x => x.Id == Criterias_THOI_SU.TP_TRUC_CTTS)
                 .CriteriaValue.FirstOrDefault(x => x.Configuration.Month == endDate.Month && x.Configuration.Year == endDate.Year)?
                 .Value).GetValueOrDefault(0);
-            //var numberOfDays = (listCriterias.FirstOrDefault(x => x.Id == Criterias_THOI_SU.SO_NGAY)
-            //    .CriteriaValue.FirstOrDefault(x => x.Configuration.Month == endDate.Month && x.Configuration.Year == endDate.Year)?
-            //    .Value).GetValueOrDefault(0);
-            var numberOfDays = _criteriaRepository.GetAsNoTracking(x => x.Id == Criterias_THOI_SU.SO_NGAY).FirstOrDefault()
-                .CriteriaValue.FirstOrDefault(x => x.Configuration.Month == endDate.Month && x.Configuration.Year == endDate.Year).Value
-                .GetValueOrDefault(0);
+            var numberOfDays = (listCriterias.FirstOrDefault(x => x.Id == Criterias_THOI_SU.SO_NGAY)
+                .CriteriaValue.FirstOrDefault(x => x.Configuration.Month == endDate.Month && x.Configuration.Year == endDate.Year)?
+                .Value).GetValueOrDefault(0);
+            //var numberOfDays = _criteriaRepository.GetAsNoTracking(x => x.Id == Criterias_THOI_SU.SO_NGAY).FirstOrDefault()
+            //    .CriteriaValue.FirstOrDefault(x => x.Configuration.Month == endDate.Month && x.Configuration.Year == endDate.Year).Value
+            //    .GetValueOrDefault(0);
             worksheet.Cells[currentRow, TS_KHK_COL.STT].Value = count;
             worksheet.Cells[currentRow, TS_KHK_COL.BO_PHAN].Value = "TP trực CTTS";
             worksheet.Cells[currentRow, TS_KHK_COL.CONG_THUC].Value = $"{price.ToString("n0")} đồng/điểm x {tp_ctts_point} điểm/ngày x {numberOfDays} ngày";
