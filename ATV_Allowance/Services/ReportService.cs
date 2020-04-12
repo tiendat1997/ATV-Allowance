@@ -764,7 +764,7 @@ namespace ATV_Allowance.Services
                 var PVCost = list.Sum(x => x.TotalCost);
                 var BBTPercent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, Criterias_PTTT.BBT);
 
-                var BBTCost = (CTVCost + PVCost) * (BBTPercent / 100) * (1 + percent);
+                var BBTCost = (CTVCost + PVCost) * (BBTPercent / 100);
                 totalCost += (long)Math.Round(BBTCost);
 
                 //fill header
@@ -864,11 +864,11 @@ namespace ATV_Allowance.Services
                 var daysOfMonth = DateTime.DaysInMonth(startDate.Year, startDate.Month);
                 var BBTPercent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, Criterias_PTTT.BBT);
 
-                var toBaAmCost = toBaAm * daysOfMonth * price * (1 + percent);
+                var toBaAmCost = toBaAm * daysOfMonth * price;
                 //var BBTPoint = totalPoint * (BBTPercent / 100) * (1 + percent);
                 //BBTPoint = Math.Round(BBTPoint, 2);
                 //var BBTCost = BBTPoint * price;
-                var BBTCost = (CTVCost + PVCost) * (BBTPercent / 100) * (1 + percent);
+                var BBTCost = (CTVCost + PVCost) * (BBTPercent / 100);
                 totalCost += (long)Math.Round(toBaAmCost) + (long)Math.Round(BBTCost);
                 
                 //fill header
@@ -962,7 +962,7 @@ namespace ATV_Allowance.Services
                 worksheet.Rows[currentRow + 4].Hidden = true;
                 worksheet.Rows[currentRow + 5].Hidden = true;
 
-                totalPoint += list.Sum(x => x.SumPoint - x.Deduction);
+                totalPoint += list.Sum(x => x.TotalPoint);
             }
             else
             {
@@ -970,7 +970,7 @@ namespace ATV_Allowance.Services
                 var PTV = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, Criterias_TTNM.PTV);
                 var KTD = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, Criterias_TTNM.KTD);
 
-                totalPoint += list.Sum(e => e.SumPoint - e.Deduction);
+                totalPoint += list.Sum(e => e.TotalPoint);
                 var BBTPoint = totalPoint * (BBT / 100);
                 var BBTCost = BBTPoint * price;
 
