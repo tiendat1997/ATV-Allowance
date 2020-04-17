@@ -631,6 +631,7 @@ namespace ATV_Allowance.Services
 
                     worksheet.Cells[currentRow, TS_COL.STT].Value = i + 1;
                     worksheet.Cells[currentRow, TS_COL.HO_TEN].Value = list[i].EmployeeName;
+                    worksheet.Cells[currentRow, TS_COL.DON_VI].Value = list[i].Organization;
                     if (list[i].SoTin != 0) worksheet.Cells[currentRow, TS_COL.TIN].Value = list[i].SoTin;
                     if (list[i].DiemTin != 0) worksheet.Cells[currentRow, TS_COL.TIN_DIEM].Value = list[i].DiemTin;
                     if (list[i].SoPsu != 0) worksheet.Cells[currentRow, TS_COL.PHSU].Value = list[i].SoPsu;
