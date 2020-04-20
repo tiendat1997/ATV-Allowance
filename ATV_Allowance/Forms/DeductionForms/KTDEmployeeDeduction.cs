@@ -70,6 +70,7 @@ namespace ATV_Allowance.Forms.DeductionForms
                 adgvDeduction.Columns["Year"].Visible = false;
                 adgvDeduction.Columns["Month"].Visible = false;
 
+                adgvDeduction.Columns["EmployeeCode"].HeaderText = "Mã Nhân Viên";
                 adgvDeduction.Columns["EmployeeName"].HeaderText = "Tên Nhân Viên";
                 adgvDeduction.Columns["Deduction"].HeaderText = "Giảm trừ";
                 adgvDeduction.Columns["DeductionType"].HeaderText = "Loại";

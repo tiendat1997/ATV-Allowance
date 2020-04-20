@@ -23,7 +23,7 @@ namespace DataService.Repository
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ATVEntities"].ConnectionString))
             {
                 connection.Open();
-                var query = "Select EmployeeId, MAX(Name) AS 'EmployeeName', MAX(OrganizationName) AS 'OrganizationName', Type AS 'PointType', Sum(Point) As 'TotalPoint', COUNT(CASE WHEN Point != 0 THEN Point ELSE NULL END) As 'Amount' " +
+                var query = "Select EmployeeId, MAX(Name) AS 'EmployeeName', MAX(OrganizationName) AS 'OrganizationName', RoleId, Type AS 'PointType', Sum(Point) As 'TotalPoint', COUNT(CASE WHEN Point != 0 THEN Point ELSE NULL END) As 'Amount' " +
                                                     "from( " +
 
                                                             "Select * " +
@@ -35,7 +35,7 @@ namespace DataService.Repository
 
                                                     ") t1 inner join " +
                                                     "( " +
-                                                            "select t.Id, t.EmployeeId, e.Name, e.Organization as 'OrganizationName' " +
+                                                            "select t.Id, t.EmployeeId, e.Name, e.Organization as 'OrganizationName', e.RoleId " +
                                                             "from Employee e inner " +
                                                             "join " +
                                                             "( " +
@@ -48,7 +48,7 @@ namespace DataService.Repository
                                                             (role == CTV_ROLE ? $"where e.RoleId = {CTV_ROLE} " : $"where e.RoleId != {CTV_ROLE} ") + 
                                                     ") t2 " +
                                                     "on t1.ArticleEmployeeId = t2.Id " +
-                                                    "group by t1.Type, t2.EmployeeId " +
+                                                    "group by t1.Type, t2.EmployeeId, t2.RoleId " +
                                                     "order by EmployeeId";
 
                 SqlCommand command = new SqlCommand(query, connection);
@@ -62,7 +62,9 @@ namespace DataService.Repository
                     model.OrganizationName = (string)reader["OrganizationName"];
                     model.PointType = (int)reader["PointType"];
                     model.TotalPoint = (double)reader["TotalPoint"];
+                    model.RoleId = (int)reader["RoleId"];
                     model.Amount = (int)reader["Amount"];
+
                     result.Add(model);
                 }
 

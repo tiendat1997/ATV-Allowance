@@ -141,6 +141,8 @@ namespace ATV_Allowance.Common
             public static int BTV = 2;
             public static int PTV = 3;
             public static int CTV = 4;
+            public static int KTD = 5;
+
         }
 
         public static class Unit

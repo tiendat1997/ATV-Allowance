@@ -101,7 +101,7 @@
             this.btnDeduction.Name = "btnDeduction";
             this.btnDeduction.Size = new System.Drawing.Size(200, 35);
             this.btnDeduction.TabIndex = 52;
-            this.btnDeduction.Text = "Giảm trừ PV";
+            this.btnDeduction.Text = "Nhập giảm trừ";
             this.btnDeduction.UseVisualStyleBackColor = true;
             this.btnDeduction.Click += new System.EventHandler(this.btnDeduction_Click);
             // 

@@ -54,6 +54,7 @@ namespace ATV_Allowance.Services
                     employeePointVM.EmployeeId = item.EmployeeId;
                     employeePointVM.Organization = item.OrganizationName;
                     employeePointVM.EmployeeName = item.EmployeeName;
+                    employeePointVM.RoleId = item.RoleId;
                     result.Add(employeePointVM);
 
                     currentId = item.EmployeeId;
@@ -1345,6 +1346,10 @@ namespace ATV_Allowance.Services
 
                 var deduction = (employeesDeduction.FirstOrDefault(x => x.EmployeeId == list[i].EmployeeId)?.Deduction).GetValueOrDefault(0);
                 list[i].SumPoint = sumPoint;
+                if (articleType == ArticleType.THOI_SU && (list[i].RoleId == (int) EmployeeRole.KTD || list[i].RoleId == (int)EmployeeRole.PTV))
+                {
+                    deduction = 0;
+                }
                 list[i].Deduction = deduction;
                 list[i].IncreasePercent = Math.Round((percent * (sumPoint - deduction)), 2);
                 list[i].TotalPoint = list[i].SumPoint - list[i].Deduction + list[i].IncreasePercent;

@@ -58,7 +58,7 @@ namespace ATV_Allowance.Forms.DeductionForms
             try
             {
                 deductionService = new DeductionService();
-                var dataSource = deductionService.GetDeductionPV(this.month, this.year, this.articleType);
+                List<EmployeeDeductionViewModel> dataSource = deductionService.GetDeductionPVAndBTV(this.month, this.year, this.articleType);
 
                 SortableBindingList<EmployeeDeductionViewModel> sbl = new SortableBindingList<EmployeeDeductionViewModel>(dataSource);
                 bs = new BindingSource();
@@ -71,6 +71,7 @@ namespace ATV_Allowance.Forms.DeductionForms
                 adgvDeduction.Columns["Year"].Visible = false;
                 adgvDeduction.Columns["Month"].Visible = false;
 
+                adgvDeduction.Columns["EmployeeCode"].HeaderText = "Mã Nhân Viên";
                 adgvDeduction.Columns["EmployeeName"].HeaderText = "Tên Nhân Viên";
                 adgvDeduction.Columns["Deduction"].HeaderText = "Giảm trừ";
                 adgvDeduction.Columns["DeductionType"].HeaderText = "Loại";

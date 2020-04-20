@@ -55,7 +55,7 @@
             this.btnDeduction.Name = "btnDeduction";
             this.btnDeduction.Size = new System.Drawing.Size(200, 35);
             this.btnDeduction.TabIndex = 2;
-            this.btnDeduction.Text = "Giảm trừ PV";
+            this.btnDeduction.Text = "Giảm trừ PV, BTV";
             this.btnDeduction.UseVisualStyleBackColor = true;
             this.btnDeduction.Click += new System.EventHandler(this.btnDeduction_Click);
             // 
@@ -226,7 +226,7 @@
             this.btnDeductionPTV.Name = "btnDeductionPTV";
             this.btnDeductionPTV.Size = new System.Drawing.Size(200, 35);
             this.btnDeductionPTV.TabIndex = 18;
-            this.btnDeductionPTV.Text = "Giảm từ PTV";
+            this.btnDeductionPTV.Text = "Giảm trừ PTV";
             this.btnDeductionPTV.UseVisualStyleBackColor = true;
             this.btnDeductionPTV.Click += new System.EventHandler(this.btnDeductionPTV_Click);
             // 
@@ -250,7 +250,7 @@
             this.btnDeductionKTD.Name = "btnDeductionKTD";
             this.btnDeductionKTD.Size = new System.Drawing.Size(200, 35);
             this.btnDeductionKTD.TabIndex = 20;
-            this.btnDeductionKTD.Text = "Giảm từ KTD";
+            this.btnDeductionKTD.Text = "Giảm trừ KTD";
             this.btnDeductionKTD.UseVisualStyleBackColor = true;
             this.btnDeductionKTD.Click += new System.EventHandler(this.btnDeductionKTD_Click);
             // 

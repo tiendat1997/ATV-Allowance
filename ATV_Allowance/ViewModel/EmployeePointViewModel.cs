@@ -5,6 +5,7 @@
         public int EmployeeId { get; set; }
         public string EmployeeName { get; set; }
         public string Organization { get; set; }
+        public int RoleId { get; set; }
         public int SoTin { get; set; }
         public double DiemTin { get; set; }
         public int SoTTh_Gnh { get; set; }
