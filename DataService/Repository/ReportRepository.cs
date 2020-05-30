@@ -43,7 +43,7 @@ namespace DataService.Repository
                                                                     "select ae.Id, ae.EmployeeId " +
                                                                     "from ArticleEmployee ae inner " +
                                                                     "join Article a on ae.ArticleId = a.Id " +
-                                                                    "where Date >= '" + startDate.ToString("yyyy/MM/dd") + "' and Date <= '" + endate.ToString("yyyy/MM/dd") + "' and TypeId = " + articleType + " " +
+                                                                    "where Date >= '" + startDate.ToString("yyyy/MM/dd") + "' and Date <= '" + endate.ToString("yyyy/MM/dd") + "' and TypeId = " + articleType + " AND a.IsActive = 1 " +
                                                             ") t on e.Id = t.EmployeeId " +
                                                             (role == CTV_ROLE ? $"where e.RoleId = {CTV_ROLE} " : $"where e.RoleId != {CTV_ROLE} ") + 
                                                     ") t2 " +
