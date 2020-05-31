@@ -88,15 +88,15 @@ namespace ATV_Allowance.Common
 
             //report "bien soan thong tin ngay moi"
             public static string SoBs_TTN = "Bs_TTN";
-            public static string SoBs_Sapo = "Bs_Sapo";
+            public static string SoBs_Sapo = "Bs_Sapo/Tỉnh";
             public static string SoKThinh = "KThinh";
             public static string SoTFile = "TFile";
-            public static string SoBt_Duyet = "Bt_Duyet";
+            public static string SoBt_Duyet = "Bt_Duyet Sa/Tối";
 
             //report "khoi hau ky thong tin ngay moi"
             public static string SoDCT = "DCT";
-            public static string SoKTD = "KTD";
-            public static string SoTCT = "TCT";
+            public static string SoKTD = "KTD Sa/Tối";
+            public static string SoTCT = "TCT Sa";
             public static string SoKT_TH = "KT_TH";
 
         }
@@ -478,8 +478,22 @@ namespace ATV_Allowance.Common
             public static List<string> THONG_TIN_NGAY_MOI = new List<string> { "Tin", "PS", "QTin", "QPs", "Tl_Tin", "Thop" };
             public static List<string> PHAT_THANH = new List<string> { "Tin", "Pv_Pb", "Tlt", "Sd", "Cd_Cm", "Bai" };
             public static List<string> PHAT_THANH_TT = new List<string> { "Tin", "Pv_Pb", "TTh_Gnh", "CDe", "Bs_DCT", "Bt_Dd" };
-            public static List<string> BSTTNM_TIN = new List<string> { "Bs_TTN", "Bs_Sapo", "KThinh", "TFile", "Bt_Duyet" };
-            public static List<string> BSTTNM_KHOI_HAU_KY = new List<string> { "DCT", "KTD", "TCT", "KT_TH" };
+            public static List<string> BSTTNM_TIN = new List<string> { "Bs_TTN", "Bs_Sapo/Tỉnh", "KThinh", "TFile", "Bt_Duyet Sa/Tối" };
+            public static List<string> BSTTNM_KHOI_HAU_KY = new List<string> { "DCT", "KTD Sa/Tối", "TCT Sa", "KT_TH" };
+            public static Dictionary<string, string> BSTTNM_KHK_MAP = new Dictionary<string, string>{
+                {"Bs_TTN", "Bs_TTN"},
+                {"Bs_Sapo", "Bs_Sapo/Tỉnh"},
+                {"KThinh", "KThinh"},
+                {"TFile", "TFile"},
+                {"Bt_Duyet", "Bt_Duyet Sa/Tối"},
+
+                { "DCT", "DCT"},
+                { "KTD", "KTD Sa/Tối"},
+                { "TCT", "TCT Sa"},
+                { "KT_TH", "KT_TH"},
+
+            };
+
         }
 
         public static class ReportName

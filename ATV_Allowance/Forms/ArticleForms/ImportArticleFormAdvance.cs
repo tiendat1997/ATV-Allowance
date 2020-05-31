@@ -193,7 +193,7 @@ namespace ATV_Allowance.Forms.ArticleForms
                 adgvList.Columns["EmployeeCode"].Width = 180;
                 adgvList.Columns["Name"].HeaderText = ADGVEmployeeText.Name;
                 adgvList.Columns["Name"].Width = 250;
-                adgvList.Columns["Position"].HeaderText = ADGVEmployeeText.AbbrPosition;
+                adgvList.Columns["Position"].HeaderText = ADGVEmployeeText.Position;
                 adgvList.Columns["Position"].Width = 60;
                 adgvList.Columns["Organization"].HeaderText = ADGVEmployeeText.Organization;
                 adgvList.Columns["Organization"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;

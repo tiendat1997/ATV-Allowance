@@ -95,7 +95,7 @@ namespace ATV_Allowance.Controls
                 adgvList.Columns["EmployeeCode"].Width = 180;
                 adgvList.Columns["Name"].HeaderText = ADGVEmployeeText.Name;
                 adgvList.Columns["Name"].Width = 250;
-                adgvList.Columns["Position"].HeaderText = ADGVEmployeeText.AbbrPosition;
+                adgvList.Columns["Position"].HeaderText = ADGVEmployeeText.Position;
                 adgvList.Columns["Position"].Width = 60;
                 adgvList.Columns["Organization"].HeaderText = ADGVEmployeeText.Organization;
                 adgvList.Columns["Organization"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
@@ -105,7 +105,7 @@ namespace ATV_Allowance.Controls
                 {
                     nextIndex++;
                     adgvList.Columns[type.Code].DisplayIndex = nextIndex;
-                    adgvList.Columns[type.Code].HeaderText = type.Code;
+                    adgvList.Columns[type.Code].HeaderText = ImportArticle_Table_Header.BSTTNM_KHK_MAP[type.Code];
                     adgvList.Columns[type.Code].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
                     int colSize = Utilities.GetPointColumnSize(type.Code);
                     adgvList.Columns[type.Code].Width = colSize;
