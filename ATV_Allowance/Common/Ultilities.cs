@@ -336,7 +336,7 @@ namespace ATV_Allowance.Common
             }
             else if (code.Length <= 3)
             {
-                columnSize = 50;
+                columnSize = 57;
             }
             else if (code.Length <= 4)
             {

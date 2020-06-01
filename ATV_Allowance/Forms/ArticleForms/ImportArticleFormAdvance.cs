@@ -165,7 +165,7 @@ namespace ATV_Allowance.Forms.ArticleForms
                 
                 var employeeCodeColumn = new DataGridViewComboBoxColumn();
                 employeeCodeColumn.Name = "ComboboxEmployee";
-                employeeCodeColumn.Width = 180;
+                employeeCodeColumn.Width = 120;
                 employeeCodeColumn.HeaderText = "Mã NV";
                 employeeCodeColumn.DataSource = employeeBindingList;
                 employeeCodeColumn.DisplayIndex = 0;
@@ -190,13 +190,14 @@ namespace ATV_Allowance.Forms.ArticleForms
                 adgvList.Columns["EmployeeCode"].ReadOnly = true;
 
                 adgvList.Columns["EmployeeCode"].HeaderText = ADGVEmployeeText.Code;
-                adgvList.Columns["EmployeeCode"].Width = 180;
+                adgvList.Columns["EmployeeCode"].Width = 120;
                 adgvList.Columns["Name"].HeaderText = ADGVEmployeeText.Name;
-                adgvList.Columns["Name"].Width = 250;
+                adgvList.Columns["Name"].Width = 150;
                 adgvList.Columns["Position"].HeaderText = ADGVEmployeeText.Position;
                 adgvList.Columns["Position"].Width = 60;
                 adgvList.Columns["Organization"].HeaderText = ADGVEmployeeText.Organization;
-                adgvList.Columns["Organization"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                //adgvList.Columns["Organization"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                adgvList.Columns["Organization"].Width = 150;
 
                 int nextIndex = 3;
                 foreach (var type in listPointType)
@@ -250,7 +251,7 @@ namespace ATV_Allowance.Forms.ArticleForms
             if (comboBox != null)
             {
                 comboBox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-                comboBox.DropDownWidth = 150;
+                comboBox.DropDownWidth = 120;
                 comboBox.SelectionChangeCommitted -= new EventHandler(EmployeeCodeSelectionChangeCommitted);
                 comboBox.KeyDown -= new KeyEventHandler(EmployeeComboboxKeyDown);
                 comboBox.SelectionChangeCommitted += EmployeeCodeSelectionChangeCommitted;

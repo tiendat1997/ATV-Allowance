@@ -482,7 +482,7 @@ namespace ATV_Allowance.Common
             public static List<string> BSTTNM_KHOI_HAU_KY = new List<string> { "DCT", "KTD Sa/Tối", "TCT Sa", "KT_TH" };
             public static Dictionary<string, string> BSTTNM_KHK_MAP = new Dictionary<string, string>{
                 {"Bs_TTN", "Bs_TTN"},
-                {"Bs_Sapo", "Bs_Sapo/Tỉnh"},
+                {"Bs_Sapo", "Bs_Sapo/ Tỉnh"},
                 {"KThinh", "KThinh"},
                 {"TFile", "TFile"},
                 {"Bt_Duyet", "Bt_Duyet Sa/Tối"},

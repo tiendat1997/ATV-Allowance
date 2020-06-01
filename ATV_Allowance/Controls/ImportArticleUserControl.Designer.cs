@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.gbArticleTitle = new System.Windows.Forms.GroupBox();
+            this.btnDeleteArticle = new System.Windows.Forms.Button();
             this.lblSearch = new System.Windows.Forms.Label();
             this.lblTitle = new System.Windows.Forms.Label();
             this.btnAdd = new System.Windows.Forms.Button();
@@ -40,7 +41,6 @@
             this.txtTitle = new System.Windows.Forms.TextBox();
             this.adgvList = new System.Windows.Forms.DataGridView();
             this.epTitle = new System.Windows.Forms.ErrorProvider(this.components);
-            this.btnDeleteArticle = new System.Windows.Forms.Button();
             this.gbArticleTitle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.adgvList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.epTitle)).BeginInit();
@@ -66,6 +66,16 @@
             this.gbArticleTitle.TabIndex = 0;
             this.gbArticleTitle.TabStop = false;
             this.gbArticleTitle.Text = "Thao tác";
+            // 
+            // btnDeleteArticle
+            // 
+            this.btnDeleteArticle.Location = new System.Drawing.Point(515, 46);
+            this.btnDeleteArticle.Name = "btnDeleteArticle";
+            this.btnDeleteArticle.Size = new System.Drawing.Size(75, 22);
+            this.btnDeleteArticle.TabIndex = 12;
+            this.btnDeleteArticle.Text = "Xóa tin";
+            this.btnDeleteArticle.UseVisualStyleBackColor = true;
+            this.btnDeleteArticle.Click += new System.EventHandler(this.btnDeleteArticle_Click);
             // 
             // lblSearch
             // 
@@ -160,20 +170,11 @@
             this.adgvList.RowValidated += new System.Windows.Forms.DataGridViewCellEventHandler(this.adgvList_RowValidated);
             this.adgvList.RowValidating += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.adgvList_RowValidating);
             this.adgvList.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.adgvList_UserDeletingRow);
+            this.adgvList.KeyDown += new System.Windows.Forms.KeyEventHandler(this.adgvList_KeyDown);
             // 
             // epTitle
             // 
             this.epTitle.ContainerControl = this;
-            // 
-            // btnDeleteArticle
-            // 
-            this.btnDeleteArticle.Location = new System.Drawing.Point(515, 46);
-            this.btnDeleteArticle.Name = "btnDeleteArticle";
-            this.btnDeleteArticle.Size = new System.Drawing.Size(75, 22);
-            this.btnDeleteArticle.TabIndex = 12;
-            this.btnDeleteArticle.Text = "Xóa tin";
-            this.btnDeleteArticle.UseVisualStyleBackColor = true;
-            this.btnDeleteArticle.Click += new System.EventHandler(this.btnDeleteArticle_Click);
             // 
             // ImportArticleUserControl
             // 

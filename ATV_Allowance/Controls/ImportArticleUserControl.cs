@@ -68,7 +68,7 @@ namespace ATV_Allowance.Controls
 
                 var employeeCodeColumn = new DataGridViewComboBoxColumn();
                 employeeCodeColumn.Name = "ComboboxEmployee";
-                employeeCodeColumn.Width = 180;
+                employeeCodeColumn.Width = 100;
                 employeeCodeColumn.HeaderText = "Mã NV";
                 employeeCodeColumn.DataSource = employeeBindingList;
                 employeeCodeColumn.DisplayIndex = 0;
@@ -94,11 +94,11 @@ namespace ATV_Allowance.Controls
                 adgvList.Columns["EmployeeCode"].HeaderText = ADGVEmployeeText.Code;
                 adgvList.Columns["EmployeeCode"].Width = 180;
                 adgvList.Columns["Name"].HeaderText = ADGVEmployeeText.Name;
-                adgvList.Columns["Name"].Width = 250;
+                adgvList.Columns["Name"].Width = 150;
                 adgvList.Columns["Position"].HeaderText = ADGVEmployeeText.Position;
                 adgvList.Columns["Position"].Width = 60;
                 adgvList.Columns["Organization"].HeaderText = ADGVEmployeeText.Organization;
-                adgvList.Columns["Organization"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                adgvList.Columns["Organization"].Width = 150;
 
                 int nextIndex = 3;
                 foreach (var type in listPointType)
@@ -574,5 +574,15 @@ namespace ATV_Allowance.Controls
                 throw ex;
             }
         }
+
+        private void adgvList_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
+                SendKeys.Send("{Tab}");//go to first column
+            }
+        }
+
     }
 }
