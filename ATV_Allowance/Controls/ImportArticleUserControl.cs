@@ -68,7 +68,7 @@ namespace ATV_Allowance.Controls
 
                 var employeeCodeColumn = new DataGridViewComboBoxColumn();
                 employeeCodeColumn.Name = "ComboboxEmployee";
-                employeeCodeColumn.Width = 100;
+                employeeCodeColumn.Width = 150;
                 employeeCodeColumn.HeaderText = "Mã NV";
                 employeeCodeColumn.DataSource = employeeBindingList;
                 employeeCodeColumn.DisplayIndex = 0;
@@ -92,7 +92,7 @@ namespace ATV_Allowance.Controls
                 adgvList.Columns["EmployeeCode"].ReadOnly = true;
 
                 adgvList.Columns["EmployeeCode"].HeaderText = ADGVEmployeeText.Code;
-                adgvList.Columns["EmployeeCode"].Width = 180;
+                adgvList.Columns["EmployeeCode"].Width = 150;
                 adgvList.Columns["Name"].HeaderText = ADGVEmployeeText.Name;
                 adgvList.Columns["Name"].Width = 150;
                 adgvList.Columns["Position"].HeaderText = ADGVEmployeeText.Position;

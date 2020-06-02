@@ -1174,7 +1174,7 @@ namespace ATV_Allowance.Services
             for (int i = 0; i < list.Count; i++)
             {
                 double sumPoint = 0;
-                if (reportType == ArticleType.THOI_SU)
+                if (reportType == ArticleType.THOI_SU)  
                 {
                     sumPoint = list[i].DiemTin + list[i].DiemPsu + list[i].DiemQtin + list[i].DiemQPsu;
                     percent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, employeeRole == EmployeeRole.PV ? Criterias_THOI_SU.PV_PTV : Criterias_THOI_SU.CTV) / 100;

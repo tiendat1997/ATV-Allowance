@@ -332,27 +332,27 @@ namespace ATV_Allowance.Common
             int columnSize = 0;
             if (code.Length <= 2)
             {
-                columnSize = 45;
+                columnSize = 55;
             }
             else if (code.Length <= 3)
             {
-                columnSize = 57;
+                columnSize = 67;
             }
             else if (code.Length <= 4)
             {
-                columnSize = 60;
+                columnSize = 70;
             }
             else if (code.Length <= 5)
             {
-                columnSize = 70;
+                columnSize = 80;
             }
             else if (code.Length <= 6)
             {
-                columnSize = 85;
+                columnSize = 95;
             }
             else
             {
-                columnSize = 95;
+                columnSize = 105;
             }
             return columnSize;
         }

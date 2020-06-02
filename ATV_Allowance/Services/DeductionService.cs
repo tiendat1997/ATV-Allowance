@@ -36,7 +36,7 @@ namespace ATV_Allowance.Services
         {
             // Get all "Kĩ thuật dựng" ( roleId = 4 ) 
             var employees = employeeRepository
-                    .Get(e => e.IsActive == true && e.RoleId == (int)PositionEnum.KTD)
+                    .GetAsNoTracking(e => e.IsActive == true && e.RoleId == (int)PositionEnum.KTD)
                     .Select(e => new EmployeeDeductionViewModel
                     {
                         Id = 0,
@@ -47,7 +47,7 @@ namespace ATV_Allowance.Services
                         DeductionType = 2  // TYPE = 60 - (DEFAULT)
                     }).ToList();
 
-            var deductions = deductionRepository.Get(d => d.Month == month && d.Year == year && d.ArticleTypeId == articleType)
+            var deductions = deductionRepository.GetAsNoTracking(d => d.Month == month && d.Year == year && d.ArticleTypeId == articleType)
                                .Select(d => new EmployeeDeductionViewModel
                                {
                                    Id = d.Id,
@@ -116,7 +116,7 @@ namespace ATV_Allowance.Services
         {
             // Get all "Phát Thanh Viên"
             var employees = employeeRepository
-                    .Get(e => e.IsActive == true && e.RoleId == 3)
+                    .GetAsNoTracking(e => e.IsActive == true && e.RoleId == 3)
                     .Select(e => new EmployeeDeductionViewModel
                     {
                         Id = 0,
@@ -127,7 +127,7 @@ namespace ATV_Allowance.Services
                         DeductionType = 2  // TYPE = 60 - (DEFAULT)
                     }).ToList();
 
-            var deductions = deductionRepository.Get(d => d.Month == month && d.Year == year && d.ArticleTypeId == articleType)
+            var deductions = deductionRepository.GetAsNoTracking(d => d.Month == month && d.Year == year && d.ArticleTypeId == articleType)
                                .Select(d => new EmployeeDeductionViewModel
                                {
                                    Id = d.Id,
@@ -204,7 +204,7 @@ namespace ATV_Allowance.Services
 
         public List<EmployeeDeductionViewModel> GetEmployeesDeduction(List<int> employeeIds, int articleTypeId, int month, int year)
         {
-            var employeeDeductions = deductionRepository.GetMany(x => employeeIds.Contains(x.EmployeeId.Value)
+            var employeeDeductions = deductionRepository.GetAsNoTracking(x => employeeIds.Contains(x.EmployeeId.Value)
                                                                 && x.ArticleTypeId == articleTypeId
                                                                 && x.Month == month
                                                                 && x.Year == year
