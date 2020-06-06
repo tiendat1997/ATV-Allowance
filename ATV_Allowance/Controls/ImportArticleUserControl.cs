@@ -107,8 +107,10 @@ namespace ATV_Allowance.Controls
                     adgvList.Columns[type.Code].DisplayIndex = nextIndex;
                     adgvList.Columns[type.Code].HeaderText = ImportArticle_Table_Header.BSTTNM_KHK_MAP[type.Code];
                     adgvList.Columns[type.Code].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-                    int colSize = Utilities.GetPointColumnSize(type.Code);
-                    adgvList.Columns[type.Code].Width = colSize;
+                    //int colSize = Utilities.GetPointColumnSize(type.Code);
+                    //adgvList.Columns[type.Code].Width = colSize;
+                    adgvList.Columns[type.Code].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
                 }
                 adgvList.EditingControlShowing += new DataGridViewEditingControlShowingEventHandler(adgvList_EditingControlShowing);
             }
