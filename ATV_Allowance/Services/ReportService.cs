@@ -1212,7 +1212,7 @@ namespace ATV_Allowance.Services
                     deduction = 0;
                 }
                 list[i].Deduction = deduction;
-                list[i].IncreasePercent = Math.Round((percent * (sumPoint - deduction)), 2);
+                list[i].IncreasePercent = sumPoint - deduction > 0 ? Math.Round((percent * (sumPoint - deduction)), 2) : 0;
                 list[i].TotalPoint = list[i].SumPoint - list[i].Deduction + list[i].IncreasePercent;
                 list[i].TotalCost = (long)Math.Round(((float)list[i].TotalPoint * price));
             }
