@@ -1,12 +1,8 @@
-﻿using ATV_Allowance.Helpers;
-using ATV_Allowance.ViewModel;
+﻿using ATV_Allowance.ViewModel;
 using DataService.Repository;
 using Microsoft.Office.Interop.Excel;
-using OfficeOpenXml;
-using OfficeOpenXml.Style;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Threading;
 using static ATV_Allowance.Common.Constants;
@@ -644,7 +640,7 @@ namespace ATV_Allowance.Services
 
             //report date row
             worksheet.Cells[currentRow + 2, PT_COL.THANHTIEN + 1].Value = $"An Giang, Ngày {DateTime.Now.Day} tháng {DateTime.Now.Month} năm {DateTime.Now.Year}";
-           
+
             //money string
             worksheet.Cells[currentRow + 1, PT_COL.THANHTIEN + 1].Value = $"(Thành tiền bằng chữ: {NumberToTextVN(totalCost)})";
 
@@ -731,7 +727,7 @@ namespace ATV_Allowance.Services
                 //var BBTCost = BBTPoint * price;
                 var BBTCost = (CTVCost + PVCost) * (BBTPercent / 100);
                 totalCost += (long)Math.Round(toBaAmCost) + (long)Math.Round(BBTCost);
-                
+
                 //fill header
                 worksheet.Cells[currentRow + 2, PTTT_COL.STT].Value = PTTT_COL.GetToBaAmHeader(toBaAm, daysOfMonth);
                 worksheet.Cells[currentRow + 3, PTTT_COL.STT].Value = PTTT_COL.GetBBTHeader(BBTPercent, CTVCost, PVCost);
@@ -1174,7 +1170,7 @@ namespace ATV_Allowance.Services
             for (int i = 0; i < list.Count; i++)
             {
                 double sumPoint = 0;
-                if (reportType == ArticleType.THOI_SU)  
+                if (reportType == ArticleType.THOI_SU)
                 {
                     sumPoint = list[i].DiemTin + list[i].DiemPsu + list[i].DiemQtin + list[i].DiemQPsu;
                     percent = _criteriaService.GetCriteriaValue(startDate.Month, startDate.Year, employeeRole == EmployeeRole.PV ? Criterias_THOI_SU.PV_PTV : Criterias_THOI_SU.CTV) / 100;
@@ -1207,7 +1203,7 @@ namespace ATV_Allowance.Services
 
                 var deduction = (employeesDeduction.FirstOrDefault(x => x.EmployeeId == list[i].EmployeeId)?.Deduction).GetValueOrDefault(0);
                 list[i].SumPoint = sumPoint;
-                if (articleType == ArticleType.THOI_SU && (list[i].RoleId == (int) EmployeeRole.KTD || list[i].RoleId == (int)EmployeeRole.PTV))
+                if (articleType == ArticleType.THOI_SU && (list[i].RoleId == EmployeeRole.KTD || list[i].RoleId == EmployeeRole.PTV))
                 {
                     deduction = 0;
                 }
@@ -1216,6 +1212,35 @@ namespace ATV_Allowance.Services
                 list[i].TotalPoint = list[i].SumPoint - list[i].Deduction + list[i].IncreasePercent;
                 list[i].TotalCost = (long)Math.Round(((float)list[i].TotalPoint * price));
             }
+
+            #region add employee has deduction but no point
+            if(employeeRole == EmployeeRole.PV)
+            {
+                List<EmployeeDeductionViewModel> allEmployeeDeduction;
+
+                if (articleType == ArticleType.PHAT_THANH || articleType == ArticleType.PHAT_THANH_TT)
+                {
+                    allEmployeeDeduction = _deductionService.GetAllPeopleInPhongPT(startDate.Month, startDate.Year, articleType).Where(x => x.Deduction > 0 && !employeeIds.Contains(x.EmployeeId)).ToList();
+                }
+                else
+                {
+                    allEmployeeDeduction = _deductionService.GetDeductionPVAndBTV(startDate.Month, startDate.Year, articleType).Where(x => x.Deduction > 0 && !employeeIds.Contains(x.EmployeeId)).ToList();
+                }
+                var employeeToAdd = allEmployeeDeduction.Select(x => new EmployeePointViewModel
+                {
+                    EmployeeId = x.EmployeeId,
+                    EmployeeName = x.EmployeeName,
+                    Organization = x.Organization,
+                    RoleId = x.RoleId,
+                    IncreasePercent = 0,
+                    Deduction = x.Deduction,
+                    SumPoint = 0,
+                    TotalPoint = -x.Deduction,
+                    TotalCost = (long)Math.Round(((float)(-x.Deduction) * price))
+                }).ToList();
+                list.AddRange(employeeToAdd);
+            }
+            #endregion
         }
 
         private string NumberToTextVN(decimal total)

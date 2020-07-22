@@ -84,7 +84,9 @@ namespace ATV_Allowance.Services
                         EmployeeCode = e.Code,
                         EmployeeName = e.Name,
                         Deduction = 0,
-                        DeductionType = 1
+                        DeductionType = 1,
+                        Organization = e.Organization,
+                        RoleId = e.RoleId.Value
                     }).ToList();
 
             var deductions = deductionRepository.Get(d => d.Month == month && d.Year == year && d.ArticleTypeId == articleType)
@@ -164,7 +166,9 @@ namespace ATV_Allowance.Services
                         EmployeeCode = e.Code,
                         EmployeeName = e.Name,
                         Deduction = 0,
-                        DeductionType = 1
+                        DeductionType = 1,
+                        Organization =e.Organization,
+                        RoleId= e.RoleId.Value
                     }).ToList();
 
             var deductions = deductionRepository.Get(d => d.Month == month && d.Year == year && d.ArticleTypeId == articleType)

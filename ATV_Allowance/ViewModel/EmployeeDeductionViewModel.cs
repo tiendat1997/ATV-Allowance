@@ -16,5 +16,7 @@ namespace ATV_Allowance.ViewModel
         public int DeductionType { get; set; }
         public int Month { get; set; }
         public int Year { get; set; }
+        public string Organization { get; set; }
+        public int RoleId { get; set; }
     }
 }
