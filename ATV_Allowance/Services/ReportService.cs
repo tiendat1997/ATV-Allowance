@@ -1218,7 +1218,7 @@ namespace ATV_Allowance.Services
             {
                 List<EmployeeDeductionViewModel> allEmployeeDeduction;
 
-                if (articleType == ArticleType.PHAT_THANH || articleType == ArticleType.PHAT_THANH_TT)
+                if (articleType == ArticleType.PHAT_THANH) // || articleType == ArticleType.PHAT_THANH_TT
                 {
                     allEmployeeDeduction = _deductionService.GetAllPeopleInPhongPT(startDate.Month, startDate.Year, (int)ArticleType.PHAT_THANH).Where(x => x.Deduction > 0 && !employeeIds.Contains(x.EmployeeId)).ToList();
                 }
