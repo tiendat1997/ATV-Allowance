@@ -834,12 +834,15 @@ namespace ATV_Allowance.Services
                 totalPoint += list.Sum(e => e.TotalPoint);
                 var BBTPoint = totalPoint * (BBT / 100);
                 var BBTCost = BBTPoint * price;
+                BBTCost = Math.Round(BBTCost);
 
                 var PTVPoint = totalPoint * (PTV / 100);
                 var PTVCost = PTVPoint * price;
+                PTVCost = Math.Round(PTVCost);
 
                 var KTDPoint = totalPoint * (KTD / 100);
                 var KTDCost = KTDPoint * price;
+                KTDCost = Math.Round(KTDCost);
 
                 totalCost += (long)BBTCost + (long)PTVCost + (long)KTDCost;
 
