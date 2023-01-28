@@ -172,6 +172,7 @@ namespace ATV_Allowance.Common
             public static int PS = 2;
             public static int QTin = 3;
             public static int QPs = 4;
+            public static int CTP = 25;
         }
 
         public static class PointType_TTNM
@@ -281,11 +282,13 @@ namespace ATV_Allowance.Common
             public static int QTIN_DIEM = 9;
             public static int QPSU = 10;
             public static int QPSU_DIEM = 11;
-            public static int CONG = 12;
-            public static int TRUCHITIEU = 13;
-            public static int TANGGIAM = 14;
-            public static int TONGCONG = 15;
-            public static int THANHTIEN = 16;
+            public static int CTP = 12;
+            public static int CTP_DIEM = 13;
+            public static int CONG = 14;
+            public static int TRUCHITIEU = 15;
+            public static int TANGGIAM = 16;
+            public static int TONGCONG = 17;
+            public static int THANHTIEN = 18;
         }
 
         public static class PT_COL

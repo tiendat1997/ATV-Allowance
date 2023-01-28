@@ -116,6 +116,11 @@ namespace ATV_Allowance.Services
                 {
                     Type = PointType_ThoiSu.QPs,
                     Point1 = model.QPs
+                },
+                new Point
+                {
+                    Type = PointType_ThoiSu.CTP,
+                    Point1 = model.CTP
                 }
             };
                 articleEmployeeRepository.Add(articleEmp);
@@ -341,6 +346,20 @@ namespace ATV_Allowance.Services
                 articleEmp.Point.First(t => t.Type == PointType_ThoiSu.PS).Point1 = model.PS;
                 articleEmp.Point.First(t => t.Type == PointType_ThoiSu.QTin).Point1 = model.QTin;
                 articleEmp.Point.First(t => t.Type == PointType_ThoiSu.QPs).Point1 = model.QPs;
+                var existedCTP = articleEmp.Point.FirstOrDefault(t => t.Type == PointType_ThoiSu.CTP);
+                if (existedCTP != null)
+                {
+                    existedCTP.Point1 = model.CTP;
+                } 
+                else
+                {
+                    articleEmp.Point.Add(new Point
+                    {
+                        Type = PointType_ThoiSu.CTP,
+                        Point1 = model.CTP
+                    });
+                }
+               
                 articleEmployeeRepository.Update(articleEmp);
             }
         }

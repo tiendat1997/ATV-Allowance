@@ -55,6 +55,9 @@
         public int SoKT_TH { get; set; }
         public double DiemKT_TH { get; set; }
 
+        public int SoCTP { get; set; }
+        public double DiemCTP { get; set; }
+
         public double SumPoint { get; set; }
         public double Deduction { get; set; }
         public double IncreasePercent { get; set; }

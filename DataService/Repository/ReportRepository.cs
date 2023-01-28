@@ -70,9 +70,6 @@ namespace DataService.Repository
 
                 return result;
             }
-
-
-            return null ;
         }
     }
 }

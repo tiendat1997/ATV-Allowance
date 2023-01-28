@@ -23,6 +23,7 @@ namespace ATV_Allowance.ViewModel
         public double PS { get; set; }
         public double QTin { get; set; }
         public double QPs { get; set; }
+        public double CTP { get; set; }
     }
 
     public class ArticleEmployeeThongTinNgayMoiViewModel : ArticleEmployeeViewModel

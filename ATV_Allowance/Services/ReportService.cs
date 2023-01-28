@@ -496,6 +496,9 @@ namespace ATV_Allowance.Services
                     if (list[i].DiemQtin != 0) worksheet.Cells[currentRow, TS_COL.QTIN_DIEM].Value = list[i].DiemQtin;
                     if (list[i].SoQPsu != 0) worksheet.Cells[currentRow, TS_COL.QPSU].Value = list[i].SoQPsu;
                     if (list[i].DiemQPsu != 0) worksheet.Cells[currentRow, TS_COL.QPSU_DIEM].Value = list[i].DiemQPsu;
+                    
+                    if (list[i].SoCTP != 0) worksheet.Cells[currentRow, TS_COL.CTP].Value = list[i].SoCTP;
+                    if (list[i].DiemCTP != 0) worksheet.Cells[currentRow, TS_COL.CTP_DIEM].Value = list[i].DiemCTP;
 
                     if (list[i].SumPoint != 0) worksheet.Cells[currentRow, TS_COL.CONG].Value = list[i].SumPoint;
                     if (list[i].Deduction != 0) worksheet.Cells[currentRow, TS_COL.TRUCHITIEU].Value = list[i].Deduction;
@@ -520,6 +523,8 @@ namespace ATV_Allowance.Services
             worksheet.Cells[currentRow, TS_COL.QTIN_DIEM].Value = list.Sum(e => e.DiemQtin);
             worksheet.Cells[currentRow, TS_COL.QPSU].Value = list.Sum(e => e.SoQPsu);
             worksheet.Cells[currentRow, TS_COL.QPSU_DIEM].Value = list.Sum(e => e.DiemQPsu);
+            worksheet.Cells[currentRow, TS_COL.CTP].Value = list.Sum(e => e.SoCTP);
+            worksheet.Cells[currentRow, TS_COL.CTP_DIEM].Value = list.Sum(e => e.DiemCTP);
             worksheet.Cells[currentRow, TS_COL.CONG].Value = list.Sum(e => e.SumPoint);
             worksheet.Cells[currentRow, TS_COL.TRUCHITIEU].Value = list.Sum(e => e.Deduction);
             worksheet.Cells[currentRow, TS_COL.TANGGIAM].Value = list.Sum(e => e.IncreasePercent);
